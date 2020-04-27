@@ -9,6 +9,7 @@
 import Foundation
 
 class MDPath {
+
     /// Relative paths to the pages on MangaDex
     enum Path: String {
         case listedMangas = "titles"
