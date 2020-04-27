@@ -237,10 +237,10 @@ struct Search {
     /// Original language of the  mangas to lookup (nil means any)
     var originalLanguage: Language?
 
-    /// Demographics of the  mangas to lookup (empty means no result is returned)
+    /// Demographics of the  mangas to lookup (empty means no filter)
     var demographics: [Demographic]
 
-    /// Publication status of the  mangas to lookup (empty means no result is returned)
+    /// Publication status of the  mangas to lookup (empty means no filter)
     var publicationStatuses: [PublicationStatus]
 
     /// Tags to allow in the mangas to lookup (empty means no filter)

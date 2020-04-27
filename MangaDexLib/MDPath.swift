@@ -44,7 +44,7 @@ class MDPath {
             components.queryItems = params
         } else {
             components.queryItems = []
-            for param in params where param.value != nil {
+            for param in params where (param.value != nil && !param.value!.isEmpty) {
                 components.queryItems?.append(param)
             }
         }
@@ -99,8 +99,7 @@ class MDPath {
         } else if excludeTags.count > 0 {
             tags = excludeTags
         } else {
-            // Don't set it to nil, otherwise MangaDex applies default settings
-            tags = ""
+            tags = nil
         }
 
         // Build the other lists of ids, which are simpler

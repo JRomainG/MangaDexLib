@@ -104,14 +104,10 @@ class MDLibPathTests: XCTestCase {
                             excludeTagsMode: .any)
 
         let searchURL = MDPath.search(search)
-        print(searchURL)
 
         // Manually build what the string should look like
         var expected = "\(baseURL)/search"
-        expected += "?demos="
-        expected += "&statuses="
-        expected += "&tags="
-        expected += "&tag_mode_inc=\(search.includeTagsMode.rawValue)"
+        expected += "?tag_mode_inc=\(search.includeTagsMode.rawValue)"
         expected += "&tag_mode_exc=\(search.excludeTagsMode.rawValue)"
 
         let components = URLComponents(string: searchURL.absoluteString)!
