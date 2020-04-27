@@ -22,47 +22,47 @@ class MDLibPathTests: XCTestCase {
     func testListedMangasPath() throws {
         let page = 3
         let popularMangaURL = MDPath.listedMangas(page: page, sort: .bestRating)
-        let expectedURL = URL(string: "\(baseURL)/titles/\(SortOrder.bestRating.rawValue)/\(page)")!
+        let expectedURL = URL(string: "\(MDApi.baseURL)/titles/\(SortOrder.bestRating.rawValue)/\(page)")!
         XCTAssert(popularMangaURL.absoluteString == expectedURL.absoluteString)
     }
 
     func testFeaturedMangasPath() throws {
         let page = 6
         let featuredMangaURL = MDPath.featuredMangas(page: page)
-        let expectedURL = URL(string: "\(baseURL)/featured/\(page)")!
+        let expectedURL = URL(string: "\(MDApi.baseURL)/featured/\(page)")!
         XCTAssert(featuredMangaURL.absoluteString == expectedURL.absoluteString)
     }
 
     func testLatestMangasPath() throws {
         let page = 12
         let latestMangaURL = MDPath.latestMangas(page: page)
-        let expectedURL = URL(string: "\(baseURL)/updates/\(page)")!
+        let expectedURL = URL(string: "\(MDApi.baseURL)/updates/\(page)")!
         XCTAssert(latestMangaURL.absoluteString == expectedURL.absoluteString)
     }
 
     func testRandomMangaPath() throws {
         let latestMangaURL = MDPath.randomManga()
-        let expectedURL = URL(string: "\(baseURL)/manga")!
+        let expectedURL = URL(string: "\(MDApi.baseURL)/manga")!
         XCTAssert(latestMangaURL.absoluteString == expectedURL.absoluteString)
     }
 
     func testEncodedSearchMangaPath() throws {
-        let search = Search(title: "search title",
-                            author: "Firstname Lastname",
-                            artist: "あrtist+名前",
-                            originalLanguage: .japanese,
-                            demographics: [.shounen, .shoujo],
-                            publicationStatuses: [.ongoing, .completed],
-                            includeTags: [Format.oneShot.rawValue],
-                            excludeTags: [Content.sexualViolence.rawValue, Genre.crime.rawValue],
-                            includeTagsMode: .all,
-                            excludeTagsMode: .any)
+        let search = MDSearch(title: "search title",
+                              author: "Firstname Lastname",
+                              artist: "あrtist+名前",
+                              originalLanguage: .japanese,
+                              demographics: [.shounen, .shoujo],
+                              publicationStatuses: [.ongoing, .completed],
+                              includeTags: [MDSearch.Format.oneShot.rawValue],
+                              excludeTags: [MDSearch.Content.sexualViolence.rawValue, MDSearch.Genre.crime.rawValue],
+                              includeTagsMode: .all,
+                              excludeTagsMode: .any)
 
         let searchURL = MDPath.search(search)
 
         // Manually build what the string should look like
         // swiftlint:disable line_length
-        var expected = "\(baseURL)/search"
+        var expected = "\(MDApi.baseURL)/search"
         expected += "?title=\(search.title?.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")"
         expected += "&author=\(search.author?.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")"
         expected += "&artist=\(search.artist?.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "")"
@@ -92,21 +92,21 @@ class MDLibPathTests: XCTestCase {
     }
 
     func testNilSearchMangaPath() throws {
-        let search = Search(title: nil,
-                            author: nil,
-                            artist: nil,
-                            originalLanguage: nil,
-                            demographics: [],
-                            publicationStatuses: [],
-                            includeTags: [],
-                            excludeTags: [],
-                            includeTagsMode: .all,
-                            excludeTagsMode: .any)
+        let search = MDSearch(title: nil,
+                              author: nil,
+                              artist: nil,
+                              originalLanguage: nil,
+                              demographics: [],
+                              publicationStatuses: [],
+                              includeTags: [],
+                              excludeTags: [],
+                              includeTagsMode: .all,
+                              excludeTagsMode: .any)
 
         let searchURL = MDPath.search(search)
 
         // Manually build what the string should look like
-        var expected = "\(baseURL)/search"
+        var expected = "\(MDApi.baseURL)/search"
         expected += "?tag_mode_inc=\(search.includeTagsMode.rawValue)"
         expected += "&tag_mode_exc=\(search.excludeTagsMode.rawValue)"
 

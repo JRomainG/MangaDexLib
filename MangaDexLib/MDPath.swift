@@ -9,12 +9,20 @@
 import Foundation
 
 class MDPath {
+    /// Relative paths to the pages on MangaDex
+    enum Path: String {
+        case listedMangas = "titles"
+        case featuredMangas = "featured"
+        case latestMangas = "updates"
+        case searchMangas = "search"
+        case randomManga = "manga"
+    }
 
     /// Builds an absolute URL with the known base and the given path
     /// - Parameter path: The relative path of the resource
     /// - Returns: The MangaDex URL
     static private func buildUrl(for path: Path) -> URL {
-        let urlString = "\(baseURL)/\(path.rawValue)"
+        let urlString = "\(MDApi.baseURL)/\(path.rawValue)"
         return URL(string: urlString)!
     }
 
@@ -23,7 +31,7 @@ class MDPath {
     /// - Parameter components: The list of integer components to add, seperated by `/`
     /// - Returns: The MangaDex URL
     static private func buildUrl(for path: Path, with components: [Int]) -> URL {
-        var urlString = "\(baseURL)/\(path.rawValue)"
+        var urlString = "\(MDApi.baseURL)/\(path.rawValue)"
         for component in components {
             urlString += "/\(component)"
         }
@@ -37,7 +45,7 @@ class MDPath {
     /// - Returns: The MangaDex URL
     static private func buildUrl(for path: Path, with params: [URLQueryItem], keepEmpty: Bool = true) -> URL {
         // Use URLComponents to build the string and escape the passed values
-        var components = URLComponents(string: "\(baseURL)/\(path.rawValue)")!
+        var components = URLComponents(string: "\(MDApi.baseURL)/\(path.rawValue)")!
 
         // Only iterate over elements to keep non-empty one if necessary
         if keepEmpty {
@@ -82,9 +90,9 @@ class MDPath {
     }
 
     /// Returns the URL for performing a search
-    /// - Parameter search: A `Search` instance representing the query
+    /// - Parameter search: An `MDSearch` instance representing the query
     /// - Returns: The MangaDex URL
-    static func search(_ search: Search) -> URL {
+    static func search(_ search: MDSearch) -> URL {
         // The include and exclude tags are actually bundled in the same list,
         // Exclude tags are simply preceded by a "-". First build each string
         let includeTags = search.includeTags.map { String($0) }.joined(separator: ",")
@@ -116,15 +124,15 @@ class MDPath {
 
         // Build the list of params using URLQueryItem, as they are automatically escaped
         let params: [URLQueryItem] = [
-            URLQueryItem(name: SearchParameter.title.rawValue, value: search.title),
-            URLQueryItem(name: SearchParameter.author.rawValue, value: search.author),
-            URLQueryItem(name: SearchParameter.artist.rawValue, value: search.artist),
-            URLQueryItem(name: SearchParameter.originalLanguage.rawValue, value: lang),
-            URLQueryItem(name: SearchParameter.demographics.rawValue, value: demos),
-            URLQueryItem(name: SearchParameter.publicationStatuses.rawValue, value: statuses),
-            URLQueryItem(name: SearchParameter.tags.rawValue, value: tags),
-            URLQueryItem(name: SearchParameter.includeTagsMode.rawValue, value: search.includeTagsMode.rawValue),
-            URLQueryItem(name: SearchParameter.excludeTagsMode.rawValue, value: search.excludeTagsMode.rawValue)
+            URLQueryItem(name: MDSearch.Parameter.title.rawValue, value: search.title),
+            URLQueryItem(name: MDSearch.Parameter.author.rawValue, value: search.author),
+            URLQueryItem(name: MDSearch.Parameter.artist.rawValue, value: search.artist),
+            URLQueryItem(name: MDSearch.Parameter.originalLanguage.rawValue, value: lang),
+            URLQueryItem(name: MDSearch.Parameter.demographics.rawValue, value: demos),
+            URLQueryItem(name: MDSearch.Parameter.publicationStatuses.rawValue, value: statuses),
+            URLQueryItem(name: MDSearch.Parameter.tags.rawValue, value: tags),
+            URLQueryItem(name: MDSearch.Parameter.includeTagsMode.rawValue, value: search.includeTagsMode.rawValue),
+            URLQueryItem(name: MDSearch.Parameter.excludeTagsMode.rawValue, value: search.excludeTagsMode.rawValue)
         ]
         return MDPath.buildUrl(for: .searchMangas, with: params, keepEmpty: false)
     }
