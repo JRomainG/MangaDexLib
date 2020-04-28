@@ -16,8 +16,7 @@ class MDApi: NSObject {
     /// Default value appended after the default User-Agent for all requests made by the lib
     static let defaultUserAgent = "MangaDexLib"
 
-    /// Cookie saving the user's choice regarding the display of rated manga.
-    /// Cookie key: `mangadex_h_toggle`
+    /// Cookie saving the user's choice regarding the display of rated manga
     enum RatedFilter: Int {
         case noR18 = 0
         case all = 1
@@ -36,13 +35,32 @@ class MDApi: NSObject {
     }
 
     /// The server from which to server manga pages
-    let server: Server = .automatic
+    private(set) var server: Server = .automatic
+
+    /// Whether to show rated manga of not
+    private(set) var ratedFilter: RatedFilter = .noR18
 
     /// Instance of `MDRequestHandler` used to perform all requests
     let requestHandler = MDRequestHandler()
 
     /// TypeAlias for completion blocks
     typealias MDCompletion = (String?, Error?) -> Void
+
+    /// Setter for the rated filter cookie
+    func setRatedFilter(_ filter: RatedFilter) {
+        self.ratedFilter = filter
+        requestHandler.setCookie(type: .ratedFilter, value: String(filter.rawValue))
+    }
+
+    /// Setter for the server to use when fetching chapter pages
+    func setServer(_ server: Server) {
+        self.server = server
+    }
+
+    /// Setter for the User-Agent to use for requests
+    func setUserAgent(_ userAgent: String) {
+        requestHandler.setUserAgent(userAgent)
+    }
 
     /// Fetches the html homepage of MangaDex
     /// - Parameter completion: The callback at the end of the request
