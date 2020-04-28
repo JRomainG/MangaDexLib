@@ -21,16 +21,12 @@ class MDLibApiTests: XCTestCase {
 
     func testGetRequest() throws {
         let api = MDApi()
-        let url = URL(string: MDApi.baseURL)!
-
         let expectation = self.expectation(description: "Load MangaDex homepage")
-
-        api.requestHandler.get(url: url) { (content, error) in
+        api.getHomepage { (content, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(content)
             expectation.fulfill()
         }
-
         waitForExpectations(timeout: 15, handler: nil)
     }
 
