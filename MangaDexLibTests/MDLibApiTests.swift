@@ -21,6 +21,7 @@ class MDLibApiTests: XCTestCase {
     }
 
     func assertMangaListIsValid(for response: MDResponse) {
+        XCTAssert(response.type == .mangaList)
         XCTAssertNil(response.error)
         XCTAssertNotNil(response.rawValue)
         XCTAssertNotNil(response.mangas)
@@ -67,6 +68,22 @@ class MDLibApiTests: XCTestCase {
 
         // Searching is disabled when logged out, so this will return the login page
         api.performSearch(search) { (_) in
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testRandomManga() throws {
+        let api = MDApi()
+        let expectation = self.expectation(description: "Load random manga page")
+
+        api.getRandomManga { (response) in
+            XCTAssert(response.type == .mangaInfo)
+            XCTAssertNotNil(response.manga)
+            XCTAssertNotNil(response.manga?.id)
+            XCTAssertNotNil(response.manga?.title)
+            XCTAssertNotNil(response.manga?.coverUrl)
+            XCTAssertNotNil(response.manga?.description)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)

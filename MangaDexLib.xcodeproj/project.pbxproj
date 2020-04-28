@@ -49,7 +49,7 @@
 		3353B5B8245795620066B8D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		3353B5BA245797930066B8D5 /* MDSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDSearch.swift; sourceTree = "<group>"; };
 		3353B5BC2457A25E0066B8D5 /* MDLibApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLibApiTests.swift; sourceTree = "<group>"; };
-		3353B5BE2457A7AF0066B8D5 /* MDParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MDParser.swift; path = ../Parser/MDParser.swift; sourceTree = "<group>"; };
+		3353B5BE2457A7AF0066B8D5 /* MDParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDParser.swift; sourceTree = "<group>"; };
 		3354C76A24585D8D00E65B8A /* MDResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDResponse.swift; sourceTree = "<group>"; };
 		3354C76C2458798D00E65B8A /* MDLibRequestHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLibRequestHandlerTests.swift; sourceTree = "<group>"; };
 		3354C76E245881D600E65B8A /* MDResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDResource.swift; sourceTree = "<group>"; };
@@ -135,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				3354C77024588A4F00E65B8A /* MDManga.swift */,
+				3353B5BE2457A7AF0066B8D5 /* MDParser.swift */,
 				3354C76E245881D600E65B8A /* MDResource.swift */,
 				3353B5BA245797930066B8D5 /* MDSearch.swift */,
 			);
@@ -144,7 +145,6 @@
 		3354C77524588D3000E65B8A /* Requests */ = {
 			isa = PBXGroup;
 			children = (
-				3353B5BE2457A7AF0066B8D5 /* MDParser.swift */,
 				3353B5AD2457905C0066B8D5 /* MDRequestHandler.swift */,
 				3354C76A24585D8D00E65B8A /* MDResponse.swift */,
 			);

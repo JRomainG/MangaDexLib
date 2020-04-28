@@ -15,6 +15,7 @@ class MDResponse: NSObject {
     enum ResponseType {
         case generic
         case mangaList
+        case mangaInfo
     }
 
     /// The type of response this is
@@ -29,8 +30,11 @@ class MDResponse: NSObject {
     /// The error returned from the request (if any)
     var error: Error?
 
-    /// The list of extract mangas, if relevant
+    /// The list of extracted mangas, if relevant
     var mangas: [MDManga]?
+
+    /// The extracted manga, if relevant
+    var manga: MDManga?
 
     /// Convenience init method
     init(type: ResponseType, url: URL, rawValue: String?, error: Error?) {

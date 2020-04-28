@@ -58,10 +58,10 @@ extension MDApi {
     /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
     private func getMangas(from url: URL, completion: @escaping MDCompletion) {
-        requestHandler.get(url: url) { (content, error) in
+        requestHandler.get(url: url) { (content, requestError) in
             // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, url: url, rawValue: content, error: error)
-            guard error == nil, let html = content else {
+            let response = MDResponse(type: .mangaList, url: url, rawValue: content, error: requestError)
+            guard requestError == nil, let html = content else {
                 completion(response)
                 return
             }
@@ -101,8 +101,15 @@ extension MDApi {
         let url = MDPath.randomManga()
         requestHandler.get(url: url) { (content, error) in
             // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, url: url, rawValue: content, error: error)
-            completion(response)
+            let response = MDResponse(type: .mangaInfo, url: url, rawValue: content, error: error)
+
+            do {
+                response.manga = try self.parser.getMangaInfo(from: content!)
+                completion(response)
+            } catch {
+                response.error = error
+                completion(response)
+            }
         }
     }
 
