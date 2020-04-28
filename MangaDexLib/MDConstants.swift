@@ -26,6 +26,13 @@ enum MDServer: String {
     //case restOfTheWorld = "row"
 }
 
+/// The status of a manga or chapter
+enum MDStatus: String, Codable {
+    case ok = "OK"
+    case deleted = "deleted"
+    case notYetRelease = "unreleased"
+}
+
 /// Sort orders available for the listed mangas
 enum MDSortOrder: Int, Codable {
     case recentlyUpdated = 0
