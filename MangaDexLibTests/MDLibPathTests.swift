@@ -19,31 +19,55 @@ class MDLibPathTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    /// Handle checks for URL equality, regardless of the order of get params in the URL
+    func assertUrlsAreEqual(_ first: URL, _ second: URL) {
+        let firstComponents = URLComponents(string: first.absoluteString)!
+        let secondComponents = URLComponents(string: second.absoluteString)!
+
+        if let firstItems = firstComponents.queryItems,
+            let secondItems = secondComponents.queryItems {
+            // Check that both urls' GET parameters are equal by using double inclusion
+            for item in firstItems {
+                XCTAssert(secondItems.contains(item))
+            }
+            for item in secondItems {
+                XCTAssert(firstItems.contains(item))
+            }
+
+            // Check the path is also correct
+            XCTAssert(first.pathComponents == second.pathComponents)
+        } else {
+            // Since there are not query items, just check the absolute URLs are equal
+            XCTAssert(first.absoluteString == second.absoluteString)
+        }
+
+    }
+
     func testListedMangasPath() throws {
         let page = 3
         let popularMangaURL = MDPath.listedMangas(page: page, sort: .bestRating)
         let expectedURL = URL(string: "\(MDApi.baseURL)/titles/\(MDSortOrder.bestRating.rawValue)/\(page)")!
-        XCTAssert(popularMangaURL.absoluteString == expectedURL.absoluteString)
+        assertUrlsAreEqual(popularMangaURL, expectedURL)
     }
 
     func testFeaturedMangasPath() throws {
         let page = 6
         let featuredMangaURL = MDPath.featuredMangas(page: page)
         let expectedURL = URL(string: "\(MDApi.baseURL)/featured/\(page)")!
-        XCTAssert(featuredMangaURL.absoluteString == expectedURL.absoluteString)
+        assertUrlsAreEqual(featuredMangaURL, expectedURL)
     }
 
     func testLatestMangasPath() throws {
         let page = 12
         let latestMangaURL = MDPath.latestMangas(page: page)
         let expectedURL = URL(string: "\(MDApi.baseURL)/updates/\(page)")!
-        XCTAssert(latestMangaURL.absoluteString == expectedURL.absoluteString)
+        assertUrlsAreEqual(latestMangaURL, expectedURL)
     }
 
     func testRandomMangaPath() throws {
-        let latestMangaURL = MDPath.randomManga()
+        let randomMangaURL = MDPath.randomManga()
         let expectedURL = URL(string: "\(MDApi.baseURL)/manga")!
-        XCTAssert(latestMangaURL.absoluteString == expectedURL.absoluteString)
+        assertUrlsAreEqual(randomMangaURL, expectedURL)
     }
 
     func testEncodedSearchMangaPath() throws {
@@ -75,20 +99,8 @@ class MDLibPathTests: XCTestCase {
         expected = expected.replacingOccurrences(of: "+", with: "%2B")
         // swiftlint:enable line_length
 
-        let components = URLComponents(string: searchURL.absoluteString)!
-        let expectedComponents = URLComponents(string: expected)!
-
-        // Check that both urls' GET parameters are equal by using double inclusion
-        for item in components.queryItems! {
-            XCTAssert(expectedComponents.queryItems!.contains(item))
-        }
-
-        for item in expectedComponents.queryItems! {
-            XCTAssert(components.queryItems!.contains(item))
-        }
-
-        // Check the path is also correct
-        XCTAssert(components.url?.pathComponents == expectedComponents.url?.pathComponents)
+        let expectedURL = URL(string: expected)!
+        assertUrlsAreEqual(searchURL, expectedURL)
     }
 
     func testNilSearchMangaPath() throws {
@@ -110,41 +122,15 @@ class MDLibPathTests: XCTestCase {
         expected += "?tag_mode_inc=\(search.includeTagsMode.rawValue)"
         expected += "&tag_mode_exc=\(search.excludeTagsMode.rawValue)"
 
-        let components = URLComponents(string: searchURL.absoluteString)!
-        let expectedComponents = URLComponents(string: expected)!
-
-        // Check that both urls' GET parameters are equal by using double inclusion
-        for item in components.queryItems! {
-            XCTAssert(expectedComponents.queryItems!.contains(item))
-        }
-
-        for item in expectedComponents.queryItems! {
-            XCTAssert(components.queryItems!.contains(item))
-        }
-
-        // Check the path is also correct
-        XCTAssert(components.url?.pathComponents == expectedComponents.url?.pathComponents)
+        let expectedURL = URL(string: expected)!
+        assertUrlsAreEqual(searchURL, expectedURL)
     }
 
     func testMangaInfo() throws {
         let mangaId = 7139 // One Punch Man
         let apiURL = MDPath.mangaInfo(mangaId: mangaId)
         let expectedURL = URL(string: "\(MDApi.baseURL)/api/?id=\(mangaId)&type=manga")!
-
-        let components = URLComponents(string: apiURL.absoluteString)!
-        let expectedComponents = URLComponents(string: expectedURL.absoluteString)!
-
-        // Check that both urls' GET parameters are equal by using double inclusion
-        for item in components.queryItems! {
-            XCTAssert(expectedComponents.queryItems!.contains(item))
-        }
-
-        for item in expectedComponents.queryItems! {
-            XCTAssert(components.queryItems!.contains(item))
-        }
-
-        // Check the path is also correct
-        XCTAssert(apiURL.pathComponents == expectedURL.pathComponents)
+        assertUrlsAreEqual(apiURL, expectedURL)
     }
 
     func testChapterInfo() throws {
@@ -152,22 +138,8 @@ class MDLibPathTests: XCTestCase {
         let server = MDApi.Server.naEu1
         let apiURL = MDPath.chapterInfo(chapterId: chapterId, server: server)
         let expected = "\(MDApi.baseURL)/api/?id=\(chapterId)&server=\(server.rawValue)&type=chapter"
-
-        let components = URLComponents(string: apiURL.absoluteString)!
-        let expectedComponents = URLComponents(string: expected)!
-
-        // Check that both urls' GET parameters are equal by using double inclusion
-        for item in components.queryItems! {
-            XCTAssert(expectedComponents.queryItems!.contains(item))
-        }
-
-        for item in expectedComponents.queryItems! {
-            XCTAssert(components.queryItems!.contains(item))
-        }
-
-        // Check the path is also correct
         let expectedURL = URL(string: expected)!
-        XCTAssert(apiURL.pathComponents == expectedURL.pathComponents)
+        assertUrlsAreEqual(apiURL, expectedURL)
     }
 
     func testChapterInfoServer() throws {
@@ -175,21 +147,7 @@ class MDLibPathTests: XCTestCase {
         let server = MDApi.Server.automatic
         let apiURL = MDPath.chapterInfo(chapterId: chapterId, server: server)
         let expectedURL = URL(string: "\(MDApi.baseURL)/api/?id=\(chapterId)&type=chapter")!
-
-        let components = URLComponents(string: apiURL.absoluteString)!
-        let expectedComponents = URLComponents(string: expectedURL.absoluteString)!
-
-        // Check that both urls' GET parameters are equal by using double inclusion
-        for item in components.queryItems! {
-            XCTAssert(expectedComponents.queryItems!.contains(item))
-        }
-
-        for item in expectedComponents.queryItems! {
-            XCTAssert(components.queryItems!.contains(item))
-        }
-
-        // Check the path is also correct
-        XCTAssert(apiURL.pathComponents == expectedURL.pathComponents)
+        assertUrlsAreEqual(apiURL, expectedURL)
     }
 
 }
