@@ -13,9 +13,9 @@
 		3353B5A024578A350066B8D5 /* MangaDexLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B579245789BE0066B8D5 /* MangaDexLib.framework */; };
 		3353B5A724578A3E0066B8D5 /* MDLibPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3353B5A624578A3E0066B8D5 /* MDLibPathTests.swift */; };
 		3353B5AC24578F710066B8D5 /* MDApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3353B5AB24578F710066B8D5 /* MDApi.swift */; };
-		3353B5B5245794A40066B8D5 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B5B4245794A40066B8D5 /* SwiftSoup.framework */; platformFilter = ios; };
 		3353B5B9245795620066B8D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B5B8245795620066B8D5 /* WebKit.framework */; platformFilter = ios; };
 		3353B5BB245797930066B8D5 /* MDSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3353B5BA245797930066B8D5 /* MDSearch.swift */; };
+		3354C7672458419B00E65B8A /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B5B4245794A40066B8D5 /* SwiftSoup.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +41,7 @@
 		3353B5B4245794A40066B8D5 /* SwiftSoup.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSoup.framework; path = Carthage/Build/iOS/SwiftSoup.framework; sourceTree = "<group>"; };
 		3353B5B8245795620066B8D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		3353B5BA245797930066B8D5 /* MDSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDSearch.swift; sourceTree = "<group>"; };
+		3354C75924583F4C00E65B8A /* SwiftSoup.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSoup.framework; path = Carthage/Build/Mac/SwiftSoup.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3353B5B9245795620066B8D5 /* WebKit.framework in Frameworks */,
-				3353B5B5245794A40066B8D5 /* SwiftSoup.framework in Frameworks */,
+				3354C7672458419B00E65B8A /* SwiftSoup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +109,7 @@
 		3353B5AF245791C10066B8D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3354C75924583F4C00E65B8A /* SwiftSoup.framework */,
 				3353B5B8245795620066B8D5 /* WebKit.framework */,
 				3353B5B4245794A40066B8D5 /* SwiftSoup.framework */,
 			);
@@ -456,6 +458,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -486,6 +489,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
