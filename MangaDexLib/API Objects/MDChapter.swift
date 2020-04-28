@@ -12,49 +12,49 @@ import Foundation
 struct MDChapter: Decodable {
 
     /// The id of the chapter
-    let chapterId: Int
+    var chapterId: Int
 
     /// The id of the manga this chapter belongs to
-    let mangaId: Int
+    var mangaId: Int?
 
     /// The chapter's title
-    let title: String
+    var title: String?
 
     /// The chapter's hash, used to fetch the pages
-    let hash: String
+    var hash: String?
 
     /// The volume this chapter belongs to
-    let volume: String?
+    var volume: String?
 
     /// The chapter in the printed manga which corresponds to this chapter
-    let chapter: String?
+    var chapter: String?
 
     /// The list of page file names
-    let pages: [String]
+    var pages: [String]?
 
     /// The id of the main group that worked on this chapter
-    let groupId: Int
+    var groupId: Int?
 
     /// The id of another group that worked on this chapter
-    let groupId2: Int?
+    var groupId2: Int?
 
     /// The id of another group that worked on this chapter
-    let groupId3: Int?
+    var groupId3: Int?
 
     /// The name of the main group that worked on this chapter
-    let groupName: String?
+    var groupName: String?
 
     /// The name of another group that worked on this chapter
-    let groupName2: String?
+    var groupName2: String?
 
     /// The name of another group that worked on this chapter
-    let groupName3: String?
+    var groupName3: String?
 
     /// The Unix timestamp this chapter was release
     ///
     /// This may be in the future if the group imposes a delay, and the chapter
     /// is not yet available on MangaDex
-    let timestamp: UInt
+    var timestamp: UInt?
 
     /// The name of the chapter's original language
     var originalLangName: String?
@@ -65,20 +65,29 @@ struct MDChapter: Decodable {
     var originalLangCode: String?
 
     /// The number of comments for this chapter
-    let comments: Int?
+    var comments: Int?
 
     /// The base URL of the server from which to retreive the pages
-    let server: String?
+    var server: String?
 
     /// A boolean indicating whether this chapter is read in a long strip
     ///
     /// Most webtoons are read as one long strip, without seperate pages
-    let longStrip: Bool?
+    var longStrip: Bool?
 
-    /// The status of this chapter
-    ///
-    /// Should be `OK`, but can be `deleted`
-    let status: MDStatus?
+    /// This chapter's status
+    var status: MDStatus?
+
+    /// A convenience method to create a chapter with only an id
+    init(chapterId: Int) {
+        self.chapterId = chapterId
+    }
+
+    /// A convenience method to create a chapter with a title and id only
+    init(title: String, chapterId: Int) {
+        self.title = title
+        self.chapterId = chapterId
+    }
 
 }
 
