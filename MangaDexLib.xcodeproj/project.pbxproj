@@ -18,6 +18,7 @@
 		3353B5BB245797930066B8D5 /* MDSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3353B5BA245797930066B8D5 /* MDSearch.swift */; };
 		3353B5BD2457A25E0066B8D5 /* MDLibApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3353B5BC2457A25E0066B8D5 /* MDLibApiTests.swift */; };
 		3354C7672458419B00E65B8A /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B5B4245794A40066B8D5 /* SwiftSoup.framework */; platformFilter = ios; };
+		3354C76D2458798D00E65B8A /* MDLibRequestHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354C76C2458798D00E65B8A /* MDLibRequestHandlerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		3353B5BA245797930066B8D5 /* MDSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDSearch.swift; sourceTree = "<group>"; };
 		3353B5BC2457A25E0066B8D5 /* MDLibApiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLibApiTests.swift; sourceTree = "<group>"; };
 		3354C75924583F4C00E65B8A /* SwiftSoup.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSoup.framework; path = Carthage/Build/Mac/SwiftSoup.framework; sourceTree = "<group>"; };
+		3354C76C2458798D00E65B8A /* MDLibRequestHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLibRequestHandlerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				3353B5A624578A3E0066B8D5 /* MDLibPathTests.swift */,
 				3353B5BC2457A25E0066B8D5 /* MDLibApiTests.swift */,
+				3354C76C2458798D00E65B8A /* MDLibRequestHandlerTests.swift */,
 				3353B59F24578A350066B8D5 /* Info.plist */,
 			);
 			path = MangaDexLibTests;
@@ -307,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3353B5A724578A3E0066B8D5 /* MDLibPathTests.swift in Sources */,
+				3354C76D2458798D00E65B8A /* MDLibRequestHandlerTests.swift in Sources */,
 				3353B5BD2457A25E0066B8D5 /* MDLibApiTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

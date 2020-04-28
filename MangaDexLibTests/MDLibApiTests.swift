@@ -19,15 +19,4 @@ class MDLibApiTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testGetRequest() throws {
-        let api = MDApi()
-        let expectation = self.expectation(description: "Load MangaDex homepage")
-        api.getHomepage { (content, error) in
-            XCTAssertNil(error)
-            XCTAssertNotNil(content)
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 15, handler: nil)
-    }
-
 }
