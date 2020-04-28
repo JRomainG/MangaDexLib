@@ -59,7 +59,6 @@ playground.xcworkspace
 Carthage/Checkouts
 
 Carthage/Build
-Cartfile.resolved
 
 # Accio dependency management
 Dependencies/
