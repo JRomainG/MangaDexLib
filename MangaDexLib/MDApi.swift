@@ -26,8 +26,11 @@ class MDApi: NSObject {
     /// Instance of `MDRequestHandler` used to perform all requests
     let requestHandler = MDRequestHandler()
 
+    /// Instance of `MDParser` used to parse the results of the requests
+    let parser = MDParser()
+
     /// TypeAlias for completion blocks
-    typealias MDCompletion = (String?, Error?) -> Void
+    typealias MDCompletion = (MDResponse) -> Void
 
     /// Setter for the rated filter cookie
     func setRatedFilter(_ filter: MDRatedFilter) {
@@ -45,11 +48,21 @@ class MDApi: NSObject {
         requestHandler.setUserAgent(userAgent)
     }
 
+}
+
+// MARK: - MDApi HTML Requests
+
+extension MDApi {
+
     /// Fetches the html homepage of MangaDex
     /// - Parameter completion: The callback at the end of the request
     func getHomepage(completion: @escaping MDCompletion) {
         let url = URL(string: MDApi.baseURL)!
-        requestHandler.get(url: url, completion: completion)
+        requestHandler.get(url: url) { (content, error) in
+            // Build a response object for the completion
+            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            completion(response)
+        }
     }
 
     /// Fetches the html page containing the sorted list of mangas
@@ -58,7 +71,24 @@ class MDApi: NSObject {
     /// - Parameter completion: The callback at the end of the request
     func getListedMangas(page: Int, sort: MDSortOrder, completion: @escaping MDCompletion) {
         let url = MDPath.listedMangas(page: page, sort: sort)
-        requestHandler.get(url: url, completion: completion)
+        requestHandler.get(url: url) { (content, error) in
+            // Build a response object for the completion
+            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            guard error == nil, let html = content else {
+                completion(response)
+                return
+            }
+
+            // Try to parse the content
+            do {
+                let mangas = try self.parser.getMangaIds(from: html)
+                response.idList = mangas
+                completion(response)
+            } catch {
+                response.error = error
+                completion(response)
+            }
+        }
     }
 
     /// Fetches the html page containing the featured mangas
@@ -66,7 +96,11 @@ class MDApi: NSObject {
     /// - Parameter completion: The callback at the end of the request
     func getFeaturedMangas(page: Int, completion: @escaping MDCompletion) {
         let url = MDPath.featuredMangas(page: page)
-        requestHandler.get(url: url, completion: completion)
+        requestHandler.get(url: url) { (content, error) in
+            // Build a response object for the completion
+            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            completion(response)
+        }
     }
 
     /// Fetches the html page containing the latest updated mangas
@@ -74,14 +108,22 @@ class MDApi: NSObject {
     /// - Parameter completion: The callback at the end of the request
     func getLatestMangas(page: Int, completion: @escaping MDCompletion) {
         let url = MDPath.latestMangas(page: page)
-        requestHandler.get(url: url, completion: completion)
+        requestHandler.get(url: url) { (content, error) in
+            // Build a response object for the completion
+            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            completion(response)
+        }
     }
 
     /// Fetches the html page containing information about a random manga
     /// - Parameter completion: The callback at the end of the request
     func getRandomManga(completion: @escaping MDCompletion) {
         let url = MDPath.randomManga()
-        requestHandler.get(url: url, completion: completion)
+        requestHandler.get(url: url) { (content, error) in
+            // Build a response object for the completion
+            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            completion(response)
+        }
     }
 
     /// Fetches the html page containing the result of the search
@@ -89,15 +131,29 @@ class MDApi: NSObject {
     /// - Parameter completion: The callback at the end of the request
     func performSearch(_ search: MDSearch, completion: @escaping MDCompletion) {
         let url = MDPath.search(search)
-        requestHandler.get(url: url, completion: completion)
+        requestHandler.get(url: url) { (content, error) in
+            // Build a response object for the completion
+            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            completion(response)
+        }
     }
+
+}
+
+// MARK: - MDApi JSON Requests
+
+extension MDApi {
 
     /// Fetches the json string containing the information about the manga
     /// - Parameter mangaId: The identifier of the manga
     /// - Parameter completion: The callback at the end of the request
     func getMangaInfo(mangaId: Int, completion: @escaping MDCompletion) {
         let url = MDPath.mangaInfo(mangaId: mangaId)
-        requestHandler.get(url: url, completion: completion)
+        requestHandler.get(url: url) { (content, error) in
+            // Build a response object for the completion
+            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            completion(response)
+        }
     }
 
     /// Fetches the json string containing the information about the chapter
@@ -105,7 +161,11 @@ class MDApi: NSObject {
     /// - Parameter completion: The callback at the end of the request
     func getChapterInfo(chapterId: Int, completion: @escaping MDCompletion) {
         let url = MDPath.chapterInfo(chapterId: chapterId, server: server)
-        requestHandler.get(url: url, completion: completion)
+        requestHandler.get(url: url) { (content, error) in
+            // Build a response object for the completion
+            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            completion(response)
+        }
     }
 
 }
