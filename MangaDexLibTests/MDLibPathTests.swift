@@ -132,6 +132,16 @@ class MDLibPathTests: XCTestCase {
         assertUrlsAreEqual(apiURL, expectedURL)
     }
 
+    func testMangaCommentsPath() throws {
+        let mangaId = 7139
+        let mangaTitle = "One Punch Man"
+        let mangaNormalizedTitle = "one-punch-man"
+        let manga = MDManga(title: mangaTitle, mangaId: mangaId)
+        let commentsURL = MDPath.mangaComments(manga: manga)
+        let expectedURL = URL(string: "\(MDApi.baseURL)/title/\(mangaId)/\(mangaNormalizedTitle)/comments")!
+        assertUrlsAreEqual(commentsURL, expectedURL)
+    }
+
     func testChapterInfoPath() throws {
         let chapterId = 867036 // One Punch Man chapter 131
         let server = MDServer.naEu1
@@ -156,6 +166,22 @@ class MDLibPathTests: XCTestCase {
         let imageUrl = MDPath.chapterPage(server: server, hash: hash, page: page)
         let expectedURL = URL(string: "\(server)\(hash)/\(page)")!
         assertUrlsAreEqual(imageUrl, expectedURL)
+    }
+
+    func testChapterCommentsPath() throws {
+        let chapterId = 7139
+        let chapter = MDChapter(chapterId: chapterId)
+        let commentsURL = MDPath.chapterComments(chapter: chapter)
+        let expectedURL = URL(string: "\(MDApi.baseURL)/chapter/\(chapterId)/comments")!
+        assertUrlsAreEqual(commentsURL, expectedURL)
+    }
+
+    func testThreadPath() throws {
+        let threadId = 237699  // One Punch Man chapter 131
+        let page = 6
+        let threadURL = MDPath.thread(threadId: threadId, page: page)
+        let expectedURL = URL(string: "\(MDApi.baseURL)/thread/\(threadId)/\(page)")!
+        assertUrlsAreEqual(threadURL, expectedURL)
     }
 
     func testExternalPath() throws {

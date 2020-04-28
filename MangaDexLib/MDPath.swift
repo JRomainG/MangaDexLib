@@ -18,6 +18,10 @@ class MDPath {
         case latestMangas = "updates"
         case searchMangas = "search"
         case randomManga = "manga"
+        case mangaPage = "title"
+        case chapterPage = "chapter"
+        case comments = "comments"
+        case thread = "thread"
         case api = "api"
     }
 
@@ -48,6 +52,23 @@ class MDPath {
         case chapter = "chapter"
     }
 
+    /// Returns the normalized (lowercase ascii without spaces) version of the string
+    ///
+    /// Spaces are replaced by dashes, diacritics, special width, and case are removed.
+    /// E.g. `Mÿ nâMe ís jÄço´B` becomes `my-name-is-jacob`
+    static func normalize(string: String) -> String {
+        let options: String.CompareOptions = [
+            .diacriticInsensitive,
+            .caseInsensitive,
+            .widthInsensitive
+        ]
+        var allowed = CharacterSet.alphanumerics
+        allowed.insert("-")
+        var normalized = string.replacingOccurrences(of: " ", with: "-")
+        normalized = normalized.folding(options: options, locale: .none)
+        return normalized.components(separatedBy: allowed.inverted).joined(separator: "")
+    }
+
     /// Builds an absolute URL with the known base and the given path
     /// - Parameter path: The relative path of the resource
     /// - Returns: The MangaDex URL
@@ -56,7 +77,7 @@ class MDPath {
         return url.appendingPathComponent(path.rawValue)
     }
 
-    /// Builds an absolute URL with the known base and the given parameters
+    /// Builds an absolute URL with the known base and the given `Int` parameters
     /// - Parameter path: The relative path of the resource
     /// - Parameter components: The list of integer components to add, seperated by `/`
     /// - Returns: The MangaDex URL
@@ -65,6 +86,19 @@ class MDPath {
         url = url.appendingPathComponent(path.rawValue)
         for component in components {
             url = url.appendingPathComponent(String(component))
+        }
+        return url
+    }
+
+    /// Builds an absolute URL with the known base and the given `String` parameters
+    /// - Parameter path: The relative path of the resource
+    /// - Parameter components: The list of integer components to add, seperated by `/`
+    /// - Returns: The MangaDex URL
+    static private func buildUrl(for path: Path, with components: [String]) -> URL {
+        var url = URL(string: MDApi.baseURL)!
+        url = url.appendingPathComponent(path.rawValue)
+        for component in components {
+            url = url.appendingPathComponent(component)
         }
         return url
     }
@@ -179,6 +213,25 @@ class MDPath {
         return MDPath.buildUrl(for: .api, with: params)
     }
 
+    /// Returns the URL to fetch a given manga's comments
+    /// - Parameter manga: The `MDManga` instance representing the manga
+    /// - Returns: The MangaDex URL
+    static func mangaComments(manga: MDManga) -> URL {
+        let mangaId = String(manga.mangaId)
+
+        // The third element of the path doesn't matter, but let's try
+        // to make it nice either way
+        let mangaTitle: String
+        if let title = manga.title {
+            mangaTitle = normalize(string: title)
+        } else {
+            mangaTitle = MDApi.defaultUserAgent
+        }
+
+        let components: [String] = [mangaId, mangaTitle, Path.comments.rawValue]
+        return buildUrl(for: .mangaPage, with: components)
+    }
+
     /// Returns the URL to fetch information about a given chapter
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter server: The server from which to load images
@@ -204,6 +257,27 @@ class MDPath {
         var url = URL(string: server)!
         url = url.appendingPathComponent(hash)
         return url.appendingPathComponent(page)
+    }
+
+    /// Returns the URL to fetch a given chapter's comments
+    /// - Parameter chapter: The `MDChapter` instance representing the chapter
+    /// - Returns: The MangaDex URL
+    static func chapterComments(chapter: MDChapter) -> URL {
+        let chapterId = String(chapter.chapterId)
+        let components: [String] = [chapterId, Path.comments.rawValue]
+        return buildUrl(for: .chapterPage, with: components)
+    }
+
+    /// Returns the URL to fetch a thread's content
+    /// - Parameter threadId: The identifier of the thread
+    /// - Parameter page: The index of the page to load (starting at 1)
+    /// - Returns: The MangaDex URL
+    ///
+    /// A thread represents a full chain of comments in chronological order.
+    /// `mangaComments` and `chapterComments` are only URLs to the page with
+    /// the latest comments
+    static func thread(threadId: Int, page: Int) -> URL {
+        return buildUrl(for: .thread, with: [threadId, page])
     }
 
     /// Returns the URL to an external resource
