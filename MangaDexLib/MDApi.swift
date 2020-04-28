@@ -17,29 +17,11 @@ class MDApi: NSObject {
     /// Default value appended after the default User-Agent for all requests made by the lib
     static let defaultUserAgent = "MangaDexLib"
 
-    /// Cookie saving the user's choice regarding the display of rated manga
-    enum RatedFilter: Int {
-        case noR18 = 0
-        case all = 1
-        case onlyR18 = 2
-    }
-
-    /// Available MangaDex servers to fetch chapter pages from
-    enum Server: String {
-        case automatic = ""
-        case naEu1 = "na"
-        case naEu2 = "na2"
-        // The following options are currently disabled on the website
-        //case europe = "eu"
-        //case europe2 = "eu2"
-        //case restOfTheWorld = "row"
-    }
-
     /// The server from which to server manga pages
-    private(set) var server: Server = .automatic
+    private(set) var server: MDServer = .automatic
 
     /// Whether to show rated manga of not
-    private(set) var ratedFilter: RatedFilter = .noR18
+    private(set) var ratedFilter: MDRatedFilter = .noR18
 
     /// Instance of `MDRequestHandler` used to perform all requests
     let requestHandler = MDRequestHandler()
@@ -48,13 +30,13 @@ class MDApi: NSObject {
     typealias MDCompletion = (String?, Error?) -> Void
 
     /// Setter for the rated filter cookie
-    func setRatedFilter(_ filter: RatedFilter) {
+    func setRatedFilter(_ filter: MDRatedFilter) {
         self.ratedFilter = filter
         requestHandler.setCookie(type: .ratedFilter, value: String(filter.rawValue))
     }
 
     /// Setter for the server to use when fetching chapter pages
-    func setServer(_ server: Server) {
+    func setServer(_ server: MDServer) {
         self.server = server
     }
 

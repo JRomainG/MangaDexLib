@@ -183,7 +183,7 @@ class MDPath {
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter server: The server from which to load images
     /// - Returns: The MangaDex URL
-    static func chapterInfo(chapterId: Int, server: MDApi.Server) -> URL {
+    static func chapterInfo(chapterId: Int, server: MDServer) -> URL {
         let params = [
             URLQueryItem(name: ApiParam.id.rawValue, value: String(chapterId)),
             URLQueryItem(name: ApiParam.server.rawValue, value: server.rawValue),
@@ -210,7 +210,7 @@ class MDPath {
     /// - Parameter resource: The type of external website
     /// - Parameter path: The ID or absolute URL for the resource
     /// - Returns: The external URL
-    static func externalResource(resource: ExternalResource, path: String) -> URL? {
+    static func externalResource(resource: MDResource, path: String) -> URL? {
         // Handle cases where the resource is only a relative URL, which means the resource's
         // raw value contains the base URL for the resource
         var absoluteURL: String

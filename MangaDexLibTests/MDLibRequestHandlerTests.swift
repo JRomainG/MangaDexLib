@@ -36,7 +36,7 @@ class MDLibRequestHandlerTests: XCTestCase {
         let requestHandler = MDRequestHandler()
         let url = URL(string: MDApi.baseURL)!
         let cookieType = MDRequestHandler.CookieType.ratedFilter
-        let cookieValue = String(MDApi.RatedFilter.noR18.rawValue)
+        let cookieValue = String(MDRatedFilter.noR18.rawValue)
         requestHandler.setCookie(type: cookieType, value: cookieValue)
 
         let cookies = requestHandler.cookieJar.cookies(for: url)

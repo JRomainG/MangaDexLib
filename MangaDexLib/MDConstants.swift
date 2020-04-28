@@ -8,6 +8,24 @@
 
 import Foundation
 
+/// Cookie saving the user's choice regarding the display of rated manga
+enum MDRatedFilter: Int {
+    case noR18 = 0
+    case all = 1
+    case onlyR18 = 2
+}
+
+/// Available MangaDex servers to fetch chapter pages from
+enum MDServer: String {
+    case automatic = ""
+    case naEu1 = "na"
+    case naEu2 = "na2"
+    // The following options are currently disabled on the website
+    //case europe = "eu"
+    //case europe2 = "eu2"
+    //case restOfTheWorld = "row"
+}
+
 /// Sort orders available for the listed mangas
 enum MDSortOrder: Int {
     case recentlyUpdated = 0

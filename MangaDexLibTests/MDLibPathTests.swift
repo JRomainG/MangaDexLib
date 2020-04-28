@@ -135,7 +135,7 @@ class MDLibPathTests: XCTestCase {
 
     func testChapterInfoPath() throws {
         let chapterId = 867036 // One Punch Man chapter 131
-        let server = MDApi.Server.naEu1
+        let server = MDServer.naEu1
         let apiURL = MDPath.chapterInfo(chapterId: chapterId, server: server)
         let expected = "\(MDApi.baseURL)/api/?id=\(chapterId)&server=\(server.rawValue)&type=chapter"
         let expectedURL = URL(string: expected)!
@@ -144,7 +144,7 @@ class MDLibPathTests: XCTestCase {
 
     func testChapterInfoServerPath() throws {
         let chapterId = 810605 // 5Tobun chapter 122
-        let server = MDApi.Server.automatic
+        let server = MDServer.automatic
         let apiURL = MDPath.chapterInfo(chapterId: chapterId, server: server)
         let expectedURL = URL(string: "\(MDApi.baseURL)/api/?id=\(chapterId)&type=chapter")!
         assertUrlsAreEqual(apiURL, expectedURL)
