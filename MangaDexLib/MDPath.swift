@@ -214,21 +214,19 @@ class MDPath {
     }
 
     /// Returns the URL to fetch a given manga's comments
-    /// - Parameter manga: The `MDManga` instance representing the manga
+    /// - Parameter mangaId: The identifier of the manga
+    /// - Parameter mangaTitle: The title of the manga (not strictly necessary)
     /// - Returns: The MangaDex URL
-    static func mangaComments(manga: MDManga) -> URL {
-        let mangaId = String(manga.mangaId)
-
-        // The third element of the path doesn't matter, but let's try
-        // to make it nice either way
-        let mangaTitle: String
-        if let title = manga.title {
-            mangaTitle = normalize(string: title)
+    static func mangaComments(mangaId: Int, mangaTitle: String?) -> URL {
+        // The title doesn't really matter, but let's try to make it nice either way
+        let normalizedTitle: String
+        if let title = mangaTitle {
+            normalizedTitle = normalize(string: title)
         } else {
-            mangaTitle = MDApi.defaultUserAgent
+            normalizedTitle = MDApi.defaultUserAgent
         }
 
-        let components: [String] = [mangaId, mangaTitle, Path.comments.rawValue]
+        let components: [String] = [String(mangaId), normalizedTitle, Path.comments.rawValue]
         return buildUrl(for: .mangaPage, with: components)
     }
 
@@ -260,11 +258,10 @@ class MDPath {
     }
 
     /// Returns the URL to fetch a given chapter's comments
-    /// - Parameter chapter: The `MDChapter` instance representing the chapter
+    /// - Parameter chapterId: The identifier of the chapter
     /// - Returns: The MangaDex URL
-    static func chapterComments(chapter: MDChapter) -> URL {
-        let chapterId = String(chapter.chapterId)
-        let components: [String] = [chapterId, Path.comments.rawValue]
+    static func chapterComments(chapterId: Int) -> URL {
+        let components: [String] = [String(chapterId), Path.comments.rawValue]
         return buildUrl(for: .chapterPage, with: components)
     }
 

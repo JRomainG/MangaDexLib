@@ -136,8 +136,7 @@ class MDLibPathTests: XCTestCase {
         let mangaId = 7139
         let mangaTitle = "One Punch Man"
         let mangaNormalizedTitle = "one-punch-man"
-        let manga = MDManga(title: mangaTitle, mangaId: mangaId)
-        let commentsURL = MDPath.mangaComments(manga: manga)
+        let commentsURL = MDPath.mangaComments(mangaId: mangaId, mangaTitle: mangaTitle)
         let expectedURL = URL(string: "\(MDApi.baseURL)/title/\(mangaId)/\(mangaNormalizedTitle)/comments")!
         assertUrlsAreEqual(commentsURL, expectedURL)
     }
@@ -170,8 +169,7 @@ class MDLibPathTests: XCTestCase {
 
     func testChapterCommentsPath() throws {
         let chapterId = 7139
-        let chapter = MDChapter(chapterId: chapterId)
-        let commentsURL = MDPath.chapterComments(chapter: chapter)
+        let commentsURL = MDPath.chapterComments(chapterId: chapterId)
         let expectedURL = URL(string: "\(MDApi.baseURL)/chapter/\(chapterId)/comments")!
         assertUrlsAreEqual(commentsURL, expectedURL)
     }
