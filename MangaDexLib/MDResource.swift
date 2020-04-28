@@ -59,6 +59,10 @@ extension MDResource {
                                         baseURL: "https://myanimelist.net/manga/",
                                         key: "mal")
 
+    static let novelUpdates = MDResource(name: "NovelUpdates",
+                                         baseURL: "https://www.novelupdates.com/series/",
+                                         key: "nu")
+
     // Official releases
     static let raw = MDResource(name: "Raw",
                                 baseURL: nil,
@@ -91,6 +95,7 @@ extension MDResource {
         .kitsu,
         .mangaUpdates,
         .myAnimeList,
+        .novelUpdates,
         .raw,
         .officialTranslation,
         .amazon,
