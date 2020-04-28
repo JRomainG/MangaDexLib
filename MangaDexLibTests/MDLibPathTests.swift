@@ -150,6 +150,15 @@ class MDLibPathTests: XCTestCase {
         assertUrlsAreEqual(apiURL, expectedURL)
     }
 
+    func testChapterPagePath() throws {
+        let server = "https://s5.mangadex.org/data/"
+        let hash = "46933c48657c37e93b2e20ee7134085e" // Komi-san One Shot
+        let page = "x1.png"
+        let imageUrl = MDPath.chapterPage(server: server, hash: hash, page: page)
+        let expectedURL = URL(string: "\(server)\(hash)/\(page)")!
+        assertUrlsAreEqual(imageUrl, expectedURL)
+    }
+
     func testExternalPath() throws {
         let resource = MDPath.ExternalResource.mangaUpdates
         let resourceId = "140860" // Buddha Cafe

@@ -216,6 +216,17 @@ class MDPath {
         return MDPath.buildUrl(for: .api, with: params, keepEmpty: false)
     }
 
+    /// Returns the URL to the given page's image
+    /// - Parameter server: The base URL for the server
+    /// - Parameter hash: The chapter's hash
+    /// - Parameter page: The page's file name
+    /// - Returns: The image's URL
+    static func chapterPage(server: String, hash: String, page: String) -> URL {
+        var url = URL(string: server)!
+        url = url.appendingPathComponent(hash)
+        return url.appendingPathComponent(page)
+    }
+
     /// Returns the URL to an external resource
     /// - Parameter resource: The type of external website
     /// - Parameter path: The ID or absolute URL for the resource
