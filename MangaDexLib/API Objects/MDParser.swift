@@ -132,25 +132,63 @@ extension MDParser {
 
 extension MDParser {
 
+    /// The name of the class to lookup in the extracted html of MangaDex homepages
+    /// to get a manga's meta information
+    static let mangaInfoMetaTag = "head"
+
+    /// The selector to lookup in the extracted html's meta tags
+    /// to get a manga's title
+    static let mangaInfoTitleSelector = "meta[property=og:title]"
+
+    /// The selector to lookup in the extracted html's meta tags
+    /// to get a manga's description
+    static let mangaInfoDescriptionSelector = "meta[property=og:description]"
+
+    /// The selector to lookup in the extracted html's meta tags
+    /// to get a manga's cover URL
+    static let mangaInfoImageSelector = "meta[property=og:image]"
+
+    /// The selector to lookup in the extracted html's meta tags
+    /// to get a manga's link
+    static let mangaInfoHrefSelector = "link[rel=canonical]"
+
+    /// Convenience method to get an attribute out an `Element`
+    /// - Parameter attribute: The attribute to extract
+    /// - Parameter selector: The selector to use
+    /// - Parameter element: The element in which to lookup
+    /// - Returns: The attribute's value
+    func getFirstAttribute(_ attribute: String,
+                           with selector: String,
+                           in element: Element) throws -> String? {
+        let elements = try element.select(selector)
+        guard let first = elements.first() else {
+            return nil
+        }
+        return try first.attr(attribute)
+    }
+
     /// Extract a manga's info from a manga detail html page
     /// - Parameter content: The html string to parse
     /// - Returns: The extracted manga
-    func getMangaInfo(from content: String) throws -> MDManga {
+    func getMangaInfo(from content: String) throws -> MDManga? {
         let doc = try MDParser.parse(html: content)
+        let elements = try doc.getElementsByTag(MDParser.mangaInfoMetaTag)
 
-        // Extra the meta tags, as it's way easier
-        var elements = try doc.select("head > meta[property=og:title]")
-        let title = try elements.get(0).attr("content").replacingOccurrences(of: " (Title) - MangaDex", with: "")
+        guard let head = elements.first() else {
+            return nil
+        }
 
-        elements = try doc.select("head > meta[property=og:description]")
-        let description = try elements.get(0).attr("content")
+        let description = try getFirstAttribute("content", with: MDParser.mangaInfoDescriptionSelector, in: head)
+        let coverUrl = try getFirstAttribute("content", with: MDParser.mangaInfoImageSelector, in: head)
 
-        elements = try doc.select("head > meta[property=og:image]")
-        let coverUrl = try elements.get(0).attr("content")
+        guard let title = try getFirstAttribute("content", with: MDParser.mangaInfoTitleSelector, in: head) else {
+            return nil
+        }
 
-        elements = try doc.select("head > link[rel=canonical]")
-        let href = try elements.get(0).attr("href")
-        let mangaId = getIdFromHref(href)!
+        guard let href = try getFirstAttribute("href", with: MDParser.mangaInfoHrefSelector, in: head),
+            let mangaId = getIdFromHref(href) else {
+            return nil
+        }
 
         var manga = MDManga(title: title, mangaId: mangaId)
         manga.description = description
@@ -210,7 +248,9 @@ extension MDParser {
     /// - Returns: The thread's ID
     private func getThreadId(from document: Document) throws -> Int? {
         let elements = try document.select(MDParser.threadHrefSelector)
-        let href = try elements.get(0).attr("href")
+        guard let href = try elements.first()?.attr("href") else {
+            return nil
+        }
         return getIdFromHref(href)
     }
 
@@ -219,25 +259,24 @@ extension MDParser {
     /// - Returns: An `MDUser` instance
     private func getUser(from element: Element) throws -> MDUser? {
         // Extract the avatar
-        let image = try element.getElementsByClass(MDParser.userAvatarClass)
+        var elements = try element.getElementsByClass(MDParser.userAvatarClass)
 
-        guard image.count > 0 else {
+        guard let image = elements.first() else {
             return nil
         }
-        let avatar = try image.get(0).attr("src")
+        let avatar = try image.attr("src")
 
         // Extract all the other info
-        let title = try element.select(MDParser.userClassSelector)
-
-        guard image.count > 0 else {
+        elements = try element.select(MDParser.userClassSelector)
+        guard let title = elements.first() else {
             return nil
         }
 
-        let href = try title.get(0).attr("href")
-        let rankClass = try title.get(0).attr("class")
+        let href = try title.attr("href")
+        let rankClass = try title.attr("class")
 
         let userId = getIdFromHref(href)
-        let name = try title.get(0).text()
+        let name = try title.text()
         let rank = rankClass.dropFirst(MDParser.userRoleClassPrefix.count)
 
         // Make sure the user has a user id
@@ -279,11 +318,11 @@ extension MDParser {
                 continue
             }
 
-            let body = try element.getElementsByClass(MDParser.commentBodyClass).get(0)
+            let body = try element.getElementsByClass(MDParser.commentBodyClass).first()
             let comment = MDComment(commentId: commentId,
                                     threadId: threadId,
-                                    body: try body.html(),
-                                    textBody: try body.text(),
+                                    body: try body?.html(),
+                                    textBody: try body?.text(),
                                     user: user)
             comments.append(comment)
         }
