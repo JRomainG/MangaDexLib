@@ -68,6 +68,7 @@ class MDRequestHandler: NSObject {
     ///
     /// Custom set cookies have to be reset as they will be deleted
     func resetSession() {
+        cookieJar.removeCookies(since: .distantPast)
         session.flush {
         }
     }
