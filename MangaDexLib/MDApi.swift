@@ -38,53 +38,54 @@ class MDApi: NSObject {
     /// Instance of `MDRequestHandler` used to perform all requests
     let requestHandler = MDRequestHandler()
 
+    /// TypeAlias for completion blocks
     typealias MDCompletion = (String?, Error?) -> Void
 
     /// Fetches the html homepage of MangaDex
     /// - Parameter completion: The callback at the end of the request
-    static func getHomepage(completion: MDCompletion) {
+    func getHomepage(completion: MDCompletion) {
     }
 
     /// Fetches the html page containing the sorted list of mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter sort: The order in which to sort results
     /// - Parameter completion: The callback at the end of the request
-    static func getListedMangas(page: Int, sort: MDSortOrder, completion: MDCompletion) {
+    func getListedMangas(page: Int, sort: MDSortOrder, completion: MDCompletion) {
     }
 
     /// Fetches the html page containing the featured mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
-    static func getFeaturedMangas(page: Int, completion: MDCompletion) {
+    func getFeaturedMangas(page: Int, completion: MDCompletion) {
     }
 
     /// Fetches the html page containing the latest updated mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
-    static func getLatestMangas(page: Int, completion: MDCompletion) {
+    func getLatestMangas(page: Int, completion: MDCompletion) {
     }
 
     /// Fetches the html page containing information about a random manga
     /// - Parameter completion: The callback at the end of the request
-    static func getRandomManga(completion: MDCompletion) {
+    func getRandomManga(completion: MDCompletion) {
     }
 
     /// Fetches the html page containing the result of the search
     /// - Parameter search: An `MDSearch` instance representing the query
     /// - Parameter completion: The callback at the end of the request
-    static func performSearch(_ search: MDSearch, completion: MDCompletion) {
+    func performSearch(_ search: MDSearch, completion: MDCompletion) {
     }
 
     /// Fetches the json string containing the information about the manga
     /// - Parameter mangaId: The identifier of the manga
     /// - Parameter completion: The callback at the end of the request
-    static func getMangaInfo(mangaId: Int, completion: MDCompletion) {
+    func getMangaInfo(mangaId: Int, completion: MDCompletion) {
     }
 
     /// Fetches the json string containing the information about the chapter
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter completion: The callback at the end of the request
-    static func getChapterInfo(chapterId: Int, completion: MDCompletion) {
+    func getChapterInfo(chapterId: Int, completion: MDCompletion) {
     }
 
 }
