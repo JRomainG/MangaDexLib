@@ -24,6 +24,8 @@
 		3354C77124588A4F00E65B8A /* MDManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354C77024588A4F00E65B8A /* MDManga.swift */; };
 		3354C77424588BEB00E65B8A /* MDChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354C77324588BEB00E65B8A /* MDChapter.swift */; };
 		3354C77B2458909B00E65B8A /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3354C77A2458909B00E65B8A /* SwiftSoup.framework */; platformFilter = ios; };
+		339899342458D94300AEEE39 /* MDComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899332458D94300AEEE39 /* MDComment.swift */; };
+		339899362458D9AE00AEEE39 /* MDUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899352458D9AE00AEEE39 /* MDUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		3354C77024588A4F00E65B8A /* MDManga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDManga.swift; sourceTree = "<group>"; };
 		3354C77324588BEB00E65B8A /* MDChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDChapter.swift; sourceTree = "<group>"; };
 		3354C77A2458909B00E65B8A /* SwiftSoup.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSoup.framework; path = Carthage/Build/iOS/SwiftSoup.framework; sourceTree = "<group>"; };
+		339899332458D94300AEEE39 /* MDComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDComment.swift; sourceTree = "<group>"; };
+		339899352458D9AE00AEEE39 /* MDUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +141,9 @@
 			isa = PBXGroup;
 			children = (
 				3354C77324588BEB00E65B8A /* MDChapter.swift */,
+				339899332458D94300AEEE39 /* MDComment.swift */,
 				3354C77024588A4F00E65B8A /* MDManga.swift */,
+				339899352458D9AE00AEEE39 /* MDUser.swift */,
 				3353B5BE2457A7AF0066B8D5 /* MDParser.swift */,
 				3354C76E245881D600E65B8A /* MDResource.swift */,
 				3353B5BA245797930066B8D5 /* MDSearch.swift */,
@@ -328,10 +334,12 @@
 			files = (
 				3353B585245789E10066B8D5 /* MDConstants.swift in Sources */,
 				3353B5BF2457A7AF0066B8D5 /* MDParser.swift in Sources */,
+				339899342458D94300AEEE39 /* MDComment.swift in Sources */,
 				3353B5BB245797930066B8D5 /* MDSearch.swift in Sources */,
 				3354C76B24585D8D00E65B8A /* MDResponse.swift in Sources */,
 				3354C77124588A4F00E65B8A /* MDManga.swift in Sources */,
 				3354C76F245881D600E65B8A /* MDResource.swift in Sources */,
+				339899362458D9AE00AEEE39 /* MDUser.swift in Sources */,
 				3354C77424588BEB00E65B8A /* MDChapter.swift in Sources */,
 				3353B5AE2457905C0066B8D5 /* MDRequestHandler.swift in Sources */,
 				3353B5AC24578F710066B8D5 /* MDApi.swift in Sources */,

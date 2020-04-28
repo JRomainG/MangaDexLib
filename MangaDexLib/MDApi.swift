@@ -99,12 +99,17 @@ extension MDApi {
     /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
     private func getMangaInfo(from url: URL, completion: @escaping MDCompletion) {
-        requestHandler.get(url: url) { (content, error) in
+        requestHandler.get(url: url) { (content, requestError) in
             // Build a response object for the completion
-            let response = MDResponse(type: .mangaInfo, url: url, rawValue: content, error: error)
+            let response = MDResponse(type: .mangaInfo, url: url, rawValue: content, error: requestError)
+
+            guard requestError == nil, let html = content else {
+                completion(response)
+                return
+            }
 
             do {
-                response.manga = try self.parser.getMangaInfo(from: content!)
+                response.manga = try self.parser.getMangaInfo(from: html)
                 completion(response)
             } catch {
                 response.error = error
@@ -113,14 +118,38 @@ extension MDApi {
         }
     }
 
-    /// Fetches the html page containing information about a random manga
+    /// Common method for getting a list of comments from a URL
+    /// - Parameter url: The URL used to build the request
+    /// - Parameter completion: The callback at the end of the request
+    private func getComments(from url: URL, completion: @escaping MDCompletion) {
+        requestHandler.get(url: url) { (content, requestError) in
+            // Build a response object for the completion
+            let response = MDResponse(type: .commentList, url: url, rawValue: content, error: requestError)
+            guard requestError == nil, let html = content else {
+                completion(response)
+                return
+            }
+
+            // Try to parse the content
+            do {
+                let comments = try self.parser.getComments(from: html)
+                response.comments = comments
+                completion(response)
+            } catch {
+                response.error = error
+                completion(response)
+            }
+        }
+    }
+
+    /// Fetches the information of a random
     /// - Parameter completion: The callback at the end of the request
     func getRandomManga(completion: @escaping MDCompletion) {
         let url = MDPath.randomManga()
         getMangaInfo(from: url, completion: completion)
     }
 
-    /// Fetches the html page containing the sorted list of mangas
+    /// Fetches a list of sorted mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter sort: The order in which to sort results
     /// - Parameter completion: The callback at the end of the request
@@ -129,7 +158,7 @@ extension MDApi {
         getMangas(from: url, completion: completion)
     }
 
-    /// Fetches the html page containing the featured mangas
+    /// Fetches the list of featured mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
     func getFeaturedMangas(completion: @escaping MDCompletion) {
@@ -137,12 +166,41 @@ extension MDApi {
         getMangas(from: url, completion: completion)
     }
 
-    /// Fetches the html page containing the latest updated mangas
+    /// Fetches the latest updated mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
     func getLatestMangas(page: Int, completion: @escaping MDCompletion) {
         let url = MDPath.latestMangas(page: page)
         getMangas(from: url, completion: completion)
+    }
+
+    /// Fetches a manga's latest comments
+    /// - Parameter manga: The manga for which to fetch comments
+    /// - Parameter completion: The callback at the end of the request
+    ///
+    /// To get the full list of comments, use `getThread` with any comment's `threadId`
+    func getMangaComments(manga: MDManga, completion: @escaping MDCompletion) {
+        let url = MDPath.mangaComments(mangaId: manga.mangaId, mangaTitle: manga.title)
+        getComments(from: url, completion: completion)
+    }
+
+    /// Fetches a chapter's latest comments
+    /// - Parameter chapter: The chapter for which to fetch comments
+    /// - Parameter completion: The callback at the end of the request
+    ///
+    /// To get the full list of comments, use `getThread` with any comment's `threadId`
+    func getChapterComments(chapter: MDChapter, completion: @escaping MDCompletion) {
+        let url = MDPath.chapterComments(chapterId: chapter.chapterId)
+        getComments(from: url, completion: completion)
+    }
+
+    /// Fetches a thread's comments
+    /// - Parameter threadId: The thread for which to fetch comments
+    /// - Parameter page: The index of the page to load (starting at 1)
+    /// - Parameter completion: The callback at the end of the request
+    func getThread(threadId: Int, page: Int, completion: @escaping MDCompletion) {
+        let url = MDPath.thread(threadId: threadId, page: page)
+        getComments(from: url, completion: completion)
     }
 
     /// Fetches the html page containing the result of the search
@@ -163,6 +221,8 @@ extension MDApi {
     /// - Parameter mangaId: The identifier of the manga
     /// - Parameter completion: The callback at the end of the request
     func getMangaInfo(mangaId: Int, completion: @escaping MDCompletion) {
+        // TODO
+
         let url = MDPath.mangaInfo(mangaId: mangaId)
         requestHandler.get(url: url) { (content, error) in
             // Build a response object for the completion
@@ -175,6 +235,8 @@ extension MDApi {
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter completion: The callback at the end of the request
     func getChapterInfo(chapterId: Int, completion: @escaping MDCompletion) {
+        // TODO
+
         let url = MDPath.chapterInfo(chapterId: chapterId, server: server)
         requestHandler.get(url: url) { (content, error) in
             // Build a response object for the completion
