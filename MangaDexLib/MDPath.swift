@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The class responsible for generating URLs for calls to the website and API
 class MDPath {
 
     /// Relative paths to the pages on MangaDex

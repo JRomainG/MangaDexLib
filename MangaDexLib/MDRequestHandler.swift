@@ -9,6 +9,7 @@
 import Foundation
 import WebKit
 
+/// The class responsible for performing requests
 class MDRequestHandler: NSObject {
 
     /// The different types of cookies that can be changed by the API

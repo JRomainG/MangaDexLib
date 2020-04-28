@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// The main MangaDex API class, which should be used to access the framework's capabilities
 class MDApi: NSObject {
 
     /// URL for the MangaDex website
