@@ -7,7 +7,6 @@
 //
 
 import XCTest
-//import SwiftSoup
 @testable import MangaDexLib
 
 class MDLibApiTests: XCTestCase {
@@ -80,7 +79,7 @@ class MDLibApiTests: XCTestCase {
         api.getRandomManga { (response) in
             XCTAssert(response.type == .mangaInfo)
             XCTAssertNotNil(response.manga)
-            XCTAssertNotNil(response.manga?.id)
+            XCTAssertNotNil(response.manga?.mangaId)
             XCTAssertNotNil(response.manga?.title)
             XCTAssertNotNil(response.manga?.coverUrl)
             XCTAssertNotNil(response.manga?.description)

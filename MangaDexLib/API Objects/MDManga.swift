@@ -68,7 +68,7 @@ struct MDManga: Decodable {
 extension MDManga {
 
     /// Mapping between MangaDex's API JSON keys and the class' variable names
-    enum CodingKeys : String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case mangaId = "id"
         case title
         case author
