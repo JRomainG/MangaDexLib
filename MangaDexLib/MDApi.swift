@@ -95,10 +95,10 @@ extension MDApi {
         return try self.parser.getMangaIds(from: html)
     }
 
-    /// Fetches the html page containing information about a random manga
+    /// Convenience method to parse a manga's detail page
+    /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
-    func getRandomManga(completion: @escaping MDCompletion) {
-        let url = MDPath.randomManga()
+    private func getMangaInfo(from url: URL, completion: @escaping MDCompletion) {
         requestHandler.get(url: url) { (content, error) in
             // Build a response object for the completion
             let response = MDResponse(type: .mangaInfo, url: url, rawValue: content, error: error)
@@ -111,6 +111,13 @@ extension MDApi {
                 completion(response)
             }
         }
+    }
+
+    /// Fetches the html page containing information about a random manga
+    /// - Parameter completion: The callback at the end of the request
+    func getRandomManga(completion: @escaping MDCompletion) {
+        let url = MDPath.randomManga()
+        getMangaInfo(from: url, completion: completion)
     }
 
     /// Fetches the html page containing the sorted list of mangas
