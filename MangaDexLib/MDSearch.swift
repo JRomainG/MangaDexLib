@@ -11,29 +11,14 @@ import Foundation
 /// Structure representing a search query
 class MDSearch: NSObject {
 
-    // swiftlint:disable redundant_string_enum_value
     /// Type of filtering when searching with tags
     enum TagFilteringMode: String {
         case any = "any"
         case all = "all"
     }
-    // swiftlint:enable redundant_string_enum_value
-
-    /// Type of parameter using during the request for search
-    enum Parameter: String {
-        case title = "title"
-        case author = "author"
-        case artist = "artist"
-        case originalLanguage = "lang_id"
-        case demographics = "demos"
-        case publicationStatuses = "statuses"
-        case tags = "tags"
-        case includeTagsMode = "tag_mode_inc"
-        case excludeTagsMode = "tag_mode_exc"
-    }
 
     /// Options available to select as a work's original language during search
-    let originalLanguages: [Language] = [
+    let originalLanguages: [MDLanguage] = [
         .english,
         .japanese,
         .polish,
@@ -60,13 +45,13 @@ class MDSearch: NSObject {
     var artist: String?
 
     /// Original language of the  mangas to lookup (nil means any)
-    var originalLanguage: Language?
+    var originalLanguage: MDLanguage?
 
     /// Demographics of the  mangas to lookup (empty means no filter)
-    var demographics: [Demographic] = []
+    var demographics: [MDDemographic] = []
 
     /// Publication status of the  mangas to lookup (empty means no filter)
-    var publicationStatuses: [PublicationStatus] = []
+    var publicationStatuses: [MDPublicationStatus] = []
 
     /// Tags to allow in the mangas to lookup (empty means no filter)
     var includeTags: [Int] = []
@@ -93,9 +78,9 @@ class MDSearch: NSObject {
     init(title: String?,
          author: String?,
          artist: String?,
-         originalLanguage: Language?,
-         demographics: [Demographic],
-         publicationStatuses: [PublicationStatus],
+         originalLanguage: MDLanguage?,
+         demographics: [MDDemographic],
+         publicationStatuses: [MDPublicationStatus],
          includeTags: [Int],
          excludeTags: [Int],
          includeTagsMode: TagFilteringMode,

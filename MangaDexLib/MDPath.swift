@@ -17,6 +17,34 @@ class MDPath {
         case latestMangas = "updates"
         case searchMangas = "search"
         case randomManga = "manga"
+        case api = "api"
+    }
+
+    /// Type of parameter used in a search request
+    enum SearchParam: String {
+        case title = "title"
+        case author = "author"
+        case artist = "artist"
+        case originalLanguage = "lang_id"
+        case demographics = "demos"
+        case publicationStatuses = "statuses"
+        case tags = "tags"
+        case includeTagsMode = "tag_mode_inc"
+        case excludeTagsMode = "tag_mode_exc"
+    }
+
+    /// Types of parameters used during api calls
+    enum ApiParam: String {
+        // swiftlint:disable:next identifier_name
+        case id = "id"
+        case server = "server"
+        case type = "type"
+    }
+
+    /// Type of content to fetch when querying the API
+    enum ApiContent: String {
+        case manga = "manga"
+        case chapter = "chapter"
     }
 
     /// Builds an absolute URL with the known base and the given path
@@ -67,7 +95,7 @@ class MDPath {
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter sort: The order in which to sort results
     /// - Returns: The MangaDex URL
-    static func listedMangas(page: Int, sort: SortOrder) -> URL {
+    static func listedMangas(page: Int, sort: MDSortOrder) -> URL {
         return buildUrl(for: .listedMangas, with: [sort.rawValue, page])
     }
 
@@ -124,18 +152,42 @@ class MDPath {
         }
 
         // Build the list of params using URLQueryItem, as they are automatically escaped
-        let params: [URLQueryItem] = [
-            URLQueryItem(name: MDSearch.Parameter.title.rawValue, value: search.title),
-            URLQueryItem(name: MDSearch.Parameter.author.rawValue, value: search.author),
-            URLQueryItem(name: MDSearch.Parameter.artist.rawValue, value: search.artist),
-            URLQueryItem(name: MDSearch.Parameter.originalLanguage.rawValue, value: lang),
-            URLQueryItem(name: MDSearch.Parameter.demographics.rawValue, value: demos),
-            URLQueryItem(name: MDSearch.Parameter.publicationStatuses.rawValue, value: statuses),
-            URLQueryItem(name: MDSearch.Parameter.tags.rawValue, value: tags),
-            URLQueryItem(name: MDSearch.Parameter.includeTagsMode.rawValue, value: search.includeTagsMode.rawValue),
-            URLQueryItem(name: MDSearch.Parameter.excludeTagsMode.rawValue, value: search.excludeTagsMode.rawValue)
+        let params = [
+            URLQueryItem(name: SearchParam.title.rawValue, value: search.title),
+            URLQueryItem(name: SearchParam.author.rawValue, value: search.author),
+            URLQueryItem(name: SearchParam.artist.rawValue, value: search.artist),
+            URLQueryItem(name: SearchParam.originalLanguage.rawValue, value: lang),
+            URLQueryItem(name: SearchParam.demographics.rawValue, value: demos),
+            URLQueryItem(name: SearchParam.publicationStatuses.rawValue, value: statuses),
+            URLQueryItem(name: SearchParam.tags.rawValue, value: tags),
+            URLQueryItem(name: SearchParam.includeTagsMode.rawValue, value: search.includeTagsMode.rawValue),
+            URLQueryItem(name: SearchParam.excludeTagsMode.rawValue, value: search.excludeTagsMode.rawValue)
         ]
         return MDPath.buildUrl(for: .searchMangas, with: params, keepEmpty: false)
+    }
+
+    /// Returns the URL to fetch information about a given manga
+    /// - Parameter mangaId: The identifier of the manga
+    /// - Returns: The MangaDex URL
+    static func mangaInfo(mangaId: Int) -> URL {
+        let params = [
+            URLQueryItem(name: ApiParam.id.rawValue, value: String(mangaId)),
+            URLQueryItem(name: ApiParam.type.rawValue, value: ApiContent.chapter.rawValue)
+        ]
+        return MDPath.buildUrl(for: .api, with: params)
+    }
+
+    /// Returns the URL to fetch information about a given chapter
+    /// - Parameter chapterId: The identifier of the chapter
+    /// - Parameter server: The server from which to load images
+    /// - Returns: The MangaDex URL
+    static func chapterInfo(chapterId: Int, server: MDRequestHandler.Server) -> URL {
+        let params = [
+            URLQueryItem(name: ApiParam.id.rawValue, value: String(chapterId)),
+            URLQueryItem(name: ApiParam.server.rawValue, value: server.rawValue),
+            URLQueryItem(name: ApiParam.type.rawValue, value: ApiContent.chapter.rawValue)
+        ]
+        return MDPath.buildUrl(for: .api, with: params)
     }
 
 }

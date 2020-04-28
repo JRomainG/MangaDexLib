@@ -22,7 +22,7 @@ class MDLibPathTests: XCTestCase {
     func testListedMangasPath() throws {
         let page = 3
         let popularMangaURL = MDPath.listedMangas(page: page, sort: .bestRating)
-        let expectedURL = URL(string: "\(MDApi.baseURL)/titles/\(SortOrder.bestRating.rawValue)/\(page)")!
+        let expectedURL = URL(string: "\(MDApi.baseURL)/titles/\(MDSortOrder.bestRating.rawValue)/\(page)")!
         XCTAssert(popularMangaURL.absoluteString == expectedURL.absoluteString)
     }
 
@@ -53,8 +53,8 @@ class MDLibPathTests: XCTestCase {
                               originalLanguage: .japanese,
                               demographics: [.shounen, .shoujo],
                               publicationStatuses: [.ongoing, .completed],
-                              includeTags: [MDSearch.Format.oneShot.rawValue],
-                              excludeTags: [MDSearch.Content.sexualViolence.rawValue, MDSearch.Genre.crime.rawValue],
+                              includeTags: [MDFormat.oneShot.rawValue],
+                              excludeTags: [MDContent.sexualViolence.rawValue, MDGenre.crime.rawValue],
                               includeTagsMode: .all,
                               excludeTagsMode: .any)
 
