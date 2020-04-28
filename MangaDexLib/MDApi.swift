@@ -16,4 +16,6 @@ class MDApi: NSObject {
     /// Default value appended after the default User-Agent for all requests made by the lib
     static let defaultUserAgent = "MangaDexLib"
 
+    let requestHandler = MDRequestHandler()
+
 }
