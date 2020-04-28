@@ -51,9 +51,8 @@ class MDLibPathTests: XCTestCase {
     }
 
     func testFeaturedMangasPath() throws {
-        let page = 6
-        let featuredMangaURL = MDPath.featuredMangas(page: page)
-        let expectedURL = URL(string: "\(MDApi.baseURL)/featured/\(page)")!
+        let featuredMangaURL = MDPath.featuredMangas()
+        let expectedURL = URL(string: "\(MDApi.baseURL)/featured")!
         assertUrlsAreEqual(featuredMangaURL, expectedURL)
     }
 

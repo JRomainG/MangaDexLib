@@ -104,8 +104,8 @@ class MDPath {
     /// Returns the URL to fetch the featured mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Returns: The MangaDex URL
-    static func featuredMangas(page: Int) -> URL {
-        return buildUrl(for: .featuredMangas, with: [page])
+    static func featuredMangas() -> URL {
+        return buildUrl(for: .featuredMangas)
     }
 
     /// Returns the URL to fetch the latest updated mangas

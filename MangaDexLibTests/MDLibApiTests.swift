@@ -20,15 +20,53 @@ class MDLibApiTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testGetRequest() throws {
+    func assertMangaListIsValid(for response: MDResponse) {
+        XCTAssertNil(response.error)
+        XCTAssertNotNil(response.rawValue)
+        XCTAssertNotNil(response.mangas)
+        XCTAssertGreaterThan(response.mangas!.count, 0)
+    }
+
+    func testListedMangas() throws {
         let api = MDApi()
         let expectation = self.expectation(description: "Load MangaDex titles page")
 
         api.getListedMangas(page: 1, sort: .bestRating) { (response) in
-            XCTAssertNil(response.error)
-            XCTAssertNotNil(response.rawValue)
-            XCTAssertNotNil(response.idList)
-            XCTAssertGreaterThan(response.idList!.count, 0)
+            self.assertMangaListIsValid(for: response)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testFeaturedMangas() throws {
+        let api = MDApi()
+        let expectation = self.expectation(description: "Load MangaDex featured page")
+
+        api.getFeaturedMangas { (response) in
+            self.assertMangaListIsValid(for: response)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testLatestMangas() throws {
+        let api = MDApi()
+        let expectation = self.expectation(description: "Load MangaDex latest updates page")
+
+        api.getLatestMangas(page: 1) { (response) in
+            self.assertMangaListIsValid(for: response)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testMangaSearch() throws {
+        let api = MDApi()
+        let search = MDSearch(title: "Tower of God")
+        let expectation = self.expectation(description: "Load MangaDex search page")
+
+        // Searching is disabled when logged out, so this will return the login page
+        api.performSearch(search) { (_) in
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)

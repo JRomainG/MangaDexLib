@@ -54,13 +54,54 @@ class MDApi: NSObject {
 
 extension MDApi {
 
-    /// Fetches the html homepage of MangaDex
+    /// Common method for getting a list of mangas from a URL
+    /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
-    func getHomepage(completion: @escaping MDCompletion) {
-        let url = URL(string: MDApi.baseURL)!
+    private func getMangas(from url: URL, completion: @escaping MDCompletion) {
         requestHandler.get(url: url) { (content, error) in
             // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            let response = MDResponse(type: .mangaList, url: url, rawValue: content, error: error)
+            guard error == nil, let html = content else {
+                completion(response)
+                return
+            }
+
+            // Try to parse the content
+            do {
+                let mangas = try self.parseMangaHtmlList(html)
+                response.mangas = mangas
+                completion(response)
+            } catch {
+                response.error = error
+                completion(response)
+            }
+        }
+    }
+
+    /// Convenience method to call the parser and extract mangas from and html string
+    /// - Parameter html: The string to parse
+    /// - Returns: A list of mangas
+    ///
+    /// The mangas will either have titles and ids, or only ids (if the first method fails).
+    /// To get more info, a request `getMangaInfo` request must be made
+    private func parseMangaHtmlList(_ html: String) throws -> [MDManga] {
+        // Try to extract mangas with their titles and IDs
+        let mangas = try self.parser.getMangas(from: html)
+        if mangas.count > 0 {
+            return mangas
+        }
+
+        // Use the parser's fallback if no manga was found
+        return try self.parser.getMangaIds(from: html)
+    }
+
+    /// Fetches the html page containing information about a random manga
+    /// - Parameter completion: The callback at the end of the request
+    func getRandomManga(completion: @escaping MDCompletion) {
+        let url = MDPath.randomManga()
+        requestHandler.get(url: url) { (content, error) in
+            // Build a response object for the completion
+            let response = MDResponse(type: .mangaList, url: url, rawValue: content, error: error)
             completion(response)
         }
     }
@@ -71,36 +112,15 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     func getListedMangas(page: Int, sort: MDSortOrder, completion: @escaping MDCompletion) {
         let url = MDPath.listedMangas(page: page, sort: sort)
-        requestHandler.get(url: url) { (content, error) in
-            // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
-            guard error == nil, let html = content else {
-                completion(response)
-                return
-            }
-
-            // Try to parse the content
-            do {
-                let mangas = try self.parser.getMangaIds(from: html)
-                response.idList = mangas
-                completion(response)
-            } catch {
-                response.error = error
-                completion(response)
-            }
-        }
+        getMangas(from: url, completion: completion)
     }
 
     /// Fetches the html page containing the featured mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
-    func getFeaturedMangas(page: Int, completion: @escaping MDCompletion) {
-        let url = MDPath.featuredMangas(page: page)
-        requestHandler.get(url: url) { (content, error) in
-            // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
-            completion(response)
-        }
+    func getFeaturedMangas(completion: @escaping MDCompletion) {
+        let url = MDPath.featuredMangas()
+        getMangas(from: url, completion: completion)
     }
 
     /// Fetches the html page containing the latest updated mangas
@@ -108,22 +128,7 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     func getLatestMangas(page: Int, completion: @escaping MDCompletion) {
         let url = MDPath.latestMangas(page: page)
-        requestHandler.get(url: url) { (content, error) in
-            // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
-            completion(response)
-        }
-    }
-
-    /// Fetches the html page containing information about a random manga
-    /// - Parameter completion: The callback at the end of the request
-    func getRandomManga(completion: @escaping MDCompletion) {
-        let url = MDPath.randomManga()
-        requestHandler.get(url: url) { (content, error) in
-            // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
-            completion(response)
-        }
+        getMangas(from: url, completion: completion)
     }
 
     /// Fetches the html page containing the result of the search
@@ -131,11 +136,7 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     func performSearch(_ search: MDSearch, completion: @escaping MDCompletion) {
         let url = MDPath.search(search)
-        requestHandler.get(url: url) { (content, error) in
-            // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
-            completion(response)
-        }
+        getMangas(from: url, completion: completion)
     }
 
 }
@@ -151,7 +152,7 @@ extension MDApi {
         let url = MDPath.mangaInfo(mangaId: mangaId)
         requestHandler.get(url: url) { (content, error) in
             // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            let response = MDResponse(type: .mangaList, url: url, rawValue: content, error: error)
             completion(response)
         }
     }
@@ -163,7 +164,7 @@ extension MDApi {
         let url = MDPath.chapterInfo(chapterId: chapterId, server: server)
         requestHandler.get(url: url) { (content, error) in
             // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, rawValue: content, error: error)
+            let response = MDResponse(type: .mangaList, url: url, rawValue: content, error: error)
             completion(response)
         }
     }

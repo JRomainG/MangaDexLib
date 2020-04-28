@@ -21,6 +21,7 @@
 		3354C76B24585D8D00E65B8A /* MDResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354C76A24585D8D00E65B8A /* MDResponse.swift */; };
 		3354C76D2458798D00E65B8A /* MDLibRequestHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354C76C2458798D00E65B8A /* MDLibRequestHandlerTests.swift */; };
 		3354C76F245881D600E65B8A /* MDResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354C76E245881D600E65B8A /* MDResource.swift */; };
+		3354C77124588A4F00E65B8A /* MDManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354C77024588A4F00E65B8A /* MDManga.swift */; };
 		3354C77B2458909B00E65B8A /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3354C77A2458909B00E65B8A /* SwiftSoup.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		3354C76A24585D8D00E65B8A /* MDResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDResponse.swift; sourceTree = "<group>"; };
 		3354C76C2458798D00E65B8A /* MDLibRequestHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLibRequestHandlerTests.swift; sourceTree = "<group>"; };
 		3354C76E245881D600E65B8A /* MDResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDResource.swift; sourceTree = "<group>"; };
+		3354C77024588A4F00E65B8A /* MDManga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDManga.swift; sourceTree = "<group>"; };
 		3354C77A2458909B00E65B8A /* SwiftSoup.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSoup.framework; path = Carthage/Build/iOS/SwiftSoup.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +134,7 @@
 		3354C77224588BDB00E65B8A /* API Objects */ = {
 			isa = PBXGroup;
 			children = (
+				3354C77024588A4F00E65B8A /* MDManga.swift */,
 				3354C76E245881D600E65B8A /* MDResource.swift */,
 				3353B5BA245797930066B8D5 /* MDSearch.swift */,
 			);
@@ -324,6 +327,7 @@
 				3353B5BF2457A7AF0066B8D5 /* MDParser.swift in Sources */,
 				3353B5BB245797930066B8D5 /* MDSearch.swift in Sources */,
 				3354C76B24585D8D00E65B8A /* MDResponse.swift in Sources */,
+				3354C77124588A4F00E65B8A /* MDManga.swift in Sources */,
 				3354C76F245881D600E65B8A /* MDResource.swift in Sources */,
 				3353B5AE2457905C0066B8D5 /* MDRequestHandler.swift in Sources */,
 				3353B5AC24578F710066B8D5 /* MDApi.swift in Sources */,

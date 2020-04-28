@@ -36,6 +36,7 @@ class MDParser {
 extension MDParser {
 
     /// The name of the class to lookup in the extracted html of MangaDex homepages
+    /// to get a manga's ID
     ///
     /// The format of the element is:
     /// `<div class="manga-entry [...]" data-id="[...]">`
@@ -47,19 +48,63 @@ extension MDParser {
     /// `<div class="manga-entry [...]" data-id="[...]">`
     static let mangaEntryIdKey = "data-id"
 
+    /// The name of the class to lookup in the extracted html of MangaDex homepages
+    /// to get a manga's title and ID
+    ///
+    /// The format of the element is:
+    /// `<a title="[...]" href="/title/[id]/[...]" class="manga_title [...]">[...]</a>`
+    static let mangaEntryTitleClass = "manga_title"
+
+    /// Extract the id from the relative link of a manga
+    ///
+    /// The format is `/title/[id]/[manga-name]`
+    private func getIdFromHref(_ href: String) -> Int? {
+        let components = href.components(separatedBy: "/")
+        guard components.count > 2 else {
+            return nil
+        }
+        return Int(components[2])
+    }
+
     /// Extract the list of mangas present in the given html string
     /// - Parameter content: The html string to parse
     /// - Returns: A list of mangas IDs
-    func getMangaIds(from content: String) throws -> [Int] {
+    ///
+    /// Only the `title` and `id` are extracted by this method
+    func getMangas(from content: String) throws -> [MDManga] {
+        let doc = try MDParser.parse(html: content)
+        let elements = try MDParser.getElements(by: MDParser.mangaEntryTitleClass, from: doc)
+
+        var mangas: [MDManga] = []
+        for element in elements {
+            // Extract the info for this element
+            let title = try element.text()
+            let href = try element.attr("href")
+
+            // To be more robust, ignore mangas for which the extract failed
+            // Indeed, sometimes other elements have the same class as what we're looking for
+            if let id = self.getIdFromHref(href) {
+                mangas.append(MDManga(title: title, id: id))
+            }
+        }
+        return mangas
+    }
+
+    /// Extract the list of manga IDs present in the given html string
+    /// - Parameter content: The html string to parse
+    /// - Returns: A list of mangas IDs
+    ///
+    /// This can be used as backup if `getMangas` fails
+    func getMangaIds(from content: String) throws -> [MDManga] {
         let doc = try MDParser.parse(html: content)
         let elements = try MDParser.getElements(by: MDParser.mangaEntryClass, from: doc)
 
-        var mangaIds: [Int] = []
+        var mangas: [MDManga] = []
         for element in elements {
             let mangaId = try element.attr(MDParser.mangaEntryIdKey)
-            mangaIds.append(Int(mangaId)!)
+            mangas.append(MDManga(id: Int(mangaId)!))
         }
-        return mangaIds
+        return mangas
     }
 
 }
