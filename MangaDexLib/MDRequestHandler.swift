@@ -30,6 +30,10 @@ class MDRequestHandler: NSObject {
     /// The `MDApi.defaultUserAgent` string is then appended to that User-Agent
     private(set) var userAgent = MDApi.defaultUserAgent
 
+    /// Boolean indicating whether a User-Agent has been set, meaning that
+    /// the call to `buildUserAgent` shouldn't override it
+    private var hasUserAgent = false
+
     /// The current session used for requests
     private(set) var session: URLSession = .shared
 
@@ -50,8 +54,14 @@ class MDRequestHandler: NSObject {
     /// - Parameter suffix: The string to append after the default User-Agent
     private func buildUserAgent(suffix: String) {
         WKWebView().evaluateJavaScript("navigator.userAgent") { (result, _) in
+            // Don't override a custom User Agent
+            guard !self.hasUserAgent else {
+                return
+            }
+
+            // Build a pretty User-Agent
             if let userAgent = result as? String {
-                self.setUserAgent(userAgent + suffix)
+                self.setUserAgent("\(userAgent) (using \(suffix))")
             } else {
                 self.setUserAgent(suffix)
             }
@@ -62,6 +72,8 @@ class MDRequestHandler: NSObject {
     /// - Parameter userAgent: The new user agent to use
     func setUserAgent(_ userAgent: String) {
         UserDefaults.standard.register(defaults: ["UserAgent": userAgent])
+        self.userAgent = userAgent
+        self.hasUserAgent = true
     }
 
     /// Reset the session (clear cookies, credentials, caches...)
