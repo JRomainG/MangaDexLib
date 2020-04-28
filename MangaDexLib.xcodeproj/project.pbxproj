@@ -26,6 +26,7 @@
 		3354C77B2458909B00E65B8A /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3354C77A2458909B00E65B8A /* SwiftSoup.framework */; platformFilter = ios; };
 		339899342458D94300AEEE39 /* MDComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899332458D94300AEEE39 /* MDComment.swift */; };
 		339899362458D9AE00AEEE39 /* MDUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899352458D9AE00AEEE39 /* MDUser.swift */; };
+		3398993A2458F75D00AEEE39 /* MDLibParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899392458F75D00AEEE39 /* MDLibParserTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		3354C77A2458909B00E65B8A /* SwiftSoup.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSoup.framework; path = Carthage/Build/iOS/SwiftSoup.framework; sourceTree = "<group>"; };
 		339899332458D94300AEEE39 /* MDComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDComment.swift; sourceTree = "<group>"; };
 		339899352458D9AE00AEEE39 /* MDUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDUser.swift; sourceTree = "<group>"; };
+		339899392458F75D00AEEE39 /* MDLibParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLibParserTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				3353B5BC2457A25E0066B8D5 /* MDLibApiTests.swift */,
+				339899392458F75D00AEEE39 /* MDLibParserTests.swift */,
 				3353B5A624578A3E0066B8D5 /* MDLibPathTests.swift */,
 				3354C76C2458798D00E65B8A /* MDLibRequestHandlerTests.swift */,
 				3353B59F24578A350066B8D5 /* Info.plist */,
@@ -352,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3353B5A724578A3E0066B8D5 /* MDLibPathTests.swift in Sources */,
+				3398993A2458F75D00AEEE39 /* MDLibParserTests.swift in Sources */,
 				3354C76D2458798D00E65B8A /* MDLibRequestHandlerTests.swift in Sources */,
 				3353B5BD2457A25E0066B8D5 /* MDLibApiTests.swift in Sources */,
 			);

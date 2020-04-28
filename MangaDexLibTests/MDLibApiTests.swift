@@ -82,7 +82,7 @@ class MDLibApiTests: XCTestCase {
 
         // Searching is disabled when logged out, so this will return the login page
         api.performSearch(search) { (_) in
-            // TODO
+            // TODO: Detect login
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
