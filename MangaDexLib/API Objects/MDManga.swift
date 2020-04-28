@@ -12,7 +12,7 @@ import Foundation
 struct MDManga: Decodable {
 
     /// The id of the manga
-    var mangaId: Int?
+    var mangaId: Int
 
     /// The manga's title
     var title: String?
@@ -52,6 +52,9 @@ struct MDManga: Decodable {
     /// A set of links to external websites
     var links: [String: String]?
 
+    /// This manga's status
+    var status: MDStatus?
+
     /// A convenience method to create a manga with only an id
     init(mangaId: Int) {
         self.mangaId = mangaId
@@ -82,6 +85,7 @@ extension MDManga {
         case originalLangCode = "lang_flag"
         case rated = "hentai"
         case links
+        case status = "manga_status"
     }
 
 }
