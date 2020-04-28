@@ -181,7 +181,7 @@ class MDPath {
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter server: The server from which to load images
     /// - Returns: The MangaDex URL
-    static func chapterInfo(chapterId: Int, server: MDRequestHandler.Server) -> URL {
+    static func chapterInfo(chapterId: Int, server: MDApi.Server) -> URL {
         let params = [
             URLQueryItem(name: ApiParam.id.rawValue, value: String(chapterId)),
             URLQueryItem(name: ApiParam.server.rawValue, value: server.rawValue),

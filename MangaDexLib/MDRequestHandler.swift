@@ -11,26 +11,6 @@ import WebKit
 
 class MDRequestHandler: NSObject {
 
-    /// Stored in the cookies
-    /// key: `mangadex_h_toggle`
-    enum RatedFilter: Int {
-        case noR18 = 0
-        case all = 1
-        case onlyR18 = 2
-    }
-
-    /// Stored in local storage
-    /// key: `imageServer`
-    enum Server: String {
-        case automatic = "0"
-        case naEu1 = "na"
-        case naEu2 = "na2"
-        // The following options are currently disabled on the website
-        //case europe = "eu"
-        //case europe2 = "eu2"
-        //case restOfTheWorld = "row"
-    }
-
     /// User-Agent used for calls by this instance.
     /// During init, WKWebView is used to get the device's real User-Agent.
     /// The `MDApi.defaultUserAgent` string is then appended to that User-Agent
@@ -61,8 +41,8 @@ class MDRequestHandler: NSObject {
 
     /// Perform an async get request
     /// - Parameter url: The URL to fetch
-    /// - Parameter callback: The callback at the end of the request
-    func get(url: URL, callback: @escaping (String?, Error?) -> Void) {
+    /// - Parameter completion: The callback at the end of the request
+    func get(url: URL, completion: @escaping (String?, Error?) -> Void) {
         let request = NSMutableURLRequest(url: url)
         request.setValue(self.userAgent, forHTTPHeaderField: "User-Agent")
 
@@ -73,7 +53,7 @@ class MDRequestHandler: NSObject {
             if data != nil {
                 output = NSString(data: data!, encoding: String.Encoding.utf8.rawValue) as String?
             }
-            callback(output, error)
+            completion(output, error)
         }
         task.resume()
     }
