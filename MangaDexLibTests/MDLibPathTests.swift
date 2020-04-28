@@ -160,15 +160,15 @@ class MDLibPathTests: XCTestCase {
     }
 
     func testExternalPath() throws {
-        let resource = MDPath.ExternalResource.mangaUpdates
+        let resource = MDResource.mangaUpdates
         let resourceId = "140860" // Buddha Cafe
         let externalURL = MDPath.externalResource(resource: resource, path: resourceId)!
-        let expectedURL = URL(string: "\(resource.rawValue)\(resourceId)")!
+        let expectedURL = URL(string: "\(resource.baseURL!)\(resourceId)")!
         assertUrlsAreEqual(externalURL, expectedURL)
     }
 
     func testExternalAbsolutePath() throws {
-        let resource = MDPath.ExternalResource.eBookJapan
+        let resource = MDResource.eBookJapan
         let resourceId = "https://ebookjapan.yahoo.co.jp/books/428086" // Buddha Cafe
         let externalURL = MDPath.externalResource(resource: resource, path: resourceId)!
         let expectedURL = URL(string: resourceId)!

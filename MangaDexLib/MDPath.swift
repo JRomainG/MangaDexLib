@@ -21,27 +21,6 @@ class MDPath {
         case api = "api"
     }
 
-    /// Path root for external links with manga details
-    ///
-    /// Cases with the default raw value are the ones where the API
-    /// already returns an absolute URL
-    enum ExternalResource: String {
-        // Informative websites
-        case aniList = "https://anilist.co/manga/"
-        case animePlanet = "https://www.anime-planet.com/manga/"
-        case kitsu = "https://kitsu.io/manga/"
-        case mangaUpdates = "https://www.mangaupdates.com/series.html?id="
-        case myAnimeList = "https://myanimelist.net/manga/"
-        // Official release
-        case raw
-        case officialTranslation
-        // Retail websites
-        case amazon
-        case eBookJapan
-        case cdJapan
-        case bookWalker = "https://bookwalker.jp/series/"
-    }
-
     /// Type of parameter used in a search request
     enum SearchParam: String {
         case title = "title"
@@ -235,13 +214,13 @@ class MDPath {
         // Handle cases where the resource is only a relative URL, which means the resource's
         // raw value contains the base URL for the resource
         var absoluteURL: String
-        if resource.rawValue.hasPrefix("https://") || resource.rawValue.hasPrefix("http://") {
+        if let baseURL = resource.baseURL {
             // Can't use "appendingPathComponent" as URLs may expect a get parameter
             // Instead, just append the string to the base URL
             guard let escapedPath = path.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
                 return nil
             }
-            absoluteURL = resource.rawValue + escapedPath
+            absoluteURL = baseURL + escapedPath
         } else {
             absoluteURL = path
         }
