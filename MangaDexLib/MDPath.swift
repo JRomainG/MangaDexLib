@@ -20,6 +20,27 @@ class MDPath {
         case api = "api"
     }
 
+    /// Path root for external links with manga details
+    ///
+    /// Cases with the default raw value are the ones where the API
+    /// already returns an absolute URL
+    enum ExternalResource: String {
+        // Informative websites
+        case aniList = "https://anilist.co/manga/"
+        case animePlanet = "https://www.anime-planet.com/manga/"
+        case kitsu = "https://kitsu.io/manga/"
+        case mangaUpdates = "https://www.mangaupdates.com/series.html?id="
+        case myAnimeList = "https://myanimelist.net/manga/"
+        // Official release
+        case raw
+        case officialTranslation
+        // Retail websites
+        case amazon
+        case eBookJapan
+        case cdJapan
+        case bookWalker = "https://bookwalker.jp/series/"
+    }
+
     /// Type of parameter used in a search request
     enum SearchParam: String {
         case title = "title"
@@ -191,6 +212,20 @@ class MDPath {
         // When the server is set to automatic, its value is ""
         // and we don't want to send it to the API, so set keepEmpty to false
         return MDPath.buildUrl(for: .api, with: params, keepEmpty: false)
+    }
+
+    /// Returns the URL to an external resource
+    /// - Parameter resource: The type of external website
+    /// - Parameter link: The ID or absolute URL for the resource
+    /// - Returns: The external URL
+    static func externalResource(resource: ExternalResource, link: String) -> URL? {
+        // Handle cases where the resource is only a relative URL, which means the resource's
+        // raw value contains the base URL for the resource
+        if resource.rawValue.hasPrefix("https://") || resource.rawValue.hasPrefix("http://") {
+            return URL(string: resource.rawValue + link)
+        } else {
+            return URL(string: link)
+        }
     }
 
 }

@@ -126,14 +126,14 @@ class MDLibPathTests: XCTestCase {
         assertUrlsAreEqual(searchURL, expectedURL)
     }
 
-    func testMangaInfo() throws {
+    func testMangaInfoPath() throws {
         let mangaId = 7139 // One Punch Man
         let apiURL = MDPath.mangaInfo(mangaId: mangaId)
         let expectedURL = URL(string: "\(MDApi.baseURL)/api/?id=\(mangaId)&type=manga")!
         assertUrlsAreEqual(apiURL, expectedURL)
     }
 
-    func testChapterInfo() throws {
+    func testChapterInfoPath() throws {
         let chapterId = 867036 // One Punch Man chapter 131
         let server = MDApi.Server.naEu1
         let apiURL = MDPath.chapterInfo(chapterId: chapterId, server: server)
@@ -148,6 +148,22 @@ class MDLibPathTests: XCTestCase {
         let apiURL = MDPath.chapterInfo(chapterId: chapterId, server: server)
         let expectedURL = URL(string: "\(MDApi.baseURL)/api/?id=\(chapterId)&type=chapter")!
         assertUrlsAreEqual(apiURL, expectedURL)
+    }
+
+    func testExternalPath() throws {
+        let resource = MDPath.ExternalResource.mangaUpdates
+        let resourceId = "140860" // Buddha Cafe
+        let externalURL = MDPath.externalResource(resource: resource, link: resourceId)!
+        let expectedURL = URL(string: "\(resource.rawValue)\(resourceId)")!
+        assertUrlsAreEqual(externalURL, expectedURL)
+    }
+
+    func testExternalAbsolutePath() throws {
+        let resource = MDPath.ExternalResource.eBookJapan
+        let resourceId = "https://ebookjapan.yahoo.co.jp/books/428086" // Buddha Cafe
+        let externalURL = MDPath.externalResource(resource: resource, link: resourceId)!
+        let expectedURL = URL(string: resourceId)!
+        assertUrlsAreEqual(externalURL, expectedURL)
     }
 
 }
