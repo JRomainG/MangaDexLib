@@ -73,8 +73,8 @@ class MDPath {
     /// - Parameter path: The relative path of the resource
     /// - Returns: The MangaDex URL
     static private func buildUrl(for path: Path) -> URL {
-        let urlString = "\(MDApi.baseURL)/\(path.rawValue)"
-        return URL(string: urlString)!
+        let url = URL(string: MDApi.baseURL)!
+        return url.appendingPathComponent(path.rawValue)
     }
 
     /// Builds an absolute URL with the known base and the given parameters
@@ -82,11 +82,12 @@ class MDPath {
     /// - Parameter components: The list of integer components to add, seperated by `/`
     /// - Returns: The MangaDex URL
     static private func buildUrl(for path: Path, with components: [Int]) -> URL {
-        var urlString = "\(MDApi.baseURL)/\(path.rawValue)"
+        var url = URL(string: MDApi.baseURL)!
+        url = url.appendingPathComponent(path.rawValue)
         for component in components {
-            urlString += "/\(component)"
+            url = url.appendingPathComponent(String(component))
         }
-        return URL(string: urlString)!
+        return url
     }
 
     /// Builds an absolute URL with the known base and the given GET parameters
@@ -217,16 +218,23 @@ class MDPath {
 
     /// Returns the URL to an external resource
     /// - Parameter resource: The type of external website
-    /// - Parameter link: The ID or absolute URL for the resource
+    /// - Parameter path: The ID or absolute URL for the resource
     /// - Returns: The external URL
-    static func externalResource(resource: ExternalResource, link: String) -> URL? {
+    static func externalResource(resource: ExternalResource, path: String) -> URL? {
         // Handle cases where the resource is only a relative URL, which means the resource's
         // raw value contains the base URL for the resource
+        var absoluteURL: String
         if resource.rawValue.hasPrefix("https://") || resource.rawValue.hasPrefix("http://") {
-            return URL(string: resource.rawValue + link)
+            // Can't use "appendingPathComponent" as URLs may expect a get parameter
+            // Instead, just append the string to the base URL
+            guard let escapedPath = path.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else {
+                return nil
+            }
+            absoluteURL = resource.rawValue + escapedPath
         } else {
-            return URL(string: link)
+            absoluteURL = path
         }
+        return URL(string: absoluteURL)
     }
 
 }

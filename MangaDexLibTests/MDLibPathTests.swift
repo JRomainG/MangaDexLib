@@ -142,7 +142,7 @@ class MDLibPathTests: XCTestCase {
         assertUrlsAreEqual(apiURL, expectedURL)
     }
 
-    func testChapterInfoServer() throws {
+    func testChapterInfoServerPath() throws {
         let chapterId = 810605 // 5Tobun chapter 122
         let server = MDApi.Server.automatic
         let apiURL = MDPath.chapterInfo(chapterId: chapterId, server: server)
@@ -153,7 +153,7 @@ class MDLibPathTests: XCTestCase {
     func testExternalPath() throws {
         let resource = MDPath.ExternalResource.mangaUpdates
         let resourceId = "140860" // Buddha Cafe
-        let externalURL = MDPath.externalResource(resource: resource, link: resourceId)!
+        let externalURL = MDPath.externalResource(resource: resource, path: resourceId)!
         let expectedURL = URL(string: "\(resource.rawValue)\(resourceId)")!
         assertUrlsAreEqual(externalURL, expectedURL)
     }
@@ -161,7 +161,7 @@ class MDLibPathTests: XCTestCase {
     func testExternalAbsolutePath() throws {
         let resource = MDPath.ExternalResource.eBookJapan
         let resourceId = "https://ebookjapan.yahoo.co.jp/books/428086" // Buddha Cafe
-        let externalURL = MDPath.externalResource(resource: resource, link: resourceId)!
+        let externalURL = MDPath.externalResource(resource: resource, path: resourceId)!
         let expectedURL = URL(string: resourceId)!
         assertUrlsAreEqual(externalURL, expectedURL)
     }
