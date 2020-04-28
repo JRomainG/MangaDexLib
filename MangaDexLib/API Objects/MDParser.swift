@@ -106,8 +106,8 @@ extension MDParser {
 
             // To be more robust, ignore mangas for which the extract failed
             // Indeed, sometimes other elements have the same class as what we're looking for
-            if let id = self.getIdFromHref(href) {
-                mangas.append(MDManga(title: title, id: id))
+            if let mangaId = self.getIdFromHref(href) {
+                mangas.append(MDManga(title: title, mangaId: mangaId))
             }
         }
         return mangas
@@ -127,7 +127,7 @@ extension MDParser {
             let mangaIdString = try element.attr(MDParser.mangaEntryIdKey)
 
             if let mangaId = Int(mangaIdString) {
-                mangas.append(MDManga(id: mangaId))
+                mangas.append(MDManga(mangaId: mangaId))
             }
         }
         return mangas
@@ -159,7 +159,7 @@ extension MDParser {
         let href = try elements.get(0).attr("href")
         let mangaId = getIdFromHref(href)!
 
-        var manga = MDManga(title: title, id: mangaId)
+        var manga = MDManga(title: title, mangaId: mangaId)
         manga.description = description
         manga.coverUrl = coverUrl
         return manga

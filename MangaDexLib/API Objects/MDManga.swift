@@ -9,28 +9,28 @@
 import Foundation
 
 /// Class representing a manga returned by MangaDex
-struct MDManga: Codable {
+struct MDManga: Decodable {
 
     /// The id of the manga
-    var id: Int?
-
-    /// The link to the manga's cover image
-    var coverUrl: String?
-
-    /// The manga's description
-    var description: String?
+    var mangaId: Int?
 
     /// The manga's title
     var title: String?
 
-    /// The artist working on the manga
-    var artist: String?
-
     /// The author of the manga
     var author: String?
 
+    /// The artist working on the manga
+    var artist: String?
+
+    /// The manga's description
+    var description: String?
+
+    /// The link to the manga's cover image
+    var coverUrl: String?
+
     /// The manga's publication status
-    var status: MDPublicationStatus?
+    var publicationStatus: MDPublicationStatus?
 
     /// The manga's genres
     var genres: [MDGenre]?
@@ -39,28 +39,49 @@ struct MDManga: Codable {
     var lastChapter: Bool?
 
     /// The name of the manga's original language
-    var langName: String?
+    var originalLangName: String?
 
     /// The short name of the manga's original language
     ///
     /// Ex: `jp` for Japanese, `gb` for British English
-    var langFlag: String?
+    var originalLangCode: String?
 
     /// A boolean indicating whether the manga is rated or not
-    var hentai: Bool?
+    var rated: Bool?
 
     /// A set of links to external websites
     var links: [String: String]?
 
     /// A convenience method to create a manga with only an id
-    init(id: Int) {
-        self.id = id
+    init(mangaId: Int) {
+        self.mangaId = mangaId
     }
 
     /// A convenience method to create a manga with a title and id only
-    init(title: String, id: Int) {
+    init(title: String, mangaId: Int) {
         self.title = title
-        self.id = id
+        self.mangaId = mangaId
+    }
+
+}
+
+extension MDManga {
+
+    /// Mapping between MangaDex's API JSON keys and the class' variable names
+    enum CodingKeys : String, CodingKey {
+        case mangaId = "id"
+        case title
+        case author
+        case artist
+        case description
+        case coverUrl = "conver_url"
+        case publicationStatus = "status"
+        case genres
+        case lastChapter = "last_chapter"
+        case originalLangName = "lang_name"
+        case originalLangCode = "lang_flag"
+        case rated = "hentai"
+        case links
     }
 
 }

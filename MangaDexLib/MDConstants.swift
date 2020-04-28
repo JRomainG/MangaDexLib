@@ -27,7 +27,7 @@ enum MDServer: String {
 }
 
 /// Sort orders available for the listed mangas
-enum MDSortOrder: Int {
+enum MDSortOrder: Int, Codable {
     case recentlyUpdated = 0
     case oldestUpdated = 1
     case alphabetical = 2
@@ -43,7 +43,7 @@ enum MDSortOrder: Int {
 }
 
 /// Languages available on the MangaDex website
-enum MDLanguage: Int {
+enum MDLanguage: Int, Codable {
     case all = 0
     case english = 1
     case japanese = 2
@@ -90,7 +90,7 @@ enum MDLanguage: Int {
 }
 
 /// Demographic a manga appeals to, available to filter during search
-enum MDDemographic: Int {
+enum MDDemographic: Int, Codable {
     case shounen = 1
     case shoujo = 2
     case seinen = 3
@@ -98,7 +98,7 @@ enum MDDemographic: Int {
 }
 
 /// Status of a manga, available to filter during search
-enum MDPublicationStatus: Int {
+enum MDPublicationStatus: Int, Codable {
     case ongoing = 1
     case completed = 2
     case cancelled = 3
@@ -106,7 +106,7 @@ enum MDPublicationStatus: Int {
 }
 
 /// Tag representing a type of content, available to filter during search
-enum MDContent: Int {
+enum MDContent: Int, Codable {
     case ecchi = 9
     case smut = 32
     case gore = 49
@@ -114,7 +114,7 @@ enum MDContent: Int {
 }
 
 /// Tag representing a format of manga, available to filter during search
-enum MDFormat: Int {
+enum MDFormat: Int, Codable {
     case yonkoma = 1
     case awardWinning = 4
     case doujinshi = 7
@@ -130,7 +130,7 @@ enum MDFormat: Int {
 }
 
 /// Tag representing a genre of manga, available to filter during search
-enum MDGenre: Int {
+enum MDGenre: Int, Codable {
     case action = 2
     case adventure = 3
     case comedy = 5
@@ -161,7 +161,7 @@ enum MDGenre: Int {
 }
 
 /// Tag representing a theme appearing in a manga, available to filter during search
-enum MDTheme: Int {
+enum MDTheme: Int, Codable {
     case cooking = 6
     case gyaru = 11
     case harem = 12
