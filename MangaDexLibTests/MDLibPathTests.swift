@@ -126,4 +126,70 @@ class MDLibPathTests: XCTestCase {
         XCTAssert(components.url?.pathComponents == expectedComponents.url?.pathComponents)
     }
 
+    func testMangaInfo() throws {
+        let mangaId = 7139 // One Punch Man
+        let apiURL = MDPath.mangaInfo(mangaId: mangaId)
+        let expectedURL = URL(string: "\(MDApi.baseURL)/api/?id=\(mangaId)&type=manga")!
+
+        let components = URLComponents(string: apiURL.absoluteString)!
+        let expectedComponents = URLComponents(string: expectedURL.absoluteString)!
+
+        // Check that both urls' GET parameters are equal by using double inclusion
+        for item in components.queryItems! {
+            XCTAssert(expectedComponents.queryItems!.contains(item))
+        }
+
+        for item in expectedComponents.queryItems! {
+            XCTAssert(components.queryItems!.contains(item))
+        }
+
+        // Check the path is also correct
+        XCTAssert(apiURL.pathComponents == expectedURL.pathComponents)
+    }
+
+    func testChapterInfo() throws {
+        let chapterId = 867036 // One Punch Man chapter 131
+        let server = MDApi.Server.naEu1
+        let apiURL = MDPath.chapterInfo(chapterId: chapterId, server: server)
+        let expected = "\(MDApi.baseURL)/api/?id=\(chapterId)&server=\(server.rawValue)&type=chapter"
+
+        let components = URLComponents(string: apiURL.absoluteString)!
+        let expectedComponents = URLComponents(string: expected)!
+
+        // Check that both urls' GET parameters are equal by using double inclusion
+        for item in components.queryItems! {
+            XCTAssert(expectedComponents.queryItems!.contains(item))
+        }
+
+        for item in expectedComponents.queryItems! {
+            XCTAssert(components.queryItems!.contains(item))
+        }
+
+        // Check the path is also correct
+        let expectedURL = URL(string: expected)!
+        XCTAssert(apiURL.pathComponents == expectedURL.pathComponents)
+    }
+
+    func testChapterInfoServer() throws {
+        let chapterId = 810605 // 5Tobun chapter 122
+        let server = MDApi.Server.automatic
+        let apiURL = MDPath.chapterInfo(chapterId: chapterId, server: server)
+        let expectedURL = URL(string: "\(MDApi.baseURL)/api/?id=\(chapterId)&type=chapter")!
+
+        let components = URLComponents(string: apiURL.absoluteString)!
+        let expectedComponents = URLComponents(string: expectedURL.absoluteString)!
+
+        // Check that both urls' GET parameters are equal by using double inclusion
+        for item in components.queryItems! {
+            XCTAssert(expectedComponents.queryItems!.contains(item))
+        }
+
+        for item in expectedComponents.queryItems! {
+            XCTAssert(components.queryItems!.contains(item))
+        }
+
+        // Check the path is also correct
+        XCTAssert(apiURL.pathComponents == expectedURL.pathComponents)
+    }
+
 }

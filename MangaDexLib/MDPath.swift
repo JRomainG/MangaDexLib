@@ -172,7 +172,7 @@ class MDPath {
     static func mangaInfo(mangaId: Int) -> URL {
         let params = [
             URLQueryItem(name: ApiParam.id.rawValue, value: String(mangaId)),
-            URLQueryItem(name: ApiParam.type.rawValue, value: ApiContent.chapter.rawValue)
+            URLQueryItem(name: ApiParam.type.rawValue, value: ApiContent.manga.rawValue)
         ]
         return MDPath.buildUrl(for: .api, with: params)
     }
@@ -187,7 +187,10 @@ class MDPath {
             URLQueryItem(name: ApiParam.server.rawValue, value: server.rawValue),
             URLQueryItem(name: ApiParam.type.rawValue, value: ApiContent.chapter.rawValue)
         ]
-        return MDPath.buildUrl(for: .api, with: params)
+
+        // When the server is set to automatic, its value is ""
+        // and we don't want to send it to the API, so set keepEmpty to false
+        return MDPath.buildUrl(for: .api, with: params, keepEmpty: false)
     }
 
 }

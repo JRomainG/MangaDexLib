@@ -25,7 +25,7 @@ class MDApi: NSObject {
 
     /// Available MangaDex servers to fetch chapter pages from
     enum Server: String {
-        case automatic = "0"
+        case automatic = ""
         case naEu1 = "na"
         case naEu2 = "na2"
         // The following options are currently disabled on the website
