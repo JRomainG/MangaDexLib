@@ -15,13 +15,13 @@ extension MDParser {
     ///
     /// The format of the element is:
     /// `<div id="announcement" class="alert [...]" role="alert">[content]</div>`
-    static let announcementId = "announcement"
+    static private let announcementId = "announcement"
 
     /// The selector to lookup in a MangaDex page to get the alerts
     ///
     /// The format of each element is:
     /// `<div class="alert [...]" role="alert">[content]</div>`
-    static let alertSelector = "div.alert[role=alert]:not(#announcement)"
+    static private let alertSelector = "div.alert[role=alert]:not(#announcement)"
 
     /// Extract the announcement at the top of the page
     /// - Parameter content: The html string to parse

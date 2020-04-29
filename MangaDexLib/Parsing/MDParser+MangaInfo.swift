@@ -13,23 +13,23 @@ extension MDParser {
 
     /// The name of the class to lookup in the extracted html of MangaDex homepages
     /// to get a manga's meta information
-    static let mangaInfoMetaTag = "head"
+    static private let mangaInfoMetaTag = "head"
 
     /// The selector to lookup in the extracted html's meta tags
     /// to get a manga's title
-    static let mangaInfoTitleSelector = "meta[property=og:title]"
+    static private let mangaInfoTitleSelector = "meta[property=og:title]"
 
     /// The selector to lookup in the extracted html's meta tags
     /// to get a manga's description
-    static let mangaInfoDescriptionSelector = "meta[property=og:description]"
+    static private let mangaInfoDescriptionSelector = "meta[property=og:description]"
 
     /// The selector to lookup in the extracted html's meta tags
     /// to get a manga's cover URL
-    static let mangaInfoImageSelector = "meta[property=og:image]"
+    static private let mangaInfoImageSelector = "meta[property=og:image]"
 
     /// The selector to lookup in the extracted html's meta tags
     /// to get a manga's link
-    static let mangaInfoHrefSelector = "link[rel=canonical]"
+    static private let mangaInfoHrefSelector = "link[rel=canonical]"
 
     /// Convenience method to get an attribute out an `Element`
     /// - Parameter attribute: The attribute to extract

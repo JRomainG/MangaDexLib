@@ -16,41 +16,41 @@ extension MDParser {
     ///
     /// The format of the element is (`[page]` may be absent):
     /// `<a href="/thread/[id]/[page]">[...]</a>`
-    static let threadHrefSelector = "a[href*=/thread/]"
+    static private let threadHrefSelector = "a[href*=/thread/]"
 
     /// The name of the class to lookup in the extracted html of MangaDex comment feeds
     /// to get a comment's data
     ///
     /// The format of the element is:
     /// `<tr class="post" id="post_[id]">`
-    static let commentEntryClass = "post"
+    static private let commentEntryClass = "post"
 
     /// The prefix to remove from a comment's div.id to get the numerical id
-    static let commentIdPrefix = "post_"
+    static private let commentIdPrefix = "post_"
 
     /// The name of the class to lookup in the extracted html of MangaDex comment feeds
     /// to get a comment's data
     ///
     /// The format of the element is:
     /// `<div class="postbody [...]">[comment]</div>`
-    static let commentBodyClass = "postbody"
+    static private let commentBodyClass = "postbody"
 
     /// The selector matching the classes to lookup in the extracted html of MangaDex
     /// comment feeds to get a user's name and ID
     ///
     /// The format of the element is:
     /// `<a class="user_level_[role]" " href="/user/[id]/[login]">[name]</a>`
-    static let userClassSelector = "[class^=user_level_]"
+    static private let userClassSelector = "[class^=user_level_]"
 
     /// The prefix to remove from a user's class to get their role
-    static let userRoleClassPrefix = "user_level_"
+    static private let userRoleClassPrefix = "user_level_"
 
     /// The regex matching the classes to lookup in the extracted html of MangaDex
     /// comment feeds to get a user's name and ID
     ///
     /// The format of the element is:
     /// `<img class="avatar [...]" src="https://mangadex.org/images/avatars/[user-id].gif?[avatar-id]">`
-    static let userAvatarClass = "avatar"
+    static private let userAvatarClass = "avatar"
 
     /// Extract the thread ID from the given html string
     /// - Parameter content: The html string to parse

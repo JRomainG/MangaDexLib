@@ -16,25 +16,25 @@ extension MDParser {
     ///
     /// The format of the element is:
     /// `<div class="manga-entry [...]" data-id="[...]">`
-    static let mangaEntryClass = "manga-entry"
+    static private let mangaEntryClass = "manga-entry"
 
     /// The name of the parameter to lookup in an extracted manga entry to get
     /// the manga's ID
     ///
     /// The format of the element is:
     /// `<div class="manga-entry [...]" data-id="[...]">`
-    static let mangaEntryIdKey = "data-id"
+    static private let mangaEntryIdKey = "data-id"
 
     /// The name of the class to lookup in the extracted html of MangaDex homepages
     /// to get the manga's title and ID
     ///
     /// The format of the element is:
     /// `<a title="[...]" href="/title/[id]/[...]" class="manga_title [...]">[...]</a>`
-    static let mangaEntryTitleClass = "manga_title"
+    static private let mangaEntryTitleClass = "manga_title"
 
     /// Extract the list of mangas present in the given html string
     /// - Parameter content: The html string to parse
-    /// - Returns: A list of mangas IDs
+    /// - Returns: A list of `MDManga` instances
     ///
     /// Only the `title` and `id` are extracted by this method
     func getMangas(from content: String) throws -> [MDManga] {
@@ -58,9 +58,10 @@ extension MDParser {
 
     /// Extract the list of manga IDs present in the given html string
     /// - Parameter content: The html string to parse
-    /// - Returns: A list of mangas IDs
+    /// - Returns: A list of `MDManga` instances
     ///
-    /// This can be used as backup if `getMangas` fails
+    /// This can be used as backup if `getMangas` fails. However, it
+    /// only fetches the manga's IDs (without their title)
     func getMangaIds(from content: String) throws -> [MDManga] {
         let doc = try MDParser.parse(html: content)
         let elements = try doc.getElementsByClass(MDParser.mangaEntryClass)

@@ -15,19 +15,19 @@ extension MDParser {
     ///
     /// The format of the element is:
     /// `<form method="post" id="login_form" action="[...]">`
-    static let loginFormId = "login_form"
+    static private let loginFormId = "login_form"
 
     /// The id of the username input field  in MangaDex's login page
     ///
     /// The format of the element is:
     /// `<input name="login_username" id="login_username">`
-    static let loginUsernameInputId = "login_username"
+    static private let loginUsernameInputId = "login_username"
 
     /// The id of the username input field  in MangaDex's login page
     ///
     /// The format of the element is:
     /// `<input name="login_password" id="login_password">`
-    static let loginPasswordInputId = "login_password"
+    static private let loginPasswordInputId = "login_password"
 
     /// Find out if the given user was redirected to the login page
     /// - Parameter doc: The document the analyze
