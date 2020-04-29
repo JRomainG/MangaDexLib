@@ -22,9 +22,22 @@ class MDLibRequestHandlerTests: XCTestCase {
     func testGetRequest() throws {
         let requestHandler = MDRequestHandler()
         let url = URL(string: MDApi.baseURL)!
+        let expectation = self.expectation(description: "Load MangaDex's homepage")
 
-        let expectation = self.expectation(description: "Load MangaDex homepage")
         requestHandler.get(url: url) { (content, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(content)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testPostRequest() throws {
+        let requestHandler = MDRequestHandler()
+        let url = URL(string: "\(MDApi.baseURL)/login")!
+        let expectation = self.expectation(description: "Load MangaDex's login page")
+
+        requestHandler.post(url: url, content: "") { (content, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(content)
             expectation.fulfill()

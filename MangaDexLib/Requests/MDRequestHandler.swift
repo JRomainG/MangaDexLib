@@ -19,6 +19,9 @@ class MDRequestHandler: NSObject {
         case sessionId = "mangadex_session"
     }
 
+    /// An alias for the completion blocks called after requests
+    typealias RequestCompletion = (String?, Error?) -> Void
+
     /// Domain used by MangaDex to set cookies
     static let cookieDomain: String = ".mangadex.org"
 
@@ -101,13 +104,26 @@ class MDRequestHandler: NSObject {
     /// Perform an async get request
     /// - Parameter url: The URL to fetch
     /// - Parameter completion: The callback at the end of the request
-    func get(url: URL, completion: @escaping (String?, Error?) -> Void) {
+    func get(url: URL, completion: @escaping RequestCompletion) {
         // Create a request with the correct user agent
         let request = NSMutableURLRequest(url: url)
+        self.perform(request: request, completion: completion)
+    }
+
+    func post(url: URL, content: String, completion: @escaping RequestCompletion) {
+        let request = NSMutableURLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = content.data(using: .utf8)
+        self.perform(request: request, completion: completion)
+    }
+
+    func perform(request: NSMutableURLRequest, completion: @escaping RequestCompletion) {
+        // Make sure the user agent is set
         request.setValue(self.userAgent, forHTTPHeaderField: "User-Agent")
 
         // Cookies are automatically handled by the session, so just create the task
-        let task = session.dataTask(with: request as URLRequest) { (data, _, error) in
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            // TODO: Check response status code
             var output: String?
             if data != nil {
                 output = NSString(data: data!, encoding: String.Encoding.utf8.rawValue) as String?
