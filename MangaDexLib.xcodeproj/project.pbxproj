@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		330DD8C424598AA700BC9E0B /* MDParser+Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330DD8C324598AA700BC9E0B /* MDParser+Api.swift */; };
+		330DD8C624598E6800BC9E0B /* MDApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330DD8C524598E6800BC9E0B /* MDApiResponse.swift */; };
 		3353B57E245789BE0066B8D5 /* MangaDexLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3353B57C245789BE0066B8D5 /* MangaDexLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3353B585245789E10066B8D5 /* MDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3353B584245789E10066B8D5 /* MDConstants.swift */; };
 		3353B587245789E40066B8D5 /* MDPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3353B586245789E40066B8D5 /* MDPath.swift */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		330DD8C324598AA700BC9E0B /* MDParser+Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+Api.swift"; sourceTree = "<group>"; };
+		330DD8C524598E6800BC9E0B /* MDApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDApiResponse.swift; sourceTree = "<group>"; };
 		3353B579245789BE0066B8D5 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B57C245789BE0066B8D5 /* MangaDexLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MangaDexLib.h; sourceTree = "<group>"; };
 		3353B57D245789BE0066B8D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 			children = (
 				3353B5AD2457905C0066B8D5 /* MDRequestHandler.swift */,
 				3354C76A24585D8D00E65B8A /* MDResponse.swift */,
+				330DD8C524598E6800BC9E0B /* MDApiResponse.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 				339899402458FBEC00AEEE39 /* MDParser+MangaInfo.swift */,
 				339899422458FC3300AEEE39 /* MDParser+Comments.swift */,
 				339899442458FC4F00AEEE39 /* MDParser+Login.swift */,
+				330DD8C324598AA700BC9E0B /* MDParser+Api.swift */,
 			);
 			path = Parsing;
 			sourceTree = "<group>";
@@ -371,7 +377,9 @@
 				339899382458F42200AEEE39 /* MDAnnouncement.swift in Sources */,
 				3354C76B24585D8D00E65B8A /* MDResponse.swift in Sources */,
 				3354C77124588A4F00E65B8A /* MDManga.swift in Sources */,
+				330DD8C424598AA700BC9E0B /* MDParser+Api.swift in Sources */,
 				3354C76F245881D600E65B8A /* MDResource.swift in Sources */,
+				330DD8C624598E6800BC9E0B /* MDApiResponse.swift in Sources */,
 				339899362458D9AE00AEEE39 /* MDUser.swift in Sources */,
 				3354C77424588BEB00E65B8A /* MDChapter.swift in Sources */,
 				3353B5AE2457905C0066B8D5 /* MDRequestHandler.swift in Sources */,

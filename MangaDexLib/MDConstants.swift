@@ -28,9 +28,12 @@ enum MDServer: String {
 
 /// The status of a manga or chapter
 enum MDStatus: String, Codable {
-    case ok = "OK"
+    /// The group has uploaded the chapter, but it's not yet available
+    /// to read on MangaDex
+    case pending = "delayed"
     case deleted = "deleted"
-    case notYetRelease = "unreleased"
+    case released = "OK"
+    case error = "error"
 }
 
 /// Sort orders available for the listed mangas

@@ -178,9 +178,16 @@ extension MDApi {
     /// - Parameter manga: The manga for which to fetch comments
     /// - Parameter completion: The callback at the end of the request
     ///
-    /// To get the full list of comments, use `getThread` with any comment's `threadId`
+    /// To get the full list of comments, use `getThread` with any comment's `threadId`.
+    /// Only the `mangaId` property is required to be non-nil, but also having `title` is better
     func getMangaComments(manga: MDManga, completion: @escaping MDCompletion) {
-        let url = MDPath.mangaComments(mangaId: manga.mangaId, mangaTitle: manga.title)
+        // TODO: Cleanup
+        guard let mangaId = manga.mangaId else {
+            let response = MDResponse(type: .commentList, url: URL(string: MDApi.baseURL)!, rawValue: nil, error: nil)
+            completion(response)
+            return
+        }
+        let url = MDPath.mangaComments(mangaId: mangaId, mangaTitle: manga.title)
         getComments(from: url, completion: completion)
     }
 
@@ -188,9 +195,16 @@ extension MDApi {
     /// - Parameter chapter: The chapter for which to fetch comments
     /// - Parameter completion: The callback at the end of the request
     ///
-    /// To get the full list of comments, use `getThread` with any comment's `threadId`
+    /// To get the full list of comments, use `getThread` with any comment's `threadId`.
+    /// Only the `chapterId` property is required to be non-nil
     func getChapterComments(chapter: MDChapter, completion: @escaping MDCompletion) {
-        let url = MDPath.chapterComments(chapterId: chapter.chapterId)
+        // TODO: Cleanup
+        guard let chapterId = chapter.chapterId else {
+            let response = MDResponse(type: .commentList, url: URL(string: MDApi.baseURL)!, rawValue: nil, error: nil)
+            completion(response)
+            return
+        }
+        let url = MDPath.chapterComments(chapterId: chapterId)
         getComments(from: url, completion: completion)
     }
 
@@ -224,10 +238,21 @@ extension MDApi {
         // TODO
 
         let url = MDPath.mangaInfo(mangaId: mangaId)
-        requestHandler.get(url: url) { (content, error) in
-            // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, url: url, rawValue: content, error: error)
-            completion(response)
+        requestHandler.get(url: url) { (content, requestError) in
+            let response = MDResponse(type: .mangaInfo, url: url, rawValue: content, error: requestError)
+            guard requestError == nil, let json = content else {
+                completion(response)
+                return
+            }
+
+            do {
+                let manga = try self.parser.getMangaApiInfo(from: json, mangaId: mangaId)
+                response.manga = manga
+                completion(response)
+            } catch {
+                response.error = error
+                completion(response)
+            }
         }
     }
 
@@ -235,13 +260,23 @@ extension MDApi {
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter completion: The callback at the end of the request
     func getChapterInfo(chapterId: Int, completion: @escaping MDCompletion) {
-        // TODO
-
         let url = MDPath.chapterInfo(chapterId: chapterId, server: server)
-        requestHandler.get(url: url) { (content, error) in
+        requestHandler.get(url: url) { (content, requestError) in
             // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, url: url, rawValue: content, error: error)
-            completion(response)
+            let response = MDResponse(type: .chapterInfo, url: url, rawValue: content, error: requestError)
+            guard requestError == nil, let json = content else {
+                completion(response)
+                return
+            }
+
+            do {
+                let chapter = try self.parser.getChapterApiInfo(from: json)
+                response.chapter = chapter
+                completion(response)
+            } catch {
+                response.error = error
+                completion(response)
+            }
         }
     }
 

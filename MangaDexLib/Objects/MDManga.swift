@@ -12,7 +12,7 @@ import Foundation
 struct MDManga: Decodable {
 
     /// The id of the manga
-    var mangaId: Int
+    var mangaId: Int?
 
     /// The manga's title
     var title: String?
@@ -26,17 +26,24 @@ struct MDManga: Decodable {
     /// The manga's description
     var description: String?
 
+    /// The list of chapters for this manga
+    ///
+    /// Not actually stored here in the API, but more convenient for users
+    var chapters: [MDChapter]?
+
     /// The link to the manga's cover image
     var coverUrl: String?
 
     /// The manga's publication status
     var publicationStatus: MDPublicationStatus?
 
-    /// The manga's genres
-    var genres: [MDGenre]?
+    /// The manga's tags
+    var tags: [Int]?
 
-    /// A boolean indicating whether the last chapter of the manga has been uploaded
-    var lastChapter: Bool?
+    /// A string indicating which chapter marks the end of the manga
+    ///
+    /// Equal to "0" if the last chapter hasn't been uploaded. Bonus chapters do not count
+    var lastChapter: String?
 
     /// The name of the manga's original language
     var originalLangName: String?
@@ -47,12 +54,16 @@ struct MDManga: Decodable {
     var originalLangCode: String?
 
     /// A boolean indicating whether the manga is rated or not
-    var rated: Bool?
+    ///
+    /// Encoded as an integer by the API
+    var rated: Int?
 
     /// A set of links to external websites
     var links: [String: String]?
 
     /// This manga's status
+    ///
+    /// Not actually stored here in the API, but more convenient for users
     var status: MDStatus?
 
     /// A convenience method to create a manga with only an id
@@ -77,9 +88,10 @@ extension MDManga {
         case author
         case artist
         case description
-        case coverUrl = "conver_url"
+        case chapters
+        case coverUrl = "cover_url"
         case publicationStatus = "status"
-        case genres
+        case tags = "genres"
         case lastChapter = "last_chapter"
         case originalLangName = "lang_name"
         case originalLangCode = "lang_flag"

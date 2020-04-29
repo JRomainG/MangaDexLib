@@ -12,10 +12,16 @@ import SwiftSoup
 /// The class responsible for parsing HTML / JSON to Swift objects
 class MDParser {
 
+    /// Parse an HTML string to a Document object
+    /// - Parameter html: The string to parse
+    /// - Returns: The parsed document
     static func parse(html: String) throws -> Document {
         return try SwiftSoup.parse(html)
     }
 
+    /// Parse a JSON string to the given type
+    /// - Parameter json: The string to parse
+    /// - Returns: The instanciated object
     static func parse<T>(json: String, type: T.Type) throws -> T where T: Decodable {
         let jsonData = json.data(using: .utf8)!
         return try JSONDecoder().decode(T.self, from: jsonData)

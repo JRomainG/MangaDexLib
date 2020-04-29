@@ -16,6 +16,7 @@ class MDResponse: NSObject {
         case generic
         case mangaInfo
         case mangaList
+        case chapterInfo
         case commentList
     }
 
@@ -23,7 +24,7 @@ class MDResponse: NSObject {
     private(set) var type: ResponseType = .generic
 
     /// The URL of the original request
-    private(set) var url: URL
+    private(set) var url: URL?
 
     /// The raw html or json string returned from the website (if any)
     private(set) var rawValue: String?
@@ -36,6 +37,9 @@ class MDResponse: NSObject {
 
     /// The list of extracted mangas, if relevant
     var mangas: [MDManga]?
+
+    /// The extracted chapter, if relevant
+    var chapter: MDChapter?
 
     /// The list of extracted comments, if relevant
     var comments: [MDComment]?

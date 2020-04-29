@@ -12,7 +12,7 @@ import Foundation
 struct MDChapter: Decodable {
 
     /// The id of the chapter
-    var chapterId: Int
+    var chapterId: Int?
 
     /// The id of the manga this chapter belongs to
     var mangaId: Int?
@@ -49,6 +49,11 @@ struct MDChapter: Decodable {
 
     /// The name of another group that worked on this chapter
     var groupName3: String?
+
+    /// The website of the group that released this chapter
+    ///
+    /// Usually shown when a chapter is in the `pending` state
+    var groupWebsite: String?
 
     /// The Unix timestamp this chapter was release
     ///
@@ -96,7 +101,7 @@ extension MDChapter {
     /// Mapping between MangaDex's API JSON keys and the class' variable names
     enum CodingKeys: String, CodingKey {
         case chapterId = "id"
-        case mangaId
+        case mangaId = "manga_id"
         case title
         case hash
         case volume
@@ -108,6 +113,7 @@ extension MDChapter {
         case groupName = "group_name"
         case groupName2 = "group_name_2"
         case groupName3 = "group_name_3"
+        case groupWebsite = "group_website"
         case timestamp
         case originalLangName = "lang_name"
         case originalLangCode = "lang_code"

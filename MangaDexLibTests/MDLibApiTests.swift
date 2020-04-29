@@ -25,10 +25,24 @@ class MDLibApiTests: XCTestCase {
         XCTAssertNotNil(response.rawValue)
         XCTAssertNotNil(response.mangas)
         XCTAssertGreaterThan(response.mangas!.count, 0)
+
+        for manga in response.mangas! {
+            assertMangaIsValid(manga)
+        }
+    }
+
+    func assertChapterListIsValid(_ chapters: [MDChapter]?) {
+        XCTAssertNotNil(chapters)
+        XCTAssertGreaterThan(chapters!.count, 0)
+
+        for chapter in chapters! {
+            assertChapterIsValid(chapter)
+        }
     }
 
     func assertCommentListIsValid(for response: MDResponse) {
         XCTAssert(response.type == .commentList)
+        XCTAssertNil(response.error)
         XCTAssertNotNil(response.comments)
         XCTAssert(response.comments!.count > 0)
         XCTAssertNotNil(response.comments?.first?.body)
@@ -40,6 +54,17 @@ class MDLibApiTests: XCTestCase {
         XCTAssertNotNil(user?.name)
         XCTAssertNotNil(user?.rank)
         XCTAssertNotNil(user?.avatar)
+    }
+
+    func assertMangaIsValid(_ manga: MDManga?) {
+        XCTAssertNotNil(manga)
+        XCTAssertNotNil(manga?.mangaId)
+    }
+
+    func assertChapterIsValid(_ chapter: MDChapter?) {
+        XCTAssertNotNil(chapter)
+        XCTAssertNotNil(chapter?.chapterId)
+        XCTAssertNotNil(chapter?.mangaId)
     }
 
     func testListedMangas() throws {
@@ -139,6 +164,33 @@ class MDLibApiTests: XCTestCase {
 
         api.getThread(threadId: threadId, page: page) { (response) in
             self.assertCommentListIsValid(for: response)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testMangaApi() throws {
+        let mangaId = 7139 // One Punch Man
+        let api = MDApi()
+        let expectation = self.expectation(description: "Fetch a manga's info through the API")
+
+        api.getMangaInfo(mangaId: mangaId) { (response) in
+            XCTAssertNil(response.error)
+            self.assertMangaIsValid(response.manga)
+            self.assertChapterListIsValid(response.manga?.chapters)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testChapterApi() throws {
+        let chapterId = 874030 // The Prince Dances
+        let api = MDApi()
+        let expectation = self.expectation(description: "Fetch a chapter's info through the API")
+
+        api.getChapterInfo(chapterId: chapterId) { (response) in
+            XCTAssertNil(response.error)
+            self.assertChapterIsValid(response.chapter)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
