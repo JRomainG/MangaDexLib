@@ -50,6 +50,34 @@ class MDApi: NSObject {
 
 }
 
+// MARK: - MDApi Generic Helper Methods
+
+extension MDApi {
+
+    /// Wrapper around MDRequestHandler's get method
+    /// - Parameter url: The URL to fetch
+    /// - Parameter type: The type of response that is expected
+    /// - Parameter errorCompletion: The user-provided completion that will be called in case of an error
+    /// - Parameter success: The internal completion called in the requests succeeds
+    ///
+    /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
+    private func performGet(url: URL,
+                            type: MDResponse.ResponseType,
+                            errorCompletion: @escaping MDCompletion,
+                            success: @escaping MDCompletion) {
+        requestHandler.get(url: url) { (content, requestError) in
+            // Build a response object for the completion
+            let response = MDResponse(type: type, url: url, rawValue: content, error: requestError)
+            guard requestError == nil, content != nil else {
+                errorCompletion(response)
+                return
+            }
+            success(response)
+        }
+    }
+
+}
+
 // MARK: - MDApi HTML Requests
 
 extension MDApi {
@@ -58,18 +86,10 @@ extension MDApi {
     /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
     private func getMangas(from url: URL, completion: @escaping MDCompletion) {
-        requestHandler.get(url: url) { (content, requestError) in
-            // Build a response object for the completion
-            let response = MDResponse(type: .mangaList, url: url, rawValue: content, error: requestError)
-            guard requestError == nil, let html = content else {
-                completion(response)
-                return
-            }
-
-            // Try to parse the content
+        self.performGet(url: url, type: .mangaList, errorCompletion: completion) { (response) in
             do {
-                let mangas = try self.parseMangaHtmlList(html)
-                response.mangas = mangas
+                let html = response.rawValue!
+                response.mangas = try self.parseMangaHtmlList(html)
                 completion(response)
             } catch {
                 response.error = error
@@ -99,16 +119,9 @@ extension MDApi {
     /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
     private func getMangaInfo(from url: URL, completion: @escaping MDCompletion) {
-        requestHandler.get(url: url) { (content, requestError) in
-            // Build a response object for the completion
-            let response = MDResponse(type: .mangaInfo, url: url, rawValue: content, error: requestError)
-
-            guard requestError == nil, let html = content else {
-                completion(response)
-                return
-            }
-
+        self.performGet(url: url, type: .mangaInfo, errorCompletion: completion) { (response) in
             do {
+                let html = response.rawValue!
                 response.manga = try self.parser.getMangaInfo(from: html)
                 completion(response)
             } catch {
@@ -122,18 +135,10 @@ extension MDApi {
     /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
     private func getComments(from url: URL, completion: @escaping MDCompletion) {
-        requestHandler.get(url: url) { (content, requestError) in
-            // Build a response object for the completion
-            let response = MDResponse(type: .commentList, url: url, rawValue: content, error: requestError)
-            guard requestError == nil, let html = content else {
-                completion(response)
-                return
-            }
-
-            // Try to parse the content
+        self.performGet(url: url, type: .commentList, errorCompletion: completion) { (response) in
             do {
-                let comments = try self.parser.getComments(from: html)
-                response.comments = comments
+                let html = response.rawValue!
+                response.comments = try self.parser.getComments(from: html)
                 completion(response)
             } catch {
                 response.error = error
@@ -212,18 +217,11 @@ extension MDApi {
     ///
     /// While this method should return a pretty 
     func getGroupInfo(groupId: Int, completion: @escaping MDCompletion) {
-        // TODO: Factorize
         let url = MDPath.groupInfo(groupId: groupId)
-        requestHandler.get(url: url) { (content, requestError) in
-            let response = MDResponse(type: .groupInfo, url: url, rawValue: content, error: requestError)
-            guard requestError == nil, let html = content else {
-                completion(response)
-                return
-            }
-
+        self.performGet(url: url, type: .groupInfo, errorCompletion: completion) { (response) in
             do {
-                let group = try self.parser.getGroupInfo(from: html)
-                response.group = group
+                let html = response.rawValue!
+                response.group = try self.parser.getGroupInfo(from: html)
                 completion(response)
             } catch {
                 response.error = error
@@ -250,18 +248,11 @@ extension MDApi {
     /// - Parameter mangaId: The identifier of the manga
     /// - Parameter completion: The callback at the end of the request
     func getMangaInfo(mangaId: Int, completion: @escaping MDCompletion) {
-        // TODO: Factorize
         let url = MDPath.mangaInfo(mangaId: mangaId)
-        requestHandler.get(url: url) { (content, requestError) in
-            let response = MDResponse(type: .mangaInfo, url: url, rawValue: content, error: requestError)
-            guard requestError == nil, let json = content else {
-                completion(response)
-                return
-            }
-
+        self.performGet(url: url, type: .mangaInfo, errorCompletion: completion) { (response) in
             do {
-                let manga = try self.parser.getMangaApiInfo(from: json, mangaId: mangaId)
-                response.manga = manga
+                let json = response.rawValue!
+                response.manga = try self.parser.getMangaApiInfo(from: json, mangaId: mangaId)
                 completion(response)
             } catch {
                 response.error = error
@@ -274,18 +265,11 @@ extension MDApi {
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter completion: The callback at the end of the request
     func getChapterInfo(chapterId: Int, completion: @escaping MDCompletion) {
-        // TODO: Factorize
         let url = MDPath.chapterInfo(chapterId: chapterId, server: server)
-        requestHandler.get(url: url) { (content, requestError) in
-            let response = MDResponse(type: .chapterInfo, url: url, rawValue: content, error: requestError)
-            guard requestError == nil, let json = content else {
-                completion(response)
-                return
-            }
-
+        self.performGet(url: url, type: .chapterInfo, errorCompletion: completion) { (response) in
             do {
-                let chapter = try self.parser.getChapterApiInfo(from: json)
-                response.chapter = chapter
+                let json = response.rawValue!
+                response.chapter = try self.parser.getChapterApiInfo(from: json)
                 completion(response)
             } catch {
                 response.error = error

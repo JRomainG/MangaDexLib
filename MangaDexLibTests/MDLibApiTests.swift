@@ -59,10 +59,6 @@ class MDLibApiTests: XCTestCase {
     func assertMangaIsValid(_ manga: MDManga?) {
         XCTAssertNotNil(manga)
         XCTAssertNotNil(manga?.mangaId)
-        XCTAssertNotNil(manga?.author)
-        XCTAssertNotNil(manga?.chapters)
-        XCTAssertNotNil(manga?.coverUrl)
-        XCTAssertNotNil(manga?.links)
     }
 
     func assertChapterIsValid(_ chapter: MDChapter?) {
@@ -70,9 +66,6 @@ class MDLibApiTests: XCTestCase {
         XCTAssertNotNil(chapter?.chapterId)
         XCTAssertNotNil(chapter?.mangaId)
         XCTAssertNotNil(chapter?.groupId)
-        XCTAssertNotNil(chapter?.hash)
-        XCTAssertNotNil(chapter?.longStrip)
-        XCTAssertNotNil(chapter?.server)
     }
 
     func assertGroupIsValid(_ group: MDGroup?) {
