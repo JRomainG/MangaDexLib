@@ -39,9 +39,8 @@ class MDPath {
         case excludeTagsMode = "tag_mode_exc"
     }
 
-    /// Types of parameters used during api calls
+    /// Type of parameter used during api calls
     enum ApiParam: String {
-        // swiftlint:disable:next identifier_name
         case id = "id"
         case server = "server"
         case type = "type"
@@ -53,7 +52,7 @@ class MDPath {
         case chapter = "chapter"
     }
 
-    /// Returns the normalized (lowercase ascii without spaces) version of the string
+    /// Build the normalized (lowercase ascii without spaces) version of the string
     ///
     /// Spaces are replaced by dashes, diacritics, special width, and case are removed.
     /// E.g. `Mÿ nâMe ís jÄço´B` becomes `my-name-is-jacob`
@@ -70,7 +69,7 @@ class MDPath {
         return normalized.components(separatedBy: allowed.inverted).joined(separator: "")
     }
 
-    /// Builds an absolute URL with the known base and the given path
+    /// Build an absolute URL with the known base and the given path
     /// - Parameter path: The relative path of the resource
     /// - Returns: The MangaDex URL
     static private func buildUrl(for path: Path) -> URL {
@@ -78,7 +77,7 @@ class MDPath {
         return url.appendingPathComponent(path.rawValue)
     }
 
-    /// Builds an absolute URL with the known base and the given `Int` parameters
+    /// Build an absolute URL with the known base and the given `Int` parameters
     /// - Parameter path: The relative path of the resource
     /// - Parameter components: The list of integer components to add, seperated by `/`
     /// - Returns: The MangaDex URL
@@ -91,7 +90,7 @@ class MDPath {
         return url
     }
 
-    /// Builds an absolute URL with the known base and the given `String` parameters
+    /// Build an absolute URL with the known base and the given `String` parameters
     /// - Parameter path: The relative path of the resource
     /// - Parameter components: The list of integer components to add, seperated by `/`
     /// - Returns: The MangaDex URL
@@ -104,7 +103,7 @@ class MDPath {
         return url
     }
 
-    /// Builds an absolute URL with the known base and the given GET parameters
+    /// Build an absolute URL with the known base and the given GET parameters
     /// - Parameter path: The relative path of the resource
     /// - Parameter params: A list of items to encode in the URL
     /// - Parameter keepEmpty: Whether to keep items with a nil value
@@ -128,7 +127,7 @@ class MDPath {
         return components.url!
     }
 
-    /// Returns the URL to fetch the sorted list of mangas
+    /// Build the URL to fetch the sorted list of mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter sort: The order in which to sort results
     /// - Returns: The MangaDex URL
@@ -136,26 +135,26 @@ class MDPath {
         return buildUrl(for: .listedMangas, with: [sort.rawValue, page])
     }
 
-    /// Returns the URL to fetch the featured mangas
+    /// Build the URL to fetch the featured mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Returns: The MangaDex URL
     static func featuredMangas() -> URL {
         return buildUrl(for: .featuredMangas)
     }
 
-    /// Returns the URL to fetch the latest updated mangas
+    /// Build the URL to fetch the latest updated mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Returns: The MangaDex URL
     static func latestMangas(page: Int) -> URL {
         return buildUrl(for: .latestMangas, with: [page])
     }
 
-    /// Returns the URL for a random manga
+    /// Build the URL to get a random manga
     static func randomManga() -> URL {
         return buildUrl(for: .randomManga)
     }
 
-    /// Returns the URL for performing a search
+    /// Build the URL for performing a search
     /// - Parameter search: An `MDSearch` instance representing the query
     /// - Returns: The MangaDex URL
     static func search(_ search: MDSearch) -> URL {
@@ -203,7 +202,7 @@ class MDPath {
         return MDPath.buildUrl(for: .searchMangas, with: params, keepEmpty: false)
     }
 
-    /// Returns the URL to fetch information about a given manga
+    /// Build the URL to fetch information about a given manga
     /// - Parameter mangaId: The identifier of the manga
     /// - Returns: The MangaDex URL
     static func mangaInfo(mangaId: Int) -> URL {
@@ -214,7 +213,7 @@ class MDPath {
         return MDPath.buildUrl(for: .api, with: params)
     }
 
-    /// Returns the URL to fetch a given manga's comments
+    /// Build the URL to fetch a given manga's comments
     /// - Parameter mangaId: The identifier of the manga
     /// - Parameter mangaTitle: The title of the manga (not strictly necessary)
     /// - Returns: The MangaDex URL
@@ -231,7 +230,7 @@ class MDPath {
         return buildUrl(for: .mangaPage, with: components)
     }
 
-    /// Returns the URL to fetch information about a given chapter
+    /// Build the URL to fetch information about a given chapter
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter server: The server from which to load images
     /// - Returns: The MangaDex URL
@@ -247,7 +246,7 @@ class MDPath {
         return MDPath.buildUrl(for: .api, with: params, keepEmpty: false)
     }
 
-    /// Returns the URL to the given page's image
+    /// Build the URL to the given page's image
     /// - Parameter server: The base URL for the server
     /// - Parameter hash: The chapter's hash
     /// - Parameter page: The page's file name
@@ -258,7 +257,7 @@ class MDPath {
         return url.appendingPathComponent(page)
     }
 
-    /// Returns the URL to fetch a given chapter's comments
+    /// Build the URL to fetch a given chapter's comments
     /// - Parameter chapterId: The identifier of the chapter
     /// - Returns: The MangaDex URL
     static func chapterComments(chapterId: Int) -> URL {
@@ -266,7 +265,7 @@ class MDPath {
         return buildUrl(for: .chapterPage, with: components)
     }
 
-    /// Returns the URL to fetch a thread's content
+    /// Build the URL to fetch a thread's content
     /// - Parameter threadId: The identifier of the thread
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Returns: The MangaDex URL
@@ -278,14 +277,14 @@ class MDPath {
         return buildUrl(for: .thread, with: [threadId, page])
     }
 
-    /// Returns the URL to fetch information about a given group
+    /// Build the URL to fetch information about a given group
     /// - Parameter groupId: The identifier of the group
     /// - Returns: The MangaDex URL
     static func groupInfo(groupId: Int) -> URL {
         return buildUrl(for: .groupPage, with: [groupId])
     }
 
-    /// Returns the URL to an external resource
+    /// Build the URL to an external resource
     /// - Parameter resource: The type of external website
     /// - Parameter path: The ID or absolute URL for the resource
     /// - Returns: The external URL

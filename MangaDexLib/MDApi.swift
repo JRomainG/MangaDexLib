@@ -147,14 +147,14 @@ extension MDApi {
         }
     }
 
-    /// Fetches the information of a random
+    /// Fetch the information of a random
     /// - Parameter completion: The callback at the end of the request
     func getRandomManga(completion: @escaping MDCompletion) {
         let url = MDPath.randomManga()
         getMangaInfo(from: url, completion: completion)
     }
 
-    /// Fetches a list of sorted mangas
+    /// Fetch a list of sorted mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter sort: The order in which to sort results
     /// - Parameter completion: The callback at the end of the request
@@ -163,7 +163,7 @@ extension MDApi {
         getMangas(from: url, completion: completion)
     }
 
-    /// Fetches the list of featured mangas
+    /// Fetch the list of featured mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
     func getFeaturedMangas(completion: @escaping MDCompletion) {
@@ -171,7 +171,7 @@ extension MDApi {
         getMangas(from: url, completion: completion)
     }
 
-    /// Fetches the latest updated mangas
+    /// Fetch the latest updated mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
     func getLatestMangas(page: Int, completion: @escaping MDCompletion) {
@@ -179,7 +179,7 @@ extension MDApi {
         getMangas(from: url, completion: completion)
     }
 
-    /// Fetches a manga's latest comments
+    /// Fetch a manga's latest comments
     /// - Parameter manga: The manga for which to fetch comments
     /// - Parameter title: The title of the manga (can be nil)
     /// - Parameter completion: The callback at the end of the request
@@ -191,7 +191,7 @@ extension MDApi {
         getComments(from: url, completion: completion)
     }
 
-    /// Fetches a chapter's latest comments
+    /// Fetch a chapter's latest comments
     /// - Parameter chapterId: The ID of the chapter for which to fetch comments
     /// - Parameter completion: The callback at the end of the request
     ///
@@ -202,7 +202,7 @@ extension MDApi {
         getComments(from: url, completion: completion)
     }
 
-    /// Fetches a thread's comments
+    /// Fetch a thread's comments
     /// - Parameter threadId: The thread for which to fetch comments
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
@@ -211,7 +211,7 @@ extension MDApi {
         getComments(from: url, completion: completion)
     }
 
-    /// Fetches a groups's info
+    /// Fetch a groups's info
     /// - Parameter groupId: The id of the group for which to fetch the info
     /// - Parameter completion: The callback at the end of the request
     ///
@@ -230,7 +230,7 @@ extension MDApi {
         }
     }
 
-    /// Fetches the html page containing the result of the search
+    /// Fetch the results of the search
     /// - Parameter search: An `MDSearch` instance representing the query
     /// - Parameter completion: The callback at the end of the request
     func performSearch(_ search: MDSearch, completion: @escaping MDCompletion) {
@@ -244,7 +244,7 @@ extension MDApi {
 
 extension MDApi {
 
-    /// Fetches the json string containing the information about the manga
+    /// Fetches detailed information about the manga
     /// - Parameter mangaId: The identifier of the manga
     /// - Parameter completion: The callback at the end of the request
     func getMangaInfo(mangaId: Int, completion: @escaping MDCompletion) {
@@ -261,7 +261,7 @@ extension MDApi {
         }
     }
 
-    /// Fetches the json string containing the information about the chapter
+    /// Fetch detailed information about the chapter
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter completion: The callback at the end of the request
     func getChapterInfo(chapterId: Int, completion: @escaping MDCompletion) {

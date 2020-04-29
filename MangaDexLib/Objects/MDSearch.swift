@@ -8,8 +8,8 @@
 
 import Foundation
 
-/// Structure representing a search query
-class MDSearch: NSObject {
+/// Struct representing a search query
+struct MDSearch {
 
     /// Type of filtering when searching with tags
     enum TagFilteringMode: String {
@@ -66,7 +66,7 @@ class MDSearch: NSObject {
     var excludeTagsMode: TagFilteringMode = .any
 
     /// Convenience method to init an empty search instance
-    override init() {
+    init() {
     }
 
     /// Convenience method to init a simple search instance
