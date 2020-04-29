@@ -59,12 +59,31 @@ class MDLibApiTests: XCTestCase {
     func assertMangaIsValid(_ manga: MDManga?) {
         XCTAssertNotNil(manga)
         XCTAssertNotNil(manga?.mangaId)
+        XCTAssertNotNil(manga?.author)
+        XCTAssertNotNil(manga?.chapters)
+        XCTAssertNotNil(manga?.coverUrl)
+        XCTAssertNotNil(manga?.links)
     }
 
     func assertChapterIsValid(_ chapter: MDChapter?) {
         XCTAssertNotNil(chapter)
         XCTAssertNotNil(chapter?.chapterId)
         XCTAssertNotNil(chapter?.mangaId)
+        XCTAssertNotNil(chapter?.groupId)
+        XCTAssertNotNil(chapter?.hash)
+        XCTAssertNotNil(chapter?.longStrip)
+        XCTAssertNotNil(chapter?.server)
+    }
+
+    func assertGroupIsValid(_ group: MDGroup?) {
+        XCTAssertNotNil(group)
+        XCTAssertNotNil(group?.groupId)
+        XCTAssertNotNil(group?.name)
+        XCTAssertNotNil(group?.leader)
+        XCTAssertNotNil(group?.members)
+        XCTAssert(group!.members!.count > 0)
+        XCTAssertNotNil(group?.coverUrl)
+        XCTAssertNotNil(group?.links)
     }
 
     func testListedMangas() throws {
@@ -162,6 +181,19 @@ class MDLibApiTests: XCTestCase {
 
         api.getThread(threadId: threadId, page: page) { (response) in
             self.assertCommentListIsValid(for: response)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testGroupInfo() throws {
+        let groupId = 9293 // Dropped Manga Scans
+        let api = MDApi()
+        let expectation = self.expectation(description: "Fetch a group's info")
+
+        api.getGroupInfo(groupId: groupId) { (response) in
+            XCTAssertNil(response.error)
+            self.assertGroupIsValid(response.group)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)

@@ -175,11 +175,18 @@ class MDLibPathTests: XCTestCase {
     }
 
     func testThreadPath() throws {
-        let threadId = 237699  // One Punch Man chapter 131
+        let threadId = 237699 // One Punch Man chapter 131
         let page = 6
         let threadURL = MDPath.thread(threadId: threadId, page: page)
         let expectedURL = URL(string: "\(MDApi.baseURL)/thread/\(threadId)/\(page)")!
         assertUrlsAreEqual(threadURL, expectedURL)
+    }
+
+    func testGroupPath() throws {
+        let groupId = 9293 // Dropped Manga Scans
+        let groupURL = MDPath.groupInfo(groupId: groupId)
+        let expectedURL = URL(string: "\(MDApi.baseURL)/group/\(groupId)")!
+        assertUrlsAreEqual(groupURL, expectedURL)
     }
 
     func testExternalPath() throws {

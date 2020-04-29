@@ -20,6 +20,7 @@ class MDPath {
         case randomManga = "manga"
         case mangaPage = "title"
         case chapterPage = "chapter"
+        case groupPage = "group"
         case comments = "comments"
         case thread = "thread"
         case api = "api"
@@ -275,6 +276,13 @@ class MDPath {
     /// the latest comments
     static func thread(threadId: Int, page: Int) -> URL {
         return buildUrl(for: .thread, with: [threadId, page])
+    }
+
+    /// Returns the URL to fetch information about a given group
+    /// - Parameter groupId: The identifier of the group
+    /// - Returns: The MangaDex URL
+    static func groupInfo(groupId: Int) -> URL {
+        return buildUrl(for: .groupPage, with: [groupId])
     }
 
     /// Returns the URL to an external resource

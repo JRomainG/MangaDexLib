@@ -94,7 +94,10 @@ extension MDParser {
             return nil
         }
 
-        return MDUser(userId: userId!, name: name, rank: rank, avatar: avatar)
+        var user = MDUser(name: name, userId: userId!)
+        user.rank = rank
+        user.avatar = avatar
+        return user
     }
 
     /// Extract the list of comments present in the given html string

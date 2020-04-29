@@ -206,6 +206,32 @@ extension MDApi {
         getComments(from: url, completion: completion)
     }
 
+    /// Fetches a groups's info
+    /// - Parameter groupId: The id of the group for which to fetch the info
+    /// - Parameter completion: The callback at the end of the request
+    ///
+    /// While this method should return a pretty 
+    func getGroupInfo(groupId: Int, completion: @escaping MDCompletion) {
+        // TODO: Factorize
+        let url = MDPath.groupInfo(groupId: groupId)
+        requestHandler.get(url: url) { (content, requestError) in
+            let response = MDResponse(type: .groupInfo, url: url, rawValue: content, error: requestError)
+            guard requestError == nil, let html = content else {
+                completion(response)
+                return
+            }
+
+            do {
+                let group = try self.parser.getGroupInfo(from: html)
+                response.group = group
+                completion(response)
+            } catch {
+                response.error = error
+                completion(response)
+            }
+        }
+    }
+
     /// Fetches the html page containing the result of the search
     /// - Parameter search: An `MDSearch` instance representing the query
     /// - Parameter completion: The callback at the end of the request
