@@ -176,34 +176,23 @@ extension MDApi {
 
     /// Fetches a manga's latest comments
     /// - Parameter manga: The manga for which to fetch comments
+    /// - Parameter title: The title of the manga (can be nil)
     /// - Parameter completion: The callback at the end of the request
     ///
     /// To get the full list of comments, use `getThread` with any comment's `threadId`.
     /// Only the `mangaId` property is required to be non-nil, but also having `title` is better
-    func getMangaComments(manga: MDManga, completion: @escaping MDCompletion) {
-        // TODO: Cleanup
-        guard let mangaId = manga.mangaId else {
-            let response = MDResponse(type: .commentList, url: URL(string: MDApi.baseURL)!, rawValue: nil, error: nil)
-            completion(response)
-            return
-        }
-        let url = MDPath.mangaComments(mangaId: mangaId, mangaTitle: manga.title)
+    func getMangaComments(mangaId: Int, title: String?, completion: @escaping MDCompletion) {
+        let url = MDPath.mangaComments(mangaId: mangaId, mangaTitle: title)
         getComments(from: url, completion: completion)
     }
 
     /// Fetches a chapter's latest comments
-    /// - Parameter chapter: The chapter for which to fetch comments
+    /// - Parameter chapterId: The ID of the chapter for which to fetch comments
     /// - Parameter completion: The callback at the end of the request
     ///
     /// To get the full list of comments, use `getThread` with any comment's `threadId`.
     /// Only the `chapterId` property is required to be non-nil
-    func getChapterComments(chapter: MDChapter, completion: @escaping MDCompletion) {
-        // TODO: Cleanup
-        guard let chapterId = chapter.chapterId else {
-            let response = MDResponse(type: .commentList, url: URL(string: MDApi.baseURL)!, rawValue: nil, error: nil)
-            completion(response)
-            return
-        }
+    func getChapterComments(chapterId: Int, completion: @escaping MDCompletion) {
         let url = MDPath.chapterComments(chapterId: chapterId)
         getComments(from: url, completion: completion)
     }
@@ -235,8 +224,7 @@ extension MDApi {
     /// - Parameter mangaId: The identifier of the manga
     /// - Parameter completion: The callback at the end of the request
     func getMangaInfo(mangaId: Int, completion: @escaping MDCompletion) {
-        // TODO
-
+        // TODO: Factorize
         let url = MDPath.mangaInfo(mangaId: mangaId)
         requestHandler.get(url: url) { (content, requestError) in
             let response = MDResponse(type: .mangaInfo, url: url, rawValue: content, error: requestError)
@@ -260,9 +248,9 @@ extension MDApi {
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter completion: The callback at the end of the request
     func getChapterInfo(chapterId: Int, completion: @escaping MDCompletion) {
+        // TODO: Factorize
         let url = MDPath.chapterInfo(chapterId: chapterId, server: server)
         requestHandler.get(url: url) { (content, requestError) in
-            // Build a response object for the completion
             let response = MDResponse(type: .chapterInfo, url: url, rawValue: content, error: requestError)
             guard requestError == nil, let json = content else {
                 completion(response)

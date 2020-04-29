@@ -132,11 +132,10 @@ class MDLibApiTests: XCTestCase {
     func testMangaComments() throws {
         let mangaId = 7139
         let mangaTitle = "One Punch Man"
-        let manga = MDManga(title: mangaTitle, mangaId: mangaId)
         let api = MDApi()
         let expectation = self.expectation(description: "Load a manga's comments")
 
-        api.getMangaComments(manga: manga) { (response) in
+        api.getMangaComments(mangaId: mangaId, title: mangaTitle) { (response) in
             self.assertCommentListIsValid(for: response)
             expectation.fulfill()
         }
@@ -145,11 +144,10 @@ class MDLibApiTests: XCTestCase {
 
     func testChapterComments() throws {
         let chapterId = 867036 // One Punch Man chapter 131
-        let chapter = MDChapter(chapterId: chapterId)
         let api = MDApi()
         let expectation = self.expectation(description: "Load a chapter's comments")
 
-        api.getChapterComments(chapter: chapter) { (response) in
+        api.getChapterComments(chapterId: chapterId) { (response) in
             self.assertCommentListIsValid(for: response)
             expectation.fulfill()
         }
