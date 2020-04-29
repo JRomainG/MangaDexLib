@@ -28,6 +28,11 @@
 		339899362458D9AE00AEEE39 /* MDUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899352458D9AE00AEEE39 /* MDUser.swift */; };
 		339899382458F42200AEEE39 /* MDAnnouncement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899372458F42200AEEE39 /* MDAnnouncement.swift */; };
 		3398993A2458F75D00AEEE39 /* MDLibParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899392458F75D00AEEE39 /* MDLibParserTests.swift */; };
+		3398993D2458FB7D00AEEE39 /* MDParser+Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3398993C2458FB7D00AEEE39 /* MDParser+Announcement.swift */; };
+		3398993F2458FBA000AEEE39 /* MDParser+MangaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3398993E2458FBA000AEEE39 /* MDParser+MangaList.swift */; };
+		339899412458FBEC00AEEE39 /* MDParser+MangaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899402458FBEC00AEEE39 /* MDParser+MangaInfo.swift */; };
+		339899432458FC3300AEEE39 /* MDParser+Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899422458FC3300AEEE39 /* MDParser+Comments.swift */; };
+		339899452458FC4F00AEEE39 /* MDParser+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899442458FC4F00AEEE39 /* MDParser+Login.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +70,11 @@
 		339899352458D9AE00AEEE39 /* MDUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDUser.swift; sourceTree = "<group>"; };
 		339899372458F42200AEEE39 /* MDAnnouncement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDAnnouncement.swift; sourceTree = "<group>"; };
 		339899392458F75D00AEEE39 /* MDLibParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLibParserTests.swift; sourceTree = "<group>"; };
+		3398993C2458FB7D00AEEE39 /* MDParser+Announcement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+Announcement.swift"; sourceTree = "<group>"; };
+		3398993E2458FBA000AEEE39 /* MDParser+MangaList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+MangaList.swift"; sourceTree = "<group>"; };
+		339899402458FBEC00AEEE39 /* MDParser+MangaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+MangaInfo.swift"; sourceTree = "<group>"; };
+		339899422458FC3300AEEE39 /* MDParser+Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+Comments.swift"; sourceTree = "<group>"; };
+		339899442458FC4F00AEEE39 /* MDParser+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+Login.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +125,8 @@
 				3353B5AB24578F710066B8D5 /* MDApi.swift */,
 				3353B584245789E10066B8D5 /* MDConstants.swift */,
 				3353B586245789E40066B8D5 /* MDPath.swift */,
-				3354C77224588BDB00E65B8A /* API Objects */,
+				3354C77224588BDB00E65B8A /* Objects */,
+				3398993B2458FB2E00AEEE39 /* Parsing */,
 				3354C77524588D3000E65B8A /* Requests */,
 			);
 			path = MangaDexLib;
@@ -142,7 +153,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3354C77224588BDB00E65B8A /* API Objects */ = {
+		3354C77224588BDB00E65B8A /* Objects */ = {
 			isa = PBXGroup;
 			children = (
 				339899372458F42200AEEE39 /* MDAnnouncement.swift */,
@@ -150,11 +161,10 @@
 				339899332458D94300AEEE39 /* MDComment.swift */,
 				3354C77024588A4F00E65B8A /* MDManga.swift */,
 				339899352458D9AE00AEEE39 /* MDUser.swift */,
-				3353B5BE2457A7AF0066B8D5 /* MDParser.swift */,
 				3354C76E245881D600E65B8A /* MDResource.swift */,
 				3353B5BA245797930066B8D5 /* MDSearch.swift */,
 			);
-			path = "API Objects";
+			path = Objects;
 			sourceTree = "<group>";
 		};
 		3354C77524588D3000E65B8A /* Requests */ = {
@@ -164,6 +174,19 @@
 				3354C76A24585D8D00E65B8A /* MDResponse.swift */,
 			);
 			path = Requests;
+			sourceTree = "<group>";
+		};
+		3398993B2458FB2E00AEEE39 /* Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				3353B5BE2457A7AF0066B8D5 /* MDParser.swift */,
+				3398993C2458FB7D00AEEE39 /* MDParser+Announcement.swift */,
+				3398993E2458FBA000AEEE39 /* MDParser+MangaList.swift */,
+				339899402458FBEC00AEEE39 /* MDParser+MangaInfo.swift */,
+				339899422458FC3300AEEE39 /* MDParser+Comments.swift */,
+				339899442458FC4F00AEEE39 /* MDParser+Login.swift */,
+			);
+			path = Parsing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -339,8 +362,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3353B585245789E10066B8D5 /* MDConstants.swift in Sources */,
+				339899452458FC4F00AEEE39 /* MDParser+Login.swift in Sources */,
 				3353B5BF2457A7AF0066B8D5 /* MDParser.swift in Sources */,
+				3398993F2458FBA000AEEE39 /* MDParser+MangaList.swift in Sources */,
 				339899342458D94300AEEE39 /* MDComment.swift in Sources */,
+				339899432458FC3300AEEE39 /* MDParser+Comments.swift in Sources */,
 				3353B5BB245797930066B8D5 /* MDSearch.swift in Sources */,
 				339899382458F42200AEEE39 /* MDAnnouncement.swift in Sources */,
 				3354C76B24585D8D00E65B8A /* MDResponse.swift in Sources */,
@@ -349,7 +375,9 @@
 				339899362458D9AE00AEEE39 /* MDUser.swift in Sources */,
 				3354C77424588BEB00E65B8A /* MDChapter.swift in Sources */,
 				3353B5AE2457905C0066B8D5 /* MDRequestHandler.swift in Sources */,
+				339899412458FBEC00AEEE39 /* MDParser+MangaInfo.swift in Sources */,
 				3353B5AC24578F710066B8D5 /* MDApi.swift in Sources */,
+				3398993D2458FB7D00AEEE39 /* MDParser+Announcement.swift in Sources */,
 				3353B587245789E40066B8D5 /* MDPath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
