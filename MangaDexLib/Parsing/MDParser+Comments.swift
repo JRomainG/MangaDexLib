@@ -86,14 +86,15 @@ extension MDParser {
 
         let userId = getIdFromHref(href)
         let name = try title.text()
-        let rank = rankClass.dropFirst(MDParser.userRoleClassPrefix.count)
+        let rankName = rankClass.dropFirst(MDParser.userRoleClassPrefix.count)
+        let rank = MDRank.init(rawValue: String(rankName))
 
         // Make sure the user has a user id
         guard userId != nil else {
             return nil
         }
 
-        return MDUser(userId: userId!, name: name, rank: String(rank), avatar: avatar)
+        return MDUser(userId: userId!, name: name, rank: rank, avatar: avatar)
     }
 
     /// Extract the list of comments present in the given html string

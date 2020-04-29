@@ -26,6 +26,18 @@ enum MDServer: String {
     //case restOfTheWorld = "row"
 }
 
+/// Existing user ranks
+enum MDRank: String, Codable {
+    case member = "member"
+    case powerUploader = "power_uploader"
+    case groupLeader = "group_leader"
+    case vip = "vip"
+    case forumModerator = "forum_moderator"
+    case moderator = "moderator"
+    case administrator = "administrator"
+    case publicRelations = "public_relations"
+}
+
 /// The status of a manga or chapter
 enum MDStatus: String, Codable {
     /// The group has uploaded the chapter, but it's not yet available

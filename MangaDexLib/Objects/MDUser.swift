@@ -18,7 +18,7 @@ struct MDUser {
     var name: String?
 
     /// The user's rank
-    var rank: String?
+    var rank: MDRank?
 
     /// The user's avatar URL
     var avatar: String?
