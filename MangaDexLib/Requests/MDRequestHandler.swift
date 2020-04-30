@@ -18,6 +18,7 @@ class MDRequestHandler: NSObject {
         case authToken = "mangadex_rememberme_token"
         case sessionId = "mangadex_session"
         case ddosGuard = "__ddg1"
+        case cloudflare = "__cfduid"
     }
 
     /// The different fields set for POST requests to login
@@ -271,11 +272,10 @@ extension MDRequestHandler {
             return
         }
 
-        // Set the origin and ddosGuard cookie values for this request
+        // Set the origin for the request, just in case
         request.setValue(MDApi.baseURL, forHTTPHeaderField: "Origin")
-        request.setValue("\(CookieType.ddosGuard.rawValue)=\(cookie)", forHTTPHeaderField: "Cookie")
 
-        // Wait for a bit to prevent the user from performing requests too often
+        // Wait for a bit to prevent the user from performing requests too quickly
         // TODO: Also have a queue that limits the number of requests at the same time
         DispatchQueue.main.asyncAfter(deadline: .now() + ddosGuardDelay) {
             completion(nil)
