@@ -28,14 +28,17 @@ enum MDServer: String {
 
 /// Existing user ranks
 enum MDRank: String, Codable {
+    case banned = "banned"
+    case validating = "validating"
     case member = "member"
-    case powerUploader = "power_uploader"
     case groupLeader = "group_leader"
+    case powerUploader = "power_uploader"
     case vip = "vip"
+    case publicRelations = "public_relations"
     case forumModerator = "forum_moderator"
     case moderator = "moderator"
+    case developer = "developer"
     case administrator = "administrator"
-    case publicRelations = "public_relations"
 }
 
 /// The status of a manga or chapter
