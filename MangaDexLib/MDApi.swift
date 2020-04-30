@@ -24,10 +24,10 @@ class MDApi: NSObject {
     private(set) var ratedFilter: MDRatedFilter = .noR18
 
     /// Instance of `MDRequestHandler` used to perform all requests
-    let requestHandler = MDRequestHandler()
+    internal let requestHandler = MDRequestHandler()
 
     /// Instance of `MDParser` used to parse the results of the requests
-    let parser = MDParser()
+    internal let parser = MDParser()
 
     /// TypeAlias for completion blocks
     typealias MDCompletion = (MDResponse) -> Void
@@ -61,7 +61,7 @@ extension MDApi {
     /// - Parameter success: The internal completion called in the requests succeeds
     ///
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
-    private func performGet(url: URL,
+    internal func performGet(url: URL,
                             type: MDResponse.ResponseType,
                             errorCompletion: @escaping MDCompletion,
                             success: @escaping MDCompletion) {
@@ -84,7 +84,7 @@ extension MDApi {
     /// - Parameter success: The internal completion called in the requests succeeds
     ///
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
-    private func performPost(url: URL,
+    internal func performPost(url: URL,
                              body: [String: LosslessStringConvertible],
                              encoding: MDRequestHandler.BodyEncoding = .multipart,
                              type: MDResponse.ResponseType,
