@@ -319,14 +319,10 @@ class MDPath {
     /// - Parameter javascriptEnabled: Whether javascript should be marked as disabled or not
     /// - Returns: The ajax URL
     static func loginAction(javascriptEnabled: Bool = true) -> URL {
-        var params = [
-            URLQueryItem(name: AjaxParams.function.rawValue, value: Path.login.rawValue)
+        let params = [
+            URLQueryItem(name: AjaxParams.function.rawValue, value: Path.login.rawValue),
+            URLQueryItem(name: AjaxParams.noJS.rawValue, value: javascriptEnabled ? nil : "1")
         ]
-
-        // Don't set the flag is javascript is enabled
-        if !javascriptEnabled {
-            params.append(URLQueryItem(name: AjaxParams.noJS.rawValue, value: "1"))
-        }
         return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)
     }
 

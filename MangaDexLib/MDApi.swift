@@ -324,14 +324,14 @@ extension MDApi {
             MDRequestHandler.AuthField.twoFactor.rawValue: "",
             MDRequestHandler.AuthField.remember.rawValue: info.remember ? "1" : "0"
         ]
-        self.performPost(url: url,
-                         body: body,
-                         encoding: .urlencoded,
-                         type: .login,
-                         errorCompletion: completion) { (response) in
-                            // Save the cookie in the response so it's accessible from outside the API
-                            response.token = self.requestHandler.getCookie(type: .authToken)
-                            completion(response)
+        performPost(url: url,
+                    body: body,
+                    encoding: .urlencoded,
+                    type: .login,
+                    errorCompletion: completion) { (response) in
+                        // Save the cookie in the response so it's accessible from outside the API
+                        response.token = self.requestHandler.getCookie(type: .authToken)
+                        completion(response)
         }
     }
 
@@ -347,7 +347,7 @@ extension MDApi {
             // TODO: Error
             completion(response)
         } else {
-            self.requestHandler.setCookie(type: .authToken, value: token!, sessionOnly: false, secure: true)
+            requestHandler.setCookie(type: .authToken, value: token!, sessionOnly: false, secure: true)
             response.token = token
             completion(response)
         }
