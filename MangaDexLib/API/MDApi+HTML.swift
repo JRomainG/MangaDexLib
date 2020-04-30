@@ -163,8 +163,15 @@ extension MDApi {
     /// Fetch the results of the search
     /// - Parameter search: An `MDSearch` instance representing the query
     /// - Parameter completion: The callback at the end of the request
+    ///
+    /// - Note: Only logged-in users can search
     func performSearch(_ search: MDSearch, completion: @escaping MDCompletion) {
         let url = MDPath.search(search)
+        guard isLoggedIn() else {
+            let response = MDResponse(type: .generic, url: url, error: MDError.loginRequired)
+            completion(response)
+            return
+        }
         getMangas(from: url, completion: completion)
     }
 
