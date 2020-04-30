@@ -12,6 +12,7 @@ enum MDError: Error {
     // Request errors
     case wrongStatusCode
     case noDdosGuardCookie
+    case notReady
 
     // Auth errors
     case loginRequired

@@ -70,6 +70,19 @@ class MDRequestHandler: NSObject {
     /// mostly invisible to the user during normal use
     private(set) var ddosGuardDelay: Double = 0.5
 
+    /// Boolean indicating whether the handler is ready to start performing requests
+    ///
+    /// The handler is considered `unready` before its User-Agent has been set,
+    /// because some requests (mainly those requiring login) fail if a proper
+    /// User-Agent isn't sent
+    private(set) var isReady: Bool = false
+
+    /// List of requests that haven't been started yet
+    ///
+    /// Requests are added to the queue before the handler is ready.
+    /// Once ready, all the requests are automatically started
+    private(set) var requestQueue: [(NSMutableURLRequest, RequestCompletion)] = []
+
     override init() {
         super.init()
         buildUserAgent(suffix: MDApi.defaultUserAgent)
@@ -86,6 +99,7 @@ class MDRequestHandler: NSObject {
         WKWebView().evaluateJavaScript("navigator.userAgent") { (result, _) in
             // Don't override a custom User Agent
             guard !self.hasUserAgent else {
+                self.didBecomeReady()
                 return
             }
 
@@ -95,6 +109,8 @@ class MDRequestHandler: NSObject {
             } else {
                 self.setUserAgent(suffix)
             }
+
+            self.didBecomeReady()
         }
     }
 
@@ -119,6 +135,19 @@ class MDRequestHandler: NSObject {
     func resetSession() {
         cookieJar.removeCookies(since: .distantPast)
         session.flush {
+        }
+    }
+
+    /// Called when the handler finishes its initialization
+    internal func didBecomeReady() {
+        // Perform on main thread to avoid concurrency issues
+        DispatchQueue.main.async {
+            self.isReady = true
+
+            // Start all pending tasks
+            for (request, completion) in self.requestQueue {
+                self.startTask(for: request, completion: completion)
+            }
         }
     }
 
@@ -198,8 +227,28 @@ class MDRequestHandler: NSObject {
     /// - Parameter request: The request to perform
     /// - Parameter completion: The callback at the end of the request
     func perform(request: NSMutableURLRequest, completion: @escaping RequestCompletion) {
-        // Make sure the user agent is set
-        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        // Wait until the handler is ready before starting requests
+        DispatchQueue.main.async {
+            if self.isReady {
+                self.startTask(for: request, completion: completion)
+            } else {
+                self.requestQueue.append((request, completion))
+            }
+        }
+    }
+
+    /// Handle creating (and starting) a `URLSessionTask` for the given request
+    ///
+    /// - Attention: Should only be called if the handler is ready
+    @objc
+    private func startTask(for request: NSMutableURLRequest, completion: @escaping RequestCompletion) {
+        // Make sure the handler is ready
+        guard isReady else {
+            completion(nil, nil, MDError.notReady)
+        }
+
+        // Make sure the User-Agent is set correctly
+        request.setValue(self.userAgent, forHTTPHeaderField: "User-Agent")
 
         // Cookies are automatically handled by the session, so just create the task
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in

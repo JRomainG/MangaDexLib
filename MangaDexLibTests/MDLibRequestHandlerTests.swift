@@ -124,6 +124,24 @@ class MDLibRequestHandlerTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testDefaultUserAgent() throws {
+        let requestHandler = MDRequestHandler()
+        let url = URL(string: "https://httpbin.org/user-agent")!
+
+        let expectation = self.expectation(description: "Fetch User Agent")
+        requestHandler.get(url: url) { (http, content, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(content)
+            XCTAssertEqual(http?.statusCode, 200)
+
+            let dict = self.parseJson(from: content)
+            let fetchedUserAgent = dict?["user-agent"] as? String
+            XCTAssert(fetchedUserAgent != MDApi.defaultUserAgent)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testSetUserAgent() throws {
         let requestHandler = MDRequestHandler()
         let url = URL(string: "https://httpbin.org/user-agent")!
