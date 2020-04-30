@@ -24,6 +24,7 @@ class MDPath {
         case comments = "comments"
         case thread = "thread"
         case login = "login"
+        case logout = "logout"
         case ajax = "ajax/actions.ajax.php"
         case api = "api"
     }
@@ -321,6 +322,17 @@ class MDPath {
     static func loginAction(javascriptEnabled: Bool = true) -> URL {
         let params = [
             URLQueryItem(name: AjaxParams.function.rawValue, value: Path.login.rawValue),
+            URLQueryItem(name: AjaxParams.noJS.rawValue, value: javascriptEnabled ? nil : "1")
+        ]
+        return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)
+    }
+
+    /// Build the URL used to log out
+    /// - Parameter javascriptEnabled: Whether javascript should be marked as disabled or not
+    /// - Returns: The ajax URL
+    static func logoutAction(javascriptEnabled: Bool = true) -> URL {
+        let params = [
+            URLQueryItem(name: AjaxParams.function.rawValue, value: Path.logout.rawValue),
             URLQueryItem(name: AjaxParams.noJS.rawValue, value: javascriptEnabled ? nil : "1")
         ]
         return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)

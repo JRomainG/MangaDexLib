@@ -20,6 +20,7 @@ class MDResponse: NSObject {
         case groupInfo
         case commentList
         case login
+        case logout
     }
 
     /// The type of response this is
