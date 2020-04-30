@@ -131,12 +131,9 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     public func getLatestFollowedMangas(page: Int, status: MDReadingStatus, completion: @escaping MDCompletion) {
         let url = MDPath.latestFollowed(page: page, type: .manga, status: status)
-        guard isLoggedIn() else {
-            let response = MDResponse(type: .generic, url: url, error: MDError.loginRequired)
-            completion(response)
-            return
+        checkLoggedIn(url: url, onError: completion) {
+            self.getMangas(from: url, completion: completion)
         }
-        getMangas(from: url, completion: completion)
     }
 
     /// Fetch a manga's latest comments
@@ -170,12 +167,9 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     public func getLatestFollowedChapters(page: Int, status: MDReadingStatus, completion: @escaping MDCompletion) {
         let url = MDPath.latestFollowed(page: page, type: .chapters, status: status)
-        guard isLoggedIn() else {
-            let response = MDResponse(type: .generic, url: url, error: MDError.loginRequired)
-            completion(response)
-            return
+        checkLoggedIn(url: url, onError: completion) {
+            self.getChapters(from: url, completion: completion)
         }
-        getChapters(from: url, completion: completion)
     }
 
     /// Fetch a chapter's latest comments
@@ -224,12 +218,9 @@ extension MDApi {
     /// - Note: Only logged-in users can search
     public func performSearch(_ search: MDSearch, completion: @escaping MDCompletion) {
         let url = MDPath.search(search)
-        guard isLoggedIn() else {
-            let response = MDResponse(type: .generic, url: url, error: MDError.loginRequired)
-            completion(response)
-            return
+        checkLoggedIn(url: url, onError: completion) {
+            self.getMangas(from: url, completion: completion)
         }
-        getMangas(from: url, completion: completion)
     }
 
 }

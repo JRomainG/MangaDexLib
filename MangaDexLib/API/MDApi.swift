@@ -48,6 +48,18 @@ public class MDApi: NSObject {
 
 extension MDApi {
 
+    /// Ensure the user is logged in
+    /// - Parameter onError: The user-provided completion that will be called in case of an error
+    /// - Parameter onSuccess: The internal completion called if the requests succeeds
+    func checkLoggedIn(url: URL, onError: @escaping MDCompletion, onSuccess: () -> Void) {
+        guard isLoggedIn() else {
+            let response = MDResponse(type: .generic, url: url, error: MDError.loginRequired)
+            onError(response)
+            return
+        }
+        onSuccess()
+    }
+
     /// Wrapper around MDRequestHandler's get method
     /// - Parameter url: The URL to fetch
     /// - Parameter type: The type of response that is expected
