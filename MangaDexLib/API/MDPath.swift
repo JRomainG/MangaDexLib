@@ -22,7 +22,6 @@ public class MDPath {
         case mangaPage = "title"
         case chapterPage = "chapter"
         case groupPage = "group"
-        case comments = "comments"
         case thread = "thread"
         case login = "login"
         case logout = "logout"
@@ -35,6 +34,7 @@ public class MDPath {
         case manga = "manga"
         case chapters = "chapters"
         case chapter = "chapter"
+        case comments = "comments"
         case groups = "groups"
     }
 
@@ -256,7 +256,25 @@ public class MDPath {
             normalizedTitle = MDApi.defaultUserAgent
         }
 
-        let components: [String] = [String(mangaId), normalizedTitle, Path.comments.rawValue]
+        let components: [String] = [String(mangaId), normalizedTitle, ResourceType.comments.rawValue]
+        return buildUrl(for: .mangaPage, with: components)
+    }
+
+    /// Build the URL to fetch a given manga's chapters
+    /// - Parameter mangaId: The identifier of the manga
+    /// - Parameter mangaTitle: The title of the manga (not strictly necessary)
+    /// - Parameter page: The index of the page to load (starting at 1)
+    /// - Returns: The MangaDex URL
+    public static func mangaChapters(mangaId: Int, mangaTitle: String?, page: Int) -> URL {
+        // The title doesn't really matter, but let's try to make it nice either way
+        let normalizedTitle: String
+        if let title = mangaTitle {
+            normalizedTitle = normalize(string: title)
+        } else {
+            normalizedTitle = MDApi.defaultUserAgent
+        }
+
+        let components: [String] = [String(mangaId), normalizedTitle, ResourceType.chapters.rawValue, String(page)]
         return buildUrl(for: .mangaPage, with: components)
     }
 
@@ -291,7 +309,7 @@ public class MDPath {
     /// - Parameter chapterId: The identifier of the chapter
     /// - Returns: The MangaDex URL
     public static func chapterComments(chapterId: Int) -> URL {
-        let components: [String] = [String(chapterId), Path.comments.rawValue]
+        let components: [String] = [String(chapterId), ResourceType.comments.rawValue]
         return buildUrl(for: .chapterPage, with: components)
     }
 

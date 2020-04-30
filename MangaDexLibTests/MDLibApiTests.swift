@@ -242,6 +242,20 @@ class MDLibApiTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testMangaChapters() throws {
+        let mangaId = 7139
+        let page = 2
+        let mangaTitle = "One Punch Man"
+        let api = MDApi()
+
+        let expectation = self.expectation(description: "Load a manga's chapter list")
+        api.getMangaChapters(mangaId: mangaId, title: mangaTitle, page: page) { (response) in
+            self.assertChapterListIsValid(for: response)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testChapterComments() throws {
         let chapterId = 867036 // One Punch Man chapter 131
         let api = MDApi()
