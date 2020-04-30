@@ -51,8 +51,8 @@ extension MDApi {
     /// Wrapper around MDRequestHandler's get method
     /// - Parameter url: The URL to fetch
     /// - Parameter type: The type of response that is expected
-    /// - Parameter errorCompletion: The user-provided completion that will be called in case of an error
-    /// - Parameter success: The internal completion called in the requests succeeds
+    /// - Parameter onError: The user-provided completion that will be called in case of an error
+    /// - Parameter onSuccess: The internal completion called if the requests succeeds
     ///
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
     func performGet(url: URL,
@@ -67,8 +67,8 @@ extension MDApi {
     /// - Parameter url: The URL to load
     /// - Parameter body: The content of the request
     /// - Parameter type: The type of response that is expected
-    /// - Parameter errorCompletion: The user-provided completion that will be called in case of an error
-    /// - Parameter success: The internal completion called in the requests succeeds
+    /// - Parameter onError: The user-provided completion that will be called in case of an error
+    /// - Parameter onSuccess: The internal completion called if the requests succeeds
     ///
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
     func performPost(url: URL,
@@ -81,6 +81,11 @@ extension MDApi {
         requestHandler.post(url: url, content: body, encoding: encoding, completion: completion)
     }
 
+    /// Constructor for a generic completion block
+    /// - Parameter url: The URL to load
+    /// - Parameter type: The type of response that is expected
+    /// - Parameter onError: The completion called in case of an error
+    /// - Parameter onSuccess: The completion called if the requests succeeds
     private func requestCompletionBlock(url: URL,
                                         type: MDResponse.ResponseType,
                                         onError: @escaping MDCompletion,
