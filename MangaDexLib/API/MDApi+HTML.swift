@@ -16,7 +16,7 @@ extension MDApi {
     /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
     private func getMangas(from url: URL, completion: @escaping MDCompletion) {
-        self.performGet(url: url, type: .mangaList, errorCompletion: completion) { (response) in
+        self.performGet(url: url, type: .mangaList, onError: completion) { (response) in
             do {
                 let html = response.rawValue!
                 response.mangas = try self.parseMangaHtmlList(html)
@@ -49,7 +49,7 @@ extension MDApi {
     /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
     private func getMangaInfo(from url: URL, completion: @escaping MDCompletion) {
-        self.performGet(url: url, type: .mangaInfo, errorCompletion: completion) { (response) in
+        self.performGet(url: url, type: .mangaInfo, onError: completion) { (response) in
             do {
                 let html = response.rawValue!
                 response.manga = try self.parser.getMangaInfo(from: html)
@@ -65,7 +65,7 @@ extension MDApi {
     /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
     private func getComments(from url: URL, completion: @escaping MDCompletion) {
-        self.performGet(url: url, type: .commentList, errorCompletion: completion) { (response) in
+        self.performGet(url: url, type: .commentList, onError: completion) { (response) in
             do {
                 let html = response.rawValue!
                 response.comments = try self.parser.getComments(from: html)
@@ -148,7 +148,7 @@ extension MDApi {
     /// While this method should return a pretty
     public func getGroupInfo(groupId: Int, completion: @escaping MDCompletion) {
         let url = MDPath.groupInfo(groupId: groupId)
-        self.performGet(url: url, type: .groupInfo, errorCompletion: completion) { (response) in
+        self.performGet(url: url, type: .groupInfo, onError: completion) { (response) in
             do {
                 let html = response.rawValue!
                 response.group = try self.parser.getGroupInfo(from: html)

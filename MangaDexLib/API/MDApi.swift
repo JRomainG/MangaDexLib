@@ -63,24 +63,10 @@ extension MDApi {
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
     func performGet(url: URL,
                     type: MDResponse.ResponseType,
-                    errorCompletion: @escaping MDCompletion,
-                    success: @escaping MDCompletion) {
-        requestHandler.get(url: url) { (http, content, error) in
-            // Build a response object for the completion
-            let response = MDResponse(type: type, url: url, error: error, content: content, status: http?.statusCode)
-            guard error == nil, content != nil else {
-                errorCompletion(response)
-                return
-            }
-
-            // Make sure the status code is correct
-            guard let statusCode = http?.statusCode, 200...399 ~= statusCode else {
-                response.error = MDError.wrongStatusCode
-                errorCompletion(response)
-                return
-            }
-            success(response)
-        }
+                    onError: @escaping MDCompletion,
+                    onSuccess: @escaping MDCompletion) {
+        let completion = requestCompletionBlock(url: url, type: type, onError: onError, onSuccess: onSuccess)
+        requestHandler.get(url: url, completion: completion)
     }
 
     /// Wrapper around MDRequestHandler's post method
@@ -95,23 +81,36 @@ extension MDApi {
                      body: [String: LosslessStringConvertible],
                      encoding: MDRequestHandler.BodyEncoding = .multipart,
                      type: MDResponse.ResponseType,
-                     errorCompletion: @escaping MDCompletion,
-                     success: @escaping MDCompletion) {
-        requestHandler.post(url: url, content: body, encoding: encoding) { (http, content, error) in
+                     onError: @escaping MDCompletion,
+                     onSuccess: @escaping MDCompletion) {
+        let completion = requestCompletionBlock(url: url, type: type, onError: onError, onSuccess: onSuccess)
+        requestHandler.post(url: url, content: body, encoding: encoding, completion: completion)
+    }
+
+    private func requestCompletionBlock(url: URL,
+                                        type: MDResponse.ResponseType,
+                                        onError: @escaping MDCompletion,
+                                        onSuccess: @escaping MDCompletion) -> MDRequestHandler.RequestCompletion {
+        return { (httpResponse, content, error) in
             // Build a response object for the completion
-            let response = MDResponse(type: type, url: url, error: error, content: content, status: http?.statusCode)
+            let response = MDResponse(type: type,
+                                      url: url,
+                                      error: error,
+                                      content: content,
+                                      status: httpResponse?.statusCode)
+
             guard error == nil, content != nil else {
-                errorCompletion(response)
+                onError(response)
                 return
             }
 
             // Make sure the status code is correct
-            guard let statusCode = http?.statusCode, 400...599 ~= statusCode else {
+            guard let statusCode = httpResponse?.statusCode, 200...399 ~= statusCode else {
                 response.error = MDError.wrongStatusCode
-                errorCompletion(response)
+                onError(response)
                 return
             }
-            success(response)
+            onSuccess(response)
         }
     }
 

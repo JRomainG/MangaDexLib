@@ -27,14 +27,10 @@ extension MDApi {
             MDRequestHandler.AuthField.twoFactor.rawValue: "",
             MDRequestHandler.AuthField.remember.rawValue: info.remember ? "1" : "0"
         ]
-        performPost(url: url,
-                    body: body,
-                    encoding: .urlencoded,
-                    type: .login,
-                    errorCompletion: completion) { (response) in
-                        // Save the cookie in the response so it's accessible from outside the API
-                        response.token = self.requestHandler.getCookie(type: .authToken)
-                        completion(response)
+        performPost(url: url, body: body, encoding: .urlencoded, type: .login, onError: completion) { (response) in
+            // Save the cookie in the response so it's accessible from outside the API
+            response.token = self.requestHandler.getCookie(type: .authToken)
+            completion(response)
         }
     }
 
@@ -80,7 +76,7 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     public func logout(completion: @escaping MDCompletion) {
         let url = MDPath.logoutAction()
-        performPost(url: url, body: [:], type: .logout, errorCompletion: completion, success: completion)
+        performPost(url: url, body: [:], type: .logout, onError: completion, onSuccess: completion)
     }
 
     /// Checks whether the user has an auth token set
