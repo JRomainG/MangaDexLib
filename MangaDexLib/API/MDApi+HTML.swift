@@ -136,6 +136,17 @@ extension MDApi {
         }
     }
 
+    /// Fetch the list of mangas in the user's history
+    /// - Parameter completion: The callback at the end of the request
+    ///
+    /// - Note: Only the last 10 read titles are listed
+    public func getHistory(completion: @escaping MDCompletion) {
+        let url = MDPath.history()
+        checkLoggedIn(url: url, onError: completion) {
+            self.getMangas(from: url, completion: completion)
+        }
+    }
+
     /// Fetch a manga's latest comments
     /// - Parameter mangaId: The manga for which to fetch comments
     /// - Parameter title: The title of the manga (can be nil)

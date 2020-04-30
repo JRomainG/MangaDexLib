@@ -78,6 +78,12 @@ class MDLibPathTests: XCTestCase {
         assertUrlsAreEqual(randomMangaURL, expectedURL)
     }
 
+    func testHistoryPath() throws {
+        let historyURL = MDPath.history()
+        let expectedURL = URL(string: "\(MDApi.baseURL)/history")!
+        assertUrlsAreEqual(historyURL, expectedURL)
+    }
+
     func testEncodedSearchMangaPath() throws {
         let search = MDSearch(title: "search title",
                               author: "Firstname Lastname",

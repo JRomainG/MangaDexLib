@@ -19,6 +19,7 @@ public class MDPath {
         case latestFollowed = "follows"
         case searchMangas = "search"
         case randomManga = "manga"
+        case history = "history"
         case mangaPage = "title"
         case chapterPage = "chapter"
         case groupPage = "group"
@@ -182,6 +183,11 @@ public class MDPath {
     /// Build the URL to get a random manga
     public static func randomManga() -> URL {
         return buildUrl(for: .randomManga)
+    }
+
+    /// Build the URL to get the user's history
+    public static func history() -> URL {
+        return buildUrl(for: .history)
     }
 
     /// Build the URL for performing a search

@@ -61,7 +61,7 @@ extension MDParser {
     /// - Returns: A list of `MDManga` instances
     ///
     /// This serves as backup if `getMangas` fails
-    /// - Note: Only the `title` and `id` are extracted by this method
+    /// - Note: Only the `id` is extracted by this method
     func getMangaIds(from content: String) throws -> [MDManga] {
         let doc = try MDParser.parse(html: content)
         let elements = try doc.getElementsByClass(MDParser.mangaEntryClass)

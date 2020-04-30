@@ -219,11 +219,24 @@ class MDLibApiTests: XCTestCase {
 
         api.getRandomManga { (response) in
             XCTAssert(response.type == .mangaInfo)
-            XCTAssertNotNil(response.manga)
-            XCTAssertNotNil(response.manga?.mangaId)
+            self.assertMangaIsValid(response.manga)
             XCTAssertNotNil(response.manga?.title)
             XCTAssertNotNil(response.manga?.coverUrl)
             XCTAssertNotNil(response.manga?.description)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testHistory() throws {
+        let api = MDApi()
+
+        // Must be logged-in to see history
+        login(api: api)
+
+        let expectation = self.expectation(description: "Load the user's history manga page")
+        api.getHistory { (response) in
+            self.assertMangaListIsValid(for: response)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
