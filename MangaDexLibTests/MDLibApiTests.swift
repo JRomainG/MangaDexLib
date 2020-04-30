@@ -248,12 +248,24 @@ class MDLibApiTests: XCTestCase {
     func testRegularLogin() throws {
         let auth = getAuth(in: "Secret", file: "auth.plist", key: "AuthRegular")!
         let api = MDApi()
-        let expectation = self.expectation(description: "Login using username and password")
 
+        // Make sure we're logged out
+        let logoutExpectation = self.expectation(description: "Logout")
+        if api.isLoggedIn() {
+            api.logout { (_) in
+                logoutExpectation.fulfill()
+            }
+        } else {
+            logoutExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+        XCTAssertFalse(api.isLoggedIn())
+
+        let loginExpectation = self.expectation(description: "Login using username and password")
         api.login(with: auth) { (response) in
-            // TODO: Add tests
+            XCTAssert(api.isLoggedIn())
             XCTAssertNil(response.error)
-            expectation.fulfill()
+            loginExpectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
