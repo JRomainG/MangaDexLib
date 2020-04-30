@@ -91,6 +91,7 @@ class MDRequestHandler: NSObject {
         session.configuration.httpShouldSetCookies = true
         session.configuration.httpCookieAcceptPolicy = .onlyFromMainDocumentDomain
         session.configuration.httpCookieStorage?.cookieAcceptPolicy = .onlyFromMainDocumentDomain
+        session.configuration.httpMaximumConnectionsPerHost = 5
     }
 
     /// Append the given suffix to the phone's default User-Agent
@@ -123,10 +124,22 @@ class MDRequestHandler: NSObject {
     }
 
     /// Change the delay added before performing a `POST` request (in seconds)
+    /// - Parameter delay: The delay (in seconds) added before each request
     ///
     /// The minimum value is capped at 0.05 seconds
     func setDdosGuardDelay(_ delay: Double) {
         ddosGuardDelay = max(delay, 0.05)
+    }
+
+    /// Change the maximum number of concurrent connections that will be made
+    /// by the handler
+    /// - Parameter maxConnections: The maximum number of concurrent connections
+    ///
+    /// The maximum value is capped at 25, and the minimum at 1.
+    /// Default is 5
+    func setMaxConcurrentConnections(_ maxConnections: Int) {
+        let connections = max(1, min(maxConnections, 25))
+        session.configuration.httpMaximumConnectionsPerHost = connections
     }
 
     /// Reset the session (clear cookies, credentials, caches...)
@@ -245,6 +258,7 @@ class MDRequestHandler: NSObject {
         // Make sure the handler is ready
         guard isReady else {
             completion(nil, nil, MDError.notReady)
+            return
         }
 
         // Make sure the User-Agent is set correctly
@@ -316,7 +330,7 @@ extension MDRequestHandler {
     /// - Precondition: The `.ddosGuard` cookie must have been set during a previous request (either during this
     /// session or in the past)
     private func handleDdosGuard(for request: NSMutableURLRequest, completion: @escaping (Error?) -> Void) {
-        guard let cookie = getCookie(type: .ddosGuard) else {
+        guard getCookie(type: .ddosGuard) != nil else {
             completion(MDError.noDdosGuardCookie)
             return
         }
@@ -325,7 +339,6 @@ extension MDRequestHandler {
         request.setValue(MDApi.baseURL, forHTTPHeaderField: "Origin")
 
         // Wait for a bit to prevent the user from performing requests too quickly
-        // TODO: Also have a queue that limits the number of requests at the same time
         DispatchQueue.main.asyncAfter(deadline: .now() + ddosGuardDelay) {
             completion(nil)
         }
