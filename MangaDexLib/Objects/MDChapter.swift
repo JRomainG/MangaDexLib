@@ -124,6 +124,7 @@ extension MDChapter {
         case chapterId = "id"
         case mangaId = "manga_id"
         case title
+        case read
         case hash
         case volume
         case chapter
@@ -138,10 +139,30 @@ extension MDChapter {
         case timestamp
         case originalLangName = "lang_name"
         case originalLangCode = "lang_code"
+        case originalLang
         case comments
         case server
         case longStrip = "long_strip"
         case status
+    }
+
+    /// Cast the given value to the right type, base on the given CodingKey
+    /// - Parameter value: The value to cast
+    /// - Parameter jsonKey: The `CodingKeys` value corresponding to the value
+    ///
+    /// - Note: Only the attributes used by the parser are copied here
+    static func decodeValue(_ value: String, for key: CodingKeys) -> Any? {
+        switch key {
+        case .chapterId, .mangaId, .groupId, .timestamp:
+            return Int(value)
+        case .read:
+            return Bool(value)
+        case .originalLang:
+            // No need to cast further, as it will be encoded to json anyway
+            return Int(value)
+        default:
+            return value
+        }
     }
 
 }

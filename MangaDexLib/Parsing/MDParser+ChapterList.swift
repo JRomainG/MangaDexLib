@@ -22,15 +22,15 @@ extension MDParser {
     ///
     /// Under the hood, the html data is converted to json, and then the JSON is
     /// directly parsed using Apple's API to build the `MDChapter` struct
-    static private let chapterAttributes: [String: String] = [
-        "data-id": "id",
-        "data-manga-id": "manga_id",
-        "data-title": "title",
-        "data-volume": "volume",
-        "data-read": "read",
-        "data-lang": "lang_id",
-        "data-group": "group_id",
-        "data-timestamp": "timestamp"
+    static private let chapterAttributes: [String: MDChapter.CodingKeys] = [
+        "data-id": .chapterId,
+        "data-manga-id": .mangaId,
+        "data-title": .title,
+        "data-volume": .volume,
+        "data-read": .read,
+        "data-lang": .originalLang,
+        "data-group": .groupId,
+        "data-timestamp": .timestamp
     ]
 
     /// Return a json `Data` object representing the given `Element`
@@ -39,13 +39,8 @@ extension MDParser {
         var dict: [String: Any] = [:]
         for (attr, key) in MDParser.chapterAttributes {
             let value = try element.attr(attr)
-
-            // Decode Ints, otherwise they'll be encoded as Strings
-            if let intValue = Int(value) {
-                dict[key] = intValue
-            } else {
-                dict[key] = value
-            }
+            let parsedValue = MDChapter.decodeValue(value, for: key)
+            dict[key.rawValue] = parsedValue
         }
         return try JSONSerialization.data(withJSONObject: dict, options: .fragmentsAllowed)
     }
@@ -66,9 +61,7 @@ extension MDParser {
                     continue
                 }
                 // Parse the json and append it if it has an id
-                print(jsonString)
                 let chapter = try MDParser.parse(json: jsonString, type: MDChapter.self)
-                print(chapter)
                 guard chapter.chapterId != nil else {
                     continue
                 }
