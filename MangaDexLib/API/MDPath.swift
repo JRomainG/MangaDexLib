@@ -9,7 +9,7 @@
 import Foundation
 
 /// The class responsible for generating URLs for calls to the website and API
-class MDPath {
+public class MDPath {
 
     /// Relative paths to the pages on MangaDex
     enum Path: String {
@@ -142,33 +142,33 @@ class MDPath {
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter sort: The order in which to sort results
     /// - Returns: The MangaDex URL
-    static func listedMangas(page: Int, sort: MDSortOrder) -> URL {
+    public static func listedMangas(page: Int, sort: MDSortOrder) -> URL {
         return buildUrl(for: .listedMangas, with: [sort.rawValue, page])
     }
 
     /// Build the URL to fetch the featured mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Returns: The MangaDex URL
-    static func featuredMangas() -> URL {
+    public static func featuredMangas() -> URL {
         return buildUrl(for: .featuredMangas)
     }
 
     /// Build the URL to fetch the latest updated mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Returns: The MangaDex URL
-    static func latestMangas(page: Int) -> URL {
+    public static func latestMangas(page: Int) -> URL {
         return buildUrl(for: .latestMangas, with: [page])
     }
 
     /// Build the URL to get a random manga
-    static func randomManga() -> URL {
+    public static func randomManga() -> URL {
         return buildUrl(for: .randomManga)
     }
 
     /// Build the URL for performing a search
     /// - Parameter search: An `MDSearch` instance representing the query
     /// - Returns: The MangaDex URL
-    static func search(_ search: MDSearch) -> URL {
+    public static func search(_ search: MDSearch) -> URL {
         // The include and exclude tags are actually bundled in the same list,
         // Exclude tags are simply preceded by a "-". First build each string
         let includeTags = search.includeTags.map { String($0) }.joined(separator: ",")
@@ -216,7 +216,7 @@ class MDPath {
     /// Build the URL to fetch information about a given manga
     /// - Parameter mangaId: The identifier of the manga
     /// - Returns: The MangaDex URL
-    static func mangaInfo(mangaId: Int) -> URL {
+    public static func mangaInfo(mangaId: Int) -> URL {
         let params = [
             URLQueryItem(name: ApiParam.id.rawValue, value: String(mangaId)),
             URLQueryItem(name: ApiParam.type.rawValue, value: ApiContent.manga.rawValue)
@@ -228,7 +228,7 @@ class MDPath {
     /// - Parameter mangaId: The identifier of the manga
     /// - Parameter mangaTitle: The title of the manga (not strictly necessary)
     /// - Returns: The MangaDex URL
-    static func mangaComments(mangaId: Int, mangaTitle: String?) -> URL {
+    public static func mangaComments(mangaId: Int, mangaTitle: String?) -> URL {
         // The title doesn't really matter, but let's try to make it nice either way
         let normalizedTitle: String
         if let title = mangaTitle {
@@ -245,7 +245,7 @@ class MDPath {
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter server: The server from which to load images
     /// - Returns: The MangaDex URL
-    static func chapterInfo(chapterId: Int, server: MDServer) -> URL {
+    public static func chapterInfo(chapterId: Int, server: MDServer) -> URL {
         let params = [
             URLQueryItem(name: ApiParam.id.rawValue, value: String(chapterId)),
             URLQueryItem(name: ApiParam.server.rawValue, value: server.rawValue),
@@ -262,7 +262,7 @@ class MDPath {
     /// - Parameter hash: The chapter's hash
     /// - Parameter page: The page's file name
     /// - Returns: The image's URL
-    static func chapterPage(server: String, hash: String, page: String) -> URL {
+    public static func chapterPage(server: String, hash: String, page: String) -> URL {
         var url = URL(string: server)!
         url = url.appendingPathComponent(hash)
         return url.appendingPathComponent(page)
@@ -271,7 +271,7 @@ class MDPath {
     /// Build the URL to fetch a given chapter's comments
     /// - Parameter chapterId: The identifier of the chapter
     /// - Returns: The MangaDex URL
-    static func chapterComments(chapterId: Int) -> URL {
+    public static func chapterComments(chapterId: Int) -> URL {
         let components: [String] = [String(chapterId), Path.comments.rawValue]
         return buildUrl(for: .chapterPage, with: components)
     }
@@ -284,14 +284,14 @@ class MDPath {
     /// A thread represents a full chain of comments in chronological order.
     /// `mangaComments` and `chapterComments` are only URLs to the page with
     /// the latest comments
-    static func thread(threadId: Int, page: Int) -> URL {
+    public static func thread(threadId: Int, page: Int) -> URL {
         return buildUrl(for: .thread, with: [threadId, page])
     }
 
     /// Build the URL to fetch information about a given group
     /// - Parameter groupId: The identifier of the group
     /// - Returns: The MangaDex URL
-    static func groupInfo(groupId: Int) -> URL {
+    public static func groupInfo(groupId: Int) -> URL {
         return buildUrl(for: .groupPage, with: [groupId])
     }
 
@@ -299,7 +299,7 @@ class MDPath {
     /// - Parameter resource: The type of external website
     /// - Parameter path: The ID or absolute URL for the resource
     /// - Returns: The external URL
-    static func externalResource(resource: MDResource, path: String) -> URL? {
+    public static func externalResource(resource: MDResource, path: String) -> URL? {
         // Handle cases where the resource is only a relative URL, which means the resource's
         // raw value contains the base URL for the resource
         var absoluteURL: String
@@ -319,7 +319,7 @@ class MDPath {
     /// Build the URL used to log in
     /// - Parameter javascriptEnabled: Whether javascript should be marked as disabled or not
     /// - Returns: The ajax URL
-    static func loginAction(javascriptEnabled: Bool = true) -> URL {
+    public static func loginAction(javascriptEnabled: Bool = true) -> URL {
         let params = [
             URLQueryItem(name: AjaxParams.function.rawValue, value: Path.login.rawValue),
             URLQueryItem(name: AjaxParams.noJS.rawValue, value: javascriptEnabled ? nil : "1")
@@ -330,7 +330,7 @@ class MDPath {
     /// Build the URL used to log out
     /// - Parameter javascriptEnabled: Whether javascript should be marked as disabled or not
     /// - Returns: The ajax URL
-    static func logoutAction(javascriptEnabled: Bool = true) -> URL {
+    public static func logoutAction(javascriptEnabled: Bool = true) -> URL {
         let params = [
             URLQueryItem(name: AjaxParams.function.rawValue, value: Path.logout.rawValue),
             URLQueryItem(name: AjaxParams.noJS.rawValue, value: javascriptEnabled ? nil : "1")

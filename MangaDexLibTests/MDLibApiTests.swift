@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import MangaDexLib
+import MangaDexLib
 
 class MDLibApiTests: XCTestCase {
 

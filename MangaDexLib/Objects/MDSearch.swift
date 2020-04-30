@@ -9,16 +9,16 @@
 import Foundation
 
 /// Struct representing a search query
-struct MDSearch {
+public struct MDSearch {
 
     /// Type of filtering when searching with tags
-    enum TagFilteringMode: String {
+    public enum TagFilteringMode: String {
         case any = "any"
         case all = "all"
     }
 
     /// Options available to select as a work's original language during search
-    let originalLanguages: [MDLanguage] = [
+    public let originalLanguages: [MDLanguage] = [
         .english,
         .japanese,
         .polish,
@@ -36,55 +36,55 @@ struct MDSearch {
     ]
 
     /// Title to lookup (nil means no filter)
-    var title: String?
+    public var title: String?
 
     /// Author to lookup (nil means no filter)
-    var author: String?
+    public var author: String?
 
     /// Artist to lookup (nil means no filter)
-    var artist: String?
+    public var artist: String?
 
     /// Original language of the  mangas to lookup (nil means any)
-    var originalLanguage: MDLanguage?
+    public var originalLanguage: MDLanguage?
 
     /// Demographics of the  mangas to lookup (empty means no filter)
-    var demographics: [MDDemographic] = []
+    public var demographics: [MDDemographic] = []
 
     /// Publication status of the  mangas to lookup (empty means no filter)
-    var publicationStatuses: [MDPublicationStatus] = []
+    public var publicationStatuses: [MDPublicationStatus] = []
 
     /// Tags to allow in the mangas to lookup (empty means no filter)
-    var includeTags: [Int] = []
+    public var includeTags: [Int] = []
 
     /// Tags to forbid in the mangas to lookup (empty means no filter)
-    var excludeTags: [Int] = []
+    public var excludeTags: [Int] = []
 
     /// Type of filter to apply for tag inclusion
-    var includeTagsMode: TagFilteringMode = .all
+    public var includeTagsMode: TagFilteringMode = .all
 
     /// Type of filter to apply for tag exclusion
-    var excludeTagsMode: TagFilteringMode = .any
+    public var excludeTagsMode: TagFilteringMode = .any
 
     /// Convenience method to init an empty search instance
     init() {
     }
 
     /// Convenience method to init a simple search instance
-    init(title: String?) {
+    public init(title: String?) {
         self.title = title
     }
 
     /// Convenience method to init an advanced search instance
-    init(title: String?,
-         author: String?,
-         artist: String?,
-         originalLanguage: MDLanguage?,
-         demographics: [MDDemographic],
-         publicationStatuses: [MDPublicationStatus],
-         includeTags: [Int],
-         excludeTags: [Int],
-         includeTagsMode: TagFilteringMode,
-         excludeTagsMode: TagFilteringMode) {
+    public init(title: String?,
+                author: String?,
+                artist: String?,
+                originalLanguage: MDLanguage?,
+                demographics: [MDDemographic],
+                publicationStatuses: [MDPublicationStatus],
+                includeTags: [Int],
+                excludeTags: [Int],
+                includeTagsMode: TagFilteringMode,
+                excludeTagsMode: TagFilteringMode) {
         self.title = title
         self.author = author
         self.artist = artist

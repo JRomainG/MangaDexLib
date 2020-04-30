@@ -9,25 +9,25 @@
 import Foundation
 
 /// Class representing a group returned by MangaDex
-struct MDGroup {
+public struct MDGroup {
 
     /// The id of the group
-    var groupId: Int
+    public var groupId: Int
 
     /// The name of the group
-    var name: String?
+    public var name: String?
 
     /// The URL of this group's cover image
-    var coverUrl: String?
+    public var coverUrl: String?
 
     /// A list of links for this group
-    var links: [String]?
+    public var links: [String]?
 
     /// The leader of this group
-    var leader: MDUser?
+    public var leader: MDUser?
 
     /// The list of members in this group
-    var members: [MDUser]?
+    public var members: [MDUser]?
 
     /// A convenience method to create a group with only an id
     init(groupId: Int) {

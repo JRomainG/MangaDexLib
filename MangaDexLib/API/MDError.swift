@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MDError: Error {
+public enum MDError: Error {
     // Request errors
     case wrongStatusCode
     case noDdosGuardCookie

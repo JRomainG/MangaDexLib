@@ -9,79 +9,79 @@
 import Foundation
 
 /// Class representing a manga chapter returned by MangaDex
-struct MDChapter: Decodable {
+public struct MDChapter: Decodable {
 
     /// The id of the chapter
-    var chapterId: Int?
+    public var chapterId: Int?
 
     /// The id of the manga this chapter belongs to
-    var mangaId: Int?
+    public var mangaId: Int?
 
     /// The chapter's title
-    var title: String?
+    public var title: String?
 
     /// The chapter's hash, used to fetch the pages
-    var hash: String?
+    public var hash: String?
 
     /// The volume this chapter belongs to
-    var volume: String?
+    public var volume: String?
 
     /// The chapter in the printed manga which corresponds to this chapter
-    var chapter: String?
+    public var chapter: String?
 
     /// The list of page file names
-    var pages: [String]?
+    public var pages: [String]?
 
     /// The id of the main group that worked on this chapter
-    var groupId: Int?
+    public var groupId: Int?
 
     /// The id of another group that worked on this chapter
-    var groupId2: Int?
+    public var groupId2: Int?
 
     /// The id of another group that worked on this chapter
-    var groupId3: Int?
+    public var groupId3: Int?
 
     /// The name of the main group that worked on this chapter
-    var groupName: String?
+    public var groupName: String?
 
     /// The name of another group that worked on this chapter
-    var groupName2: String?
+    public var groupName2: String?
 
     /// The name of another group that worked on this chapter
-    var groupName3: String?
+    public var groupName3: String?
 
     /// The website of the group that released this chapter
     ///
     /// Usually shown when a chapter is in the `pending` state
-    var groupWebsite: String?
+    public var groupWebsite: String?
 
     /// The Unix timestamp this chapter was release
     ///
     /// This may be in the future if the group imposes a delay, and the chapter
     /// is not yet available on MangaDex
-    var timestamp: UInt?
+    public var timestamp: UInt?
 
     /// The name of the chapter's original language
-    var originalLangName: String?
+    public var originalLangName: String?
 
     /// The short name of the chapter's original language
     ///
     /// Ex: `jp` for Japanese, `gb` for British English
-    var originalLangCode: String?
+    public var originalLangCode: String?
 
     /// The number of comments for this chapter
-    var comments: Int?
+    public var comments: Int?
 
     /// The base URL of the server from which to retreive the pages
-    var server: String?
+    public var server: String?
 
     /// A boolean indicating whether this chapter is read in a long strip
     ///
     /// Most webtoons are read as one long strip, without seperate pages
-    var longStrip: Bool?
+    public var longStrip: Bool?
 
     /// This chapter's status
-    var status: MDStatus?
+    public var status: MDStatus?
 
     /// A convenience method to create a chapter with only an id
     init(chapterId: Int) {

@@ -9,19 +9,19 @@
 import Foundation
 
 /// Class representing a user returned by MangaDex
-struct MDUser {
+public struct MDUser {
 
     /// The id of the chapter
-    var userId: Int
+    public var userId: Int
 
     /// The user's display name
-    var name: String?
+    public var name: String?
 
     /// The user's rank
-    var rank: MDRank?
+    public var rank: MDRank?
 
     /// The user's avatar URL
-    var avatar: String?
+    public var avatar: String?
 
     /// A convenience method to create a user with only an id
     init(userId: Int) {

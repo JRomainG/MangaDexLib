@@ -36,9 +36,9 @@ extension MDParser {
     /// - Parameter selector: The selector to use
     /// - Parameter element: The element in which to lookup
     /// - Returns: The attribute's value
-    internal func getFirstAttribute(_ attribute: String,
-                                    with selector: String,
-                                    in element: Element) throws -> String? {
+    func getFirstAttribute(_ attribute: String,
+                           with selector: String,
+                           in element: Element) throws -> String? {
         let elements = try element.select(selector)
         guard let first = elements.first() else {
             return nil

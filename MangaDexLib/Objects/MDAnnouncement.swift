@@ -9,16 +9,16 @@
 import Foundation
 
 /// Class representing an announcement returned by MangaDex
-struct MDAnnouncement {
+public struct MDAnnouncement {
 
     /// The content of the announcement
     ///
     /// The body may still contain HTML elements, like
     /// `<a>`, `<br>`, `<strong>`...
     /// Use `textBody` for the content stripped of its HTML elements
-    var body: String?
+    public var body: String?
 
     /// The content of the announcement, stripped of its HTML elements
-    var textBody: String?
+    public var textBody: String?
 
 }

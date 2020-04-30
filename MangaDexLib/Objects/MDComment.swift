@@ -9,28 +9,28 @@
 import Foundation
 
 /// Class representing a comment returned by MangaDex
-struct MDComment {
+public struct MDComment {
 
     /// The id of the chapter
-    var commentId: Int
+    public var commentId: Int
 
     /// The id of the thread this comment belongs to
-    var threadId: Int
+    public var threadId: Int
 
     /// The content of the comment
     ///
     /// The body may still contain HTML elements, like
     /// `<a>`, `<br>`, `<button>`, `<img>`...
     /// Use `textBody` for the content stripped of its HTML elements
-    var body: String?
+    public var body: String?
 
     /// The content of the comment, stripped of its HTML elements
-    var textBody: String?
+    public var textBody: String?
 
     /// The user who posted the comment
-    var user: MDUser?
+    public var user: MDUser?
 
     /// A boolean indicating whether the comment was deleted
-    var deleted = false
+    public var deleted = false
 
 }

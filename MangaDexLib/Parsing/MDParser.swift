@@ -34,7 +34,7 @@ class MDParser {
 extension MDParser {
 
     /// Split an absolute of relative URL's path in a normalized way
-    internal func splitUrlPath(_ href: String) -> [String] {
+    func splitUrlPath(_ href: String) -> [String] {
         // If this is an absolute URL, only keep the path
         var path = href
 
@@ -53,7 +53,7 @@ extension MDParser {
     /// Extract the id from the link to a manga or user
     ///
     /// The format is `/title/[id]/[manga-name]`, absolute and relative URLs are handled
-    internal func getIdFromHref(_ href: String) -> Int? {
+    func getIdFromHref(_ href: String) -> Int? {
         let components = splitUrlPath(href)
         guard components.count >= 2 else {
             return nil

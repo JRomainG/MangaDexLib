@@ -79,7 +79,7 @@ extension MDApi {
 
     /// Fetch the information of a random
     /// - Parameter completion: The callback at the end of the request
-    func getRandomManga(completion: @escaping MDCompletion) {
+    public func getRandomManga(completion: @escaping MDCompletion) {
         let url = MDPath.randomManga()
         getMangaInfo(from: url, completion: completion)
     }
@@ -88,7 +88,7 @@ extension MDApi {
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter sort: The order in which to sort results
     /// - Parameter completion: The callback at the end of the request
-    func getListedMangas(page: Int, sort: MDSortOrder, completion: @escaping MDCompletion) {
+    public func getListedMangas(page: Int, sort: MDSortOrder, completion: @escaping MDCompletion) {
         let url = MDPath.listedMangas(page: page, sort: sort)
         getMangas(from: url, completion: completion)
     }
@@ -96,7 +96,7 @@ extension MDApi {
     /// Fetch the list of featured mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
-    func getFeaturedMangas(completion: @escaping MDCompletion) {
+    public func getFeaturedMangas(completion: @escaping MDCompletion) {
         let url = MDPath.featuredMangas()
         getMangas(from: url, completion: completion)
     }
@@ -104,7 +104,7 @@ extension MDApi {
     /// Fetch the latest updated mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
-    func getLatestMangas(page: Int, completion: @escaping MDCompletion) {
+    public func getLatestMangas(page: Int, completion: @escaping MDCompletion) {
         let url = MDPath.latestMangas(page: page)
         getMangas(from: url, completion: completion)
     }
@@ -116,7 +116,7 @@ extension MDApi {
     ///
     /// To get the full list of comments, use `getThread` with any comment's `threadId`.
     /// Only the `mangaId` property is required to be non-nil, but also having `title` is better
-    func getMangaComments(mangaId: Int, title: String?, completion: @escaping MDCompletion) {
+    public func getMangaComments(mangaId: Int, title: String?, completion: @escaping MDCompletion) {
         let url = MDPath.mangaComments(mangaId: mangaId, mangaTitle: title)
         getComments(from: url, completion: completion)
     }
@@ -127,7 +127,7 @@ extension MDApi {
     ///
     /// To get the full list of comments, use `getThread` with any comment's `threadId`.
     /// Only the `chapterId` property is required to be non-nil
-    func getChapterComments(chapterId: Int, completion: @escaping MDCompletion) {
+    public func getChapterComments(chapterId: Int, completion: @escaping MDCompletion) {
         let url = MDPath.chapterComments(chapterId: chapterId)
         getComments(from: url, completion: completion)
     }
@@ -136,7 +136,7 @@ extension MDApi {
     /// - Parameter threadId: The thread for which to fetch comments
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
-    func getThread(threadId: Int, page: Int, completion: @escaping MDCompletion) {
+    public func getThread(threadId: Int, page: Int, completion: @escaping MDCompletion) {
         let url = MDPath.thread(threadId: threadId, page: page)
         getComments(from: url, completion: completion)
     }
@@ -146,7 +146,7 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     ///
     /// While this method should return a pretty
-    func getGroupInfo(groupId: Int, completion: @escaping MDCompletion) {
+    public func getGroupInfo(groupId: Int, completion: @escaping MDCompletion) {
         let url = MDPath.groupInfo(groupId: groupId)
         self.performGet(url: url, type: .groupInfo, errorCompletion: completion) { (response) in
             do {
@@ -165,7 +165,7 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     ///
     /// - Note: Only logged-in users can search
-    func performSearch(_ search: MDSearch, completion: @escaping MDCompletion) {
+    public func performSearch(_ search: MDSearch, completion: @escaping MDCompletion) {
         let url = MDPath.search(search)
         guard isLoggedIn() else {
             let response = MDResponse(type: .generic, url: url, error: MDError.loginRequired)

@@ -57,7 +57,7 @@ extension MDApi {
     /// Attempt to login with the given credentials
     /// - Parameter info: The authentication credentials to use
     /// - Parameter completion: The callback at the end of the request
-    func login(with info: MDAuth, completion: @escaping MDCompletion) {
+    public func login(with info: MDAuth, completion: @escaping MDCompletion) {
         guard !isLoggedIn() else {
             let request = MDResponse(type: .login, error: MDError.alreadyLoggedIn)
             completion(request)
@@ -78,7 +78,7 @@ extension MDApi {
     /// Attempt to login with the given credentials
     /// - Parameter info: The authentication credentials to use
     /// - Parameter completion: The callback at the end of the request
-    func logout(completion: @escaping MDCompletion) {
+    public func logout(completion: @escaping MDCompletion) {
         let url = MDPath.logoutAction()
         performPost(url: url, body: [:], type: .logout, errorCompletion: completion, success: completion)
     }
@@ -86,7 +86,7 @@ extension MDApi {
     /// Checks whether the user has an auth token set
     ///
     /// This does not check whether the token is valid or not
-    func isLoggedIn() -> Bool {
+    public func isLoggedIn() -> Bool {
         return requestHandler.getCookie(type: .authToken) != nil
     }
 

@@ -9,42 +9,42 @@
 import Foundation
 
 /// The main MangaDex API class, which should be used to access the framework's capabilities
-class MDApi: NSObject {
+public class MDApi: NSObject {
 
     /// URL for the MangaDex website
-    static let baseURL = "https://mangadex.org"
+    public static let baseURL = "https://mangadex.org"
 
     /// Default value appended after the default User-Agent for all requests made by the lib
-    static let defaultUserAgent = "MangaDexLib"
+    public static let defaultUserAgent = "MangaDexLib"
 
     /// The server from which to server manga pages
-    private(set) var server: MDServer = .automatic
+    public private(set) var server: MDServer = .automatic
 
     /// Whether to show rated manga of not
-    private(set) var ratedFilter: MDRatedFilter = .noR18
+    public private(set) var ratedFilter: MDRatedFilter = .noR18
 
     /// Instance of `MDRequestHandler` used to perform all requests
-    internal let requestHandler = MDRequestHandler()
+    public let requestHandler = MDRequestHandler()
 
     /// Instance of `MDParser` used to parse the results of the requests
-    internal let parser = MDParser()
+    let parser = MDParser()
 
     /// TypeAlias for completion blocks
-    typealias MDCompletion = (MDResponse) -> Void
+    public typealias MDCompletion = (MDResponse) -> Void
 
     /// Setter for the rated filter cookie
-    func setRatedFilter(_ filter: MDRatedFilter) {
+    public func setRatedFilter(_ filter: MDRatedFilter) {
         self.ratedFilter = filter
         requestHandler.setCookie(type: .ratedFilter, value: String(filter.rawValue))
     }
 
     /// Setter for the server to use when fetching chapter pages
-    func setServer(_ server: MDServer) {
+    public func setServer(_ server: MDServer) {
         self.server = server
     }
 
     /// Setter for the User-Agent to use for requests
-    func setUserAgent(_ userAgent: String) {
+    public func setUserAgent(_ userAgent: String) {
         requestHandler.setUserAgent(userAgent)
     }
 
@@ -61,10 +61,10 @@ extension MDApi {
     /// - Parameter success: The internal completion called in the requests succeeds
     ///
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
-    internal func performGet(url: URL,
-                             type: MDResponse.ResponseType,
-                             errorCompletion: @escaping MDCompletion,
-                             success: @escaping MDCompletion) {
+    func performGet(url: URL,
+                    type: MDResponse.ResponseType,
+                    errorCompletion: @escaping MDCompletion,
+                    success: @escaping MDCompletion) {
         requestHandler.get(url: url) { (http, content, error) in
             // Build a response object for the completion
             let response = MDResponse(type: type, url: url, error: error, content: content, status: http?.statusCode)
@@ -91,12 +91,12 @@ extension MDApi {
     /// - Parameter success: The internal completion called in the requests succeeds
     ///
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
-    internal func performPost(url: URL,
-                              body: [String: LosslessStringConvertible],
-                              encoding: MDRequestHandler.BodyEncoding = .multipart,
-                              type: MDResponse.ResponseType,
-                              errorCompletion: @escaping MDCompletion,
-                              success: @escaping MDCompletion) {
+    func performPost(url: URL,
+                     body: [String: LosslessStringConvertible],
+                     encoding: MDRequestHandler.BodyEncoding = .multipart,
+                     type: MDResponse.ResponseType,
+                     errorCompletion: @escaping MDCompletion,
+                     success: @escaping MDCompletion) {
         requestHandler.post(url: url, content: body, encoding: encoding) { (http, content, error) in
             // Build a response object for the completion
             let response = MDResponse(type: type, url: url, error: error, content: content, status: http?.statusCode)
