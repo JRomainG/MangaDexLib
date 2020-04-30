@@ -19,44 +19,71 @@ class MDLibRequestHandlerTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    func parseJson(from string: String?) -> NSDictionary? {
+        do {
+            let jsonData = string?.data(using: .utf8)
+            let decoded = try JSONSerialization.jsonObject(with: jsonData!, options: [])
+            return decoded as? NSDictionary
+        } catch {
+            return nil
+        }
+    }
+
+    func testPostRequest(with encoding: MDRequestHandler.BodyEncoding) {
+        let requestHandler = MDRequestHandler()
+        let body: [String: LosslessStringConvertible] = ["key": "value", "works": 1]
+        let url = URL(string: "https://httpbin.org/post")!
+        let expectation = self.expectation(description: "Load httpbin's POST test page")
+
+        requestHandler.post(url: url, content: body, encoding: encoding) { (content, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(content)
+
+            let dict = self.parseJson(from: content)
+            let args = dict?["form"] as? [String: String]
+            for (key, value) in body {
+                XCTAssert(args?[key] == "\(value)")
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+    }
+
     func testGetRequest() throws {
         let requestHandler = MDRequestHandler()
-        let url = URL(string: MDApi.baseURL)!
-        let expectation = self.expectation(description: "Load MangaDex's homepage")
+        let url = URL(string: "https://httpbin.org/get?key=value")!
+        let expectation = self.expectation(description: "Load httpbin's GET test page")
 
         requestHandler.get(url: url) { (content, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(content)
+
+            let dict = self.parseJson(from: content)
+            let args = dict?["args"] as? [String: String]
+            let value = args?["key"]
+            XCTAssert(value == "value")
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
 
-    func testPostRequest() throws {
-        let requestHandler = MDRequestHandler()
-        let url = URL(string: "\(MDApi.baseURL)/login")!
-        let expectation = self.expectation(description: "Load MangaDex's login page")
-
-        requestHandler.post(url: url, content: [:]) { (content, error) in
-            XCTAssertNil(error)
-            XCTAssertNotNil(content)
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 15, handler: nil)
+    func testMultipartPostRequest() throws {
+        testPostRequest(with: .multipart)
     }
 
-    func testSetCookie() throws {
+    func testUrlEncodedPostRequest() throws {
+        testPostRequest(with: .urlencoded)
+    }
+
+    func testGetSetCookie() throws {
         let requestHandler = MDRequestHandler()
-        let url = URL(string: MDApi.baseURL)!
         let cookieType = MDRequestHandler.CookieType.ratedFilter
         let cookieValue = String(MDRatedFilter.noR18.rawValue)
         requestHandler.setCookie(type: cookieType, value: cookieValue)
 
-        let cookies = requestHandler.cookieJar.cookies(for: url)
-        XCTAssertNotNil(cookies)
-        XCTAssertEqual(cookies!.filter({ (cookie) -> Bool in
-            return cookie.name == cookieType.rawValue && cookie.value == cookieValue
-            }).count, 1)
+        let retreivedCookie = requestHandler.getCookie(type: cookieType)
+        XCTAssert(retreivedCookie == cookieValue)
     }
 
     func testResetSession() throws {
@@ -72,7 +99,7 @@ class MDLibRequestHandlerTests: XCTestCase {
 
     func testSetUserAgent() throws {
         let requestHandler = MDRequestHandler()
-        let url = URL(string: "http://whatsmyuseragent.org")!
+        let url = URL(string: "https://httpbin.org/user-agent")!
         let userAgent = MDApi.defaultUserAgent + "Test"
         requestHandler.setUserAgent(userAgent)
 
@@ -80,7 +107,10 @@ class MDLibRequestHandlerTests: XCTestCase {
         requestHandler.get(url: url) { (content, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(content)
-            XCTAssert(content!.contains(userAgent))
+
+            let dict = self.parseJson(from: content)
+            let fetchedUserAgent = dict?["user-agent"] as? String
+            XCTAssert(fetchedUserAgent == userAgent)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
