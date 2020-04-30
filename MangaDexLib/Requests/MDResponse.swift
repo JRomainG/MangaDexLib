@@ -17,6 +17,7 @@ public class MDResponse: NSObject {
         case mangaInfo
         case mangaList
         case chapterInfo
+        case chapterList
         case groupInfo
         case commentList
         case login
@@ -46,6 +47,9 @@ public class MDResponse: NSObject {
 
     /// The extracted chapter, if relevant
     public var chapter: MDChapter?
+
+    /// The list of extracted chapters, if relevant
+    public var chapters: [MDChapter]?
 
     /// The extracted group, if relevant
     public var group: MDGroup?

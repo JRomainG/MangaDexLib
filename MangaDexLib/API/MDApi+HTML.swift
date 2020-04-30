@@ -61,6 +61,22 @@ extension MDApi {
         }
     }
 
+    /// Common method for getting a list of chaoters from a URL
+    /// - Parameter url: The URL used to build the request
+    /// - Parameter completion: The callback at the end of the request
+    private func getChapters(from url: URL, completion: @escaping MDCompletion) {
+        self.performGet(url: url, type: .chapterList, onError: completion) { (response) in
+            do {
+                let html = response.rawValue!
+                response.chapters = try self.parser.getChapters(from: html)
+                completion(response)
+            } catch {
+                response.error = error
+                completion(response)
+            }
+        }
+    }
+
     /// Common method for getting a list of comments from a URL
     /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
@@ -111,7 +127,7 @@ extension MDApi {
 
     /// Fetch the latest updated mangas followed by the user
     /// - Parameter page: The index of the page to load (starting at 1)
-    /// - Parameter status: The status of the mangas to show
+    /// - Parameter status: The user-defined status of the mangas to show
     /// - Parameter completion: The callback at the end of the request
     public func getLatestFollowedMangas(page: Int, status: MDReadingStatus, completion: @escaping MDCompletion) {
         let url = MDPath.latestFollowed(page: page, type: .manga, status: status)
@@ -133,6 +149,20 @@ extension MDApi {
     public func getMangaComments(mangaId: Int, title: String?, completion: @escaping MDCompletion) {
         let url = MDPath.mangaComments(mangaId: mangaId, mangaTitle: title)
         getComments(from: url, completion: completion)
+    }
+
+    /// Fetch the latest updated chapters for mangas followed by the user
+    /// - Parameter page: The index of the page to load (starting at 1)
+    /// - Parameter status: The user-defined status of the mangas for which to show chapters
+    /// - Parameter completion: The callback at the end of the request
+    public func getLatestFollowedChapters(page: Int, status: MDReadingStatus, completion: @escaping MDCompletion) {
+        let url = MDPath.latestFollowed(page: page, type: .chapters, status: status)
+        guard isLoggedIn() else {
+            let response = MDResponse(type: .generic, url: url, error: MDError.loginRequired)
+            completion(response)
+            return
+        }
+        getChapters(from: url, completion: completion)
     }
 
     /// Fetch a chapter's latest comments

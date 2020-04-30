@@ -43,6 +43,7 @@
 		33F8A672245B0979001C3A56 /* MDApi+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F8A671245B0979001C3A56 /* MDApi+HTML.swift */; };
 		33F8A674245B0991001C3A56 /* MDApi+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F8A673245B0991001C3A56 /* MDApi+JSON.swift */; };
 		33F8A676245B09B2001C3A56 /* MDApi+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F8A675245B09B2001C3A56 /* MDApi+Auth.swift */; };
+		33F8A678245B5609001C3A56 /* MDParser+ChapterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F8A677245B5609001C3A56 /* MDParser+ChapterList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		33F8A671245B0979001C3A56 /* MDApi+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+HTML.swift"; sourceTree = "<group>"; };
 		33F8A673245B0991001C3A56 /* MDApi+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+JSON.swift"; sourceTree = "<group>"; };
 		33F8A675245B09B2001C3A56 /* MDApi+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Auth.swift"; sourceTree = "<group>"; };
+		33F8A677245B5609001C3A56 /* MDParser+ChapterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+ChapterList.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 				339899442458FC4F00AEEE39 /* MDParser+Login.swift */,
 				339899402458FBEC00AEEE39 /* MDParser+MangaInfo.swift */,
 				3398993E2458FBA000AEEE39 /* MDParser+MangaList.swift */,
+				33F8A677245B5609001C3A56 /* MDParser+ChapterList.swift */,
 				330DD8C92459A50300BC9E0B /* MDParser+GroupInfo.swift */,
 			);
 			path = Parsing;
@@ -421,6 +424,7 @@
 				339899362458D9AE00AEEE39 /* MDUser.swift in Sources */,
 				3354C77424588BEB00E65B8A /* MDChapter.swift in Sources */,
 				3353B5AE2457905C0066B8D5 /* MDRequestHandler.swift in Sources */,
+				33F8A678245B5609001C3A56 /* MDParser+ChapterList.swift in Sources */,
 				33F8A676245B09B2001C3A56 /* MDApi+Auth.swift in Sources */,
 				339899412458FBEC00AEEE39 /* MDParser+MangaInfo.swift in Sources */,
 				3353B5AC24578F710066B8D5 /* MDApi.swift in Sources */,

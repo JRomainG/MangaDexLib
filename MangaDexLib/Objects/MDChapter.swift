@@ -20,6 +20,13 @@ public struct MDChapter: Decodable {
     /// The chapter's title
     public var title: String?
 
+    /// Whether this chapter was read or not
+    ///
+    /// This is only extracted when fetching a list of chapters, as MangaDex's
+    /// json API does not export this value
+    /// - Note: Calls to `MDApi.getChapterInfo` will NOT set this value
+    public var read: Bool?
+
     /// The chapter's hash, used to fetch the pages
     public var hash: String?
 
@@ -69,6 +76,9 @@ public struct MDChapter: Decodable {
     /// Ex: `jp` for Japanese, `gb` for British English
     public var originalLangCode: String?
 
+    /// The chapter's original language
+    public var originalLang: MDLanguage?
+
     /// The number of comments for this chapter
     public var comments: Int?
 
@@ -82,6 +92,10 @@ public struct MDChapter: Decodable {
 
     /// This chapter's status
     public var status: MDStatus?
+
+    /// A convenience method to create an empty chapter
+    init() {
+    }
 
     /// A convenience method to create a chapter with only an id
     init(chapterId: Int) {

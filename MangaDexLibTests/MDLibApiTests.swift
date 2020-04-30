@@ -78,6 +78,13 @@ class MDLibApiTests: XCTestCase {
         }
     }
 
+    func assertChapterListIsValid(for response: MDResponse) {
+        XCTAssert(response.type == .chapterList)
+        XCTAssertNil(response.error)
+        XCTAssertNotNil(response.rawValue)
+        assertChapterListIsValid(response.chapters)
+    }
+
     func assertChapterListIsValid(_ chapters: [MDChapter]?) {
         XCTAssertNotNil(chapters)
         XCTAssertGreaterThan(chapters!.count, 0)
@@ -167,9 +174,25 @@ class MDLibApiTests: XCTestCase {
         // Must be logged-in to follow mangas
         login(api: api)
 
-        let expectation = self.expectation(description: "Load MangaDex last upadted mangas page")
+        let expectation = self.expectation(description: "Load MangaDex last updated mangas page")
         api.getLatestFollowedMangas(page: page, status: status) { (response) in
             self.assertMangaListIsValid(for: response)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testFollowedChapters() throws {
+        let page = 2
+        let status = MDReadingStatus.all
+        let api = MDApi()
+
+        // Must be logged-in to follow mangas
+        login(api: api)
+
+        let expectation = self.expectation(description: "Load MangaDex last updated chapters page")
+        api.getLatestFollowedChapters(page: page, status: status) { (response) in
+            self.assertChapterListIsValid(for: response)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
