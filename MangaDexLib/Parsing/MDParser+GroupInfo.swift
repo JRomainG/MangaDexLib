@@ -65,7 +65,7 @@ extension MDParser {
         let infoContainer = try doc.select(MDParser.groupInfoContainerSelector).first()
         guard let infoCards = infoContainer?.children(),
             infoCards.count >= 2 else {
-            return nil
+            throw MDError.parseElementNotFound
         }
 
         // Should contain elements in the following order:
@@ -81,7 +81,7 @@ extension MDParser {
         // and have a more robust implementation
         guard let groupIdString = groupInfo.first?.1,
             let groupId = Int(try groupIdString.text()) else {
-                return nil
+                throw MDError.parseIdNotFound
         }
 
         // Init a group that will be filled out little by little

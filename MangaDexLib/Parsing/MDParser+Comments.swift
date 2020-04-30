@@ -107,13 +107,12 @@ extension MDParser {
         let doc = try MDParser.parse(html: content)
         let elements = try doc.getElementsByClass(MDParser.commentEntryClass)
 
-        var comments: [MDComment] = []
-
         // Make sure the thread has a valid ID
         guard let threadId = try getThreadId(from: doc) else {
-            return comments
+            throw MDError.parseIdNotFound
         }
 
+        var comments: [MDComment] = []
         for element in elements {
             // Make sure the comment has a valid ID
             let commentIdString = element.id().dropFirst(MDParser.commentIdPrefix.count)

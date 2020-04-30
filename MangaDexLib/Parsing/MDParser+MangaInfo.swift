@@ -36,9 +36,9 @@ extension MDParser {
     /// - Parameter selector: The selector to use
     /// - Parameter element: The element in which to lookup
     /// - Returns: The attribute's value
-    func getFirstAttribute(_ attribute: String,
-                           with selector: String,
-                           in element: Element) throws -> String? {
+    internal func getFirstAttribute(_ attribute: String,
+                                    with selector: String,
+                                    in element: Element) throws -> String? {
         let elements = try element.select(selector)
         guard let first = elements.first() else {
             return nil
@@ -49,24 +49,24 @@ extension MDParser {
     /// Extract a manga's info from a manga detail html page
     /// - Parameter content: The html string to parse
     /// - Returns: The extracted manga
-    func getMangaInfo(from content: String) throws -> MDManga? {
+    func getMangaInfo(from content: String) throws -> MDManga {
         let doc = try MDParser.parse(html: content)
         let elements = try doc.getElementsByTag(MDParser.mangaInfoMetaTag)
 
         guard let head = elements.first() else {
-            return nil
+            throw MDError.parseElementNotFound
         }
 
         let description = try getFirstAttribute("content", with: MDParser.mangaInfoDescriptionSelector, in: head)
         let coverUrl = try getFirstAttribute("content", with: MDParser.mangaInfoImageSelector, in: head)
 
         guard let title = try getFirstAttribute("content", with: MDParser.mangaInfoTitleSelector, in: head) else {
-            return nil
+            throw MDError.parseElementNotFound
         }
 
         guard let href = try getFirstAttribute("href", with: MDParser.mangaInfoHrefSelector, in: head),
             let mangaId = getIdFromHref(href) else {
-            return nil
+            throw MDError.parseElementNotFound
         }
 
         var manga = MDManga(title: title, mangaId: mangaId)

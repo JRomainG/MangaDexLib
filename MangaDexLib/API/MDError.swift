@@ -19,4 +19,8 @@ enum MDError: Error {
     case alreadyLoggedIn
     case authFailure
     case notImplemented
+
+    // Parse errors
+    case parseIdNotFound
+    case parseElementNotFound
 }

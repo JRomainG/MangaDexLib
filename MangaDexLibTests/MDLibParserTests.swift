@@ -26,11 +26,10 @@ class MDLibParserTests: XCTestCase {
         let expectation = self.expectation(description: "Load MangaDex's homepage")
 
         requestHandler.get(url: url) { (_, content, _) in
-            guard let announcement = parser.getAnnouncement(from: content!) else {
-                return
-            }
-            XCTAssertNotNil(announcement.body)
-            XCTAssertNotNil(announcement.textBody)
+            let announcement = parser.getAnnouncement(from: content!)
+            XCTAssertNotNil(announcement)
+            XCTAssertNotNil(announcement?.body)
+            XCTAssertNotNil(announcement?.textBody)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
