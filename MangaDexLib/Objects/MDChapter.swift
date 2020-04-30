@@ -74,7 +74,14 @@ public struct MDChapter: Decodable {
     /// The short name of the chapter's original language
     ///
     /// Ex: `jp` for Japanese, `gb` for British English
-    public var originalLangCode: String?
+    /// - Note: Setting this will also attempt to set the `originalLang`
+    public var originalLangCode: String? {
+        didSet {
+            if let code = originalLangCode {
+                originalLang = MDLanguageCodes[code]
+            }
+        }
+    }
 
     /// The chapter's original language
     public var originalLang: MDLanguage?

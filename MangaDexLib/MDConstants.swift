@@ -125,6 +125,29 @@ public enum MDLanguage: Int, Codable {
     case norwegian = 42
 }
 
+/// Mapping between the language codes and the associated `MDLanguage`
+///
+/// These codes are used by MangaDex's JSON api to return information about a
+/// manga or chapter's original language.
+/// Only a subset of the list of all languages exists
+public let MDLanguageCodes: [String: MDLanguage] = [
+    "en": .english,
+    "gb": .english,
+    "jp": .japanese,
+    "pl": .polish,
+    "ru": .russian,
+    "de": .german,
+    "fr": .french,
+    "vn": .vietnamese,
+    "cn": .simplifiedChinese,
+    "id": .indonesian,
+    "kr": .korean,
+    "th": .thai,
+    "ph": .filipino,
+    "mx": .latinAmericanSpanish,
+    "hk": .traditionalChinese
+]
+
 /// Demographic a manga appeals to, available to filter during search
 public enum MDDemographic: Int, Codable {
     case shounen = 1
