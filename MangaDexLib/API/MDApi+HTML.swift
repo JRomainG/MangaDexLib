@@ -222,6 +222,17 @@ extension MDApi {
         }
     }
 
+    /// Fetch a user's MDList
+    /// - Parameter userId: The id of the user for which to fetch the MDList
+    /// - Parameter status: The user-defined status of the mangas to show
+    /// - Parameter completion: The callback at the end of the request
+    ///
+    /// While this method should return a pretty
+    public func getMdList(userId: Int, status: MDReadingStatus, completion: @escaping MDCompletion) {
+        let url = MDPath.mdList(userId: userId, status: status)
+        getMangas(from: url, completion: completion)
+    }
+
     /// Fetch the results of the search
     /// - Parameter search: An `MDSearch` instance representing the query
     /// - Parameter completion: The callback at the end of the request

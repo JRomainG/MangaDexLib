@@ -214,6 +214,14 @@ class MDLibPathTests: XCTestCase {
         assertUrlsAreEqual(groupURL, expectedURL)
     }
 
+    func testMdListPath() throws {
+        let userId = 3 // ixlone
+        let status = MDReadingStatus.all
+        let mdListURL = MDPath.mdList(userId: userId, status: status)
+        let expectedURL = URL(string: "\(MDApi.baseURL)/list/\(userId)/\(status.rawValue)")!
+        assertUrlsAreEqual(mdListURL, expectedURL)
+    }
+
     func testExternalPath() throws {
         let resource = MDResource.mangaUpdates
         let resourceId = "140860" // Buddha Cafe

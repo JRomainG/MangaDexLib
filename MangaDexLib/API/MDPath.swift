@@ -24,6 +24,7 @@ public class MDPath {
         case chapterPage = "chapter"
         case groupPage = "group"
         case thread = "thread"
+        case mdList = "list"
         case login = "login"
         case logout = "logout"
         case ajax = "ajax/actions.ajax.php"
@@ -336,6 +337,14 @@ public class MDPath {
     /// - Returns: The MangaDex URL
     public static func groupInfo(groupId: Int) -> URL {
         return buildUrl(for: .groupPage, with: [groupId])
+    }
+
+    /// Build the URL to fetch a user's MDList
+    /// - Parameter userId: The identifier of the user
+    /// - Parameter status: The status of the mangas to fetch
+    /// - Returns: The MangaDex URL
+    public static func mdList(userId: Int, status: MDReadingStatus) -> URL {
+        return buildUrl(for: .mdList, with: [userId, status.rawValue])
     }
 
     /// Build the URL to an external resource

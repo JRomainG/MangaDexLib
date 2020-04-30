@@ -307,6 +307,19 @@ class MDLibApiTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testMdList() throws {
+        let userId = 3 // ixlone
+        let status = MDReadingStatus.all
+        let api = MDApi()
+        let expectation = self.expectation(description: "Fetch a user's MDList")
+
+        api.getMdList(userId: userId, status: status) { (response) in
+            self.assertMangaListIsValid(for: response)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testMangaApi() throws {
         let mangaId = 7139 // One Punch Man
         let api = MDApi()
