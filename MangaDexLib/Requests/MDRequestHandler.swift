@@ -294,6 +294,11 @@ extension MDRequestHandler {
     /// - Note: The request is directly modified by adding the body and required headers
     private func createMultipartBody(from content: [String: LosslessStringConvertible],
                                      for request: NSMutableURLRequest) {
+        // Don't encode empty data
+        guard content.count > 0 else {
+            return
+        }
+
         let boundary = "---------------------------\(randomId(length: 30))"
         var body = ""
         for (key, value) in content {
@@ -321,6 +326,9 @@ extension MDRequestHandler {
         for (key, value) in content {
             components.queryItems?.append(URLQueryItem(name: key, value: "\(value)"))
         }
+        // We manually have to escape the "+"
+        components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+
         request.httpBody = components.percentEncodedQuery?.data(using: .utf8)!
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
     }

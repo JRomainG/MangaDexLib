@@ -280,6 +280,7 @@ class MDLibApiTests: XCTestCase {
         api.login(with: auth) { (response) in
             XCTAssert(api.isLoggedIn())
             XCTAssertNil(response.error)
+            XCTAssertNotNil(response.token)
             loginExpectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
