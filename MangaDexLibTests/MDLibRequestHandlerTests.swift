@@ -19,6 +19,7 @@ class MDLibRequestHandlerTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    /// Parse a given json string to an abstract NSDictionary
     func parseJson(from string: String?) -> NSDictionary? {
         do {
             let jsonData = string?.data(using: .utf8)
@@ -29,6 +30,7 @@ class MDLibRequestHandlerTests: XCTestCase {
         }
     }
 
+    /// Reusable function to perform a `POST` request with the given options, and check everything worked
     func testPostRequest(with encoding: MDRequestHandler.BodyEncoding) {
         let requestHandler = MDRequestHandler()
         let body: [String: LosslessStringConvertible] = ["key": "value", "works": 1]

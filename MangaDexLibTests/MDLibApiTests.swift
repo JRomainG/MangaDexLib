@@ -9,6 +9,7 @@
 import XCTest
 import MangaDexLib
 
+// swiftlint:disable:next type_body_length
 class MDLibApiTests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -23,21 +24,6 @@ class MDLibApiTests: XCTestCase {
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
-    }
-
-    /// Login the user, for tests requiring an account
-    func login(api: MDApi) {
-        let loginExpectation = self.expectation(description: "Login using username and password")
-        if !api.isLoggedIn() {
-            let auth = self.getAuth(in: "Secret", file: "auth.plist", key: "AuthRegular")!
-            api.login(with: auth) { (_) in
-                loginExpectation.fulfill()
-            }
-        } else {
-            loginExpectation.fulfill()
-        }
-        waitForExpectations(timeout: 15, handler: nil)
-        XCTAssert(api.isLoggedIn())
     }
 
     /// By default, auth information is stored under the `Secret.bundle`, in an `auth.list` file.
@@ -63,6 +49,21 @@ class MDLibApiTests: XCTestCase {
         default:
             return nil
         }
+    }
+
+    /// Login the user, for tests requiring an account
+    func login(api: MDApi) {
+        let loginExpectation = self.expectation(description: "Login using username and password")
+        if !api.isLoggedIn() {
+            let auth = self.getAuth(in: "Secret", file: "auth.plist", key: "AuthRegular")!
+            api.login(with: auth) { (_) in
+                loginExpectation.fulfill()
+            }
+        } else {
+            loginExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+        XCTAssert(api.isLoggedIn())
     }
 
     func assertMangaListIsValid(for response: MDResponse) {
