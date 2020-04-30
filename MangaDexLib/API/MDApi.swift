@@ -74,7 +74,7 @@ extension MDApi {
             }
 
             // Make sure the status code is correct
-            guard let statusCode = http?.statusCode, 400...599 ~= statusCode else {
+            guard let statusCode = http?.statusCode, 200...399 ~= statusCode else {
                 response.error = MDError.wrongStatusCode
                 errorCompletion(response)
                 return
