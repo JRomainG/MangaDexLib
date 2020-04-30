@@ -37,7 +37,7 @@ class MDLibRequestHandlerTests: XCTestCase {
         let url = URL(string: "\(MDApi.baseURL)/login")!
         let expectation = self.expectation(description: "Load MangaDex's login page")
 
-        requestHandler.post(url: url, content: "") { (content, error) in
+        requestHandler.post(url: url, content: [:]) { (content, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(content)
             expectation.fulfill()

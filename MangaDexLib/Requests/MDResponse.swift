@@ -19,13 +19,14 @@ class MDResponse: NSObject {
         case chapterInfo
         case groupInfo
         case commentList
+        case login
     }
 
     /// The type of response this is
     private(set) var type: ResponseType = .generic
 
     /// The URL of the original request
-    private(set) var url: URL?
+    private(set) var url: URL
 
     /// The raw html or json string returned from the website (if any)
     private(set) var rawValue: String?
@@ -47,6 +48,9 @@ class MDResponse: NSObject {
 
     /// The list of extracted comments, if relevant
     var comments: [MDComment]?
+
+    /// The token returned by the request, if relevant
+    var token: String?
 
     /// Convenience init method
     init(type: ResponseType, url: URL, rawValue: String?, error: Error?) {

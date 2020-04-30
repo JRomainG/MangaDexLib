@@ -205,4 +205,16 @@ class MDLibPathTests: XCTestCase {
         assertUrlsAreEqual(externalURL, expectedURL)
     }
 
+    func testLoginActionPath() throws {
+        let loginURL = MDPath.loginAction()
+        let expectedURL = URL(string: "\(MDApi.baseURL)/ajax/actions.ajax.php?function=login")!
+        assertUrlsAreEqual(loginURL, expectedURL)
+    }
+
+    func testLoginActionNoJsPath() throws {
+        let loginURL = MDPath.loginAction(javascriptEnabled: false)
+        let expectedURL = URL(string: "\(MDApi.baseURL)/ajax/actions.ajax.php?function=login&nojs=1")!
+        assertUrlsAreEqual(loginURL, expectedURL)
+    }
+
 }

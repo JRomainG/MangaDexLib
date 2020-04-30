@@ -15,8 +15,23 @@ class MDRequestHandler: NSObject {
     /// The different types of cookies that can be changed by the API
     enum CookieType: String {
         case ratedFilter = "mangadex_h_toggle"
-        case rememberToken = "mangadex_rememberme_token"
+        case authToken = "mangadex_rememberme_token"
         case sessionId = "mangadex_session"
+        case ddosGuard = "__ddg1"
+    }
+
+    /// The different fields set for POST requests to login
+    enum AuthField: String {
+        case username = "login_username"
+        case password = "login_password"
+        case twoFactor = "two_factor"
+        case remember = "remember_me"
+    }
+
+    /// The different ways of encoding the data for POST requests
+    enum BodyEncoding {
+        case multipart
+        case urlencoded
     }
 
     /// An alias for the completion blocks called after requests
@@ -89,6 +104,10 @@ class MDRequestHandler: NSObject {
     }
 
     /// Set a cookie's value for the following requests
+    /// - Parameter type: The type of cookie to set
+    /// - Parameter value: The value of the cookie to set
+    /// - Parameter sessionOnly: Whether the cookie should be deleted at the end of the session
+    /// - Parameter secure: Whether the cookie should only be sent over secure connections
     func setCookie(type: CookieType, value: String, sessionOnly: Bool = true, secure: Bool = false) {
         let cookie = HTTPCookie(properties: [
             .path: MDRequestHandler.cookiePath,
@@ -101,6 +120,18 @@ class MDRequestHandler: NSObject {
         self.cookieJar.setCookie(cookie!)
     }
 
+    /// Get the value of the cookie with the given type, if set
+    /// - Parameter type: The type of cookie to read
+    /// - Returns: The value of the cookie, if any
+    func getCookie(type: CookieType) -> String? {
+        guard let cookies = self.cookieJar.cookies else {
+            return nil
+        }
+        return cookies.first(where: { (cookie) -> Bool in
+            return cookie.name == type.rawValue
+            })?.value
+    }
+
     /// Perform an async get request
     /// - Parameter url: The URL to fetch
     /// - Parameter completion: The callback at the end of the request
@@ -110,20 +141,46 @@ class MDRequestHandler: NSObject {
         self.perform(request: request, completion: completion)
     }
 
-    func post(url: URL, content: String, completion: @escaping RequestCompletion) {
+    /// Perform an async post request
+    /// - Parameter url: The URL to load
+    /// - Parameter content: The dictionary representation of the request's body
+    /// - Parameter completion: The callback at the end of the request
+    ///
+    /// Because of the way DDoS-Guard works, this request cannot be the first one to ever be done: the
+    /// `.ddosGuard` cookie must be set
+    func post(url: URL,
+              content: [String: LosslessStringConvertible],
+              encoding: BodyEncoding = .multipart,
+              completion: @escaping RequestCompletion) {
+        // Create the empty request
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = content.data(using: .utf8)
-        self.perform(request: request, completion: completion)
+
+        // Fill-in its body and headers based on the content and encoding
+        switch encoding {
+        case .multipart:
+            createMultipartBody(from: content, for: request)
+        case .urlencoded:
+            createUrlEncodedBody(from: content, for: request)
+        }
+
+        // Make sure we don't trigger the DDoS-Guard
+        self.handleDdosGuard(for: request) {
+            self.perform(request: request, completion: completion)
+        }
     }
 
+    /// Perform thee given async request
+    /// - Parameter request: The request to perform
+    /// - Parameter completion: The callback at the end of the request
     func perform(request: NSMutableURLRequest, completion: @escaping RequestCompletion) {
         // Make sure the user agent is set
         request.setValue(self.userAgent, forHTTPHeaderField: "User-Agent")
 
         // Cookies are automatically handled by the session, so just create the task
-        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+        let task = session.dataTask(with: request as URLRequest) { (data, _, error) in
             // TODO: Check response status code
+            // print(response as? HTTPURLResponse)
             var output: String?
             if data != nil {
                 output = NSString(data: data!, encoding: String.Encoding.utf8.rawValue) as String?
@@ -131,6 +188,78 @@ class MDRequestHandler: NSObject {
             completion(output, error)
         }
         task.resume()
+    }
+
+}
+
+extension MDRequestHandler {
+
+    /// Build a random string of the given length using only numbers
+    /// - Parameter length: The length of the string to return
+    /// - Returns: The random string of numbers
+    private func randomId(length: Int) -> String {
+        let allowed = "0123456789"
+        return String((0..<length).map { _ in allowed.randomElement()! })
+    }
+
+    /// Mimic the behavior if the JavaScript `FormData` object
+    /// - Parameter content: The data to encode
+    /// - Parameter request: The request to which to add the content
+    ///
+    /// The request is directly modified
+    private func createMultipartBody(from content: [String: LosslessStringConvertible],
+                                     for request: NSMutableURLRequest) {
+        //let boundary = "-----------------------------297347480520029914952670892546"
+        let boundary = "-----------------------------\(randomId(length: 30))"
+        var body = ""
+        for (key, value) in content {
+            body += "\(boundary)\r\n"
+            body += "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n"
+            body += "\(value)\r\n"
+        }
+        body += "\(boundary)--\r\n"
+        request.httpBody = body.data(using: .utf8)!
+        request.setValue("multipart/form-data;boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
+    }
+
+    /// Mimic the behavior if the JavaScript `FormData` object
+    /// - Parameter content: The data to encode
+    /// - Parameter request: The request to which to add the content
+    ///
+    /// The request is directly modified
+    func createUrlEncodedBody(from content: [String: LosslessStringConvertible],
+                              for request: NSMutableURLRequest) {
+        var components = URLComponents(string: "")!
+        components.queryItems = []
+        for (key, value) in content {
+            components.queryItems?.append(URLQueryItem(name: key, value: "\(value)"))
+        }
+        request.httpBody = components.percentEncodedQuery?.data(using: .utf8)!
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+    }
+
+    /// Handle requests so they don't go against DDoS-Guard's rules
+    ///
+    /// The `.ddosGuard` cookie must have been set during a previous request (either during this
+    /// session or in the past)
+    private func handleDdosGuard(for request: NSMutableURLRequest, completion: @escaping () -> Void) {
+        guard let cookie = self.getCookie(type: .ddosGuard) else {
+            // TODO: Fill-in error
+            completion()
+            return
+        }
+
+        // Set the origin and ddosGuard cookie values for this request
+        request.setValue(MDApi.baseURL, forHTTPHeaderField: "Origin")
+        request.setValue("\(CookieType.ddosGuard.rawValue)=\(cookie)", forHTTPHeaderField: "Cookie")
+
+        // Wait for a bit to prevent the user from performing requests too often
+        // TODO: ALso have a queue that limits the number of requests at the same time
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            completion()
+        }
+
     }
 
 }

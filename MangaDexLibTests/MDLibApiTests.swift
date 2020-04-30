@@ -19,6 +19,31 @@ class MDLibApiTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    /// By default, auth information is stored under the `Secret.bundle`, in an `auth.list` file.
+    /// See the provided `Secret.example.bundle` to get an idea of how to fill it in
+    func getAuth(in bundle: String, file: String, key: String) -> MDAuth? {
+        let bundleURL = Bundle(for: MDLibApiTests.self).url(forResource: bundle, withExtension: "bundle")
+        guard let url = bundleURL?.appendingPathComponent(file),
+            let dict = NSDictionary(contentsOf: url),
+            let authInfo = dict[key] as? [String: Any] else {
+            return nil
+        }
+
+        let authType = authInfo["type"] as? String
+        switch MDAuth.AuthType(rawValue: authType!) {
+        case .regular:
+            let username = authInfo["username"] as? String
+            let password = authInfo["password"] as? String
+            let remember = authInfo["remember"] as? Bool
+            return MDAuth(username: username!, password: password!, type: .regular, remember: remember!)
+        case .token:
+            let token = authInfo["token"] as? String
+            return MDAuth(token: token!)
+        default:
+            return nil
+        }
+    }
+
     func assertMangaListIsValid(for response: MDResponse) {
         XCTAssert(response.type == .mangaList)
         XCTAssertNil(response.error)
@@ -117,9 +142,10 @@ class MDLibApiTests: XCTestCase {
         let search = MDSearch(title: "Tower of God")
         let expectation = self.expectation(description: "Load MangaDex search page")
 
-        // Searching is disabled when logged out, so this will return the login page
-        api.performSearch(search) { (_) in
-            // TODO: Detect login
+        // TODO: Log in first since searching is disabled when logged out
+        api.performSearch(search) { (response) in
+            // TODO: Add tests
+            XCTAssertNil(response.error)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
@@ -214,6 +240,19 @@ class MDLibApiTests: XCTestCase {
         api.getChapterInfo(chapterId: chapterId) { (response) in
             XCTAssertNil(response.error)
             self.assertChapterIsValid(response.chapter)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testRegularLogin() throws {
+        let auth = getAuth(in: "Secret", file: "auth.plist", key: "AuthRegular")!
+        let api = MDApi()
+        let expectation = self.expectation(description: "Login using username and password")
+
+        api.login(with: auth) { (response) in
+            // TODO: Add tests
+            XCTAssertNil(response.error)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)

@@ -76,6 +76,31 @@ extension MDApi {
         }
     }
 
+    /// Wrapper around MDRequestHandler's post method
+    /// - Parameter url: The URL to load
+    /// - Parameter body: The content of the request
+    /// - Parameter type: The type of response that is expected
+    /// - Parameter errorCompletion: The user-provided completion that will be called in case of an error
+    /// - Parameter success: The internal completion called in the requests succeeds
+    ///
+    /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
+    private func performPost(url: URL,
+                             body: [String: LosslessStringConvertible],
+                             encoding: MDRequestHandler.BodyEncoding = .multipart,
+                             type: MDResponse.ResponseType,
+                             errorCompletion: @escaping MDCompletion,
+                             success: @escaping MDCompletion) {
+        requestHandler.post(url: url, content: body, encoding: encoding) { (content, requestError) in
+            // Build a response object for the completion
+            let response = MDResponse(type: type, url: url, rawValue: content, error: requestError)
+            guard requestError == nil, content != nil else {
+                errorCompletion(response)
+                return
+            }
+            success(response)
+        }
+    }
+
 }
 
 // MARK: - MDApi HTML Requests
@@ -275,6 +300,71 @@ extension MDApi {
                 response.error = error
                 completion(response)
             }
+        }
+    }
+
+}
+
+// MARK: - MDApi Auth
+
+extension MDApi {
+
+    /// Perform a POST request with the given credentials to login
+    /// - Parameter info: The authentication credentials to use
+    /// - Parameter completion: The callback at the end of the request
+    ///
+    /// `info.username` and `info.password` must not be filled in
+    private func performAuth(with info: MDAuth, completion: @escaping MDCompletion) {
+        let url = MDPath.loginAction(javascriptEnabled: false)
+        let username = info.username ?? ""
+        let password = info.password ?? ""
+        let body: [String: LosslessStringConvertible] = [
+            MDRequestHandler.AuthField.username.rawValue: username,
+            MDRequestHandler.AuthField.password.rawValue: password,
+            MDRequestHandler.AuthField.twoFactor.rawValue: "",
+            MDRequestHandler.AuthField.remember.rawValue: info.remember ? "1" : "0"
+        ]
+        self.performPost(url: url,
+                         body: body,
+                         encoding: .urlencoded,
+                         type: .login,
+                         errorCompletion: completion) { (response) in
+                            // Save the cookie in the response so it's accessible from outside the API
+                            response.token = self.requestHandler.getCookie(type: .authToken)
+                            completion(response)
+        }
+    }
+
+    /// Set the token in the `MDRequestHandler` cookies so the user is authenticated for
+    /// the next requests
+    ///
+    /// TODO: Check if token is no longer valid (user isn't logged in after setting the cookie)
+    private func setAuthToken(_ token: String?, completion: @escaping MDCompletion) {
+        let url = MDPath.loginAction()
+        let response = MDResponse(type: .login, url: url, rawValue: "", error: nil)
+
+        if token == nil {
+            // TODO: Error
+            completion(response)
+        } else {
+            self.requestHandler.setCookie(type: .authToken, value: token!, sessionOnly: false, secure: true)
+            response.token = token
+            completion(response)
+        }
+    }
+
+    /// Attempt to login with the given credentials
+    /// - Parameter info: The authentication credentials to use
+    /// - Parameter completion: The callback at the end of the request
+    func login(with info: MDAuth, completion: @escaping MDCompletion) {
+        switch info.type {
+        case .regular:
+            performAuth(with: info, completion: completion)
+        case .token:
+            setAuthToken(info.token, completion: completion)
+        default:
+            // TODO: Raise unimplemented error
+            break
         }
     }
 

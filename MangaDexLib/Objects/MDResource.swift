@@ -29,9 +29,9 @@ class MDResource: NSObject {
 
     /// Get the `MDResource` with the given key
     static func getResource(for key: String) -> MDResource? {
-        return MDResource.all.filter { (resource) -> Bool in
+        return MDResource.all.first(where: { (resource) -> Bool in
             return resource.key == key
-        }.first
+        })
     }
 
 }

@@ -23,6 +23,8 @@ class MDPath {
         case groupPage = "group"
         case comments = "comments"
         case thread = "thread"
+        case login = "login"
+        case ajax = "ajax/actions.ajax.php"
         case api = "api"
     }
 
@@ -37,6 +39,14 @@ class MDPath {
         case tags = "tags"
         case includeTagsMode = "tag_mode_inc"
         case excludeTagsMode = "tag_mode_exc"
+    }
+
+    /// Type of parameter used for Ajax post requests
+    ///
+    /// These parameters are the ones encoded in the URL to build the path
+    enum AjaxParams: String {
+        case function = "function"
+        case noJS = "nojs"
     }
 
     /// Type of parameter used during api calls
@@ -303,6 +313,21 @@ class MDPath {
             absoluteURL = path
         }
         return URL(string: absoluteURL)
+    }
+
+    /// Build the URL used to log in
+    /// - Parameter javascriptEnabled: Whether javascript should be marked as disabled or not
+    /// - Returns: The ajax URL
+    static func loginAction(javascriptEnabled: Bool = true) -> URL {
+        var params = [
+            URLQueryItem(name: AjaxParams.function.rawValue, value: Path.login.rawValue)
+        ]
+
+        // Don't set the flag is javascript is enabled
+        if !javascriptEnabled {
+            params.append(URLQueryItem(name: AjaxParams.noJS.rawValue, value: "1"))
+        }
+        return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)
     }
 
 }

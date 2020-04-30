@@ -102,3 +102,6 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.gitignore.io/api/xcode,swift
+
+MangaDexLibTests/Secret.bundle
+MangaDexLibTests/Secret.bundle/*
