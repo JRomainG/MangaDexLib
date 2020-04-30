@@ -140,12 +140,21 @@ class MDLibApiTests: XCTestCase {
     func testMangaSearch() throws {
         let api = MDApi()
         let search = MDSearch(title: "Tower of God")
-        let expectation = self.expectation(description: "Load MangaDex search page")
+        let loginExpectation = self.expectation(description: "Login using username and password")
 
-        // TODO: Log in first since searching is disabled when logged out
+        if !api.isLoggedIn() {
+            let auth = self.getAuth(in: "Secret", file: "auth.plist", key: "AuthRegular")!
+            api.login(with: auth) { (_) in
+                loginExpectation.fulfill()
+            }
+        } else {
+            loginExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        let expectation = self.expectation(description: "Load MangaDex search page")
         api.performSearch(search) { (response) in
-            // TODO: Add tests
-            XCTAssertNil(response.error)
+            self.assertMangaListIsValid(for: response)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
