@@ -16,6 +16,7 @@ public class MDPath {
         case listedMangas = "titles"
         case featuredMangas = "featured"
         case latestMangas = "updates"
+        case latestFollowed = "follows"
         case searchMangas = "search"
         case randomManga = "manga"
         case mangaPage = "title"
@@ -27,6 +28,14 @@ public class MDPath {
         case logout = "logout"
         case ajax = "ajax/actions.ajax.php"
         case api = "api"
+    }
+
+    /// Type of resource hosted on MangaDex
+    public enum ResourceType: String {
+        case manga = "manga"
+        case chapters = "chapters"
+        case chapter = "chapter"
+        case groups = "groups"
     }
 
     /// Type of parameter used in a search request
@@ -158,6 +167,16 @@ public class MDPath {
     /// - Returns: The MangaDex URL
     public static func latestMangas(page: Int) -> URL {
         return buildUrl(for: .latestMangas, with: [page])
+    }
+
+    /// Build the URL to fetch the latest released chapters or updated mangas
+    /// - Parameter page: The index of the page to load (starting at 1)
+    /// - Parameter type: The type of resource to fetch should be (`.chapters` or `.manga`)
+    /// - Parameter status: The status of the manga for which to fetch the resource
+    /// - Returns: The MangaDex URL
+    public static func latestFollowed(page: Int, type: ResourceType, status: MDReadingStatus) -> URL {
+        let readingStatus = String(status.rawValue)
+        return buildUrl(for: .latestFollowed, with: [type.rawValue, readingStatus, String(page)])
     }
 
     /// Build the URL to get a random manga

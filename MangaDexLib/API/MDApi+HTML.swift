@@ -109,6 +109,20 @@ extension MDApi {
         getMangas(from: url, completion: completion)
     }
 
+    /// Fetch the latest updated mangas followed by the user
+    /// - Parameter page: The index of the page to load (starting at 1)
+    /// - Parameter status: The status of the mangas to show
+    /// - Parameter completion: The callback at the end of the request
+    public func getLatestFollowedMangas(page: Int, status: MDReadingStatus, completion: @escaping MDCompletion) {
+        let url = MDPath.latestFollowed(page: page, type: .manga, status: status)
+        guard isLoggedIn() else {
+            let response = MDResponse(type: .generic, url: url, error: MDError.loginRequired)
+            completion(response)
+            return
+        }
+        getMangas(from: url, completion: completion)
+    }
+
     /// Fetch a manga's latest comments
     /// - Parameter manga: The manga for which to fetch comments
     /// - Parameter title: The title of the manga (can be nil)

@@ -25,6 +25,21 @@ class MDLibApiTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    /// Login the user, for tests requiring an account
+    func login(api: MDApi) {
+        let loginExpectation = self.expectation(description: "Login using username and password")
+        if !api.isLoggedIn() {
+            let auth = self.getAuth(in: "Secret", file: "auth.plist", key: "AuthRegular")!
+            api.login(with: auth) { (_) in
+                loginExpectation.fulfill()
+            }
+        } else {
+            loginExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+        XCTAssert(api.isLoggedIn())
+    }
+
     /// By default, auth information is stored under the `Secret.bundle`, in an `auth.list` file.
     /// See the provided `Secret.example.bundle` to get an idea of how to fill it in
     func getAuth(in bundle: String, file: String, key: String) -> MDAuth? {
@@ -143,20 +158,28 @@ class MDLibApiTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testFollowedMangas() throws {
+        let page = 2
+        let status = MDReadingStatus.all
+        let api = MDApi()
+
+        // Must be logged-in to follow mangas
+        login(api: api)
+
+        let expectation = self.expectation(description: "Load MangaDex last upadted mangas page")
+        api.getLatestFollowedMangas(page: page, status: status) { (response) in
+            self.assertMangaListIsValid(for: response)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testMangaSearch() throws {
         let api = MDApi()
         let search = MDSearch(title: "Tower of God")
-        let loginExpectation = self.expectation(description: "Login using username and password")
 
-        if !api.isLoggedIn() {
-            let auth = self.getAuth(in: "Secret", file: "auth.plist", key: "AuthRegular")!
-            api.login(with: auth) { (_) in
-                loginExpectation.fulfill()
-            }
-        } else {
-            loginExpectation.fulfill()
-        }
-        waitForExpectations(timeout: 15, handler: nil)
+        // Searching requires login
+        login(api: api)
 
         let expectation = self.expectation(description: "Load MangaDex search page")
         api.performSearch(search) { (response) in

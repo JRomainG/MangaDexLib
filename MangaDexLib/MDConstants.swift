@@ -51,6 +51,17 @@ public enum MDStatus: String, Codable {
     case error = "error"
 }
 
+/// The user-defined status of a manga
+public enum MDReadingStatus: Int, Codable {
+    case all = 0
+    case reading = 1
+    case completed = 2
+    case onHold = 3
+    case planToRead = 4
+    case dropped = 5
+    case reReading = 6
+}
+
 /// Sort orders available for the listed mangas
 public enum MDSortOrder: Int, Codable {
     case recentlyUpdated = 0
