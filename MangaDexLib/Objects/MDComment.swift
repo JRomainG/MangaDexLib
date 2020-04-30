@@ -21,6 +21,7 @@ struct MDComment {
     ///
     /// The body may still contain HTML elements, like
     /// `<a>`, `<br>`, `<button>`, `<img>`...
+    /// Use `textBody` for the content stripped of its HTML elements
     var body: String?
 
     /// The content of the comment, stripped of its HTML elements

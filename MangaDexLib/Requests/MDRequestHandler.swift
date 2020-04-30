@@ -43,7 +43,8 @@ class MDRequestHandler: NSObject {
     /// Path used by MangaDex to set cookies
     static let cookiePath: String = "/"
 
-    /// User-Agent used for calls by this instance.
+    /// User-Agent used for calls by this instance
+    ///
     /// During init, WKWebView is used to get the device's real User-Agent.
     /// The `MDApi.defaultUserAgent` string is then appended to that User-Agent
     private(set) var userAgent = MDApi.defaultUserAgent
@@ -96,7 +97,7 @@ class MDRequestHandler: NSObject {
 
     /// Reset the session (clear cookies, credentials, caches...)
     ///
-    /// Custom set cookies have to be reset as they will be deleted
+    /// - Note: Custom set cookies have to be reset as they will be deleted
     func resetSession() {
         cookieJar.removeCookies(since: .distantPast)
         session.flush {
@@ -146,8 +147,9 @@ class MDRequestHandler: NSObject {
     /// - Parameter content: The dictionary representation of the request's body
     /// - Parameter completion: The callback at the end of the request
     ///
-    /// Because of the way DDoS-Guard works, this request cannot be the first one to ever be done: the
-    /// `.ddosGuard` cookie must be set
+    /// Because of the way DDoS-Guard works, this request cannot be the first one to ever be done.
+    /// It is best to always start with a request to the homepage
+    /// - Precondition: The `.ddosGuard` cookie must be set
     func post(url: URL,
               content: [String: LosslessStringConvertible],
               encoding: BodyEncoding = .multipart,
@@ -208,7 +210,7 @@ extension MDRequestHandler {
     /// - Parameter content: The data to encode
     /// - Parameter request: The request to which to add the content
     ///
-    /// The request is directly modified by adding the body and required headers
+    /// - Note: The request is directly modified by adding the body and required headers
     private func createMultipartBody(from content: [String: LosslessStringConvertible],
                                      for request: NSMutableURLRequest) {
         let boundary = "---------------------------\(randomId(length: 30))"
@@ -230,7 +232,7 @@ extension MDRequestHandler {
     /// - Parameter content: The data to encode
     /// - Parameter request: The request to which to add the content
     ///
-    /// The request is directly modified by adding the body and required headers
+    /// - Note: The request is directly modified by adding the body and required headers
     func createUrlEncodedBody(from content: [String: LosslessStringConvertible],
                               for request: NSMutableURLRequest) {
         var components = URLComponents(string: "")!
@@ -244,7 +246,7 @@ extension MDRequestHandler {
 
     /// Handle requests so they don't go against DDoS-Guard's rules
     ///
-    /// The `.ddosGuard` cookie must have been set during a previous request (either during this
+    /// - Precondition: The `.ddosGuard` cookie must have been set during a previous request (either during this
     /// session or in the past)
     private func handleDdosGuard(for request: NSMutableURLRequest, completion: @escaping () -> Void) {
         guard let cookie = getCookie(type: .ddosGuard) else {

@@ -57,8 +57,8 @@ extension MDParser {
     /// - Parameter content: The html string to parse
     /// - Returns: An `MDGroup` instance
     ///
-    /// This implementation is particularly rather fragile, and is subject to breaking
-    /// if the website changes the group page
+    /// - Warning: This implementation is particularly fragile, and is subject
+    /// to breaking if the website changes the group page
     func getGroupInfo(from content: String) throws -> MDGroup? {
         let doc = try MDParser.parse(html: content)
 

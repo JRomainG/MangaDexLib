@@ -103,8 +103,6 @@ extension MDParser {
     /// Extract the list of comments present in the given html string
     /// - Parameter content: The html string to parse
     /// - Returns: A list of comments
-    ///
-    /// Only the `title` and `id` are extracted by this method
     func getComments(from content: String) throws -> [MDComment] {
         let doc = try MDParser.parse(html: content)
         let elements = try doc.getElementsByClass(MDParser.commentEntryClass)

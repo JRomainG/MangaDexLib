@@ -62,9 +62,9 @@ extension MDApi {
     ///
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
     internal func performGet(url: URL,
-                            type: MDResponse.ResponseType,
-                            errorCompletion: @escaping MDCompletion,
-                            success: @escaping MDCompletion) {
+                             type: MDResponse.ResponseType,
+                             errorCompletion: @escaping MDCompletion,
+                             success: @escaping MDCompletion) {
         requestHandler.get(url: url) { (content, requestError) in
             // Build a response object for the completion
             let response = MDResponse(type: type, url: url, rawValue: content, error: requestError)
@@ -85,11 +85,11 @@ extension MDApi {
     ///
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
     internal func performPost(url: URL,
-                             body: [String: LosslessStringConvertible],
-                             encoding: MDRequestHandler.BodyEncoding = .multipart,
-                             type: MDResponse.ResponseType,
-                             errorCompletion: @escaping MDCompletion,
-                             success: @escaping MDCompletion) {
+                              body: [String: LosslessStringConvertible],
+                              encoding: MDRequestHandler.BodyEncoding = .multipart,
+                              type: MDResponse.ResponseType,
+                              errorCompletion: @escaping MDCompletion,
+                              success: @escaping MDCompletion) {
         requestHandler.post(url: url, content: body, encoding: encoding) { (content, requestError) in
             // Build a response object for the completion
             let response = MDResponse(type: type, url: url, rawValue: content, error: requestError)

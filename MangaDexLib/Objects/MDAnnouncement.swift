@@ -15,6 +15,7 @@ struct MDAnnouncement {
     ///
     /// The body may still contain HTML elements, like
     /// `<a>`, `<br>`, `<strong>`...
+    /// Use `textBody` for the content stripped of its HTML elements
     var body: String?
 
     /// The content of the announcement, stripped of its HTML elements
