@@ -62,6 +62,13 @@ class MDRequestHandler: NSObject {
     /// The cookies valid for this session
     private(set) var cookieJar: HTTPCookieStorage = .shared
 
+    /// The delay (in seconds) added before doing a requests which goes through
+    /// the `handleDdosGuard` method
+    ///
+    /// This delay is only added for `POST` methods, so it will be
+    /// mostly invisible to the user during normal use
+    private(set) var ddosGuardDelay: Double = 0.5
+
     override init() {
         super.init()
         buildUserAgent(suffix: MDApi.defaultUserAgent)
@@ -96,6 +103,13 @@ class MDRequestHandler: NSObject {
         UserDefaults.standard.register(defaults: ["UserAgent": userAgent])
         self.userAgent = userAgent
         self.hasUserAgent = true
+    }
+
+    /// Change the delay added before performing a `POST` request (in seconds)
+    ///
+    /// The minimum value is capped at 0.05 seconds
+    func setDdosGuardDelay(_ delay: Double) {
+        ddosGuardDelay = max(delay, 0.05)
     }
 
     /// Reset the session (clear cookies, credentials, caches...)
@@ -263,8 +277,7 @@ extension MDRequestHandler {
 
         // Wait for a bit to prevent the user from performing requests too often
         // TODO: Also have a queue that limits the number of requests at the same time
-        // TODO: Make delay configurable
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + ddosGuardDelay) {
             completion(nil)
         }
 
