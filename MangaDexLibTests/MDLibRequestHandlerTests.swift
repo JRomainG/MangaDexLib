@@ -90,13 +90,38 @@ class MDLibRequestHandlerTests: XCTestCase {
 
     func testResetSession() throws {
         let requestHandler = MDRequestHandler()
-        requestHandler.setCookie(type: .ratedFilter, value: "AnyValue")
-        XCTAssertNotNil(requestHandler.cookieJar.cookies)
-        XCTAssertGreaterThan(requestHandler.cookieJar.cookies!.count, 0)
+        var url = URL(string: "https://httpbin.org/cookies/set?key=value")!
 
+        // Ask the website to set a cookie
+        let setCookieExpectation = self.expectation(description: "Set cookie")
+        requestHandler.get(url: url) { (http, content, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(content)
+            XCTAssertEqual(http?.statusCode, 200)
+
+            let dict = self.parseJson(from: content)
+            let cookies = dict?["cookies"] as? [String: String]
+            let value = cookies?["key"]
+            XCTAssert(value == "value")
+            setCookieExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // Reset the session and check that the cookie is not longer set
         requestHandler.resetSession()
-        XCTAssertNotNil(requestHandler.cookieJar.cookies)
-        XCTAssertEqual(requestHandler.cookieJar.cookies!.count, 0)
+        url = URL(string: "https://httpbin.org/cookies")!
+        let getCookieExpectation = self.expectation(description: "Get cookies")
+        requestHandler.get(url: url) { (http, content, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(content)
+            XCTAssertEqual(http?.statusCode, 200)
+
+            let dict = self.parseJson(from: content)
+            let cookies = dict?["cookies"] as? [String: String]
+            XCTAssert(cookies?.count == 0)
+            getCookieExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testSetUserAgent() throws {
