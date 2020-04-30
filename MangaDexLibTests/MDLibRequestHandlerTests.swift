@@ -35,9 +35,10 @@ class MDLibRequestHandlerTests: XCTestCase {
         let url = URL(string: "https://httpbin.org/post")!
         let expectation = self.expectation(description: "Load httpbin's POST test page")
 
-        requestHandler.post(url: url, content: body, encoding: encoding) { (content, error) in
+        requestHandler.post(url: url, content: body, encoding: encoding) { (http, content, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(content)
+            XCTAssertEqual(http?.statusCode, 200)
 
             let dict = self.parseJson(from: content)
             let args = dict?["form"] as? [String: String]
@@ -55,9 +56,10 @@ class MDLibRequestHandlerTests: XCTestCase {
         let url = URL(string: "https://httpbin.org/get?key=value")!
         let expectation = self.expectation(description: "Load httpbin's GET test page")
 
-        requestHandler.get(url: url) { (content, error) in
+        requestHandler.get(url: url) { (http, content, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(content)
+            XCTAssertEqual(http?.statusCode, 200)
 
             let dict = self.parseJson(from: content)
             let args = dict?["args"] as? [String: String]
@@ -104,9 +106,10 @@ class MDLibRequestHandlerTests: XCTestCase {
         requestHandler.setUserAgent(userAgent)
 
         let expectation = self.expectation(description: "Fetch User Agent")
-        requestHandler.get(url: url) { (content, error) in
+        requestHandler.get(url: url) { (http, content, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(content)
+            XCTAssertEqual(http?.statusCode, 200)
 
             let dict = self.parseJson(from: content)
             let fetchedUserAgent = dict?["user-agent"] as? String

@@ -27,13 +27,16 @@ class MDResponse: NSObject {
     private(set) var type: ResponseType = .generic
 
     /// The URL of the original request
-    private(set) var url: URL
+    private(set) var url: URL?
 
     /// The raw html or json string returned from the website (if any)
     private(set) var rawValue: String?
 
     /// The error returned from the request (if any)
     var error: Error?
+
+    /// The status code of the response
+    var statusCode: Int?
 
     /// The extracted manga, if relevant
     var manga: MDManga?
@@ -54,11 +57,18 @@ class MDResponse: NSObject {
     var token: String?
 
     /// Convenience init method
-    init(type: ResponseType, url: URL, rawValue: String?, error: Error?) {
+    init(type: ResponseType,
+         url: URL? = nil,
+         rawValue: String? = nil,
+         error: Error? = nil,
+         content: String? = nil,
+         status: Int? = nil) {
         self.type = type
         self.url = url
         self.rawValue = rawValue
         self.error = error
+        self.rawValue = content
+        self.statusCode = status
     }
 
 }

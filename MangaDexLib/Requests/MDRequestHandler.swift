@@ -35,7 +35,10 @@ class MDRequestHandler: NSObject {
     }
 
     /// An alias for the completion blocks called after requests
-    typealias RequestCompletion = (String?, Error?) -> Void
+    ///
+    /// Parameters are the underlying response, its string content
+    /// and its error (if relevant)
+    typealias RequestCompletion = (HTTPURLResponse?, String?, Error?) -> Void
 
     /// Domain used by MangaDex to set cookies
     static let cookieDomain: String = ".mangadex.org"
@@ -167,7 +170,11 @@ class MDRequestHandler: NSObject {
         }
 
         // Make sure we don't trigger the DDoS-Guard
-        handleDdosGuard(for: request) {
+        handleDdosGuard(for: request) { error in
+            guard error == nil else {
+                completion(nil, nil, error)
+                return
+            }
             self.perform(request: request, completion: completion)
         }
     }
@@ -179,17 +186,13 @@ class MDRequestHandler: NSObject {
         // Make sure the user agent is set
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
 
-        // TODO: Check Reachability.isConnectedToNetwork()
-
         // Cookies are automatically handled by the session, so just create the task
-        let task = session.dataTask(with: request as URLRequest) { (data, _, error) in
-            // TODO: Check response status code
-            // print(response as? HTTPURLResponse)
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             var output: String?
             if data != nil {
                 output = NSString(data: data!, encoding: String.Encoding.utf8.rawValue) as String?
             }
-            completion(output, error)
+            completion(response as? HTTPURLResponse, output, error)
         }
         task.resume()
     }
@@ -248,10 +251,9 @@ extension MDRequestHandler {
     ///
     /// - Precondition: The `.ddosGuard` cookie must have been set during a previous request (either during this
     /// session or in the past)
-    private func handleDdosGuard(for request: NSMutableURLRequest, completion: @escaping () -> Void) {
+    private func handleDdosGuard(for request: NSMutableURLRequest, completion: @escaping (Error?) -> Void) {
         guard let cookie = getCookie(type: .ddosGuard) else {
-            // TODO: Fill-in error
-            completion()
+            completion(MDError.noDdosGuardCookie)
             return
         }
 
@@ -260,9 +262,10 @@ extension MDRequestHandler {
         request.setValue("\(CookieType.ddosGuard.rawValue)=\(cookie)", forHTTPHeaderField: "Cookie")
 
         // Wait for a bit to prevent the user from performing requests too often
-        // TODO: ALso have a queue that limits the number of requests at the same time
+        // TODO: Also have a queue that limits the number of requests at the same time
+        // TODO: Make delay configurable
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            completion()
+            completion(nil)
         }
 
     }

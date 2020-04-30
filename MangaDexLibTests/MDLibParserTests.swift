@@ -25,7 +25,7 @@ class MDLibParserTests: XCTestCase {
         let parser = MDParser()
         let expectation = self.expectation(description: "Load MangaDex's homepage")
 
-        requestHandler.get(url: url) { (content, _) in
+        requestHandler.get(url: url) { (_, content, _) in
             guard let announcement = parser.getAnnouncement(from: content!) else {
                 return
             }
@@ -42,7 +42,7 @@ class MDLibParserTests: XCTestCase {
         let parser = MDParser()
         let expectation = self.expectation(description: "Load MangaDex's login page")
 
-        requestHandler.get(url: url) { (content, _) in
+        requestHandler.get(url: url) { (_, content, _) in
             let alerts = parser.getAlerts(from: content!)
             for alert in alerts {
                 XCTAssertNotNil(alert.body)
@@ -59,7 +59,7 @@ class MDLibParserTests: XCTestCase {
         let parser = MDParser()
         let expectation = self.expectation(description: "Load MangaDex's search page")
 
-        requestHandler.get(url: url) { (content, _) in
+        requestHandler.get(url: url) { (_, content, _) in
             var isLogin = false
             do {
                 let doc = try MDParser.parse(html: content!)

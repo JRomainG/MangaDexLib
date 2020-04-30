@@ -30,6 +30,7 @@
 		3354C77124588A4F00E65B8A /* MDManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354C77024588A4F00E65B8A /* MDManga.swift */; };
 		3354C77424588BEB00E65B8A /* MDChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3354C77324588BEB00E65B8A /* MDChapter.swift */; };
 		3354C77B2458909B00E65B8A /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3354C77A2458909B00E65B8A /* SwiftSoup.framework */; platformFilter = ios; };
+		3392DBFE245AFF5400121CB6 /* MDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3392DBFD245AFF5400121CB6 /* MDError.swift */; };
 		339899342458D94300AEEE39 /* MDComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899332458D94300AEEE39 /* MDComment.swift */; };
 		339899362458D9AE00AEEE39 /* MDUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899352458D9AE00AEEE39 /* MDUser.swift */; };
 		339899382458F42200AEEE39 /* MDAnnouncement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899372458F42200AEEE39 /* MDAnnouncement.swift */; };
@@ -39,6 +40,9 @@
 		339899412458FBEC00AEEE39 /* MDParser+MangaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899402458FBEC00AEEE39 /* MDParser+MangaInfo.swift */; };
 		339899432458FC3300AEEE39 /* MDParser+Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899422458FC3300AEEE39 /* MDParser+Comments.swift */; };
 		339899452458FC4F00AEEE39 /* MDParser+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339899442458FC4F00AEEE39 /* MDParser+Login.swift */; };
+		33F8A672245B0979001C3A56 /* MDApi+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F8A671245B0979001C3A56 /* MDApi+HTML.swift */; };
+		33F8A674245B0991001C3A56 /* MDApi+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F8A673245B0991001C3A56 /* MDApi+JSON.swift */; };
+		33F8A676245B09B2001C3A56 /* MDApi+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33F8A675245B09B2001C3A56 /* MDApi+Auth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +82,7 @@
 		3354C77024588A4F00E65B8A /* MDManga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDManga.swift; sourceTree = "<group>"; };
 		3354C77324588BEB00E65B8A /* MDChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDChapter.swift; sourceTree = "<group>"; };
 		3354C77A2458909B00E65B8A /* SwiftSoup.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftSoup.framework; path = Carthage/Build/iOS/SwiftSoup.framework; sourceTree = "<group>"; };
+		3392DBFD245AFF5400121CB6 /* MDError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDError.swift; sourceTree = "<group>"; };
 		339899332458D94300AEEE39 /* MDComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDComment.swift; sourceTree = "<group>"; };
 		339899352458D9AE00AEEE39 /* MDUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDUser.swift; sourceTree = "<group>"; };
 		339899372458F42200AEEE39 /* MDAnnouncement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDAnnouncement.swift; sourceTree = "<group>"; };
@@ -87,6 +92,9 @@
 		339899402458FBEC00AEEE39 /* MDParser+MangaInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+MangaInfo.swift"; sourceTree = "<group>"; };
 		339899422458FC3300AEEE39 /* MDParser+Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+Comments.swift"; sourceTree = "<group>"; };
 		339899442458FC4F00AEEE39 /* MDParser+Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+Login.swift"; sourceTree = "<group>"; };
+		33F8A671245B0979001C3A56 /* MDApi+HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+HTML.swift"; sourceTree = "<group>"; };
+		33F8A673245B0991001C3A56 /* MDApi+JSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+JSON.swift"; sourceTree = "<group>"; };
+		33F8A675245B09B2001C3A56 /* MDApi+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Auth.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,9 +142,8 @@
 			children = (
 				3353B57C245789BE0066B8D5 /* MangaDexLib.h */,
 				3353B57D245789BE0066B8D5 /* Info.plist */,
-				3353B5AB24578F710066B8D5 /* MDApi.swift */,
 				3353B584245789E10066B8D5 /* MDConstants.swift */,
-				3353B586245789E40066B8D5 /* MDPath.swift */,
+				33F8A670245B0947001C3A56 /* API */,
 				3354C77224588BDB00E65B8A /* Objects */,
 				3398993B2458FB2E00AEEE39 /* Parsing */,
 				3354C77524588D3000E65B8A /* Requests */,
@@ -205,6 +212,19 @@
 				330DD8C92459A50300BC9E0B /* MDParser+GroupInfo.swift */,
 			);
 			path = Parsing;
+			sourceTree = "<group>";
+		};
+		33F8A670245B0947001C3A56 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				3353B5AB24578F710066B8D5 /* MDApi.swift */,
+				33F8A671245B0979001C3A56 /* MDApi+HTML.swift */,
+				33F8A673245B0991001C3A56 /* MDApi+JSON.swift */,
+				33F8A675245B09B2001C3A56 /* MDApi+Auth.swift */,
+				3392DBFD245AFF5400121CB6 /* MDError.swift */,
+				3353B586245789E40066B8D5 /* MDPath.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -383,6 +403,9 @@
 				3353B585245789E10066B8D5 /* MDConstants.swift in Sources */,
 				339899452458FC4F00AEEE39 /* MDParser+Login.swift in Sources */,
 				3353B5BF2457A7AF0066B8D5 /* MDParser.swift in Sources */,
+				33F8A674245B0991001C3A56 /* MDApi+JSON.swift in Sources */,
+				33F8A672245B0979001C3A56 /* MDApi+HTML.swift in Sources */,
+				3392DBFE245AFF5400121CB6 /* MDError.swift in Sources */,
 				3398993F2458FBA000AEEE39 /* MDParser+MangaList.swift in Sources */,
 				339899342458D94300AEEE39 /* MDComment.swift in Sources */,
 				330DD8CE2459C99A00BC9E0B /* MDAuth.swift in Sources */,
@@ -398,6 +421,7 @@
 				339899362458D9AE00AEEE39 /* MDUser.swift in Sources */,
 				3354C77424588BEB00E65B8A /* MDChapter.swift in Sources */,
 				3353B5AE2457905C0066B8D5 /* MDRequestHandler.swift in Sources */,
+				33F8A676245B09B2001C3A56 /* MDApi+Auth.swift in Sources */,
 				339899412458FBEC00AEEE39 /* MDParser+MangaInfo.swift in Sources */,
 				3353B5AC24578F710066B8D5 /* MDApi.swift in Sources */,
 				3398993D2458FB7D00AEEE39 /* MDParser+Announcement.swift in Sources */,
