@@ -74,16 +74,13 @@ public struct MDChapter: Decodable {
     /// The short name of the chapter's original language
     ///
     /// Ex: `jp` for Japanese, `gb` for British English
-    /// - Note: Setting this will also attempt to set the `originalLang`
-    public var originalLangCode: String? {
-        didSet {
-            if let code = originalLangCode {
-                originalLang = MDLanguageCodes[code]
-            }
-        }
-    }
+    public var originalLangCode: String?
 
     /// The chapter's original language
+    ///
+    /// - Note: This may be `nil` even if `originalLangCode` isn't
+    /// In that case, you can manually fetch the language using the
+    /// `MDLanguageCodes` dict
     public var originalLang: MDLanguage?
 
     /// The number of comments for this chapter
@@ -95,7 +92,7 @@ public struct MDChapter: Decodable {
     /// A boolean indicating whether this chapter is read in a long strip
     ///
     /// Most webtoons are read as one long strip, without seperate pages
-    public var longStrip: Bool?
+    public var longStrip: Int?
 
     /// This chapter's status
     public var status: MDStatus?

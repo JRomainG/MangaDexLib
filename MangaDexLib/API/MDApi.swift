@@ -18,10 +18,15 @@ public class MDApi: NSObject {
     public static let defaultUserAgent = "MangaDexLib"
 
     /// The server from which to server manga pages
-    public private(set) var server: MDServer = .automatic
+    public var server: MDServer = .automatic
 
     /// Whether to show rated manga of not
-    public private(set) var ratedFilter: MDRatedFilter = .noR18
+    public var ratedFilter: MDRatedFilter = .noR18 {
+        didSet {
+            // Update the stored cookie to reflect the change
+            requestHandler.setCookie(type: .ratedFilter, value: String(ratedFilter.rawValue))
+        }
+    }
 
     /// Instance of `MDRequestHandler` used to perform all requests
     public let requestHandler = MDRequestHandler()
@@ -31,17 +36,6 @@ public class MDApi: NSObject {
 
     /// TypeAlias for completion blocks
     public typealias MDCompletion = (MDResponse) -> Void
-
-    /// Setter for the rated filter cookie
-    public func setRatedFilter(_ filter: MDRatedFilter) {
-        self.ratedFilter = filter
-        requestHandler.setCookie(type: .ratedFilter, value: String(filter.rawValue))
-    }
-
-    /// Setter for the server to use when fetching chapter pages
-    public func setServer(_ server: MDServer) {
-        self.server = server
-    }
 
     /// Setter for the User-Agent to use for requests
     public func setUserAgent(_ userAgent: String) {
