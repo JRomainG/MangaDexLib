@@ -60,7 +60,7 @@ class MDRequestHandler: NSObject {
 
     override init() {
         super.init()
-        self.buildUserAgent(suffix: MDApi.defaultUserAgent)
+        buildUserAgent(suffix: MDApi.defaultUserAgent)
 
         // Session configuration directly reflects on cookieJar
         session.configuration.httpShouldSetCookies = true
@@ -117,14 +117,14 @@ class MDRequestHandler: NSObject {
             .discard: sessionOnly,
             .secure: secure
         ])
-        self.cookieJar.setCookie(cookie!)
+        cookieJar.setCookie(cookie!)
     }
 
     /// Get the value of the cookie with the given type, if set
     /// - Parameter type: The type of cookie to read
     /// - Returns: The value of the cookie, if any
     func getCookie(type: CookieType) -> String? {
-        guard let cookies = self.cookieJar.cookies else {
+        guard let cookies = cookieJar.cookies else {
             return nil
         }
         return cookies.first(where: { (cookie) -> Bool in
@@ -138,7 +138,7 @@ class MDRequestHandler: NSObject {
     func get(url: URL, completion: @escaping RequestCompletion) {
         // Create a request with the correct user agent
         let request = NSMutableURLRequest(url: url)
-        self.perform(request: request, completion: completion)
+        perform(request: request, completion: completion)
     }
 
     /// Perform an async post request
@@ -165,7 +165,7 @@ class MDRequestHandler: NSObject {
         }
 
         // Make sure we don't trigger the DDoS-Guard
-        self.handleDdosGuard(for: request) {
+        handleDdosGuard(for: request) {
             self.perform(request: request, completion: completion)
         }
     }
@@ -175,7 +175,7 @@ class MDRequestHandler: NSObject {
     /// - Parameter completion: The callback at the end of the request
     func perform(request: NSMutableURLRequest, completion: @escaping RequestCompletion) {
         // Make sure the user agent is set
-        request.setValue(self.userAgent, forHTTPHeaderField: "User-Agent")
+        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
 
         // TODO: Check Reachability.isConnectedToNetwork()
 
@@ -247,7 +247,7 @@ extension MDRequestHandler {
     /// The `.ddosGuard` cookie must have been set during a previous request (either during this
     /// session or in the past)
     private func handleDdosGuard(for request: NSMutableURLRequest, completion: @escaping () -> Void) {
-        guard let cookie = self.getCookie(type: .ddosGuard) else {
+        guard let cookie = getCookie(type: .ddosGuard) else {
             // TODO: Fill-in error
             completion()
             return
