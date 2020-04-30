@@ -177,6 +177,8 @@ class MDRequestHandler: NSObject {
         // Make sure the user agent is set
         request.setValue(self.userAgent, forHTTPHeaderField: "User-Agent")
 
+        // TODO: Check Reachability.isConnectedToNetwork()
+
         // Cookies are automatically handled by the session, so just create the task
         let task = session.dataTask(with: request as URLRequest) { (data, _, error) in
             // TODO: Check response status code
@@ -206,20 +208,21 @@ extension MDRequestHandler {
     /// - Parameter content: The data to encode
     /// - Parameter request: The request to which to add the content
     ///
-    /// The request is directly modified
+    /// The request is directly modified by adding the body and required headers
     private func createMultipartBody(from content: [String: LosslessStringConvertible],
                                      for request: NSMutableURLRequest) {
-        //let boundary = "-----------------------------297347480520029914952670892546"
-        let boundary = "-----------------------------\(randomId(length: 30))"
+        let boundary = "---------------------------\(randomId(length: 30))"
         var body = ""
         for (key, value) in content {
-            body += "\(boundary)\r\n"
+            body += "--\(boundary)\r\n"
             body += "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n"
             body += "\(value)\r\n"
         }
-        body += "\(boundary)--\r\n"
+        body += "--\(boundary)--\r\n"
         request.httpBody = body.data(using: .utf8)!
+
         request.setValue("multipart/form-data;boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.setValue(String(body.count), forHTTPHeaderField: "Content-Length")
         request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
     }
 
@@ -227,7 +230,7 @@ extension MDRequestHandler {
     /// - Parameter content: The data to encode
     /// - Parameter request: The request to which to add the content
     ///
-    /// The request is directly modified
+    /// The request is directly modified by adding the body and required headers
     func createUrlEncodedBody(from content: [String: LosslessStringConvertible],
                               for request: NSMutableURLRequest) {
         var components = URLComponents(string: "")!
