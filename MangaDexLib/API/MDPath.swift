@@ -84,11 +84,19 @@ public class MDPath {
             .caseInsensitive,
             .widthInsensitive
         ]
-        var allowed = CharacterSet.alphanumerics
-        allowed.insert("-")
+        let allowed = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz0123456789-")
         var normalized = string.replacingOccurrences(of: " ", with: "-")
         normalized = normalized.folding(options: options, locale: .none)
         return normalized.components(separatedBy: allowed.inverted).joined(separator: "")
+    }
+
+    /// Convert the given string into its normalized version
+    /// - Parameter string: The string to normalize
+    /// - Parameter defaultString: The default value to return if the normalized string is empty
+    /// - Returns: A normalized string
+    static func getNormalizedString(from string: String?, defaultString: String = "") -> String {
+        let normalized = string != nil ? normalize(string: string!) : ""
+        return normalized.count > 0 ? normalized: defaultString
     }
 
     /// Build an absolute URL with the known base and the given path
@@ -256,13 +264,7 @@ public class MDPath {
     /// - Returns: The MangaDex URL
     public static func mangaComments(mangaId: Int, mangaTitle: String?) -> URL {
         // The title doesn't really matter, but let's try to make it nice either way
-        let normalizedTitle: String
-        if let title = mangaTitle {
-            normalizedTitle = normalize(string: title)
-        } else {
-            normalizedTitle = MDApi.defaultUserAgent
-        }
-
+        let normalizedTitle = getNormalizedString(from: mangaTitle, defaultString: MDApi.defaultUserAgent)
         let components: [String] = [String(mangaId), normalizedTitle, ResourceType.comments.rawValue]
         return buildUrl(for: .mangaPage, with: components)
     }
@@ -274,13 +276,7 @@ public class MDPath {
     /// - Returns: The MangaDex URL
     public static func mangaChapters(mangaId: Int, mangaTitle: String?, page: Int) -> URL {
         // The title doesn't really matter, but let's try to make it nice either way
-        let normalizedTitle: String
-        if let title = mangaTitle {
-            normalizedTitle = normalize(string: title)
-        } else {
-            normalizedTitle = MDApi.defaultUserAgent
-        }
-
+        let normalizedTitle = getNormalizedString(from: mangaTitle, defaultString: MDApi.defaultUserAgent)
         let components: [String] = [String(mangaId), normalizedTitle, ResourceType.chapters.rawValue, String(page)]
         return buildUrl(for: .mangaPage, with: components)
     }
