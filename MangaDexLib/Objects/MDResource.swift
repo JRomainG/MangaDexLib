@@ -114,7 +114,7 @@ extension MDResource {
     static let raw = MDResource(name: "Raw",
                                 baseURL: nil,
                                 type: .raw)
-    
+
     static let officialTranslation = MDResource(name: "",
                                                 baseURL: nil,
                                                 type: .officialTranslation)

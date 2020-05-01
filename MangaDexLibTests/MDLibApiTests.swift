@@ -120,6 +120,7 @@ class MDLibApiTests: XCTestCase {
         XCTAssertNotNil(chapter?.chapterId)
         XCTAssertNotNil(chapter?.mangaId)
         XCTAssertNotNil(chapter?.groupId)
+        XCTAssertNotNil(chapter?.getOriginalLang())
     }
 
     func assertGroupIsValid(_ group: MDGroup?) {
@@ -342,6 +343,8 @@ class MDLibApiTests: XCTestCase {
         api.getChapterInfo(chapterId: chapterId) { (response) in
             XCTAssertNil(response.error)
             self.assertChapterIsValid(response.chapter)
+            XCTAssertNotNil(response.chapter?.getPageUrls())
+            XCTAssertGreaterThan(response.chapter!.getPageUrls()!.count, 0)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
