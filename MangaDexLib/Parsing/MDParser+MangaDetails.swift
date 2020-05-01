@@ -133,8 +133,8 @@ extension MDParser {
         }
 
         // Try to get the reading status, but don't throw if this fails
-        // since the use rmight be logged out
-        var readingStatus: MDReadingStatus?
+        // since the user might be logged out, and it's not a critical information
+        let readingStatus: MDReadingStatus?
         do {
             let button = try doc.select(MDParser.mangaReadingStatusButtonSelector).first()
             readingStatus = try getReadingStatus(from: button)
