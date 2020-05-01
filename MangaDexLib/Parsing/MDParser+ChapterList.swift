@@ -30,7 +30,8 @@ extension MDParser {
         "data-read": .read,
         "data-lang": .originalLang,
         "data-group": .groupId,
-        "data-timestamp": .timestamp
+        "data-timestamp": .timestamp,
+        "data-comments": .nbrComments
     ]
 
     /// Return a json `Data` object representing the given `Element`

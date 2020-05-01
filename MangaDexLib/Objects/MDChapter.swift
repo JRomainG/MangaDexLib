@@ -84,7 +84,7 @@ public struct MDChapter: Decodable {
     public var originalLang: MDLanguage?
 
     /// The number of comments for this chapter
-    public var comments: Int?
+    public var nbrComments: Int?
 
     /// The base URL of the server from which to retreive the pages
     public var server: String?
@@ -137,7 +137,7 @@ extension MDChapter {
         case originalLangName = "lang_name"
         case originalLangCode = "lang_code"
         case originalLang
-        case comments
+        case nbrComments = "comments"
         case server
         case longStrip = "long_strip"
         case status
@@ -150,7 +150,7 @@ extension MDChapter {
     /// - Note: Only the attributes used by the parser are copied here
     static func decodeValue(_ value: String, for key: CodingKeys) -> Any? {
         switch key {
-        case .chapterId, .mangaId, .groupId, .timestamp:
+        case .chapterId, .mangaId, .groupId, .timestamp, .nbrComments:
             return Int(value)
         case .read:
             return Bool(value)
