@@ -37,8 +37,6 @@ public enum MDError: Error {
     case authFailure
 
     /// This method is not implemented
-    ///
-    /// - Note: This is raised when trying to login using 2FA
     case notImplemented
 
     /// The parser didn't find the object's ID

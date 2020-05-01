@@ -13,6 +13,19 @@
 		<key>remember</key>
 		<true/>
 	</dict>
+	<key>Auth2FA</key>
+	<dict>
+		<key>username</key>
+		<string>YourMangadexUsername</string>
+		<key>password</key>
+		<string>YourMangadexPassword</string>
+		<key>code</key>
+		<string>YourTwoFactorAuthCode</string>
+		<key>type</key>
+		<string>twoFactor</string>
+		<key>remember</key>
+		<true/>
+	</dict>
 	<key>AuthToken</key>
 	<dict>
 		<key>token</key>

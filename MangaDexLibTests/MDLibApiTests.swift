@@ -43,7 +43,13 @@ class MDLibApiTests: XCTestCase {
             let username = authInfo["username"] as? String
             let password = authInfo["password"] as? String
             let remember = authInfo["remember"] as? Bool
-            return MDAuth(username: username!, password: password!, type: .regular, remember: remember!)
+            return MDAuth(username: username!, password: password!, remember: remember!)
+        case .twoFactor:
+            let username = authInfo["username"] as? String
+            let password = authInfo["password"] as? String
+            let code = authInfo["code"] as? String
+            let remember = authInfo["remember"] as? Bool
+            return MDAuth(username: username!, password: password!, code: code!, remember: remember!)
         case .token:
             let token = authInfo["token"] as? String
             return MDAuth(token: token!)
@@ -387,17 +393,35 @@ class MDLibApiTests: XCTestCase {
 
         // Make sure we're logged out
         let logoutExpectation = self.expectation(description: "Logout")
-        if api.isLoggedIn() {
-            api.logout { (_) in
-                logoutExpectation.fulfill()
-            }
-        } else {
+        api.logout { (_) in
             logoutExpectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
         XCTAssertFalse(api.isLoggedIn())
 
         let loginExpectation = self.expectation(description: "Login using username and password")
+        api.login(with: auth) { (response) in
+            XCTAssert(api.isLoggedIn())
+            XCTAssertNil(response.error)
+            XCTAssertNotNil(response.token)
+            loginExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testTwoFactorLogin() throws {
+        let auth = getAuth(in: "Secret", file: "auth.plist", key: "Auth2FA")!
+        let api = MDApi()
+
+        // Make sure we're logged out
+        let logoutExpectation = self.expectation(description: "Logout")
+        api.logout { (_) in
+            logoutExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+        XCTAssertFalse(api.isLoggedIn())
+
+        let loginExpectation = self.expectation(description: "Login using two factor authentication")
         api.login(with: auth) { (response) in
             XCTAssert(api.isLoggedIn())
             XCTAssertNil(response.error)

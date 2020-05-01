@@ -17,8 +17,6 @@ public struct MDAuth {
         case regular
 
         /// Login using two factor authentication
-        ///
-        /// - Warning: Not yet supported
         case twoFactor
 
         /// Login using a previously used auth token
@@ -31,6 +29,9 @@ public struct MDAuth {
     /// The password used to log in
     public var password: String?
 
+    /// The two factor authentication code used to log in
+    public var twoFactorCode: String?
+
     /// The saved token used to log in
     public var token: String?
 
@@ -41,10 +42,19 @@ public struct MDAuth {
     public var remember: Bool
 
     /// Convenience method to init a username/password auth
-    public init(username: String, password: String, type: AuthType, remember: Bool) {
+    public init(username: String, password: String, remember: Bool) {
         self.username = username
         self.password = password
-        self.type = type
+        self.type = .regular
+        self.remember = remember
+    }
+
+    /// Convenience method to init a two factor auth
+    public init(username: String, password: String, code: String, remember: Bool) {
+        self.username = username
+        self.password = password
+        self.twoFactorCode = code
+        self.type = .twoFactor
         self.remember = remember
     }
 

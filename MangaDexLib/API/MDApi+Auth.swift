@@ -16,15 +16,17 @@ extension MDApi {
     /// - Parameter info: The authentication credentials to use
     /// - Parameter completion: The callback at the end of the request
     ///
-    /// `info.username` and `info.password` must not be filled in
+    /// `info.username` and `info.password` must be filled in, as well as
+    /// `info.twoFactorCode` for two factor authentication
     private func performAuth(with info: MDAuth, completion: @escaping MDCompletion) {
         let url = MDPath.loginAction(javascriptEnabled: false)
         let username = info.username ?? ""
         let password = info.password ?? ""
+        let code = info.twoFactorCode ?? ""
         let body: [String: LosslessStringConvertible] = [
             MDRequestHandler.AuthField.username.rawValue: username,
             MDRequestHandler.AuthField.password.rawValue: password,
-            MDRequestHandler.AuthField.twoFactor.rawValue: "",
+            MDRequestHandler.AuthField.twoFactor.rawValue: code,
             MDRequestHandler.AuthField.remember.rawValue: info.remember ? "1" : "0"
         ]
         let options = MDRequestOptions(encoding: .urlencoded, referer: MDPath.login().absoluteString)
@@ -62,13 +64,10 @@ extension MDApi {
         }
 
         switch info.type {
-        case .regular:
+        case .regular, .twoFactor:
             performAuth(with: info, completion: completion)
         case .token:
             setAuthToken(info.token, completion: completion)
-        default:
-            let request = MDResponse(type: .login, error: MDError.notImplemented)
-            completion(request)
         }
     }
 

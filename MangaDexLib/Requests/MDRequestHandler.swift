@@ -40,7 +40,7 @@ public class MDRequestHandler: NSObject {
         /// The password field to login
         case password = "login_password"
 
-        /// The boolean field indicating whether to use two factor authentication
+        /// The code to use for two factor authentication
         case twoFactor = "two_factor"
 
         /// The boolean field indicating whether to place an auth token to
