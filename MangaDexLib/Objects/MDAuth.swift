@@ -11,12 +11,14 @@ import Foundation
 /// Struct representing an auth action
 public struct MDAuth {
 
-    /// Type of filtering when searching with tags
+    /// Types of authentication available
     public enum AuthType: String {
         /// Login using a username and password
         case regular
 
         /// Login using two factor authentication
+        ///
+        /// - Note: This must be enabled on the website
         case twoFactor
 
         /// Login using a previously used auth token
@@ -35,7 +37,7 @@ public struct MDAuth {
     /// The saved token used to log in
     public var token: String?
 
-    /// Whether the auth uses two factor or not
+    /// The type of authentication to use
     public var type: AuthType
 
     /// Whether the user should be remembered (cookie is valid for 1 year)

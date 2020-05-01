@@ -207,7 +207,7 @@ public enum MDLanguage: Int, Codable {
 /// These codes are used by MangaDex's JSON api to return information about a
 /// manga or chapter's original language.
 /// Only a subset of the list of all languages exists
-public let MDLanguageCodes: [String: MDLanguage] = [
+let MDLanguageCodes: [String: MDLanguage] = [
     "en": .english,
     "gb": .english,
     "jp": .japanese,
@@ -227,20 +227,16 @@ public let MDLanguageCodes: [String: MDLanguage] = [
 
 /// Demographic a manga appeals to, available to filter during search
 public enum MDDemographic: Int, Codable {
-    /// The manga is a shounen, usually targeted for
-    /// boys between 12 and 18
+    /// The manga is a shounen, usually targeted at boys between 12 and 18
     case shounen = 1
 
-    /// The manga is a shoujo, usually targeted for
-    /// girls between 12 and 18
+    /// The manga is a shoujo, usually targeted at girls between 12 and 18
     case shoujo = 2
 
-    /// The manga is a seinen, usually targeted for
-    /// adult men
+    /// The manga is a seinen, usually targeted at adult men
     case seinen = 3
 
-    /// The manga is a josei, usually targeted for
-    /// adult women
+    /// The manga is a josei, usually targeted at adult women
     case josei = 4
 }
 

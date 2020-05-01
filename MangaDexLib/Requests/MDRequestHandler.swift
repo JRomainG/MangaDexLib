@@ -33,7 +33,7 @@ public class MDRequestHandler: NSObject {
     }
 
     /// The different fields set for `POST` requests to login
-    public enum AuthField: String {
+    enum AuthField: String {
         /// The username field to login
         case username = "login_username"
 

@@ -8,14 +8,19 @@
 
 import Foundation
 
+/// A class representing options used when performing requests using `MDRequestHandler`
 public class MDRequestOptions: NSObject {
 
     /// The different ways of encoding the data for POST requests
     public enum BodyEncoding {
         /// Encode data like JavaScript would
+        ///
+        /// See https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
         case multipart
 
         /// Encode data like would be done if JavaScript is disabled
+        ///
+        /// See https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST
         case urlencoded
     }
 

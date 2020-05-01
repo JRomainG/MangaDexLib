@@ -11,7 +11,7 @@ import Foundation
 /// Class representing a comment returned by MangaDex
 public struct MDComment {
 
-    /// The id of the chapter
+    /// The id of the comment
     public var commentId: Int
 
     /// The id of the thread this comment belongs to

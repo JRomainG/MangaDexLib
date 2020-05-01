@@ -56,7 +56,7 @@ public struct MDSearch {
     /// Publication status of the  mangas to lookup (empty means no filter)
     public var publicationStatuses: [MDPublicationStatus] = []
 
-    /// Tags to allow in the mangas to lookup (empty means no filter)
+    /// Tags to look for in the mangas to lookup (empty means no filter)
     public var includeTags: [Int] = []
 
     /// Tags to forbid in the mangas to lookup (empty means no filter)

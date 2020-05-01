@@ -16,7 +16,10 @@ public class MDResponse: NSObject {
         /// Generic response, for example to indicate that login is required
         case generic
 
-        /// Generic response, for example to indicate that login is required
+        /// Response to loading MangaDex's homepage
+        ///
+        /// - Note: This will attempt to fill the `announcement` and `alerts` properties
+        /// of the response, if any is found when parsing the page
         case homepage
 
         /// Response to a manga info or details request

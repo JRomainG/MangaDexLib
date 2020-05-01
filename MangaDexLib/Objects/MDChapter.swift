@@ -71,11 +71,14 @@ public struct MDChapter: Decodable {
     public var timestamp: UInt?
 
     /// The name of the chapter's original language
+    ///
+    /// See `getOriginalLang()` to get an `MDLanguage`
     public var originalLangName: String?
 
     /// The short name of the chapter's original language
     ///
-    /// Ex: `jp` for Japanese, `gb` for British English
+    /// Ex: `jp` for Japanese, `gb` for British English.
+    /// See `getOriginalLang()` to get an `MDLanguage`
     public var originalLangCode: String?
 
     /// The chapter's original language

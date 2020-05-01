@@ -20,7 +20,7 @@ public class MDApi: NSObject {
     /// The server from which to server manga pages
     public var server: MDServer = .automatic
 
-    /// Whether to show rated manga of not
+    /// Whether to show rated mangas of not
     public var ratedFilter: MDRatedFilter = .noR18 {
         didSet {
             // Update the stored cookie to reflect the change
