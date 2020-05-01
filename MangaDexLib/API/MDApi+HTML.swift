@@ -93,6 +93,22 @@ extension MDApi {
         }
     }
 
+    /// Fetch MangaDex's homepage, as well as a potential announcement and alerts
+    /// - Parameter completion: The callback at the end of the request
+    ///
+    /// It is good practice to start wih this request, to be aware of announcements,
+    /// alerts and eventually maintenance.
+    /// It also allows cookies to be set so other requests aren't rejected
+    public func getHomepage(completion: @escaping MDCompletion) {
+        let url = URL(string: MDApi.baseURL)!
+        performGet(url: url, type: .homepage, onError: completion) { (response) in
+            let html = response.rawValue!
+            response.announcement = self.parser.getAnnouncement(from: html)
+            response.alerts = self.parser.getAlerts(from: html)
+            completion(response)
+        }
+    }
+
     /// Fetch the information of a random
     /// - Parameter completion: The callback at the end of the request
     public func getRandomManga(completion: @escaping MDCompletion) {

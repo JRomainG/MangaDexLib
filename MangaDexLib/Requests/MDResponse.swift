@@ -16,6 +16,9 @@ public class MDResponse: NSObject {
         /// Generic response, for example to indicate that login is required
         case generic
 
+        /// Generic response, for example to indicate that login is required
+        case homepage
+
         /// Response to a manga info or details request
         case mangaInfo
 
@@ -90,6 +93,16 @@ public class MDResponse: NSObject {
     ///
     /// Usually set for `ResponseType.login` requests
     public var token: String?
+
+    /// The announcement returned in the request, if relevant
+    ///
+    /// Usually set for `ResponseType.homepage` requests
+    public var announcement: MDAnnouncement?
+
+    /// The announcement returned in the request, if relevant
+    ///
+    /// Usually set for `ResponseType.homepage` requests
+    public var alerts: [MDAnnouncement]?
 
     /// Convenience init method
     init(type: ResponseType,

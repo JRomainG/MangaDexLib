@@ -135,6 +135,22 @@ class MDLibApiTests: XCTestCase {
         XCTAssertNotNil(group?.links)
     }
 
+    func testGetHomepage() throws {
+        let api = MDApi()
+        let expectation = self.expectation(description: "Load MangaDex's homepage")
+
+        api.getHomepage { (response) in
+            XCTAssert(response.type == .homepage)
+            XCTAssertNil(response.error)
+            XCTAssertNotNil(response.rawValue)
+            XCTAssertNotNil(response.announcement)
+            XCTAssertNotNil(response.announcement?.body)
+            XCTAssertNotNil(response.announcement?.textBody)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testListedMangas() throws {
         let api = MDApi()
         let expectation = self.expectation(description: "Load MangaDex titles page")
