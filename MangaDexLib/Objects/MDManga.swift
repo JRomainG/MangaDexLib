@@ -59,7 +59,10 @@ public struct MDManga: Decodable {
     public var rated: Int?
 
     /// A set of links to external websites
-    public var links: [String: String]?
+    ///
+    /// - Note: This property should be accessed by calling `getExternalLinks()`
+    /// so they are parsed to a more usable format
+    private var links: [String: String]?
 
     /// This manga's status
     ///
@@ -75,6 +78,30 @@ public struct MDManga: Decodable {
     init(title: String, mangaId: Int) {
         self.title = title
         self.mangaId = mangaId
+    }
+
+    /// A method to try to get the manga's original language
+    public func getOriginalLang() -> MDLanguage? {
+        guard let code = originalLangCode else {
+            return nil
+        }
+        return MDLanguageCodes[code]
+    }
+
+    /// The external resources linked by MangaDex for this manga
+    ///
+    /// This usually includes retail websites (link Amazon, or Bookwalker)
+    /// and website with information about the manga (like MangaUpdates)
+    public func getExternalLinks() -> [MDResource]? {
+        guard let links = self.links else {
+            return nil
+        }
+        var resources: [MDResource] = []
+        for (key, resourceId) in links {
+            let resource = MDResource(key: key, resourceId: resourceId)
+            resources.append(resource)
+        }
+        return resources
     }
 
 }

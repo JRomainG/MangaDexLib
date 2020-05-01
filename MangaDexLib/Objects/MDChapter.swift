@@ -37,6 +37,8 @@ public struct MDChapter: Decodable {
     public var chapter: String?
 
     /// The list of page file names
+    ///
+    /// - Note: Use `getPageUrls()` to get the list of URLs for these files
     public var pages: [String]?
 
     /// The id of the main group that worked on this chapter
@@ -78,10 +80,9 @@ public struct MDChapter: Decodable {
 
     /// The chapter's original language
     ///
-    /// - Note: This may be `nil` even if `originalLangCode` isn't
-    /// In that case, you can manually fetch the language using the
-    /// `MDLanguageCodes` dict
-    public var originalLang: MDLanguage?
+    /// - Note: This may be `nil` even if `originalLangCode` isn't.
+    /// This property should thus be access by calling `getOriginalLang()`
+    private var originalLang: MDLanguage?
 
     /// The number of comments for this chapter
     public var nbrComments: Int?
@@ -110,6 +111,33 @@ public struct MDChapter: Decodable {
     init(title: String, chapterId: Int) {
         self.title = title
         self.chapterId = chapterId
+    }
+
+    /// A method to build the full URLs for a chapter's page images
+    ///
+    /// - Note: Requires `server`, `hash` and `pages` to be non-nil
+    public func getPageUrls() -> [URL]? {
+        guard let server = self.server, let hash = self.hash, let pages = self.pages else {
+            return nil
+        }
+        var pageUrls: [URL] = []
+        for page in pages {
+            let url = MDPath.chapterPage(server: server, hash: hash, page: page)
+            pageUrls.append(url)
+        }
+        return pageUrls
+    }
+
+    /// A method to try to get the chapter's original language
+    ///
+    /// - Note: either `originalLang` or `originalLangCode` needs to be non-nil
+    public func getOriginalLang() -> MDLanguage? {
+        if originalLang != nil {
+            return originalLang
+        } else if let code = originalLangCode {
+            return MDLanguageCodes[code]
+        }
+        return nil
     }
 
 }
