@@ -124,6 +124,14 @@ class MDLibRequestHandlerTests: XCTestCase {
             getCookieExpectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
+
+        // Fetch MangaDex's homepage page so the DDoS-Guard cookie is set
+        url = URL(string: MDApi.baseURL)!
+        let getHomepage = self.expectation(description: "Get MangaDex homepage")
+        requestHandler.get(url: url) { (_, _, _) in
+            getHomepage.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testDefaultUserAgent() throws {
