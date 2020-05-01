@@ -37,6 +37,9 @@ public struct MDManga: Decodable {
     /// The manga's publication status
     public var publicationStatus: MDPublicationStatus?
 
+    /// The user-defined reading status for this manga
+    public var readingStatus: MDReadingStatus?
+
     /// The manga's tags
     public var tags: [Int]?
 

@@ -53,6 +53,7 @@ public enum MDStatus: String, Codable {
 
 /// The user-defined status of a manga
 public enum MDReadingStatus: Int, Codable {
+    case unfollowed = -1
     case all = 0
     case reading = 1
     case completed = 2

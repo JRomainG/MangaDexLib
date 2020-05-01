@@ -174,7 +174,7 @@ public class MDPath {
     /// Build the URL to fetch the latest released chapters or updated mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter type: The type of resource to fetch should be (`.chapters` or `.manga`)
-    /// - Parameter status: The status of the manga for which to fetch the resource
+    /// - Parameter status: The status of the manga for which to fetch the resource (shouldn't be `.unfollowed`)
     /// - Returns: The MangaDex URL
     public static func latestFollowed(page: Int, type: ResourceType, status: MDReadingStatus) -> URL {
         let readingStatus = String(status.rawValue)
@@ -341,7 +341,7 @@ public class MDPath {
 
     /// Build the URL to fetch a user's MDList
     /// - Parameter userId: The identifier of the user
-    /// - Parameter status: The status of the mangas to fetch
+    /// - Parameter status: The status of the mangas to fetch (shouldn't be `.unfollowed`)
     /// - Returns: The MangaDex URL
     public static func mdList(userId: Int, status: MDReadingStatus) -> URL {
         return buildUrl(for: .mdList, with: [userId, status.rawValue])
