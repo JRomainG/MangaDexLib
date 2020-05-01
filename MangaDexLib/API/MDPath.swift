@@ -258,6 +258,16 @@ public class MDPath {
         return MDPath.buildUrl(for: .api, with: params)
     }
 
+    /// Build the URL to fetch a given manga's detail page
+    /// - Parameter mangaId: The identifier of the manga
+    /// - Parameter mangaTitle: The title of the manga (not strictly necessary)
+    /// - Returns: The MangaDex URL
+    public static func mangaDetails(mangaId: Int, mangaTitle: String?) -> URL {
+        // Adding the title isn't necessary, but we can do it anyways to be consistent
+        let components: [String] = [String(mangaId), getNormalizedString(from: mangaTitle)]
+        return buildUrl(for: .mangaPage, with: components)
+    }
+
     /// Build the URL to fetch a given manga's comments
     /// - Parameter mangaId: The identifier of the manga
     /// - Parameter mangaTitle: The title of the manga (not strictly necessary)

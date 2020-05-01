@@ -9,7 +9,8 @@
 import XCTest
 import MangaDexLib
 
-// swiftlint:disable:next type_body_length
+// swiftlint:disable type_body_length
+// swiftlint:disable file_length
 class MDLibApiTests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -265,6 +266,20 @@ class MDLibApiTests: XCTestCase {
         let expectation = self.expectation(description: "Load a manga's chapter list")
         api.getMangaChapters(mangaId: mangaId, title: mangaTitle, page: page) { (response) in
             self.assertChapterListIsValid(for: response)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testMangaDetails() throws {
+        let mangaId = 7139
+        let mangaTitle = "One Punch Man"
+        let api = MDApi()
+
+        let expectation = self.expectation(description: "Fetch a manga's details page")
+        api.getMangaDetails(mangaId: mangaId, title: mangaTitle) { (response) in
+            XCTAssertNil(response.error)
+            self.assertMangaIsValid(response.manga)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)

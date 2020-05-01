@@ -1,5 +1,5 @@
 //
-//  MDParser+MangaInfo.swift
+//  MDParser+MangaDetails.swift
 //  MangaDexLib
 //
 //  Created by Jean-Romain on 29/04/2020.
@@ -90,7 +90,7 @@ extension MDParser {
     func getReadingStatus(from element: Element?) throws -> MDReadingStatus? {
         // If the manga has a defined reading status, there should be a list of options
         // Get which link is disabled in the list, which means it's the selected one
-        if let selected = try element?.select("a[class=disabled]").first() {
+        if let selected = try element?.select("a.disabled").first() {
             // Check whether it's a follow or unfollow link
             let classNames = try selected.classNames()
             if classNames.contains(MDParser.mangaUnfollowLinkClass) {
@@ -112,7 +112,7 @@ extension MDParser {
     /// Extract a manga's info from a manga detail html page
     /// - Parameter content: The html string to parse
     /// - Returns: The extracted manga
-    func getMangaInfo(from content: String) throws -> MDManga {
+    func getMangaDetails(from content: String) throws -> MDManga {
         let doc = try MDParser.parse(html: content)
         let elements = try doc.getElementsByTag(MDParser.mangaInfoMetaTag)
 
@@ -139,6 +139,7 @@ extension MDParser {
             let button = try doc.select(MDParser.mangaReadingStatusButtonSelector).first()
             readingStatus = try getReadingStatus(from: button)
         } catch {
+            print(error)
             readingStatus = nil
         }
 

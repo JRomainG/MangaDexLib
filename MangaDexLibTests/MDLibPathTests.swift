@@ -147,6 +147,15 @@ class MDLibPathTests: XCTestCase {
         assertUrlsAreEqual(apiURL, expectedURL)
     }
 
+    func testMangaDetailsPath() throws {
+        let mangaId = 7139
+        let mangaTitle = "One Punch Man"
+        let mangaNormalizedTitle = "one-punch-man"
+        let detailsURL = MDPath.mangaDetails(mangaId: mangaId, mangaTitle: mangaTitle)
+        let expectedURL = URL(string: "\(MDApi.baseURL)/title/\(mangaId)/\(mangaNormalizedTitle)")!
+        assertUrlsAreEqual(detailsURL, expectedURL)
+    }
+
     func testMangaCommentsPath() throws {
         let mangaId = 7139
         let mangaTitle = "One Punch Man"

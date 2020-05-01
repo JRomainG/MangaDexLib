@@ -15,6 +15,10 @@ extension MDApi {
     /// Fetches detailed information about the manga
     /// - Parameter mangaId: The identifier of the manga
     /// - Parameter completion: The callback at the end of the request
+    ///
+    /// This call only returns generic information about the manga, and does not
+    /// take into account the logged in user.
+    /// Also see `getMangaDetails`
     public func getMangaInfo(mangaId: Int, completion: @escaping MDCompletion) {
         let url = MDPath.mangaInfo(mangaId: mangaId)
         self.performGet(url: url, type: .mangaInfo, onError: completion) { (response) in
@@ -32,6 +36,9 @@ extension MDApi {
     /// Fetch detailed information about the chapter
     /// - Parameter chapterId: The identifier of the chapter
     /// - Parameter completion: The callback at the end of the request
+    ///
+    /// This call only returns generic information about the chapter, and does not
+    /// take into account the logged in user
     public func getChapterInfo(chapterId: Int, completion: @escaping MDCompletion) {
         let url = MDPath.chapterInfo(chapterId: chapterId, server: server)
         self.performGet(url: url, type: .chapterInfo, onError: completion) { (response) in

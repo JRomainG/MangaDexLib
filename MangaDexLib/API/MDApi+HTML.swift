@@ -48,11 +48,11 @@ extension MDApi {
     /// Convenience method to parse a manga's detail page
     /// - Parameter url: The URL used to build the request
     /// - Parameter completion: The callback at the end of the request
-    private func getMangaInfo(from url: URL, completion: @escaping MDCompletion) {
+    private func getMangaDetails(from url: URL, completion: @escaping MDCompletion) {
         self.performGet(url: url, type: .mangaInfo, onError: completion) { (response) in
             do {
                 let html = response.rawValue!
-                response.manga = try self.parser.getMangaInfo(from: html)
+                response.manga = try self.parser.getMangaDetails(from: html)
                 completion(response)
             } catch {
                 response.error = error
@@ -97,7 +97,7 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     public func getRandomManga(completion: @escaping MDCompletion) {
         let url = MDPath.randomManga()
-        getMangaInfo(from: url, completion: completion)
+        getMangaDetails(from: url, completion: completion)
     }
 
     /// Fetch a list of sorted mangas
@@ -170,6 +170,18 @@ extension MDApi {
     public func getMangaChapters(mangaId: Int, title: String?, page: Int, comletion: @escaping MDCompletion) {
         let url = MDPath.mangaChapters(mangaId: mangaId, mangaTitle: title, page: page)
         getChapters(from: url, completion: comletion)
+    }
+
+    /// Fetch the information of a random
+    /// - Parameter mangaId: The manga for which to fetch comments
+    /// - Parameter title: The title of the manga (can be nil)
+    /// - Parameter completion: The callback at the end of the request
+    ///
+    /// Contrary to `getMangaInfo`, this call returns information relating to the logged in user,
+    /// notably a manga's `MDReadingStatus`
+    public func getMangaDetails(mangaId: Int, title: String?, completion: @escaping MDCompletion) {
+        let url = MDPath.mangaDetails(mangaId: mangaId, mangaTitle: title)
+        getMangaDetails(from: url, completion: completion)
     }
 
     /// Fetch the latest updated chapters for mangas followed by the user
