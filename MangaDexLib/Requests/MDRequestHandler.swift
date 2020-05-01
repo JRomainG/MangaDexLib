@@ -14,24 +14,46 @@ public class MDRequestHandler: NSObject {
 
     /// The different types of cookies that can be changed by the API
     public enum CookieType: String {
+        /// The cookie used to store the `MDRatedFilter` value
         case ratedFilter = "mangadex_h_toggle"
+
+        /// The cookie used to store the auth token, if remember was selected
+        ///
+        /// - Note: The cookie is valid for 1 year
         case authToken = "mangadex_rememberme_token"
+
+        /// The cookie used to store the current session ID
         case sessionId = "mangadex_session"
+
+        /// The cookie used by DDoS-Guard
         case ddosGuard = "__ddg1"
+
+        /// The cookie used by CoudFlare
         case cloudflare = "__cfduid"
     }
 
-    /// The different fields set for POST requests to login
+    /// The different fields set for `POST` requests to login
     public enum AuthField: String {
+        /// The username field to login
         case username = "login_username"
+
+        /// The password field to login
         case password = "login_password"
+
+        /// The boolean field indicating whether to use two factor authentication
         case twoFactor = "two_factor"
+
+        /// The boolean field indicating whether to place an auth token to
+        /// remember the user accross sessions
         case remember = "remember_me"
     }
 
     /// The different ways of encoding the data for POST requests
     public enum BodyEncoding {
+        /// Encode data like JavaScript would
         case multipart
+
+        /// Encode data like would be done if JavaScript is disabled
         case urlencoded
     }
 

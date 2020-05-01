@@ -13,6 +13,7 @@
 		330DD8CA2459A50300BC9E0B /* MDParser+GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330DD8C92459A50300BC9E0B /* MDParser+GroupInfo.swift */; };
 		330DD8CE2459C99A00BC9E0B /* MDAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330DD8CD2459C99A00BC9E0B /* MDAuth.swift */; };
 		330DD8D02459E89500BC9E0B /* Secret.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 330DD8CF2459E89500BC9E0B /* Secret.bundle */; };
+		33237CF9245C900F001634FF /* MDPath+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33237CF8245C900F001634FF /* MDPath+Constants.swift */; };
 		3353B57E245789BE0066B8D5 /* MangaDexLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 3353B57C245789BE0066B8D5 /* MangaDexLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3353B585245789E10066B8D5 /* MDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3353B584245789E10066B8D5 /* MDConstants.swift */; };
 		3353B587245789E40066B8D5 /* MDPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3353B586245789E40066B8D5 /* MDPath.swift */; };
@@ -63,6 +64,7 @@
 		330DD8C92459A50300BC9E0B /* MDParser+GroupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDParser+GroupInfo.swift"; sourceTree = "<group>"; };
 		330DD8CD2459C99A00BC9E0B /* MDAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDAuth.swift; sourceTree = "<group>"; };
 		330DD8CF2459E89500BC9E0B /* Secret.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Secret.bundle; sourceTree = "<group>"; };
+		33237CF8245C900F001634FF /* MDPath+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDPath+Constants.swift"; sourceTree = "<group>"; };
 		3353B579245789BE0066B8D5 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B57C245789BE0066B8D5 /* MangaDexLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MangaDexLib.h; sourceTree = "<group>"; };
 		3353B57D245789BE0066B8D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				33F8A675245B09B2001C3A56 /* MDApi+Auth.swift */,
 				3392DBFD245AFF5400121CB6 /* MDError.swift */,
 				3353B586245789E40066B8D5 /* MDPath.swift */,
+				33237CF8245C900F001634FF /* MDPath+Constants.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				3353B5AE2457905C0066B8D5 /* MDRequestHandler.swift in Sources */,
 				33F8A678245B5609001C3A56 /* MDParser+ChapterList.swift in Sources */,
 				33F8A676245B09B2001C3A56 /* MDApi+Auth.swift in Sources */,
+				33237CF9245C900F001634FF /* MDPath+Constants.swift in Sources */,
 				339899412458FBEC00AEEE39 /* MDParser+MangaDetails.swift in Sources */,
 				3353B5AC24578F710066B8D5 /* MDApi.swift in Sources */,
 				3398993D2458FB7D00AEEE39 /* MDParser+Announcement.swift in Sources */,

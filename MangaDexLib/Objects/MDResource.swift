@@ -13,17 +13,40 @@ public class MDResource: NSObject {
 
     /// The existing type of resources MangaDex links to
     public enum ResourceType: String {
+        /// Links to anilist.co
         case aniList = "al"
+
+        /// Links to anime-planet.com
         case animePlanet = "ap"
+
+        /// Links to kitsu.io
         case kitsu = "kt"
+
+        /// Links to mangaupdates.com
         case mangaUpdates = "mu"
+
+        /// Links to myanimelist.net
         case myAnimeList = "mal"
+
+        /// Links to novelupdates.com
         case novelUpdates = "nu"
+
+        /// Links to the original work
         case raw = "raw"
+
+        /// Links to any official translation
         case officialTranslation
+
+        /// Links to Amazon to purchase the mange
         case amazon = "amz"
+
+        /// Links to eBookJapan to purchase the manga
         case eBookJapan = "ebj"
+
+        /// Links to CDJapan to purchase the manga
         case cdJapan = "cdj"
+
+        /// Links to bookwalker.jp to purchase the manga
         case bookWalker = "bw"
     }
 
@@ -136,6 +159,7 @@ extension MDResource {
                                        baseURL: "https://bookwalker.jp/",
                                        type: .bookWalker)
 
+    /// List of all known resources
     static let all: [MDResource] = [
         .aniList,
         .animePlanet,

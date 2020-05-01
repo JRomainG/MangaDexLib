@@ -11,69 +11,6 @@ import Foundation
 /// The class responsible for generating URLs for calls to the website and API
 public class MDPath {
 
-    /// Relative paths to the pages on MangaDex
-    enum Path: String {
-        case listedMangas = "titles"
-        case featuredMangas = "featured"
-        case latestMangas = "updates"
-        case latestFollowed = "follows"
-        case searchMangas = "search"
-        case randomManga = "manga"
-        case history = "history"
-        case mangaPage = "title"
-        case chapterPage = "chapter"
-        case groupPage = "group"
-        case thread = "thread"
-        case mdList = "list"
-        case login = "login"
-        case logout = "logout"
-        case ajax = "ajax/actions.ajax.php"
-        case api = "api"
-    }
-
-    /// Type of resource hosted on MangaDex
-    public enum ResourceType: String {
-        case manga = "manga"
-        case chapters = "chapters"
-        case chapter = "chapter"
-        case comments = "comments"
-        case groups = "groups"
-    }
-
-    /// Type of parameter used in a search request
-    enum SearchParam: String {
-        case title = "title"
-        case author = "author"
-        case artist = "artist"
-        case originalLanguage = "lang_id"
-        case demographics = "demos"
-        case publicationStatuses = "statuses"
-        case tags = "tags"
-        case includeTagsMode = "tag_mode_inc"
-        case excludeTagsMode = "tag_mode_exc"
-    }
-
-    /// Type of parameter used for Ajax post requests
-    ///
-    /// These parameters are the ones encoded in the URL to build the path
-    enum AjaxParams: String {
-        case function = "function"
-        case noJS = "nojs"
-    }
-
-    /// Type of parameter used during api calls
-    enum ApiParam: String {
-        case id = "id"
-        case server = "server"
-        case type = "type"
-    }
-
-    /// Type of content to fetch when querying the API
-    enum ApiContent: String {
-        case manga = "manga"
-        case chapter = "chapter"
-    }
-
     /// Build the normalized (lowercase ascii without spaces) version of the string
     ///
     /// Spaces are replaced by dashes, diacritics, special width, and case are removed.
@@ -253,7 +190,7 @@ public class MDPath {
     public static func mangaInfo(mangaId: Int) -> URL {
         let params = [
             URLQueryItem(name: ApiParam.id.rawValue, value: String(mangaId)),
-            URLQueryItem(name: ApiParam.type.rawValue, value: ApiContent.manga.rawValue)
+            URLQueryItem(name: ApiParam.type.rawValue, value: ResourceType.manga.rawValue)
         ]
         return MDPath.buildUrl(for: .api, with: params)
     }
@@ -299,7 +236,7 @@ public class MDPath {
         let params = [
             URLQueryItem(name: ApiParam.id.rawValue, value: String(chapterId)),
             URLQueryItem(name: ApiParam.server.rawValue, value: server.rawValue),
-            URLQueryItem(name: ApiParam.type.rawValue, value: ApiContent.chapter.rawValue)
+            URLQueryItem(name: ApiParam.type.rawValue, value: ResourceType.chapter.rawValue)
         ]
 
         // When the server is set to automatic, its value is ""
@@ -379,8 +316,8 @@ public class MDPath {
     /// - Returns: The ajax URL
     public static func loginAction(javascriptEnabled: Bool = true) -> URL {
         let params = [
-            URLQueryItem(name: AjaxParams.function.rawValue, value: Path.login.rawValue),
-            URLQueryItem(name: AjaxParams.noJS.rawValue, value: javascriptEnabled ? nil : "1")
+            URLQueryItem(name: AjaxParam.function.rawValue, value: AjaxFunction.login.rawValue),
+            URLQueryItem(name: AjaxParam.noJS.rawValue, value: javascriptEnabled ? nil : "1")
         ]
         return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)
     }
@@ -390,8 +327,8 @@ public class MDPath {
     /// - Returns: The ajax URL
     public static func logoutAction(javascriptEnabled: Bool = true) -> URL {
         let params = [
-            URLQueryItem(name: AjaxParams.function.rawValue, value: Path.logout.rawValue),
-            URLQueryItem(name: AjaxParams.noJS.rawValue, value: javascriptEnabled ? nil : "1")
+            URLQueryItem(name: AjaxParam.function.rawValue, value: AjaxFunction.logout.rawValue),
+            URLQueryItem(name: AjaxParam.noJS.rawValue, value: javascriptEnabled ? nil : "1")
         ]
         return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)
     }

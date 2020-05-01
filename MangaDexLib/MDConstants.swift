@@ -10,16 +10,27 @@ import Foundation
 
 /// Cookie saving the user's choice regarding the display of rated manga
 public enum MDRatedFilter: Int {
+    /// Only show unrated mangas (Default)
     case noR18 = 0
+
+    /// Show both rated and unrated mangas
     case all = 1
+
+    /// Only show rated mangas (aka hentai)
     case onlyR18 = 2
 }
 
 /// Available MangaDex servers to fetch chapter pages from
 public enum MDServer: String {
+    /// Automatically select the best server (Default)
     case automatic = ""
+
+    /// Use the first NA/EU serveur
     case naEu1 = "na"
+
+    /// Use the second NA/EU serveur
     case naEu2 = "na2"
+
     // The following options are currently disabled on the website
     //case europe = "eu"
     //case europe2 = "eu2"
@@ -28,16 +39,37 @@ public enum MDServer: String {
 
 /// Existing user ranks
 public enum MDRank: String, Codable {
+    /// Used has been banned from the website
     case banned = "banned"
+
+    /// User hasn't verified their email
     case validating = "validating"
+
+    /// User is a regular member
     case member = "member"
+
+    /// User is leader of a group
     case groupLeader = "group_leader"
+
+    /// User is a power chapter uploader
     case powerUploader = "power_uploader"
+
+    /// User is VIP
     case vip = "vip"
+
+    /// User is in charge of Public Relations for MangaDex
     case publicRelations = "public_relations"
+
+    /// User is in charge of moderating forums
     case forumModerator = "forum_moderator"
+
+    /// User is in charge of moderating the website
     case moderator = "moderator"
+
+    /// User is a developer
     case developer = "developer"
+
+    /// User in an administrator
     case administrator = "administrator"
 }
 
@@ -46,36 +78,80 @@ public enum MDStatus: String, Codable {
     /// The group has uploaded the chapter, but it's not yet available
     /// to read on MangaDex
     case pending = "delayed"
+
+    /// The manga or chapter has been deleted
     case deleted = "deleted"
+
+    /// The manga or chapter is available
     case released = "OK"
+
+    /// There was an error with the request
     case error = "error"
 }
 
 /// The user-defined status of a manga
 public enum MDReadingStatus: Int, Codable {
+    /// The user is not following the manga
     case unfollowed = -1
+
+    /// Status used when filtering followed manga
     case all = 0
+
+    /// The user has bookmarked the manga
     case reading = 1
+
+    /// The user has marked the manga as read
     case completed = 2
+
+    /// The user has marked their reading of this manga as "on hold"
     case onHold = 3
+
+    /// The user has marked this manga as to read later
     case planToRead = 4
+
+    /// The user has marked this manga as dropped, and no longer reading
     case dropped = 5
+
+    /// This user has marked that they are reading this chapter another time
     case reReading = 6
 }
 
 /// Sort orders available for the listed mangas
 public enum MDSortOrder: Int, Codable {
+    /// Show mangas updated the most recently first
     case recentlyUpdated = 0
+
+    /// Show mangas updated the most recently last
     case oldestUpdated = 1
+
+    /// Show mangas in alphabetical order
     case alphabetical = 2
+
+    /// Show mangas in reverse alphabetical order
     case reverseAlphabetical = 3
+
+    /// Show mangas with the most comments last
     case leastComments = 4
+
+    /// Show mangas with the most comments first
     case mostComments = 5
+
+    /// Show mangas with the best rating last
     case worstRating = 6
+
+    /// Show mangas with the best rating first
     case bestRating = 7
+
+    /// Show mangas with the most views last
     case leastViews = 8
+
+    /// Show mangas with the most views first
     case mostViews = 9
+
+    /// Show mangas with the most follows last
     case leastFollows = 10
+
+    /// Show mangas with the most follows first
     case mostFollows = 11
 }
 
@@ -151,21 +227,41 @@ public let MDLanguageCodes: [String: MDLanguage] = [
 
 /// Demographic a manga appeals to, available to filter during search
 public enum MDDemographic: Int, Codable {
+    /// The manga is a shounen, usually targeted for
+    /// boys between 12 and 18
     case shounen = 1
+
+    /// The manga is a shoujo, usually targeted for
+    /// girls between 12 and 18
     case shoujo = 2
+
+    /// The manga is a seinen, usually targeted for
+    /// adult men
     case seinen = 3
+
+    /// The manga is a josei, usually targeted for
+    /// adult women
     case josei = 4
 }
 
 /// Status of a manga, available to filter during search
 public enum MDPublicationStatus: Int, Codable {
+    /// The manga is being regularly updated
     case ongoing = 1
+
+    /// The manga is done
     case completed = 2
+
+    /// The manga has been canceled
     case cancelled = 3
+
+    /// The manga's publication has been paused
     case hiatus = 4
 }
 
 /// Tag representing a type of content, available to filter during search
+///
+/// Also see `MDFormat`, `MDGenre` and `MDTheme`
 public enum MDContent: Int, Codable {
     case ecchi = 9
     case smut = 32
@@ -174,6 +270,8 @@ public enum MDContent: Int, Codable {
 }
 
 /// Tag representing a format of manga, available to filter during search
+///
+/// Also see `MDContent`, `MDGenre` and `MDTheme`
 public enum MDFormat: Int, Codable {
     case yonkoma = 1
     case awardWinning = 4
@@ -190,6 +288,8 @@ public enum MDFormat: Int, Codable {
 }
 
 /// Tag representing a genre of manga, available to filter during search
+///
+/// Also see `MDContent`, `MDFormat` and `MDTheme`
 public enum MDGenre: Int, Codable {
     case action = 2
     case adventure = 3
@@ -221,6 +321,8 @@ public enum MDGenre: Int, Codable {
 }
 
 /// Tag representing a theme appearing in a manga, available to filter during search
+///
+/// Also see `MDContent`, `MDFormat` and `MDGenre`
 public enum MDTheme: Int, Codable {
     case cooking = 6
     case gyaru = 11
@@ -259,3 +361,8 @@ public enum MDTheme: Int, Codable {
     case incest = 83
     case mafia = 84
 }
+
+/// The complete list of existing tags
+///
+/// Also see `MDContent`, `MDFormat`, `MDGenre` and `MDTheme`
+public let MDTags: [Int] = Array(MDFormat.yonkoma.rawValue...MDTheme.mafia.rawValue)

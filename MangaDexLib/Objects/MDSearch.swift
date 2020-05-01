@@ -13,7 +13,10 @@ public struct MDSearch {
 
     /// Type of filtering when searching with tags
     public enum TagFilteringMode: String {
+        /// Exclude/include mangas with any of the given keywords
         case any = "any"
+
+        /// Only exclude/include mangas with all of the given keywords
         case all = "all"
     }
 

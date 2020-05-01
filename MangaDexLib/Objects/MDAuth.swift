@@ -13,8 +13,15 @@ public struct MDAuth {
 
     /// Type of filtering when searching with tags
     public enum AuthType: String {
+        /// Login using a username and password
         case regular
+
+        /// Login using two factor authentication
+        ///
+        /// - Warning: Not yet supported
         case twoFactor
+
+        /// Login using a previously used auth token
         case token
     }
 
