@@ -376,4 +376,20 @@ class MDLibApiTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testLogout() throws {
+        let api = MDApi()
+
+        // Make sure we're logged in
+        login(api: api)
+        XCTAssert(api.isLoggedIn())
+
+        let logoutExpectation = self.expectation(description: "Logout")
+        api.logout { (response) in
+            XCTAssertFalse(api.isLoggedIn())
+            XCTAssertNil(response.error)
+            logoutExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
 }

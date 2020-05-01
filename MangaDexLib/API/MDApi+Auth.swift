@@ -76,7 +76,11 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     public func logout(completion: @escaping MDCompletion) {
         let url = MDPath.logoutAction()
-        performPost(url: url, body: [:], type: .logout, onError: completion, onSuccess: completion)
+        performPost(url: url, body: [:], type: .logout, onError: completion) { (response) in
+            self.requestHandler.deleteCookie(type: .authToken)
+            self.requestHandler.deleteCookie(type: .sessionId)
+            completion(response)
+        }
     }
 
     /// Checks whether the user has an auth token set

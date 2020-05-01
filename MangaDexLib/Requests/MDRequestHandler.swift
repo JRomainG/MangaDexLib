@@ -193,6 +193,17 @@ public class MDRequestHandler: NSObject {
             })?.value
     }
 
+    /// Delete the the cookie with the given type, if set
+    /// - Parameter type: The type of cookie to delete
+    public func deleteCookie(type: CookieType) {
+        let cookie = cookieJar.cookies?.first(where: { (cookie) -> Bool in
+            return cookie.name == type.rawValue
+            })
+        if cookie != nil {
+            cookieJar.deleteCookie(cookie!)
+        }
+    }
+
     /// Perform an async get request
     /// - Parameter url: The URL to fetch
     /// - Parameter completion: The callback at the end of the request
