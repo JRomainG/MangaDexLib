@@ -290,6 +290,14 @@ public class MDPath {
         return buildUrl(for: .mdList, with: [userId, status.rawValue])
     }
 
+    /// Build the URL of the login page
+    /// - Returns: The MangaDex URL
+    ///
+    /// - Note: This is only used to set the "Referer" field in requests
+    public static func login() -> URL {
+        return buildUrl(for: .login)
+    }
+
     /// Build the URL to an external resource
     /// - Parameter resource: The type of external website
     /// - Parameter path: The ID or absolute URL for the resource

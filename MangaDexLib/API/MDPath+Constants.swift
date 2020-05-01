@@ -51,6 +51,9 @@ extension MDPath {
         /// Relative path to a users's MDList page
         case mdList = "list"
 
+        /// Relative path to the login page
+        case login = "login"
+
         /// Relative path used for ajax actions
         case ajax = "ajax/actions.ajax.php"
 

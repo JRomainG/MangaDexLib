@@ -27,7 +27,8 @@ extension MDApi {
             MDRequestHandler.AuthField.twoFactor.rawValue: "",
             MDRequestHandler.AuthField.remember.rawValue: info.remember ? "1" : "0"
         ]
-        performPost(url: url, body: body, encoding: .urlencoded, type: .login, onError: completion) { (response) in
+        let options = MDRequestOptions(encoding: .urlencoded, referer: MDPath.login().absoluteString)
+        performPost(url: url, body: body, options: options, type: .login, onError: completion) { (response) in
             // Save the cookie in the response so it's accessible from outside the API
             response.token = self.requestHandler.getCookie(type: .authToken)
             completion(response)

@@ -48,15 +48,6 @@ public class MDRequestHandler: NSObject {
         case remember = "remember_me"
     }
 
-    /// The different ways of encoding the data for POST requests
-    public enum BodyEncoding {
-        /// Encode data like JavaScript would
-        case multipart
-
-        /// Encode data like would be done if JavaScript is disabled
-        case urlencoded
-    }
-
     /// An alias for the completion blocks called after requests
     ///
     /// Parameters are the underlying response, its string content
@@ -228,16 +219,19 @@ public class MDRequestHandler: NSObject {
 
     /// Perform an async get request
     /// - Parameter url: The URL to fetch
+    /// - Parameter options: The options to use for this request
     /// - Parameter completion: The callback at the end of the request
-    public func get(url: URL, completion: @escaping RequestCompletion) {
-        // Create a request with the correct user agent
+    public func get(url: URL, options: MDRequestOptions? = nil, completion: @escaping RequestCompletion) {
         let request = NSMutableURLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue(options?.referer, forHTTPHeaderField: "Referer")
         perform(request: request, completion: completion)
     }
 
     /// Perform an async post request
     /// - Parameter url: The URL to load
     /// - Parameter content: The dictionary representation of the request's body
+    /// - Parameter options: The options to use for this request
     /// - Parameter completion: The callback at the end of the request
     ///
     /// Because of the way DDoS-Guard works, this request cannot be the first one to ever be done.
@@ -245,18 +239,19 @@ public class MDRequestHandler: NSObject {
     /// - Precondition: The `.ddosGuard` cookie must be set
     public func post(url: URL,
                      content: [String: LosslessStringConvertible],
-                     encoding: BodyEncoding = .multipart,
+                     options: MDRequestOptions? = nil,
                      completion: @escaping RequestCompletion) {
         // Create the empty request
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "POST"
 
-        // Fill-in its body and headers based on the content and encoding
-        switch encoding {
-        case .multipart:
-            createMultipartBody(from: content, for: request)
+        // Fill-in its body and headers based on the content and options
+        request.setValue(options?.referer, forHTTPHeaderField: "Referer")
+        switch options?.encoding {
         case .urlencoded:
             createUrlEncodedBody(from: content, for: request)
+        default:
+            createMultipartBody(from: content, for: request)
         }
 
         // Make sure we don't trigger the DDoS-Guard

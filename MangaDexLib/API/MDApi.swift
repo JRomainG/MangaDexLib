@@ -85,12 +85,12 @@ extension MDApi {
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
     func performPost(url: URL,
                      body: [String: LosslessStringConvertible],
-                     encoding: MDRequestHandler.BodyEncoding = .multipart,
+                     options: MDRequestOptions? = nil,
                      type: MDResponse.ResponseType,
                      onError: @escaping MDCompletion,
                      onSuccess: @escaping MDCompletion) {
         let completion = requestCompletionBlock(url: url, type: type, onError: onError, onSuccess: onSuccess)
-        requestHandler.post(url: url, content: body, encoding: encoding, completion: completion)
+        requestHandler.post(url: url, content: body, options: options, completion: completion)
     }
 
     /// Constructor for a generic completion block

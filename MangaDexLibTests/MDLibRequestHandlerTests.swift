@@ -31,13 +31,14 @@ class MDLibRequestHandlerTests: XCTestCase {
     }
 
     /// Reusable function to perform a `POST` request with the given options, and check everything worked
-    func testPostRequest(with encoding: MDRequestHandler.BodyEncoding) {
+    func testPostRequest(with encoding: MDRequestOptions.BodyEncoding) {
         let requestHandler = MDRequestHandler()
         let body: [String: LosslessStringConvertible] = ["key": "value", "works": 1]
         let url = URL(string: "https://httpbin.org/post")!
         let expectation = self.expectation(description: "Load httpbin's POST test page")
+        let options = MDRequestOptions(encoding: encoding, referer: "https://httpbin.org/")
 
-        requestHandler.post(url: url, content: body, encoding: encoding) { (http, content, error) in
+        requestHandler.post(url: url, content: body, options: options) { (http, content, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(content)
             XCTAssertEqual(http?.statusCode, 200)
@@ -167,6 +168,27 @@ class MDLibRequestHandlerTests: XCTestCase {
             let dict = self.parseJson(from: content)
             let fetchedUserAgent = dict?["user-agent"] as? String
             XCTAssert(fetchedUserAgent == userAgent)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testSetReferer() throws {
+        let requestHandler = MDRequestHandler()
+        let url = URL(string: "https://httpbin.org/headers")!
+        let referer = "https://httpbin.org/"
+        let options = MDRequestOptions(referer: referer)
+
+        let expectation = self.expectation(description: "Fetch User Agent")
+        requestHandler.get(url: url, options: options) { (http, content, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(content)
+            XCTAssertEqual(http?.statusCode, 200)
+
+            let dict = self.parseJson(from: content)
+            let fetchedHeaders = dict?["headers"] as? [String: String]
+            let fetchedReferer = fetchedHeaders?["Referer"]
+            XCTAssert(fetchedReferer == referer)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
