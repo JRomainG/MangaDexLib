@@ -1,6 +1,6 @@
 # MangaDexLib
 
-`MangaDexLib` is a Swift framework to interact with the MangaDex website. Its goal is to offer a robust abstract interface to access the website's core features. It relies on [SwiftSoup](https://github.com/scinfu/SwiftSoup), a pure Swift library allowing to parse HTML content.
+`MangaDexLib` is a cross-platform Swift framework to interact with the MangaDex website. Its goal is to offer a robust abstract interface to access the website's core features. It relies on [SwiftSoup](https://github.com/scinfu/SwiftSoup), a pure Swift library allowing to parse HTML content.
 
 ## Example usage
 
