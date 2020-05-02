@@ -207,8 +207,8 @@
 			children = (
 				3322BD51245D99120086FA81 /* MDApi.swift */,
 				3322BD54245D99120086FA81 /* MDApi+Auth.swift */,
-				3322BD55245D99130086FA81 /* MDApi+JSON.swift */,
 				3322BD56245D99130086FA81 /* MDApi+HTML.swift */,
+				3322BD55245D99130086FA81 /* MDApi+JSON.swift */,
 				3322BD50245D99120086FA81 /* MDError.swift */,
 				3322BD52245D99120086FA81 /* MDPath.swift */,
 				3322BD53245D99120086FA81 /* MDPath+Constants.swift */,
@@ -589,7 +589,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -617,7 +617,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -766,7 +766,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
 				PRODUCT_NAME = MangaDexLib;
 				SKIP_INSTALL = YES;
@@ -795,7 +795,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
 				PRODUCT_NAME = MangaDexLib;
 				SKIP_INSTALL = YES;
