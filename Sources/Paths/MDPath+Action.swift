@@ -81,4 +81,15 @@ extension MDPath {
         return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)
     }
 
+    /// Build the URL used to post a comment
+    /// - Parameter threadId: The identifier of the thread
+    /// - Returns: The ajax URL
+    public static func comment(threadId: Int) -> URL {
+        let params = [
+            URLQueryItem(name: AjaxParam.function.rawValue, value: AjaxFunction.comment.rawValue),
+            URLQueryItem(name: AjaxParam.objectId.rawValue, value: String(threadId))
+        ]
+        return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)
+    }
+
 }

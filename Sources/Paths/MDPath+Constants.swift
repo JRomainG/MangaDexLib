@@ -160,6 +160,9 @@ extension MDPath {
         /// Function used to follow a manga, or change its reading status
         /// (expect for unfollowed)
         case unfollowManga = "manga_unfollow"
+
+        /// Function used to comment on a thread
+        case comment = "post_reply"
     }
 
     /// Type of existing errors returned by Ajax calls

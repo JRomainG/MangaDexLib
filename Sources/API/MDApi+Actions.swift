@@ -16,9 +16,26 @@ extension MDApi {
     ///
     /// - Parameter url: The URL to load to perform the given action
     /// - Parameter completion: The callback at the end of the request
-    func performAction(for url: URL, completion: @escaping MDCompletion) {
+    func performGetAction(for url: URL, completion: @escaping MDCompletion) {
         let options = MDRequestOptions(referer: nil, requestedWith: "XMLHttpRequest")
         performGet(url: url, options: options, type: .action, onError: completion) { (response) in
+            // The response should be empty
+            if response.rawValue != "" {
+                response.error = MDError.actionFailed
+            }
+            completion(response)
+        }
+    }
+
+    /// Perform a POST request for the given URL, formated correctly so it acts as an action
+    ///
+    /// - Parameter url: The URL to load to perform the given action
+    /// - Parameter completion: The callback at the end of the request
+    func performPostAction(for url: URL,
+                           body: [String: LosslessStringConvertible],
+                           completion: @escaping MDCompletion) {
+        let options = MDRequestOptions(encoding: .multipart, referer: nil)
+        performPost(url: url, body: body, options: options, type: .action, onError: completion) { (response) in
             // The response should be empty
             if response.rawValue != "" {
                 response.error = MDError.actionFailed
@@ -32,7 +49,7 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     public func readChapter(chapterId: Int, completion: @escaping MDCompletion) {
         let url = MDPath.readChapterAction(chapterId: chapterId)
-        performAction(for: url, completion: completion)
+        performGetAction(for: url, completion: completion)
     }
 
     /// Mark a chapter as unread
@@ -40,7 +57,7 @@ extension MDApi {
     /// - Parameter completion: The callback at the end of the request
     public func unreadChapter(chapterId: Int, completion: @escaping MDCompletion) {
         let url = MDPath.unreadChapterAction(chapterId: chapterId)
-        performAction(for: url, completion: completion)
+        performGetAction(for: url, completion: completion)
     }
 
     /// Set a manga's reading status
@@ -68,7 +85,19 @@ extension MDApi {
             return
         }
 
-        performAction(for: url, completion: completion)
+        performGetAction(for: url, completion: completion)
+    }
+
+    /// Post a reply to a thread
+    /// - Parameter threadId: The ID of the thread
+    /// - Parameter comment: The content of the reply (Emojis and BBCode allowed)
+    /// - Parameter completion: The callback at the end of the request
+    public func comment(threadId: Int, comment: String, completion: @escaping MDCompletion) {
+        let url = MDPath.comment(threadId: threadId)
+        let body = [
+            "text": comment
+        ]
+        performPostAction(for: url, body: body, completion: completion)
     }
 
 }

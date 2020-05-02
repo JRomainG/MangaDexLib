@@ -286,4 +286,12 @@ class MDLibPathTests: XCTestCase {
         assertUrlsAreEqual(followURL, URL(string: expected)!)
     }
 
+    func testCommentActionPath() throws {
+        let threadId = 237699
+        let commentURL = MDPath.comment(threadId: threadId)
+        let expected = "\(MDApi.baseURL)/ajax/actions.ajax.php?function=post_reply&id=\(threadId)"
+        let expectedURL = URL(string: expected)!
+        assertUrlsAreEqual(commentURL, expectedURL)
+    }
+
 }
