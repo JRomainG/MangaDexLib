@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3353B578245789BE0066B8D5"
-               BuildableName = "MangaDexLib_iOS.framework"
+               BuildableName = "MangaDexLib.framework"
                BlueprintName = "MangaDexLib-iOS"
                ReferencedContainer = "container:MangaDexLib.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3353B578245789BE0066B8D5"
-            BuildableName = "MangaDexLib_iOS.framework"
+            BuildableName = "MangaDexLib.framework"
             BlueprintName = "MangaDexLib-iOS"
             ReferencedContainer = "container:MangaDexLib.xcodeproj">
          </BuildableReference>
