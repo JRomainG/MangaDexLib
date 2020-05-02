@@ -259,4 +259,20 @@ class MDLibPathTests: XCTestCase {
         assertUrlsAreEqual(loginURL, expectedURL)
     }
 
+    func testReadActionPath() throws {
+        let chapterId = 7139
+        let readURL = MDPath.readChapterAction(chapterId: chapterId)
+        let expected = "\(MDApi.baseURL)/ajax/actions.ajax.php?function=chapter_mark_read&id=\(chapterId)"
+        let expectedURL = URL(string: expected)!
+        assertUrlsAreEqual(readURL, expectedURL)
+    }
+
+    func testUnreadActionPath() throws {
+        let chapterId = 7139
+        let readURL = MDPath.unreadChapterAction(chapterId: chapterId)
+        let expected = "\(MDApi.baseURL)/ajax/actions.ajax.php?function=chapter_mark_unread&id=\(chapterId)"
+        let expectedURL = URL(string: expected)!
+        assertUrlsAreEqual(readURL, expectedURL)
+    }
+
 }

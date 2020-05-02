@@ -122,6 +122,10 @@ extension MDPath {
         /// (see `AjaxFunctions`)
         case function = "function"
 
+        /// The keyword used to specify an object's id,
+        /// for example when marking a chapter as read
+        case objectId = "id"
+
         /// The keyword appended if javascript is disabled
         case noJS = "nojs"
 
@@ -138,6 +142,12 @@ extension MDPath {
 
         /// Function used to logout
         case logout = "logout"
+
+        /// Function used to mark a chapter as read
+        case readChapter = "chapter_mark_read"
+
+        /// Function used to mark a chapter as unread
+        case unreadChapter = "chapter_mark_unread"
     }
 
     /// Type of existing errors returned by Ajax calls

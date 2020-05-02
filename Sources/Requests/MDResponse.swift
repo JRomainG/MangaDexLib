@@ -45,6 +45,9 @@ public class MDResponse: NSObject {
 
         /// Response to a logout attempt
         case logout
+
+        /// Response to an action
+        case action
     }
 
     /// The type of response this is

@@ -75,6 +75,7 @@
 		3322BDCE245DA5370086FA81 /* MDRequestOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4A245D99120086FA81 /* MDRequestOptions.swift */; };
 		3322BDCF245DA5370086FA81 /* MDResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4B245D99120086FA81 /* MDResponse.swift */; };
 		3322BDD0245DA5370086FA81 /* MDApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4C245D99120086FA81 /* MDApiResponse.swift */; };
+		33407B8E245DE742009B1F16 /* MDApi+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B8D245DE742009B1F16 /* MDApi+Actions.swift */; };
 		3353B5A024578A350066B8D5 /* MangaDexLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B579245789BE0066B8D5 /* MangaDexLib.framework */; };
 		3353B5B9245795620066B8D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B5B8245795620066B8D5 /* WebKit.framework */; };
 /* End PBXBuildFile section */
@@ -128,6 +129,7 @@
 		3322BD8B245D99900086FA81 /* MDLibApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLibApiTests.swift; sourceTree = "<group>"; };
 		3322BD8C245D99900086FA81 /* MDLibPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLibPathTests.swift; sourceTree = "<group>"; };
 		3322BDA8245DA4AC0086FA81 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		33407B8D245DE742009B1F16 /* MDApi+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Actions.swift"; sourceTree = "<group>"; };
 		3353B579245789BE0066B8D5 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B59B24578A350066B8D5 /* MangaDexLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MangaDexLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B5B8245795620066B8D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -206,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				3322BD51245D99120086FA81 /* MDApi.swift */,
+				33407B8D245DE742009B1F16 /* MDApi+Actions.swift */,
 				3322BD54245D99120086FA81 /* MDApi+Auth.swift */,
 				3322BD56245D99130086FA81 /* MDApi+HTML.swift */,
 				3322BD55245D99130086FA81 /* MDApi+JSON.swift */,
@@ -519,6 +522,7 @@
 				3322BD7F245D99130086FA81 /* MDParser+MangaDetails.swift in Sources */,
 				3322BD72245D99130086FA81 /* MDApi.swift in Sources */,
 				3322BD81245D99130086FA81 /* MDParser+GroupInfo.swift in Sources */,
+				33407B8E245DE742009B1F16 /* MDApi+Actions.swift in Sources */,
 				3322BD6E245D99130086FA81 /* MDApiResponse.swift in Sources */,
 				3322BD7C245D99130086FA81 /* MDParser+Announcement.swift in Sources */,
 				3322BD70245D99130086FA81 /* MDConstants.swift in Sources */,

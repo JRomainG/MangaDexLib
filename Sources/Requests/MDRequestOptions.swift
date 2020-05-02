@@ -30,13 +30,20 @@ public class MDRequestOptions: NSObject {
     /// The referer for this request
     public var referer: String?
 
+    /// The value to set for the "X-Requested-With" header
+    ///
+    /// For `POST` methods, the default is `XMLHttpRequest`, and
+    /// for `GET` methods the default is nil
+    public var requestedWith: String?
+
     /// Convenience init method for get requests
-    init(referer: String?) {
+    init(referer: String?, requestedWith: String? = nil) {
         self.referer = referer
+        self.requestedWith = requestedWith
     }
 
     /// Convenience init method
-    init(encoding: BodyEncoding, referer: String?) {
+    init(encoding: BodyEncoding, referer: String?, requestedWith: String? = "XMLHttpRequest") {
         self.encoding = encoding
         self.referer = referer
     }

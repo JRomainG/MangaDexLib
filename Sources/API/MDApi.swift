@@ -62,22 +62,25 @@ extension MDApi {
 
     /// Wrapper around MDRequestHandler's get method
     /// - Parameter url: The URL to fetch
+    /// - Parameter options: The options to use for this request
     /// - Parameter type: The type of response that is expected
     /// - Parameter onError: The user-provided completion that will be called in case of an error
     /// - Parameter onSuccess: The internal completion called if the requests succeeds
     ///
     /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
     func performGet(url: URL,
+                    options: MDRequestOptions? = nil,
                     type: MDResponse.ResponseType,
                     onError: @escaping MDCompletion,
                     onSuccess: @escaping MDCompletion) {
         let completion = requestCompletionBlock(url: url, type: type, onError: onError, onSuccess: onSuccess)
-        requestHandler.get(url: url, completion: completion)
+        requestHandler.get(url: url, options: options, completion: completion)
     }
 
     /// Wrapper around MDRequestHandler's post method
     /// - Parameter url: The URL to load
     /// - Parameter body: The content of the request
+    /// - Parameter options: The options to use for this request
     /// - Parameter type: The type of response that is expected
     /// - Parameter onError: The user-provided completion that will be called in case of an error
     /// - Parameter onSuccess: The internal completion called if the requests succeeds

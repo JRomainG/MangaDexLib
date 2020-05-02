@@ -225,6 +225,7 @@ public class MDRequestHandler: NSObject {
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(options?.referer, forHTTPHeaderField: "Referer")
+        request.setValue(options?.requestedWith, forHTTPHeaderField: "X-Requested-With")
         perform(request: request, completion: completion)
     }
 
@@ -247,6 +248,7 @@ public class MDRequestHandler: NSObject {
 
         // Fill-in its body and headers based on the content and options
         request.setValue(options?.referer, forHTTPHeaderField: "Referer")
+        request.setValue(options?.requestedWith, forHTTPHeaderField: "X-Requested-With")
         switch options?.encoding {
         case .urlencoded:
             createUrlEncodedBody(from: content, for: request)
@@ -339,7 +341,6 @@ extension MDRequestHandler {
 
         request.setValue("multipart/form-data;boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         request.setValue(String(body.count), forHTTPHeaderField: "Content-Length")
-        request.setValue("XMLHttpRequest", forHTTPHeaderField: "X-Requested-With")
     }
 
     /// Mimic the behavior if the JavaScript `FormData` object

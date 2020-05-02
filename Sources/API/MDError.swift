@@ -47,6 +47,9 @@ public enum MDError: Error {
     /// This method is not implemented
     case notImplemented
 
+    /// The performed action failed with an unknown error
+    case actionFailed
+
     /// The parser didn't find the object's ID
     ///
     /// - Note: If this is raised, please report an issue

@@ -355,4 +355,30 @@ public class MDPath {
         return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)
     }
 
+    /// Build the URL used to mark a chapter as read
+    /// - Parameter chapterId: The identifier of the chapter
+    /// - Parameter javascriptEnabled: Whether javascript should be marked as disabled or not
+    /// - Returns: The ajax URL
+    public static func readChapterAction(chapterId: Int, javascriptEnabled: Bool = true) -> URL {
+        let params = [
+            URLQueryItem(name: AjaxParam.function.rawValue, value: AjaxFunction.readChapter.rawValue),
+            URLQueryItem(name: AjaxParam.objectId.rawValue, value: String(chapterId)),
+            URLQueryItem(name: AjaxParam.noJS.rawValue, value: javascriptEnabled ? nil : "1")
+        ]
+        return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)
+    }
+
+    /// Build the URL used to mark a chapter as unread
+    /// - Parameter chapterId: The identifier of the chapter
+    /// - Parameter javascriptEnabled: Whether javascript should be marked as disabled or not
+    /// - Returns: The ajax URL
+    public static func unreadChapterAction(chapterId: Int, javascriptEnabled: Bool = true) -> URL {
+        let params = [
+            URLQueryItem(name: AjaxParam.function.rawValue, value: AjaxFunction.unreadChapter.rawValue),
+            URLQueryItem(name: AjaxParam.objectId.rawValue, value: String(chapterId)),
+            URLQueryItem(name: AjaxParam.noJS.rawValue, value: javascriptEnabled ? nil : "1")
+        ]
+        return MDPath.buildUrl(for: .ajax, with: params, keepEmpty: false)
+    }
+
 }

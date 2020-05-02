@@ -450,4 +450,30 @@ class MDLibApiTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testReadChapter() throws {
+        let chapterId = 872077  // One Piece chapter 978
+        let api = MDApi()
+        login(api: api)
+
+        let expectation = self.expectation(description: "Mark a chapter as read")
+        api.readChapter(chapterId: chapterId) { (response) in
+            XCTAssertNil(response.error)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testUnreadChapter() throws {
+        let chapterId = 872077  // One Piece chapter 978
+        let api = MDApi()
+        login(api: api)
+
+        let expectation = self.expectation(description: "Mark a chapter as unread")
+        api.unreadChapter(chapterId: chapterId) { (response) in
+            XCTAssertNil(response.error)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
 }
