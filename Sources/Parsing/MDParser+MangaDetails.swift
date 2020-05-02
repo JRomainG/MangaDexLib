@@ -11,6 +11,9 @@ import SwiftSoup
 
 extension MDParser {
 
+    /// The suffix that MangaDex appends at the end of a manga's title
+    static private let mangaInfoTitleSuffix = " (Title) - MangaDex"
+
     /// The selector to lookup in the extracted html's meta tags
     /// to get a manga's title
     static private let mangaInfoTitleSelector = "meta[property=og:title]"
@@ -118,9 +121,10 @@ extension MDParser {
         let description = try getFirstAttribute("content", with: MDParser.mangaInfoDescriptionSelector, in: head)
         let coverUrl = try getFirstAttribute("content", with: MDParser.mangaInfoImageSelector, in: head)
 
-        guard let title = try getFirstAttribute("content", with: MDParser.mangaInfoTitleSelector, in: head) else {
+        guard var title = try getFirstAttribute("content", with: MDParser.mangaInfoTitleSelector, in: head) else {
             throw MDError.parseElementNotFound
         }
+        title = title.replacingOccurrences(of: MDParser.mangaInfoTitleSuffix, with: "")
 
         guard let href = try getFirstAttribute("href", with: MDParser.mangaInfoHrefSelector, in: head),
             let mangaId = getIdFromHref(href) else {

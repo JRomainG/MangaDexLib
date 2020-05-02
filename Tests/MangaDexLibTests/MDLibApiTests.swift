@@ -302,6 +302,9 @@ class MDLibApiTests: XCTestCase {
         api.getMangaDetails(mangaId: mangaId, title: mangaTitle) { (response) in
             XCTAssertNil(response.error)
             self.assertMangaIsValid(response.manga)
+            XCTAssertNotNil(response.manga?.title)
+            XCTAssertNotNil(response.manga?.coverUrl)
+            XCTAssertNotNil(response.manga?.description)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
