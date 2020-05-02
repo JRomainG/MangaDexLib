@@ -33,8 +33,16 @@ public enum MDError: Error {
     /// The user is already logged in, they can't attempt to log in again
     case alreadyLoggedIn
 
-    /// The authentication attempt failed
-    case authFailure
+    /// The authentication attempt failed with an unknown error
+    case genericAuthFailure
+
+    /// The authentication attempt failed because either the username,
+    /// password or two factor code was wrong
+    case wrongAuthInfo
+
+    /// The authentication attempt failed because a two factor authentication code
+    /// was missing
+    case missingTwoFactor
 
     /// This method is not implemented
     case notImplemented

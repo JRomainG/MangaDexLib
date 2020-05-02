@@ -36,6 +36,20 @@ public class MDPath {
         return normalized.count > 0 ? normalized: defaultString
     }
 
+    /// Get the value in the url for the given key, if any
+    /// - Parameter key: The name of the item to look for
+    /// - Parameter url: The url in which to look
+    /// - Returns: The value for the key, if any
+    static func getQueryItem(for key: String, in url: URL?) -> String? {
+        guard url != nil else {
+            return nil
+        }
+        let components = URLComponents(url: url!, resolvingAgainstBaseURL: true)
+        return components?.queryItems?.first(where: { (item) -> Bool in
+            return item.name == key
+            })?.value
+    }
+
     /// Build an absolute URL with the known base and the given path
     /// - Parameter path: The relative path of the resource
     /// - Returns: The MangaDex URL

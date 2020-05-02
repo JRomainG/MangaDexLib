@@ -29,10 +29,23 @@ extension MDApi {
             MDRequestHandler.AuthField.twoFactor.rawValue: code,
             MDRequestHandler.AuthField.remember.rawValue: info.remember ? "1" : "0"
         ]
+
+        // Make sure a two factor code is provided if necessary
+        guard info.type == .regular || info.twoFactorCode != nil else {
+            let response = MDResponse(type: .login, url: url, rawValue: "", error: nil)
+            response.error = MDError.missingTwoFactor
+            completion(response)
+            return
+        }
+
         let options = MDRequestOptions(encoding: .urlencoded, referer: MDPath.login().absoluteString)
         performPost(url: url, body: body, options: options, type: .login, onError: completion) { (response) in
-            // Save the cookie in the response so it's accessible from outside the API
-            response.token = self.requestHandler.getCookie(type: .authToken)
+            // When authentication is successful, the cookie is set. If it's not, there was an error
+            if let token = self.requestHandler.getCookie(type: .authToken) {
+                response.token = token
+            } else {
+                response.error = MDError.wrongAuthInfo
+            }
             completion(response)
         }
     }
@@ -44,7 +57,7 @@ extension MDApi {
         let response = MDResponse(type: .login, url: url, rawValue: "", error: nil)
 
         guard let authToken = token else {
-            response.error = MDError.authFailure
+            response.error = MDError.genericAuthFailure
             completion(response)
             return
         }

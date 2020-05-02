@@ -109,7 +109,7 @@ extension MDApi {
                                       error: error,
                                       content: content,
                                       status: httpResponse?.statusCode)
-
+            // Propagate errors from the request manager
             guard error == nil, content != nil else {
                 onError(response)
                 return
@@ -121,7 +121,19 @@ extension MDApi {
                 onError(response)
                 return
             }
-            onSuccess(response)
+
+            // Check if an error message was returned by the website
+            if let msg = MDPath.getQueryItem(for: MDPath.AjaxParam.errorMessage.rawValue, in: httpResponse?.url) {
+                switch MDPath.AjaxError(rawValue: msg) {
+                case .missingTwoFactor:
+                    response.error = MDError.missingTwoFactor
+                case .wrongAuthInfo, .wrongTwoFactorCode:
+                    response.error = MDError.wrongAuthInfo
+                default:
+                    break
+                }
+            }
+            response.error == nil ? onSuccess(response) : onError(response)
         }
     }
 

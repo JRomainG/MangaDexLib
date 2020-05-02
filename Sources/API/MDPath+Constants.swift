@@ -124,6 +124,9 @@ extension MDPath {
 
         /// The keyword appended if javascript is disabled
         case noJS = "nojs"
+
+        /// The keywords used for ajax responses in case of an error
+        case errorMessage = "msg"
     }
 
     /// Type of existing Ajax functions
@@ -135,6 +138,18 @@ extension MDPath {
 
         /// Function used to logout
         case logout = "logout"
+    }
+
+    /// Type of existing errors returned by Ajax calls
+    enum AjaxError: String {
+        /// Account has two factor setup but a code wasn't provided
+        case missingTwoFactor = "missing_2fa"
+
+        /// A wrong username / password combination was provided
+        case wrongAuthInfo = "wrong_credentials"
+
+        /// A wrong two factor auth code was provided
+        case wrongTwoFactorCode = "failed_2fa"
     }
 
     /// Type of parameter used during api calls
