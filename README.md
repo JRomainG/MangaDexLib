@@ -91,7 +91,7 @@ To install, simply checkout the `dev` branch of this repository:
 
 ```bash
 git clone https://github.com/JRomainG/MangaDexLib.git
-git check dev
+git checkout dev
 ```
 
 You will then be able to open the `MangaDexLib.xcodeproj` project. Swift's package manager should automatically download the [SwiftSoup](https://github.com/scinfu/SwiftSoup) dependency, and everything should then build correctly.
