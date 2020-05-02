@@ -45,36 +45,6 @@
 		3322BD9A245D9BDA0086FA81 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 3322BD99245D9BDA0086FA81 /* SwiftSoup */; };
 		3322BDB1245DA51C0086FA81 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 3322BDB0245DA51C0086FA81 /* SwiftSoup */; };
 		3322BDB2245DA5210086FA81 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B5B8245795620066B8D5 /* WebKit.framework */; };
-		3322BDB3245DA5360086FA81 /* MDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4E245D99120086FA81 /* MDConstants.swift */; };
-		3322BDB4245DA5360086FA81 /* MDApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD51245D99120086FA81 /* MDApi.swift */; };
-		3322BDB5245DA5360086FA81 /* MDApi+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD54245D99120086FA81 /* MDApi+Auth.swift */; };
-		3322BDB6245DA5360086FA81 /* MDApi+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD55245D99130086FA81 /* MDApi+JSON.swift */; };
-		3322BDB7245DA5360086FA81 /* MDApi+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD56245D99130086FA81 /* MDApi+HTML.swift */; };
-		3322BDB8245DA5360086FA81 /* MDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD50245D99120086FA81 /* MDError.swift */; };
-		3322BDB9245DA5360086FA81 /* MDPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD52245D99120086FA81 /* MDPath.swift */; };
-		3322BDBA245DA5360086FA81 /* MDPath+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD53245D99120086FA81 /* MDPath+Constants.swift */; };
-		3322BDBB245DA5360086FA81 /* MDChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD41245D99120086FA81 /* MDChapter.swift */; };
-		3322BDBC245DA5370086FA81 /* MDManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD3F245D99120086FA81 /* MDManga.swift */; };
-		3322BDBD245DA5370086FA81 /* MDAnnouncement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD47245D99120086FA81 /* MDAnnouncement.swift */; };
-		3322BDBE245DA5370086FA81 /* MDComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD46245D99120086FA81 /* MDComment.swift */; };
-		3322BDBF245DA5370086FA81 /* MDGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD43245D99120086FA81 /* MDGroup.swift */; };
-		3322BDC0245DA5370086FA81 /* MDResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD45245D99120086FA81 /* MDResource.swift */; };
-		3322BDC1245DA5370086FA81 /* MDUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD44245D99120086FA81 /* MDUser.swift */; };
-		3322BDC2245DA5370086FA81 /* MDAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD42245D99120086FA81 /* MDAuth.swift */; };
-		3322BDC3245DA5370086FA81 /* MDSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD40245D99120086FA81 /* MDSearch.swift */; };
-		3322BDC4245DA5370086FA81 /* MDParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5B245D99130086FA81 /* MDParser.swift */; };
-		3322BDC5245DA5370086FA81 /* MDParser+Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD59245D99130086FA81 /* MDParser+Api.swift */; };
-		3322BDC6245DA5370086FA81 /* MDParser+Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5C245D99130086FA81 /* MDParser+Announcement.swift */; };
-		3322BDC7245DA5370086FA81 /* MDParser+ChapterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5D245D99130086FA81 /* MDParser+ChapterList.swift */; };
-		3322BDC8245DA5370086FA81 /* MDParser+Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD60245D99130086FA81 /* MDParser+Comments.swift */; };
-		3322BDC9245DA5370086FA81 /* MDParser+GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD61245D99130086FA81 /* MDParser+GroupInfo.swift */; };
-		3322BDCA245DA5370086FA81 /* MDParser+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5A245D99130086FA81 /* MDParser+Login.swift */; };
-		3322BDCB245DA5370086FA81 /* MDParser+MangaDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5F245D99130086FA81 /* MDParser+MangaDetails.swift */; };
-		3322BDCC245DA5370086FA81 /* MDParser+MangaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5E245D99130086FA81 /* MDParser+MangaList.swift */; };
-		3322BDCD245DA5370086FA81 /* MDRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4D245D99120086FA81 /* MDRequestHandler.swift */; };
-		3322BDCE245DA5370086FA81 /* MDRequestOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4A245D99120086FA81 /* MDRequestOptions.swift */; };
-		3322BDCF245DA5370086FA81 /* MDResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4B245D99120086FA81 /* MDResponse.swift */; };
-		3322BDD0245DA5370086FA81 /* MDApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4C245D99120086FA81 /* MDApiResponse.swift */; };
 		33407B8E245DE742009B1F16 /* MDApi+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B8D245DE742009B1F16 /* MDApi+Actions.swift */; };
 		33407B90245DFE3A009B1F16 /* MDPath+Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B8F245DFE3A009B1F16 /* MDPath+Manga.swift */; };
 		33407B92245DFE8E009B1F16 /* MDPath+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B91245DFE8E009B1F16 /* MDPath+Action.swift */; };
@@ -82,6 +52,41 @@
 		33407B96245DFF10009B1F16 /* MDPath+Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B95245DFF10009B1F16 /* MDPath+Misc.swift */; };
 		3353B5A024578A350066B8D5 /* MangaDexLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B579245789BE0066B8D5 /* MangaDexLib.framework */; };
 		3353B5B9245795620066B8D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B5B8245795620066B8D5 /* WebKit.framework */; };
+		335F9CC9245E003E00EE9A52 /* MDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4E245D99120086FA81 /* MDConstants.swift */; };
+		335F9CCA245E003E00EE9A52 /* MDApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD51245D99120086FA81 /* MDApi.swift */; };
+		335F9CCB245E003E00EE9A52 /* MDApi+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B8D245DE742009B1F16 /* MDApi+Actions.swift */; };
+		335F9CCC245E003E00EE9A52 /* MDApi+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD54245D99120086FA81 /* MDApi+Auth.swift */; };
+		335F9CCD245E003E00EE9A52 /* MDApi+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD56245D99130086FA81 /* MDApi+HTML.swift */; };
+		335F9CCE245E003E00EE9A52 /* MDApi+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD55245D99130086FA81 /* MDApi+JSON.swift */; };
+		335F9CCF245E003E00EE9A52 /* MDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD50245D99120086FA81 /* MDError.swift */; };
+		335F9CD0245E003E00EE9A52 /* MDPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD52245D99120086FA81 /* MDPath.swift */; };
+		335F9CD1245E003E00EE9A52 /* MDPath+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD53245D99120086FA81 /* MDPath+Constants.swift */; };
+		335F9CD2245E003E00EE9A52 /* MDPath+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B91245DFE8E009B1F16 /* MDPath+Action.swift */; };
+		335F9CD3245E003E00EE9A52 /* MDPath+Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B93245DFEC2009B1F16 /* MDPath+Chapter.swift */; };
+		335F9CD4245E003E00EE9A52 /* MDPath+Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B8F245DFE3A009B1F16 /* MDPath+Manga.swift */; };
+		335F9CD5245E003E00EE9A52 /* MDPath+Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B95245DFF10009B1F16 /* MDPath+Misc.swift */; };
+		335F9CD6245E003E00EE9A52 /* MDChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD41245D99120086FA81 /* MDChapter.swift */; };
+		335F9CD7245E003E00EE9A52 /* MDManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD3F245D99120086FA81 /* MDManga.swift */; };
+		335F9CD8245E003E00EE9A52 /* MDAnnouncement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD47245D99120086FA81 /* MDAnnouncement.swift */; };
+		335F9CD9245E003E00EE9A52 /* MDComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD46245D99120086FA81 /* MDComment.swift */; };
+		335F9CDA245E003E00EE9A52 /* MDGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD43245D99120086FA81 /* MDGroup.swift */; };
+		335F9CDB245E003E00EE9A52 /* MDResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD45245D99120086FA81 /* MDResource.swift */; };
+		335F9CDC245E003E00EE9A52 /* MDUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD44245D99120086FA81 /* MDUser.swift */; };
+		335F9CDD245E003E00EE9A52 /* MDAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD42245D99120086FA81 /* MDAuth.swift */; };
+		335F9CDE245E003E00EE9A52 /* MDSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD40245D99120086FA81 /* MDSearch.swift */; };
+		335F9CDF245E003E00EE9A52 /* MDParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5B245D99130086FA81 /* MDParser.swift */; };
+		335F9CE0245E003E00EE9A52 /* MDParser+Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD59245D99130086FA81 /* MDParser+Api.swift */; };
+		335F9CE1245E003E00EE9A52 /* MDParser+Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5C245D99130086FA81 /* MDParser+Announcement.swift */; };
+		335F9CE2245E003E00EE9A52 /* MDParser+ChapterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5D245D99130086FA81 /* MDParser+ChapterList.swift */; };
+		335F9CE3245E003E00EE9A52 /* MDParser+Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD60245D99130086FA81 /* MDParser+Comments.swift */; };
+		335F9CE4245E003E00EE9A52 /* MDParser+GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD61245D99130086FA81 /* MDParser+GroupInfo.swift */; };
+		335F9CE5245E003E00EE9A52 /* MDParser+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5A245D99130086FA81 /* MDParser+Login.swift */; };
+		335F9CE6245E003E00EE9A52 /* MDParser+MangaDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5F245D99130086FA81 /* MDParser+MangaDetails.swift */; };
+		335F9CE7245E003E00EE9A52 /* MDParser+MangaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5E245D99130086FA81 /* MDParser+MangaList.swift */; };
+		335F9CE8245E003E00EE9A52 /* MDRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4D245D99120086FA81 /* MDRequestHandler.swift */; };
+		335F9CE9245E003E00EE9A52 /* MDRequestOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4A245D99120086FA81 /* MDRequestOptions.swift */; };
+		335F9CEA245E003E00EE9A52 /* MDResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4B245D99120086FA81 /* MDResponse.swift */; };
+		335F9CEB245E003E00EE9A52 /* MDApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4C245D99120086FA81 /* MDApiResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -333,6 +338,7 @@
 				3322BDA4245DA4AC0086FA81 /* Sources */,
 				3322BDA5245DA4AC0086FA81 /* Frameworks */,
 				3322BDA6245DA4AC0086FA81 /* Resources */,
+				335F9CEC245E005D00EE9A52 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -375,7 +381,7 @@
 				3353B59724578A350066B8D5 /* Sources */,
 				3353B59824578A350066B8D5 /* Frameworks */,
 				3353B59924578A350066B8D5 /* Resources */,
-				3353B5A824578B330066B8D5 /* SwiftLint */,
+				335F9CED245E007D00EE9A52 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -476,7 +482,25 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		3353B5A824578B330066B8D5 /* SwiftLint */ = {
+		335F9CEC245E005D00EE9A52 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		335F9CED245E007D00EE9A52 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -501,36 +525,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3322BDB3245DA5360086FA81 /* MDConstants.swift in Sources */,
-				3322BDB4245DA5360086FA81 /* MDApi.swift in Sources */,
-				3322BDB5245DA5360086FA81 /* MDApi+Auth.swift in Sources */,
-				3322BDB6245DA5360086FA81 /* MDApi+JSON.swift in Sources */,
-				3322BDB7245DA5360086FA81 /* MDApi+HTML.swift in Sources */,
-				3322BDB8245DA5360086FA81 /* MDError.swift in Sources */,
-				3322BDB9245DA5360086FA81 /* MDPath.swift in Sources */,
-				3322BDBA245DA5360086FA81 /* MDPath+Constants.swift in Sources */,
-				3322BDBB245DA5360086FA81 /* MDChapter.swift in Sources */,
-				3322BDBC245DA5370086FA81 /* MDManga.swift in Sources */,
-				3322BDBD245DA5370086FA81 /* MDAnnouncement.swift in Sources */,
-				3322BDBE245DA5370086FA81 /* MDComment.swift in Sources */,
-				3322BDBF245DA5370086FA81 /* MDGroup.swift in Sources */,
-				3322BDC0245DA5370086FA81 /* MDResource.swift in Sources */,
-				3322BDC1245DA5370086FA81 /* MDUser.swift in Sources */,
-				3322BDC2245DA5370086FA81 /* MDAuth.swift in Sources */,
-				3322BDC3245DA5370086FA81 /* MDSearch.swift in Sources */,
-				3322BDC4245DA5370086FA81 /* MDParser.swift in Sources */,
-				3322BDC5245DA5370086FA81 /* MDParser+Api.swift in Sources */,
-				3322BDC6245DA5370086FA81 /* MDParser+Announcement.swift in Sources */,
-				3322BDC7245DA5370086FA81 /* MDParser+ChapterList.swift in Sources */,
-				3322BDC8245DA5370086FA81 /* MDParser+Comments.swift in Sources */,
-				3322BDC9245DA5370086FA81 /* MDParser+GroupInfo.swift in Sources */,
-				3322BDCA245DA5370086FA81 /* MDParser+Login.swift in Sources */,
-				3322BDCB245DA5370086FA81 /* MDParser+MangaDetails.swift in Sources */,
-				3322BDCC245DA5370086FA81 /* MDParser+MangaList.swift in Sources */,
-				3322BDCD245DA5370086FA81 /* MDRequestHandler.swift in Sources */,
-				3322BDCE245DA5370086FA81 /* MDRequestOptions.swift in Sources */,
-				3322BDCF245DA5370086FA81 /* MDResponse.swift in Sources */,
-				3322BDD0245DA5370086FA81 /* MDApiResponse.swift in Sources */,
+				335F9CC9245E003E00EE9A52 /* MDConstants.swift in Sources */,
+				335F9CCA245E003E00EE9A52 /* MDApi.swift in Sources */,
+				335F9CCB245E003E00EE9A52 /* MDApi+Actions.swift in Sources */,
+				335F9CCC245E003E00EE9A52 /* MDApi+Auth.swift in Sources */,
+				335F9CCD245E003E00EE9A52 /* MDApi+HTML.swift in Sources */,
+				335F9CCE245E003E00EE9A52 /* MDApi+JSON.swift in Sources */,
+				335F9CCF245E003E00EE9A52 /* MDError.swift in Sources */,
+				335F9CD0245E003E00EE9A52 /* MDPath.swift in Sources */,
+				335F9CD1245E003E00EE9A52 /* MDPath+Constants.swift in Sources */,
+				335F9CD2245E003E00EE9A52 /* MDPath+Action.swift in Sources */,
+				335F9CD3245E003E00EE9A52 /* MDPath+Chapter.swift in Sources */,
+				335F9CD4245E003E00EE9A52 /* MDPath+Manga.swift in Sources */,
+				335F9CD5245E003E00EE9A52 /* MDPath+Misc.swift in Sources */,
+				335F9CD6245E003E00EE9A52 /* MDChapter.swift in Sources */,
+				335F9CD7245E003E00EE9A52 /* MDManga.swift in Sources */,
+				335F9CD8245E003E00EE9A52 /* MDAnnouncement.swift in Sources */,
+				335F9CD9245E003E00EE9A52 /* MDComment.swift in Sources */,
+				335F9CDA245E003E00EE9A52 /* MDGroup.swift in Sources */,
+				335F9CDB245E003E00EE9A52 /* MDResource.swift in Sources */,
+				335F9CDC245E003E00EE9A52 /* MDUser.swift in Sources */,
+				335F9CDD245E003E00EE9A52 /* MDAuth.swift in Sources */,
+				335F9CDE245E003E00EE9A52 /* MDSearch.swift in Sources */,
+				335F9CDF245E003E00EE9A52 /* MDParser.swift in Sources */,
+				335F9CE0245E003E00EE9A52 /* MDParser+Api.swift in Sources */,
+				335F9CE1245E003E00EE9A52 /* MDParser+Announcement.swift in Sources */,
+				335F9CE2245E003E00EE9A52 /* MDParser+ChapterList.swift in Sources */,
+				335F9CE3245E003E00EE9A52 /* MDParser+Comments.swift in Sources */,
+				335F9CE4245E003E00EE9A52 /* MDParser+GroupInfo.swift in Sources */,
+				335F9CE5245E003E00EE9A52 /* MDParser+Login.swift in Sources */,
+				335F9CE6245E003E00EE9A52 /* MDParser+MangaDetails.swift in Sources */,
+				335F9CE7245E003E00EE9A52 /* MDParser+MangaList.swift in Sources */,
+				335F9CE8245E003E00EE9A52 /* MDRequestHandler.swift in Sources */,
+				335F9CE9245E003E00EE9A52 /* MDRequestOptions.swift in Sources */,
+				335F9CEA245E003E00EE9A52 /* MDResponse.swift in Sources */,
+				335F9CEB245E003E00EE9A52 /* MDApiResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
