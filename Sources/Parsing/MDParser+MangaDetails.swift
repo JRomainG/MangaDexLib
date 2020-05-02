@@ -11,10 +11,6 @@ import SwiftSoup
 
 extension MDParser {
 
-    /// The name of the class to lookup in the extracted html of MangaDex homepages
-    /// to get a manga's meta information
-    static private let mangaInfoMetaTag = "head"
-
     /// The selector to lookup in the extracted html's meta tags
     /// to get a manga's title
     static private let mangaInfoTitleSelector = "meta[property=og:title]"
@@ -114,9 +110,8 @@ extension MDParser {
     /// - Returns: The extracted manga
     func getMangaDetails(from content: String) throws -> MDManga {
         let doc = try MDParser.parse(html: content)
-        let elements = try doc.getElementsByTag(MDParser.mangaInfoMetaTag)
 
-        guard let head = elements.first() else {
+        guard let head = doc.head() else {
             throw MDError.parseElementNotFound
         }
 
