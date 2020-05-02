@@ -69,7 +69,6 @@ To get the links to a chapter's page images:
 
 ```swift
 let chapterId = 867036
-let mangaTitle = "One Punch Man"
 api.getChapterInfo(chapterId: chapterId) { (response) in
     print(response.chapter?.getPageUrls())
 }
@@ -84,6 +83,9 @@ api.login(with: auth) { (response) in
 }
 ```
 
+## Documentation
+
+The project is extensively documented through comments, and [Jazzy](https://github.com/realm/jazzy) is used to generate documentation.
 
 ## Development
 
