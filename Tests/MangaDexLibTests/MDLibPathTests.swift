@@ -269,10 +269,21 @@ class MDLibPathTests: XCTestCase {
 
     func testUnreadActionPath() throws {
         let chapterId = 7139
-        let readURL = MDPath.unreadChapterAction(chapterId: chapterId)
+        let unreadURL = MDPath.unreadChapterAction(chapterId: chapterId)
         let expected = "\(MDApi.baseURL)/ajax/actions.ajax.php?function=chapter_mark_unread&id=\(chapterId)"
         let expectedURL = URL(string: expected)!
-        assertUrlsAreEqual(readURL, expectedURL)
+        assertUrlsAreEqual(unreadURL, expectedURL)
+    }
+
+    func testFollowActionPath() throws {
+        let mangaId = 7139
+        let status = MDReadingStatus.planToRead
+        let followURL = MDPath.followManga(mangaId: mangaId, status: status)
+
+        var expected = "\(MDApi.baseURL)/ajax/actions.ajax.php?function=manga_follow"
+        expected += "&id=\(mangaId)"
+        expected += "&type=\(status.rawValue)"
+        assertUrlsAreEqual(followURL, URL(string: expected)!)
     }
 
 }

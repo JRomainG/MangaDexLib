@@ -19,12 +19,14 @@ class MDLibApiTests: XCTestCase {
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        /*
         let api = MDApi()
         let expectation = self.expectation(description: "Logout after completing test")
         api.logout { (_) in
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
+         */
     }
 
     /// By default, auth information is stored under the `Secret.bundle`, in an `auth.list` file.
@@ -451,7 +453,7 @@ class MDLibApiTests: XCTestCase {
     }
 
     func testReadChapter() throws {
-        let chapterId = 872077  // One Piece chapter 978
+        let chapterId = 872077 // One Piece chapter 978
         let api = MDApi()
         login(api: api)
 
@@ -464,12 +466,40 @@ class MDLibApiTests: XCTestCase {
     }
 
     func testUnreadChapter() throws {
-        let chapterId = 872077  // One Piece chapter 978
+        let chapterId = 872077 // One Piece chapter 978
         let api = MDApi()
         login(api: api)
 
         let expectation = self.expectation(description: "Mark a chapter as unread")
         api.unreadChapter(chapterId: chapterId) { (response) in
+            XCTAssertNil(response.error)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testFollowManga() throws {
+        let mangaId = 39 // One Piece
+        let status = MDReadingStatus.planToRead
+        let api = MDApi()
+        login(api: api)
+
+        let expectation = self.expectation(description: "Change manga's reading status")
+        api.setReadingStatus(mangaId: mangaId, status: status) { (response) in
+            XCTAssertNil(response.error)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testUnfollowManga() throws {
+        let mangaId = 39 // One Piece
+        let status = MDReadingStatus.unfollowed
+        let api = MDApi()
+        login(api: api)
+
+        let expectation = self.expectation(description: "Change manga's reading status")
+        api.setReadingStatus(mangaId: mangaId, status: status) { (response) in
             XCTAssertNil(response.error)
             expectation.fulfill()
         }

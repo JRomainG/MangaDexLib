@@ -43,4 +43,32 @@ extension MDApi {
         performAction(for: url, completion: completion)
     }
 
+    /// Set a manga's reading status
+    /// - Parameter chapterId: The ID of the manga
+    /// - Parameter status: The new reading status
+    /// - Parameter completion: The callback at the end of the request
+    ///
+    /// - Attention: Set a chapter's reading status to `MDReadingStatus.unfollow` will clear all the
+    /// "read" marks
+    public func setReadingStatus(mangaId: Int, status: MDReadingStatus, completion: @escaping MDCompletion) {
+        // Build the URL depending on the status the user wants to set
+        let url: URL
+        switch status {
+        case .unfollowed:
+            url = MDPath.unfollowManga(mangaId: mangaId)
+        default:
+            url = MDPath.followManga(mangaId: mangaId, status: status)
+        }
+
+        // .all isn't a valid option
+        guard status != .all else {
+            let response = MDResponse(type: .action, url: url, rawValue: "", error: nil)
+            response.error = MDError.actionFailed
+            completion(response)
+            return
+        }
+
+        performAction(for: url, completion: completion)
+    }
+
 }

@@ -126,6 +126,10 @@ extension MDPath {
         /// for example when marking a chapter as read
         case objectId = "id"
 
+        /// The keyword used to specify an action's type,
+        /// for example when changing a manga's reading status
+        case type = "type"
+
         /// The keyword appended if javascript is disabled
         case noJS = "nojs"
 
@@ -148,6 +152,14 @@ extension MDPath {
 
         /// Function used to mark a chapter as unread
         case unreadChapter = "chapter_mark_unread"
+
+        /// Function used to follow a manga, or change its reading status
+        /// (expect for unfollowed)
+        case followManga = "manga_follow"
+
+        /// Function used to follow a manga, or change its reading status
+        /// (expect for unfollowed)
+        case unfollowManga = "manga_unfollow"
     }
 
     /// Type of existing errors returned by Ajax calls
