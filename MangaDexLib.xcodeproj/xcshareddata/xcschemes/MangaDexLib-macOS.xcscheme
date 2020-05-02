@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3353B578245789BE0066B8D5"
-               BuildableName = "MangaDexLib.framework"
-               BlueprintName = "MangaDexLib"
+               BlueprintIdentifier = "3322BDA7245DA4AC0086FA81"
+               BuildableName = "MangaDexLib_macOS.framework"
+               BlueprintName = "MangaDexLib-macOS"
                ReferencedContainer = "container:MangaDexLib.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3353B59A24578A350066B8D5"
-               BuildableName = "MangaDexLibTests.xctest"
-               BlueprintName = "MangaDexLibTests"
-               ReferencedContainer = "container:MangaDexLib.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -60,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3353B578245789BE0066B8D5"
-            BuildableName = "MangaDexLib.framework"
-            BlueprintName = "MangaDexLib"
+            BlueprintIdentifier = "3322BDA7245DA4AC0086FA81"
+            BuildableName = "MangaDexLib_macOS.framework"
+            BlueprintName = "MangaDexLib-macOS"
             ReferencedContainer = "container:MangaDexLib.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

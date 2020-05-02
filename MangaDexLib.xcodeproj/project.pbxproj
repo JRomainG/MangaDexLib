@@ -43,7 +43,39 @@
 		3322BD94245D99900086FA81 /* MDLibApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD8B245D99900086FA81 /* MDLibApiTests.swift */; };
 		3322BD95245D99900086FA81 /* MDLibPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD8C245D99900086FA81 /* MDLibPathTests.swift */; };
 		3322BD9A245D9BDA0086FA81 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 3322BD99245D9BDA0086FA81 /* SwiftSoup */; };
-		3353B5A024578A350066B8D5 /* MangaDexLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B579245789BE0066B8D5 /* MangaDexLib.framework */; };
+		3322BDB1245DA51C0086FA81 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 3322BDB0245DA51C0086FA81 /* SwiftSoup */; };
+		3322BDB2245DA5210086FA81 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B5B8245795620066B8D5 /* WebKit.framework */; };
+		3322BDB3245DA5360086FA81 /* MDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4E245D99120086FA81 /* MDConstants.swift */; };
+		3322BDB4245DA5360086FA81 /* MDApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD51245D99120086FA81 /* MDApi.swift */; };
+		3322BDB5245DA5360086FA81 /* MDApi+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD54245D99120086FA81 /* MDApi+Auth.swift */; };
+		3322BDB6245DA5360086FA81 /* MDApi+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD55245D99130086FA81 /* MDApi+JSON.swift */; };
+		3322BDB7245DA5360086FA81 /* MDApi+HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD56245D99130086FA81 /* MDApi+HTML.swift */; };
+		3322BDB8245DA5360086FA81 /* MDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD50245D99120086FA81 /* MDError.swift */; };
+		3322BDB9245DA5360086FA81 /* MDPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD52245D99120086FA81 /* MDPath.swift */; };
+		3322BDBA245DA5360086FA81 /* MDPath+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD53245D99120086FA81 /* MDPath+Constants.swift */; };
+		3322BDBB245DA5360086FA81 /* MDChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD41245D99120086FA81 /* MDChapter.swift */; };
+		3322BDBC245DA5370086FA81 /* MDManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD3F245D99120086FA81 /* MDManga.swift */; };
+		3322BDBD245DA5370086FA81 /* MDAnnouncement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD47245D99120086FA81 /* MDAnnouncement.swift */; };
+		3322BDBE245DA5370086FA81 /* MDComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD46245D99120086FA81 /* MDComment.swift */; };
+		3322BDBF245DA5370086FA81 /* MDGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD43245D99120086FA81 /* MDGroup.swift */; };
+		3322BDC0245DA5370086FA81 /* MDResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD45245D99120086FA81 /* MDResource.swift */; };
+		3322BDC1245DA5370086FA81 /* MDUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD44245D99120086FA81 /* MDUser.swift */; };
+		3322BDC2245DA5370086FA81 /* MDAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD42245D99120086FA81 /* MDAuth.swift */; };
+		3322BDC3245DA5370086FA81 /* MDSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD40245D99120086FA81 /* MDSearch.swift */; };
+		3322BDC4245DA5370086FA81 /* MDParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5B245D99130086FA81 /* MDParser.swift */; };
+		3322BDC5245DA5370086FA81 /* MDParser+Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD59245D99130086FA81 /* MDParser+Api.swift */; };
+		3322BDC6245DA5370086FA81 /* MDParser+Announcement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5C245D99130086FA81 /* MDParser+Announcement.swift */; };
+		3322BDC7245DA5370086FA81 /* MDParser+ChapterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5D245D99130086FA81 /* MDParser+ChapterList.swift */; };
+		3322BDC8245DA5370086FA81 /* MDParser+Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD60245D99130086FA81 /* MDParser+Comments.swift */; };
+		3322BDC9245DA5370086FA81 /* MDParser+GroupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD61245D99130086FA81 /* MDParser+GroupInfo.swift */; };
+		3322BDCA245DA5370086FA81 /* MDParser+Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5A245D99130086FA81 /* MDParser+Login.swift */; };
+		3322BDCB245DA5370086FA81 /* MDParser+MangaDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5F245D99130086FA81 /* MDParser+MangaDetails.swift */; };
+		3322BDCC245DA5370086FA81 /* MDParser+MangaList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD5E245D99130086FA81 /* MDParser+MangaList.swift */; };
+		3322BDCD245DA5370086FA81 /* MDRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4D245D99120086FA81 /* MDRequestHandler.swift */; };
+		3322BDCE245DA5370086FA81 /* MDRequestOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4A245D99120086FA81 /* MDRequestOptions.swift */; };
+		3322BDCF245DA5370086FA81 /* MDResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4B245D99120086FA81 /* MDResponse.swift */; };
+		3322BDD0245DA5370086FA81 /* MDApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4C245D99120086FA81 /* MDApiResponse.swift */; };
+		3353B5A024578A350066B8D5 /* MangaDexLib_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B579245789BE0066B8D5 /* MangaDexLib_iOS.framework */; };
 		3353B5B9245795620066B8D5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B5B8245795620066B8D5 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,12 +127,22 @@
 		3322BD8A245D99900086FA81 /* Secret.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Secret.bundle; sourceTree = "<group>"; };
 		3322BD8B245D99900086FA81 /* MDLibApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLibApiTests.swift; sourceTree = "<group>"; };
 		3322BD8C245D99900086FA81 /* MDLibPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLibPathTests.swift; sourceTree = "<group>"; };
-		3353B579245789BE0066B8D5 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3322BDA8245DA4AC0086FA81 /* MangaDexLib_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3353B579245789BE0066B8D5 /* MangaDexLib_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B59B24578A350066B8D5 /* MangaDexLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MangaDexLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B5B8245795620066B8D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3322BDA5245DA4AC0086FA81 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3322BDB2245DA5210086FA81 /* WebKit.framework in Frameworks */,
+				3322BDB1245DA51C0086FA81 /* SwiftSoup in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3353B576245789BE0066B8D5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -114,7 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3353B5A024578A350066B8D5 /* MangaDexLib.framework in Frameworks */,
+				3353B5A024578A350066B8D5 /* MangaDexLib_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,8 +267,9 @@
 		3353B57A245789BE0066B8D5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3353B579245789BE0066B8D5 /* MangaDexLib.framework */,
+				3353B579245789BE0066B8D5 /* MangaDexLib_iOS.framework */,
 				3353B59B24578A350066B8D5 /* MangaDexLibTests.xctest */,
+				3322BDA8245DA4AC0086FA81 /* MangaDexLib_macOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,6 +285,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		3322BDA3245DA4AC0086FA81 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3353B574245789BE0066B8D5 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -252,9 +302,30 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3353B578245789BE0066B8D5 /* MangaDexLib */ = {
+		3322BDA7245DA4AC0086FA81 /* MangaDexLib-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3353B581245789BE0066B8D5 /* Build configuration list for PBXNativeTarget "MangaDexLib" */;
+			buildConfigurationList = 3322BDAD245DA4AC0086FA81 /* Build configuration list for PBXNativeTarget "MangaDexLib-macOS" */;
+			buildPhases = (
+				3322BDA3245DA4AC0086FA81 /* Headers */,
+				3322BDA4245DA4AC0086FA81 /* Sources */,
+				3322BDA5245DA4AC0086FA81 /* Frameworks */,
+				3322BDA6245DA4AC0086FA81 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MangaDexLib-macOS";
+			packageProductDependencies = (
+				3322BDB0245DA51C0086FA81 /* SwiftSoup */,
+			);
+			productName = "MangaDexLib-macOS";
+			productReference = 3322BDA8245DA4AC0086FA81 /* MangaDexLib_macOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		3353B578245789BE0066B8D5 /* MangaDexLib-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3353B581245789BE0066B8D5 /* Build configuration list for PBXNativeTarget "MangaDexLib-iOS" */;
 			buildPhases = (
 				3353B574245789BE0066B8D5 /* Headers */,
 				3353B575245789BE0066B8D5 /* Sources */,
@@ -266,12 +337,12 @@
 			);
 			dependencies = (
 			);
-			name = MangaDexLib;
+			name = "MangaDexLib-iOS";
 			packageProductDependencies = (
 				3322BD99245D9BDA0086FA81 /* SwiftSoup */,
 			);
 			productName = MangaDexLib;
-			productReference = 3353B579245789BE0066B8D5 /* MangaDexLib.framework */;
+			productReference = 3353B579245789BE0066B8D5 /* MangaDexLib_iOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		3353B59A24578A350066B8D5 /* MangaDexLibTests */ = {
@@ -303,6 +374,9 @@
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = JustKodding;
 				TargetAttributes = {
+					3322BDA7245DA4AC0086FA81 = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
 					3353B578245789BE0066B8D5 = {
 						CreatedOnToolsVersion = 11.4.1;
 						LastSwiftMigration = 1140;
@@ -328,13 +402,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3353B578245789BE0066B8D5 /* MangaDexLib */,
+				3353B578245789BE0066B8D5 /* MangaDexLib-iOS */,
+				3322BDA7245DA4AC0086FA81 /* MangaDexLib-macOS */,
 				3353B59A24578A350066B8D5 /* MangaDexLibTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3322BDA6245DA4AC0086FA81 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3353B577245789BE0066B8D5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -392,6 +474,43 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3322BDA4245DA4AC0086FA81 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3322BDB3245DA5360086FA81 /* MDConstants.swift in Sources */,
+				3322BDB4245DA5360086FA81 /* MDApi.swift in Sources */,
+				3322BDB5245DA5360086FA81 /* MDApi+Auth.swift in Sources */,
+				3322BDB6245DA5360086FA81 /* MDApi+JSON.swift in Sources */,
+				3322BDB7245DA5360086FA81 /* MDApi+HTML.swift in Sources */,
+				3322BDB8245DA5360086FA81 /* MDError.swift in Sources */,
+				3322BDB9245DA5360086FA81 /* MDPath.swift in Sources */,
+				3322BDBA245DA5360086FA81 /* MDPath+Constants.swift in Sources */,
+				3322BDBB245DA5360086FA81 /* MDChapter.swift in Sources */,
+				3322BDBC245DA5370086FA81 /* MDManga.swift in Sources */,
+				3322BDBD245DA5370086FA81 /* MDAnnouncement.swift in Sources */,
+				3322BDBE245DA5370086FA81 /* MDComment.swift in Sources */,
+				3322BDBF245DA5370086FA81 /* MDGroup.swift in Sources */,
+				3322BDC0245DA5370086FA81 /* MDResource.swift in Sources */,
+				3322BDC1245DA5370086FA81 /* MDUser.swift in Sources */,
+				3322BDC2245DA5370086FA81 /* MDAuth.swift in Sources */,
+				3322BDC3245DA5370086FA81 /* MDSearch.swift in Sources */,
+				3322BDC4245DA5370086FA81 /* MDParser.swift in Sources */,
+				3322BDC5245DA5370086FA81 /* MDParser+Api.swift in Sources */,
+				3322BDC6245DA5370086FA81 /* MDParser+Announcement.swift in Sources */,
+				3322BDC7245DA5370086FA81 /* MDParser+ChapterList.swift in Sources */,
+				3322BDC8245DA5370086FA81 /* MDParser+Comments.swift in Sources */,
+				3322BDC9245DA5370086FA81 /* MDParser+GroupInfo.swift in Sources */,
+				3322BDCA245DA5370086FA81 /* MDParser+Login.swift in Sources */,
+				3322BDCB245DA5370086FA81 /* MDParser+MangaDetails.swift in Sources */,
+				3322BDCC245DA5370086FA81 /* MDParser+MangaList.swift in Sources */,
+				3322BDCD245DA5370086FA81 /* MDRequestHandler.swift in Sources */,
+				3322BDCE245DA5370086FA81 /* MDRequestOptions.swift in Sources */,
+				3322BDCF245DA5370086FA81 /* MDResponse.swift in Sources */,
+				3322BDD0245DA5370086FA81 /* MDApiResponse.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3353B575245789BE0066B8D5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -445,12 +564,68 @@
 /* Begin PBXTargetDependency section */
 		3353B5A224578A350066B8D5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3353B578245789BE0066B8D5 /* MangaDexLib */;
+			target = 3353B578245789BE0066B8D5 /* MangaDexLib-iOS */;
 			targetProxy = 3353B5A124578A350066B8D5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		3322BDAE245DA4AC0086FA81 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9J75238463;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.JustKodding.MangaDexLib-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3322BDAF245DA4AC0086FA81 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 9J75238463;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Sources/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.JustKodding.MangaDexLib-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		3353B57F245789BE0066B8D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -669,6 +844,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3322BDAD245DA4AC0086FA81 /* Build configuration list for PBXNativeTarget "MangaDexLib-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3322BDAE245DA4AC0086FA81 /* Debug */,
+				3322BDAF245DA4AC0086FA81 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3353B573245789BE0066B8D5 /* Build configuration list for PBXProject "MangaDexLib" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -678,7 +862,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3353B581245789BE0066B8D5 /* Build configuration list for PBXNativeTarget "MangaDexLib" */ = {
+		3353B581245789BE0066B8D5 /* Build configuration list for PBXNativeTarget "MangaDexLib-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3353B582245789BE0066B8D5 /* Debug */,
@@ -711,6 +895,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		3322BD99245D9BDA0086FA81 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3322BD98245D9BDA0086FA81 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		3322BDB0245DA51C0086FA81 /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3322BD98245D9BDA0086FA81 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
 			productName = SwiftSoup;
