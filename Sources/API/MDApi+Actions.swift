@@ -17,13 +17,16 @@ extension MDApi {
     /// - Parameter url: The URL to load to perform the given action
     /// - Parameter completion: The callback at the end of the request
     func performGetAction(for url: URL, completion: @escaping MDCompletion) {
-        let options = MDRequestOptions(referer: nil, requestedWith: "XMLHttpRequest")
-        performGet(url: url, options: options, type: .action, onError: completion) { (response) in
-            // The response should be empty
-            if response.rawValue != "" {
-                response.error = MDError.actionFailed
+        // Ensure the user is logged in
+        checkLoggedIn(url: url, onError: completion) {
+            let options = MDRequestOptions(referer: nil, requestedWith: "XMLHttpRequest")
+            self.performGet(url: url, options: options, type: .action, onError: completion) { (response) in
+                // The response should be empty
+                if response.rawValue != "" {
+                    response.error = MDError.actionFailed
+                }
+                completion(response)
             }
-            completion(response)
         }
     }
 
@@ -31,16 +34,17 @@ extension MDApi {
     ///
     /// - Parameter url: The URL to load to perform the given action
     /// - Parameter completion: The callback at the end of the request
-    func performPostAction(for url: URL,
-                           body: [String: LosslessStringConvertible],
-                           completion: @escaping MDCompletion) {
-        let options = MDRequestOptions(encoding: .multipart, referer: nil)
-        performPost(url: url, body: body, options: options, type: .action, onError: completion) { (response) in
-            // The response should be empty
-            if response.rawValue != "" {
-                response.error = MDError.actionFailed
+    func performPostAction(for url: URL, body: [String: LosslessStringConvertible], completion: @escaping MDCompletion) {
+        // Ensure the user is logged in
+        checkLoggedIn(url: url, onError: completion) {
+            let options = MDRequestOptions(encoding: .multipart, referer: nil)
+            self.performPost(url: url, body: body, options: options, type: .action, onError: completion) { (response) in
+                // The response should be empty
+                if response.rawValue != "" {
+                    response.error = MDError.actionFailed
+                }
+                completion(response)
             }
-            completion(response)
         }
     }
 
