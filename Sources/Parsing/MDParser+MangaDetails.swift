@@ -69,17 +69,6 @@ extension MDParser {
     /// for the manga
     static private let mangaFollowLinkClass = "manga_follow_button"
 
-    /// A mapping between a `manga_follow_button`'s `id` attribute and
-    /// the associated reading status
-    static private let mangaFollowIdMapping: [String: MDReadingStatus] = [
-        "1": .reading,
-        "2": .completed,
-        "3": .onHold,
-        "4": .planToRead,
-        "5": .dropped,
-        "6": .reReading
-    ]
-
     /// Convenience method to get an attribute out an `Element`
     /// - Parameter attribute: The attribute to extract
     /// - Parameter selector: The selector to use
@@ -107,8 +96,8 @@ extension MDParser {
             if classNames.contains(MDParser.mangaUnfollowLinkClass) {
                 return .unfollowed
             } else if classNames.contains(MDParser.mangaFollowLinkClass) {
-                let actionId = try selected.attr("id")
-                return MDParser.mangaFollowIdMapping[actionId]
+                let actionId = Int(try selected.attr("id"))
+                return actionId != nil ? MDReadingStatus(rawValue: actionId!) : nil
             }
         }
 
