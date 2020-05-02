@@ -127,7 +127,7 @@
 		3322BD8A245D99900086FA81 /* Secret.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Secret.bundle; sourceTree = "<group>"; };
 		3322BD8B245D99900086FA81 /* MDLibApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLibApiTests.swift; sourceTree = "<group>"; };
 		3322BD8C245D99900086FA81 /* MDLibPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLibPathTests.swift; sourceTree = "<group>"; };
-		3322BDA8245DA4AC0086FA81 /* MangaDexLib_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3322BDA8245DA4AC0086FA81 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B579245789BE0066B8D5 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B59B24578A350066B8D5 /* MangaDexLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MangaDexLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B5B8245795620066B8D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -269,7 +269,7 @@
 			children = (
 				3353B579245789BE0066B8D5 /* MangaDexLib.framework */,
 				3353B59B24578A350066B8D5 /* MangaDexLibTests.xctest */,
-				3322BDA8245DA4AC0086FA81 /* MangaDexLib_macOS.framework */,
+				3322BDA8245DA4AC0086FA81 /* MangaDexLib.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -320,7 +320,7 @@
 				3322BDB0245DA51C0086FA81 /* SwiftSoup */,
 			);
 			productName = "MangaDexLib-macOS";
-			productReference = 3322BDA8245DA4AC0086FA81 /* MangaDexLib_macOS.framework */;
+			productReference = 3322BDA8245DA4AC0086FA81 /* MangaDexLib.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		3353B578245789BE0066B8D5 /* MangaDexLib-iOS */ = {
@@ -591,7 +591,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -619,7 +619,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -768,7 +768,7 @@
 				);
 				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
-				PRODUCT_NAME = MangaDexLib;
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -797,7 +797,7 @@
 				);
 				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
-				PRODUCT_NAME = MangaDexLib;
+				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
