@@ -30,6 +30,18 @@ extension MDParser {
     /// to get a manga's link
     static private let mangaInfoHrefSelector = "link[rel=canonical]"
 
+    /// The ID of the element with the user's current volume for this manga
+    ///
+    /// The format of the element is:
+    /// `<span id="current_volume">[current-volume]</span>`
+    static private let mangaCurrentVolumeId = "current_volume"
+
+    /// The ID of the element with the user's current chapter for this manga
+    ///
+    /// The format of the element is:
+    /// `<span id="current_chapter">[current-chapter]</span>`
+    static private let mangaCurrentChapterId = "current_chapter"
+
     /// The selector to lookup in the html page to find the connected user's reading status
     static private let mangaReadingStatusButtonSelector = "button[id=upload_button] + .btn-group"
 
@@ -131,21 +143,21 @@ extension MDParser {
             throw MDError.parseElementNotFound
         }
 
-        // Try to get the reading status, but don't throw if this fails
-        // since the user might be logged out, and it's not a critical information
-        let readingStatus: MDReadingStatus?
-        do {
-            let button = try doc.select(MDParser.mangaReadingStatusButtonSelector).first()
-            readingStatus = try getReadingStatus(from: button)
-        } catch {
-            print(error)
-            readingStatus = nil
-        }
-
+        // Populate the manga with the current info
         var manga = MDManga(title: title, mangaId: mangaId)
         manga.description = description
         manga.coverUrl = coverUrl
-        manga.readingStatus = readingStatus
+
+        // Try to get the reading status, but don't throw if this fails
+        // since the user might be logged out, and it's not a critical information
+        do {
+            let button = try doc.select(MDParser.mangaReadingStatusButtonSelector).first()
+            manga.readingStatus = try getReadingStatus(from: button)
+            manga.currentVolume = try doc.getElementById(MDParser.mangaCurrentVolumeId)?.text()
+            manga.currentChapter = try doc.getElementById(MDParser.mangaCurrentChapterId)?.text()
+        } catch {
+            print(error)
+        }
         return manga
     }
 

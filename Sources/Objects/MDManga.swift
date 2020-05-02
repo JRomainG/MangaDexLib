@@ -40,6 +40,20 @@ public struct MDManga: Decodable {
     /// The user-defined reading status for this manga
     public var readingStatus: MDReadingStatus?
 
+    /// A string indicating the volume of the user's last read chapter for this manga
+    ///
+    /// Also see `currentChapter`
+    /// - Attention: The user can provide a custom string here, even if it's not an Int
+    /// - Note: This is not always automatically updated by MangaDex
+    public var currentVolume: String?
+
+    /// A string indicating the user's progress in reading this manga
+    ///
+    /// Also see `currentVolume`
+    /// - Attention: The user can provide a custom string here, even if it's not an Int
+    /// - Note: This is not always automatically updated by MangaDex
+    public var currentChapter: String?
+
     /// The manga's tags
     public var tags: [Int]?
 
@@ -121,6 +135,9 @@ extension MDManga {
         case chapters
         case coverUrl = "cover_url"
         case publicationStatus = "status"
+        case readingStatus
+        case currentVolume
+        case currentChapter
         case tags = "genres"
         case lastChapter = "last_chapter"
         case originalLangName = "lang_name"
