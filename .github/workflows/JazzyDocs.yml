@@ -9,9 +9,6 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v1
-    - run: mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-    - run: brew install carthage
-    - run: carthage update --platform iOS
     - name: Publish Jazzy Docs
       uses: steven0351/publish-jazzy-docs@v1
       with:
