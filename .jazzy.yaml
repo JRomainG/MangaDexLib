@@ -1,4 +1,3 @@
 author: Jean-Romain Garnier
 github_url: https://github.com/JRomainG/MangaDexLib
-module: MangaDexLib
 build_tool_arguments: ['-project', 'MangaDexLib.xcodeproj', '-scheme', 'MangaDexLib-iOS']
