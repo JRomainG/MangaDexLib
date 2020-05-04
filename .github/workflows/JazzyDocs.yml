@@ -1,9 +1,6 @@
 name: Publish Jazzy Docs
 
 on: 
-  push:
-    branches:
-      - master
   release:
     types: [published]
 
