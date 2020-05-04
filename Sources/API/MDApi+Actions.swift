@@ -33,8 +33,11 @@ extension MDApi {
     /// Perform a POST request for the given URL, formated correctly so it acts as an action
     ///
     /// - Parameter url: The URL to load to perform the given action
+    /// - Parameter body: The content of the request
     /// - Parameter completion: The callback at the end of the request
-    func performPostAction(for url: URL, body: [String: LosslessStringConvertible], completion: @escaping MDCompletion) {
+    func performPostAction(for url: URL,
+                           body: [String: LosslessStringConvertible],
+                           completion: @escaping MDCompletion) {
         // Ensure the user is logged in
         checkLoggedIn(url: url, onError: completion) {
             let options = MDRequestOptions(encoding: .multipart, referer: nil)
