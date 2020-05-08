@@ -96,4 +96,15 @@ extension MDPath {
         return MDPath.buildUrl(for: .api, with: params)
     }
 
+    /// Build the URL to get a manga's cover image
+    /// - Parameter mangaId: The identifier of the manga
+    /// - Returns: The MangaDex URL
+    public static func cover(mangaId: Int, size: ImageFormat = .large) -> URL {
+        let components: [String] = [
+            ResourceType.manga.rawValue,
+            "\(mangaId)\(size.rawValue)"
+        ]
+        return MDPath.buildUrl(for: .image, with: components)
+    }
+
 }

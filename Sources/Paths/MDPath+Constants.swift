@@ -51,6 +51,9 @@ extension MDPath {
         /// Relative path to a users's MDList page
         case mdList = "list"
 
+        /// Relative path to raw images
+        case image = "images"
+
         /// Relative path to the login page
         case login = "login"
 
@@ -193,6 +196,15 @@ extension MDPath {
         ///
         /// Can be either `ResourceType.manga` or `ResourceType.chapter`
         case type = "type"
+    }
+
+    /// Type of image formats handled by mangadex
+    public enum ImageFormat: String {
+        /// Extension for large images (non-rescaled)
+        case large = ".large.jpg"
+
+        /// Extension for thumbnails (resized)
+        case thumb = ".thumb.jpg"
     }
 
 }

@@ -39,7 +39,7 @@ extension MDParser {
     /// - Parameter content: The html string to parse
     /// - Returns: A list of `MDManga` instances
     ///
-    /// - Note: Only the `title`, `mangaId`  and `readingStatus` are extracted by this method
+    /// - Note: The `title`, `coverUrl`, `mangaId`  and `readingStatus` are extracted by this method
     func getMangas(from content: String) throws -> [MDManga] {
         let doc = try MDParser.parse(html: content)
         let elements = try doc.getElementsByClass(MDParser.mangaEntryTitleClass)
@@ -66,6 +66,7 @@ extension MDParser {
             if let mangaId = self.getIdFromHref(href) {
                 var manga = MDManga(title: title, mangaId: mangaId)
                 manga.readingStatus = readingStatus
+                manga.coverUrl = MDPath.cover(mangaId: mangaId).path
                 mangas.append(manga)
             }
         }

@@ -19,14 +19,12 @@ class MDLibApiTests: XCTestCase {
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        /*
         let api = MDApi()
         let expectation = self.expectation(description: "Logout after completing test")
         api.logout { (_) in
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
-         */
     }
 
     /// By default, auth information is stored under the `Secret.bundle`, in an `auth.list` file.
@@ -247,7 +245,7 @@ class MDLibApiTests: XCTestCase {
             XCTAssert(response.type == .mangaInfo)
             self.assertMangaIsValid(response.manga)
             XCTAssertNotNil(response.manga?.title)
-            XCTAssertNotNil(response.manga?.coverUrl)
+            XCTAssertNotNil(response.manga?.getCoverUrl())
             XCTAssertNotNil(response.manga?.description)
             expectation.fulfill()
         }
@@ -305,7 +303,7 @@ class MDLibApiTests: XCTestCase {
             XCTAssertNil(response.error)
             self.assertMangaIsValid(response.manga)
             XCTAssertNotNil(response.manga?.title)
-            XCTAssertNotNil(response.manga?.coverUrl)
+            XCTAssertNotNil(response.manga?.getCoverUrl())
             XCTAssertNotNil(response.manga?.description)
             expectation.fulfill()
         }

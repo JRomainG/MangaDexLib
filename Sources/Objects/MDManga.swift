@@ -32,7 +32,10 @@ public struct MDManga: Decodable {
     public var chapters: [MDChapter]?
 
     /// The link to the manga's cover image
-    public var coverUrl: String?
+    ///
+    /// - Note: This property should be accessed by calling `getCoverUrl()`
+    /// so it is converted to an absolute URL (rather than a relative path)
+    var coverUrl: String?
 
     /// The manga's publication status
     public var publicationStatus: MDPublicationStatus?
@@ -95,6 +98,17 @@ public struct MDManga: Decodable {
     init(title: String, mangaId: Int) {
         self.title = title
         self.mangaId = mangaId
+    }
+
+    /// A method to try to build the URL to a manga's cover
+    public func getCoverUrl() -> URL? {
+        guard let path = coverUrl else {
+            return nil
+        }
+
+        // This automatically handles both relative and absolute URLs
+        let baseURL = URL(string: MDApi.baseURL)!
+        return URL(string: path, relativeTo: baseURL)
     }
 
     /// A method to try to get the manga's original language

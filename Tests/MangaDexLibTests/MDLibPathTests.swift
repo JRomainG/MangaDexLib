@@ -9,6 +9,7 @@
 import XCTest
 @testable import MangaDexLib
 
+// swiftlint:disable:next type_body_length
 class MDLibPathTests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -173,6 +174,13 @@ class MDLibPathTests: XCTestCase {
         let commentsURL = MDPath.mangaChapters(mangaId: mangaId, mangaTitle: mangaTitle, page: page)
         let expectedURL = URL(string: "\(MDApi.baseURL)/title/\(mangaId)/\(mangaNormalizedTitle)/chapters/\(page)")!
         assertUrlsAreEqual(commentsURL, expectedURL)
+    }
+
+    func testMangaCoverPath() throws {
+        let mangaId = 43649
+        let coverURL = MDPath.cover(mangaId: mangaId)
+        let expectedURL = URL(string: "\(MDApi.baseURL)/images/manga/43649.large.jpg")!
+        assertUrlsAreEqual(coverURL, expectedURL)
     }
 
     func testChapterInfoPath() throws {
