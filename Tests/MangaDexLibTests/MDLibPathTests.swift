@@ -68,9 +68,10 @@ class MDLibPathTests: XCTestCase {
         let page = 2
         let type = MDPath.ResourceType.chapters
         let status = MDReadingStatus.reading
-        let latestFollowedURL = MDPath.latestFollowed(page: page, type: type, status: status)
-        let expectedURL = URL(string: "\(MDApi.baseURL)/follows/\(type.rawValue)/\(status.rawValue)/\(page)")!
-        assertUrlsAreEqual(latestFollowedURL, expectedURL)
+        let order = MDSortOrder.bestRating
+        let latestFollowedURL = MDPath.latestFollowed(page: page, type: type, status: status, order: order)
+        let expected = "\(MDApi.baseURL)/follows/\(type.rawValue)/\(status.rawValue)/\(order.rawValue)/\(page)"
+        assertUrlsAreEqual(latestFollowedURL, URL(string: expected)!)
     }
 
     func testRandomMangaPath() throws {

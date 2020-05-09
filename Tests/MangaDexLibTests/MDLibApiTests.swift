@@ -193,13 +193,14 @@ class MDLibApiTests: XCTestCase {
     func testFollowedMangas() throws {
         let page = 2
         let status = MDReadingStatus.all
+        let order = MDSortOrder.bestRating
         let api = MDApi()
 
         // Must be logged-in to follow mangas
         login(api: api)
 
         let expectation = self.expectation(description: "Load MangaDex last updated mangas page")
-        api.getLatestFollowedMangas(page: page, status: status) { (response) in
+        api.getLatestFollowedMangas(page: page, status: status, order: order) { (response) in
             self.assertMangaListIsValid(for: response)
             expectation.fulfill()
         }
@@ -209,13 +210,14 @@ class MDLibApiTests: XCTestCase {
     func testFollowedChapters() throws {
         let page = 2
         let status = MDReadingStatus.all
+        let order = MDSortOrder.bestRating
         let api = MDApi()
 
         // Must be logged-in to follow mangas
         login(api: api)
 
         let expectation = self.expectation(description: "Load MangaDex last updated chapters page")
-        api.getLatestFollowedChapters(page: page, status: status) { (response) in
+        api.getLatestFollowedChapters(page: page, status: status, order: order) { (response) in
             self.assertChapterListIsValid(for: response)
             expectation.fulfill()
         }

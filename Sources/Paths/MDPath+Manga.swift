@@ -35,11 +35,16 @@ extension MDPath {
     /// Build the URL to fetch the latest released chapters or updated mangas
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter type: The type of resource to fetch should be (`.chapters` or `.manga`)
+    /// - Parameter order: The order in which to sort the result
     /// - Parameter status: The status of the manga for which to fetch the resource (shouldn't be `.unfollowed`)
     /// - Returns: The MangaDex URL
-    public static func latestFollowed(page: Int, type: ResourceType, status: MDReadingStatus) -> URL {
+    public static func latestFollowed(page: Int,
+                                      type: ResourceType,
+                                      status: MDReadingStatus,
+                                      order: MDSortOrder) -> URL {
         let readingStatus = String(status.rawValue)
-        return buildUrl(for: .latestFollowed, with: [type.rawValue, readingStatus, String(page)])
+        let components = [type.rawValue, readingStatus, String(order.rawValue), String(page)]
+        return buildUrl(for: .latestFollowed, with: components)
     }
 
     /// Build the URL to get a random manga

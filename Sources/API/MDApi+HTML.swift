@@ -144,9 +144,13 @@ extension MDApi {
     /// Fetch the latest updated mangas followed by the user
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter status: The user-defined status of the mangas to show (other than `.unfollowed`)
+    /// - Parameter order: The order in which to sort the result
     /// - Parameter completion: The callback at the end of the request
-    public func getLatestFollowedMangas(page: Int, status: MDReadingStatus, completion: @escaping MDCompletion) {
-        let url = MDPath.latestFollowed(page: page, type: .manga, status: status)
+    public func getLatestFollowedMangas(page: Int,
+                                        status: MDReadingStatus,
+                                        order: MDSortOrder,
+                                        completion: @escaping MDCompletion) {
+        let url = MDPath.latestFollowed(page: page, type: .manga, status: status, order: order)
         checkLoggedIn(url: url, onError: completion) {
             self.getMangas(from: url, completion: completion)
         }
@@ -203,9 +207,13 @@ extension MDApi {
     /// Fetch the latest updated chapters for mangas followed by the user
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter status: The user-defined status of the mangas for which to show chapters (other than `.unfollowed`)
+    /// - Parameter order: The order in which to sort the result
     /// - Parameter completion: The callback at the end of the request
-    public func getLatestFollowedChapters(page: Int, status: MDReadingStatus, completion: @escaping MDCompletion) {
-        let url = MDPath.latestFollowed(page: page, type: .chapters, status: status)
+    public func getLatestFollowedChapters(page: Int,
+                                          status: MDReadingStatus,
+                                          order: MDSortOrder,
+                                          completion: @escaping MDCompletion) {
+        let url = MDPath.latestFollowed(page: page, type: .chapters, status: status, order: order)
         checkLoggedIn(url: url, onError: completion) {
             self.getChapters(from: url, completion: completion)
         }
