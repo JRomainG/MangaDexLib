@@ -66,7 +66,6 @@ extension MDParser {
             if let mangaId = self.getIdFromHref(href) {
                 var manga = MDManga(title: title, mangaId: mangaId)
                 manga.readingStatus = readingStatus
-                manga.coverUrl = MDPath.cover(mangaId: mangaId).path
                 mangas.append(manga)
             }
         }

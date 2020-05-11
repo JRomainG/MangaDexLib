@@ -23,10 +23,6 @@ extension MDParser {
     static private let mangaInfoDescriptionSelector = "meta[property=og:description]"
 
     /// The selector to lookup in the extracted html's meta tags
-    /// to get a manga's cover URL
-    static private let mangaInfoImageSelector = "meta[property=og:image]"
-
-    /// The selector to lookup in the extracted html's meta tags
     /// to get a manga's link
     static private let mangaInfoHrefSelector = "link[rel=canonical]"
 
@@ -120,7 +116,6 @@ extension MDParser {
         }
 
         let description = try getFirstAttribute("content", with: MDParser.mangaInfoDescriptionSelector, in: head)
-        let coverUrl = try getFirstAttribute("content", with: MDParser.mangaInfoImageSelector, in: head)
 
         guard var title = try getFirstAttribute("content", with: MDParser.mangaInfoTitleSelector, in: head) else {
             throw MDError.parseElementNotFound
@@ -135,7 +130,6 @@ extension MDParser {
         // Populate the manga with the current info
         var manga = MDManga(title: title, mangaId: mangaId)
         manga.description = description
-        manga.coverUrl = coverUrl
 
         // Try to get the reading status, but don't throw if this fails
         // since the user might be logged out, and it's not a critical information

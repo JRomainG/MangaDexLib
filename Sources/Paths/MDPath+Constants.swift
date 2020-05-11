@@ -199,11 +199,14 @@ extension MDPath {
     }
 
     /// Type of image formats handled by mangadex
-    public enum ImageFormat: String {
-        /// Extension for large images (non-rescaled)
+    public enum ImageFormat: String, Codable {
+        /// Extension for unresized images
+        case fullrez = ".jpg"
+
+        /// Extension for large images
         case large = ".large.jpg"
 
-        /// Extension for thumbnails (resized)
+        /// Extension for thumbnails
         case thumb = ".thumb.jpg"
     }
 
