@@ -42,19 +42,20 @@ extension MDParser {
     /// - Note: The `title`, `coverUrl`, `mangaId`  and `readingStatus` are extracted by this method
     func getMangas(from content: String) throws -> [MDManga] {
         let doc = try MDParser.parse(html: content)
-        let elements = try doc.getElementsByClass(MDParser.mangaEntryTitleClass)
+        let elements = try doc.getElementsByClass(MDParser.mangaEntryClass)
 
         var mangas: [MDManga] = []
         for element in elements {
             // Extract the info for this element
-            let title = try element.text()
-            let href = try element.attr("href")
+            let titleEntry = try element.getElementsByClass(MDParser.mangaEntryTitleClass).first()
+            let title = try titleEntry?.text()
+            let href = try titleEntry?.attr("href") ?? ""
 
             // Try to get the reading status, but don't throw if this fails
             // since the user might be logged out, and it's not a critical information
             let readingStatus: MDReadingStatus?
             do {
-                let button = try doc.select(MDParser.mangaEntryReadingStatusButtonSelector).first()
+                let button = try element.select(MDParser.mangaEntryReadingStatusButtonSelector).first()
                 readingStatus = try getReadingStatus(from: button)
             } catch {
                 print(error)
@@ -63,8 +64,9 @@ extension MDParser {
 
             // To be more robust, ignore mangas for which the extract failed
             // Indeed, sometimes other elements have the same class as what we're looking for
-            if let mangaId = self.getIdFromHref(href) {
-                var manga = MDManga(title: title, mangaId: mangaId)
+            if let mangaId = self.getIdFromHref(href),
+                let mangaTitle = title {
+                var manga = MDManga(title: mangaTitle, mangaId: mangaId)
                 manga.readingStatus = readingStatus
                 mangas.append(manga)
             }
