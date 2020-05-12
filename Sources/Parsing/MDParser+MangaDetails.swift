@@ -89,9 +89,9 @@ extension MDParser {
         if let selected = try element?.select("a.disabled").first() {
             // Check whether it's a follow or unfollow link
             let classNames = try selected.classNames()
-            if classNames.contains(MDParser.mangaUnfollowLinkClass) {
+            if classNames.contains(MDParser.mangaFollowLinkClass) {
                 return .unfollowed
-            } else if classNames.contains(MDParser.mangaFollowLinkClass) {
+            } else if classNames.contains(MDParser.mangaUnfollowLinkClass) {
                 let actionId = Int(try selected.attr("id"))
                 return actionId != nil ? MDReadingStatus(rawValue: actionId!) : nil
             }
