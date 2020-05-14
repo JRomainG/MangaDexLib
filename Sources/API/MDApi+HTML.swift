@@ -184,9 +184,6 @@ extension MDApi {
     /// - Parameter title: The title of the manga (can be nil)
     /// - Parameter page: The index of the page to load (starting at 1)
     /// - Parameter completion: The callback at the end of the request
-    ///
-    /// To get the full list of comments, use `getThread` with any comment's `threadId`.
-    /// Only the `mangaId` property is required to be non-nil, but also having `title` is better
     public func getMangaChapters(mangaId: Int, title: String?, page: Int, comletion: @escaping MDCompletion) {
         let url = MDPath.mangaChapters(mangaId: mangaId, mangaTitle: title, page: page)
         getChapters(from: url, completion: comletion)

@@ -35,7 +35,8 @@ extension MDParser {
                 let content = try element.getElementsByTag("td").first() else {
                     continue
             }
-            output.append((try key.text(), content))
+            let text = try Entities.unescape(try key.text())
+            output.append((text, content))
         }
 
         return output
@@ -49,7 +50,7 @@ extension MDParser {
         guard let userId = Int(try element.attr("id")) else {
             return nil
         }
-        let name = try element.text()
+        let name = try Entities.unescape(try element.text())
         return MDUser(name: name, userId: userId)
     }
 
@@ -115,7 +116,8 @@ extension MDParser {
 
         // Get other info about the group
         let header = try doc.select(MDParser.groupHeaderSelector).first()
-        group.name = try header?.select(MDParser.groupNameSelector).first()?.text()
+        let name = try header?.select(MDParser.groupNameSelector).first()?.text()
+        group.name = (name != nil) ? try Entities.unescape(name!) : nil
         group.coverUrl = try header?.select(MDParser.groupImageSelector).first()?.attr("src")
         return group
     }

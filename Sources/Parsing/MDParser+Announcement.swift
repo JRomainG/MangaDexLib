@@ -32,7 +32,8 @@ extension MDParser {
             guard let element = try doc.getElementById(MDParser.announcementId) else {
                 return nil
             }
-            return MDAnnouncement(body: try element.html(), textBody: try element.text())
+            let text = try Entities.unescape(try element.text())
+            return MDAnnouncement(body: try element.html(), textBody: text)
         } catch {
             return nil
         }
@@ -48,7 +49,8 @@ extension MDParser {
             let elements = try doc.select(MDParser.alertSelector)
 
             for element in elements {
-                let alert = MDAnnouncement(body: try element.html(), textBody: try element.text())
+                let text = try Entities.unescape(try element.text())
+                let alert = MDAnnouncement(body: try element.html(), textBody: text)
                 alerts.append(alert)
             }
         } catch {

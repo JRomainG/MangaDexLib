@@ -47,13 +47,13 @@ extension MDParser {
         var mangas: [MDManga] = []
         for element in elements {
             // Extract the info for this element
-            let title = try element.text()
+            let title = try Entities.unescape(try element.text())
             let href = try element.attr("href")
 
             // To be more robust, ignore mangas for which the extract failed
             // Indeed, sometimes other elements have the same class as what we're looking for
             if let mangaId = self.getIdFromHref(href) {
-                var manga = MDManga(title: title, mangaId: mangaId)
+                let manga = MDManga(title: title, mangaId: mangaId)
                 mangas.append(manga)
             }
         }

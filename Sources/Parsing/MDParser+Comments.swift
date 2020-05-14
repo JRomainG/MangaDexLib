@@ -85,7 +85,7 @@ extension MDParser {
         let rankClass = try title.attr("class")
 
         let userId = getIdFromHref(href)
-        let name = try title.text()
+        let name = try Entities.unescape(try title.text())
         let rankName = rankClass.dropFirst(MDParser.userRoleClassPrefix.count)
         let rank = MDRank.init(rawValue: String(rankName))
 
@@ -129,10 +129,11 @@ extension MDParser {
             }
 
             let body = try element.getElementsByClass(MDParser.commentBodyClass).first()
+            let text = (body != nil) ? try Entities.unescape(try body!.text()) : nil
             let comment = MDComment(commentId: commentId,
                                     threadId: threadId,
                                     body: try body?.html(),
-                                    textBody: try body?.text(),
+                                    textBody: text,
                                     user: user)
             comments.append(comment)
         }
