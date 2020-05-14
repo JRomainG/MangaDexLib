@@ -364,7 +364,7 @@ class MDLibApiTests: XCTestCase {
     }
 
     func testMangaApi() throws {
-        let mangaId = 7139 // One Punch Man
+        let mangaId = 31477 // Solo Leveling
         let api = MDApi()
         let expectation = self.expectation(description: "Fetch a manga's info through the API")
 

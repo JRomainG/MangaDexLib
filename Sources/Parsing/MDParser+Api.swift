@@ -19,7 +19,12 @@ extension MDParser {
         // The MDApiManga object should reflect exactly what is stored in the json
         var apiManga = try MDParser.parse(json: json, type: MDApiManga.self)
 
-        // However, the IDs of the manga and the chapters aren't parsed correctly, so fix this
+        // The description may have some html-encoded content
+        if let description = apiManga.manga.description {
+            apiManga.manga.description = try Entities.unescape(description)
+        }
+
+        // The IDs of the manga and the chapters aren't parsed correctly, so fix this
         apiManga.manga.mangaId = mangaId
         apiManga.manga.status = apiManga.status
         apiManga.manga.chapters = []
