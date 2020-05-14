@@ -208,7 +208,6 @@ public enum MDLanguage: Int, Codable {
 /// manga or chapter's original language.
 /// Only a subset of the list of all languages exists
 let MDLanguageCodes: [String: MDLanguage] = [
-    "en": .english,
     "gb": .english,
     "jp": .japanese,
     "pl": .polish,
@@ -222,7 +221,14 @@ let MDLanguageCodes: [String: MDLanguage] = [
     "th": .thai,
     "ph": .filipino,
     "mx": .latinAmericanSpanish,
-    "hk": .traditionalChinese
+    "br": .brasilianPortuguese,
+    "hk": .traditionalChinese,
+    "it": .italian,
+    "hu": .hungarian,
+    "se": .swedish,
+    "my": .malay,
+    "sa": .arabic,
+    "rs": .serbocroatian
 ]
 
 /// Demographic a manga appeals to, available to filter during search
