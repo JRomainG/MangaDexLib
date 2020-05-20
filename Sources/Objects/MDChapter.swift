@@ -102,16 +102,16 @@ public struct MDChapter: Decodable {
     public var status: MDStatus?
 
     /// A convenience method to create an empty chapter
-    init() {
+    public init() {
     }
 
     /// A convenience method to create a chapter with only an id
-    init(chapterId: Int) {
+    public init(chapterId: Int) {
         self.chapterId = chapterId
     }
 
     /// A convenience method to create a chapter with a title and id only
-    init(title: String, chapterId: Int) {
+    public init(title: String, chapterId: Int) {
         self.title = title
         self.chapterId = chapterId
     }

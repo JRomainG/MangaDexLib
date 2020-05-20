@@ -95,7 +95,7 @@ public struct MDManga: Decodable {
     }
 
     /// A convenience method to create a manga with a title and id only
-    init(title: String, mangaId: Int) {
+    public init(title: String, mangaId: Int) {
         self.title = title
         self.mangaId = mangaId
     }
