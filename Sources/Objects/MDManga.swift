@@ -90,7 +90,7 @@ public struct MDManga: Decodable {
     public var status: MDStatus?
 
     /// A convenience method to create a manga with only an id
-    init(mangaId: Int) {
+    public init(mangaId: Int) {
         self.mangaId = mangaId
     }
 
