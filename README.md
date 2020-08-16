@@ -83,9 +83,11 @@ api.login(with: auth) { (response) in
 }
 ```
 
+You should also check out [this project](https://github.com/JRomainG/Kitsune-macOS) built using MangaDexLib!
+
 ## Documentation
 
-The project is extensively documented through comments, and [Jazzy](https://github.com/realm/jazzy) is used to generate documentation.
+The project is extensively documented through comments, and [Jazzy](https://github.com/realm/jazzy) is used to generate documentation. It is available from [this url](https://jean-romain.com/MangaDexLib/), and updated each time a new version is released.
 
 ## Development
 
