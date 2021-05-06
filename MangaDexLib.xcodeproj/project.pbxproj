@@ -954,30 +954,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		3322BD98245D9BDA0086FA81 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		3322BD99245D9BDA0086FA81 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3322BD98245D9BDA0086FA81 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
-		};
-		3322BDB0245DA51C0086FA81 /* SwiftSoup */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3322BD98245D9BDA0086FA81 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
-			productName = SwiftSoup;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3353B570245789BE0066B8D5 /* Project object */;
 }

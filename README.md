@@ -1,6 +1,6 @@
 # MangaDexLib
 
-`MangaDexLib` is a cross-platform Swift framework to interact with the MangaDex website. Its goal is to offer a robust abstract interface to access the website's core features. It relies on [SwiftSoup](https://github.com/scinfu/SwiftSoup), a pure Swift library allowing to parse HTML content.
+`MangaDexLib` is a cross-platform Swift framework to interact with the MangaDex website. Its goal is to offer a robust abstract interface to access the website's core features.
 
 ## Installing
 
@@ -39,7 +39,7 @@ targets: [
 
 ### Sources
 
-If you do not wish to use a package manager, you can also simply copy the `Sources` directory to your project. You will also need to install [SwiftSoup](https://github.com/scinfu/SwiftSoup).
+If you do not wish to use a package manager, you can also simply copy the `Sources` directory to your project.
 
 ## Example usage
 
@@ -87,7 +87,9 @@ You should also check out [this project](https://github.com/JRomainG/Kitsune-mac
 
 ## Documentation
 
-The project is extensively documented through comments, and [Jazzy](https://github.com/realm/jazzy) is used to generate documentation. It is available from [this url](https://jean-romain.com/MangaDexLib/), and updated each time a new version is released.
+The project is extensively documented through comments, and [Jazzy](https://github.com/realm/jazzy) is used to generate documentation. It is available from [this url](https://jean-romain.com/MangaDexLib), and updated each time a new version is released.
+
+You can also access the official documentation for the MangaDex API [here](https://api.mangadex.org/docs.html).
 
 ## Development
 
@@ -98,7 +100,7 @@ git clone https://github.com/JRomainG/MangaDexLib.git
 git checkout dev
 ```
 
-You will then be able to open the `MangaDexLib.xcodeproj` project. Swift's package manager should automatically download the [SwiftSoup](https://github.com/scinfu/SwiftSoup) dependency, and everything should then build correctly.
+You will then be able to open the `MangaDexLib.xcodeproj` project.
 
 This project uses [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift style and conventions. It also implements unit tests using [XCTest](https://developer.apple.com/documentation/xctest), which try to cover as many features as possible.
 
@@ -114,4 +116,4 @@ The project is available under the [GPLv3](https://www.gnu.org/licenses/gpl-3.0.
 
 ## Disclaimer
 
-This project is not related to the [MangaDex](https://mangadex.org/) team, and is independently developed.
+This project is not related to the [MangaDex](https://mangadex.org) team, and is independently developed.
