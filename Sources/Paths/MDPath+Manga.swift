@@ -1,6 +1,6 @@
 //
 //  MDPath+Manga.swift
-//  MangaDexLib-iOS
+//  MangaDexLib
 //
 //  Created by Jean-Romain on 02/05/2020.
 //  Copyright © 2020 JustKodding. All rights reserved.
@@ -10,106 +10,106 @@ import Foundation
 
 extension MDPath {
 
-    /// Build the URL to fetch the sorted list of mangas
-    /// - Parameter page: The index of the page to load (starting at 1)
-    /// - Parameter sort: The order in which to sort results
+    /// Build the URL to get a list of manga
     /// - Returns: The MangaDex URL
-    public static func listedMangas(page: Int, sort: MDSortOrder) -> URL {
-        return buildUrl(for: .listedMangas, with: [sort.rawValue, page])
+    public static func getMangaList() -> URL {
+        return buildUrl(for: .manga)
     }
 
-    /// Build the URL to fetch the featured mangas
-    /// - Parameter page: The index of the page to load (starting at 1)
+    /// Build the URL to get the list of existing tags for manga
     /// - Returns: The MangaDex URL
-    public static func featuredMangas() -> URL {
-        return buildUrl(for: .featuredMangas)
-    }
-
-    /// Build the URL to fetch the latest updated mangas
-    /// - Parameter page: The index of the page to load (starting at 1)
-    /// - Returns: The MangaDex URL
-    public static func latestMangas(page: Int) -> URL {
-        return buildUrl(for: .latestMangas, with: [page])
-    }
-
-    /// Build the URL to fetch the latest released chapters or updated mangas
-    /// - Parameter page: The index of the page to load (starting at 1)
-    /// - Parameter type: The type of resource to fetch should be (`.chapters` or `.manga`)
-    /// - Parameter order: The order in which to sort the result
-    /// - Parameter status: The status of the manga for which to fetch the resource (shouldn't be `.unfollowed`)
-    /// - Returns: The MangaDex URL
-    public static func latestFollowed(page: Int,
-                                      type: ResourceType,
-                                      status: MDReadingStatus,
-                                      order: MDSortOrder) -> URL {
-        let readingStatus = String(status.rawValue)
-        let components = [type.rawValue, readingStatus, String(order.rawValue), String(page)]
-        return buildUrl(for: .latestFollowed, with: components)
+    public static func getMangaTagList() -> URL {
+        return buildUrl(for: .manga, with: ["tag"])
     }
 
     /// Build the URL to get a random manga
-    public static func randomManga() -> URL {
-        return buildUrl(for: .randomManga)
-    }
-
-    /// Build the URL to get the user's history
-    public static func history() -> URL {
-        return buildUrl(for: .history)
-    }
-
-    /// Build the URL to fetch a given manga's detail page
-    /// - Parameter mangaId: The identifier of the manga
-    /// - Parameter mangaTitle: The title of the manga (not strictly necessary)
     /// - Returns: The MangaDex URL
-    public static func mangaDetails(mangaId: Int, mangaTitle: String?) -> URL {
-        // Adding the title isn't necessary, but we can do it anyways to be consistent
-        let components: [String] = [String(mangaId), getNormalizedString(from: mangaTitle)]
-        return buildUrl(for: .mangaPage, with: components)
+    public static func getRandomManga() -> URL {
+        return buildUrl(for: .manga, with: ["random"])
     }
 
-    /// Build the URL to fetch a given manga's comments
-    /// - Parameter mangaId: The identifier of the manga
-    /// - Parameter mangaTitle: The title of the manga (not strictly necessary)
+    /// Build the URL to create a new manga
     /// - Returns: The MangaDex URL
-    public static func mangaComments(mangaId: Int, mangaTitle: String?) -> URL {
-        // The title doesn't really matter, but let's try to make it nice either way
-        let normalizedTitle = getNormalizedString(from: mangaTitle, defaultString: MDApi.defaultUserAgent)
-        let components: [String] = [String(mangaId), normalizedTitle, ResourceType.comments.rawValue]
-        return buildUrl(for: .mangaPage, with: components)
+    public static func createManga() -> URL {
+        return buildUrl(for: .manga)
     }
 
-    /// Build the URL to fetch a given manga's chapters
-    /// - Parameter mangaId: The identifier of the manga
-    /// - Parameter mangaTitle: The title of the manga (not strictly necessary)
-    /// - Parameter page: The index of the page to load (starting at 1)
+    /// Build the URL to view the specified manga's information
+    /// - Parameter mangaId: The id of the manga
     /// - Returns: The MangaDex URL
-    public static func mangaChapters(mangaId: Int, mangaTitle: String?, page: Int) -> URL {
-        // The title doesn't really matter, but let's try to make it nice either way
-        let normalizedTitle = getNormalizedString(from: mangaTitle, defaultString: MDApi.defaultUserAgent)
-        let components: [String] = [String(mangaId), normalizedTitle, ResourceType.chapters.rawValue, String(page)]
-        return buildUrl(for: .mangaPage, with: components)
+    public static func viewManga(mangaId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId])
     }
 
-    /// Build the URL to fetch information about a given manga
-    /// - Parameter mangaId: The identifier of the manga
+    /// Build the URL to update the specified manga's information
+    /// - Parameter mangaId: The id of the manga
     /// - Returns: The MangaDex URL
-    public static func mangaInfo(mangaId: Int) -> URL {
-        let params = [
-            URLQueryItem(name: ApiParam.id.rawValue, value: String(mangaId)),
-            URLQueryItem(name: ApiParam.type.rawValue, value: ResourceType.manga.rawValue)
-        ]
-        return MDPath.buildUrl(for: .api, with: params)
+    public static func updateManga(mangaId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId])
     }
 
-    /// Build the URL to get a manga's cover image
-    /// - Parameter mangaId: The identifier of the manga
+    /// Build the URL to delete the specified manga
+    /// - Parameter mangaId: The id of the manga
     /// - Returns: The MangaDex URL
-    public static func cover(mangaId: Int, size: ImageFormat = .large) -> URL {
-        let components: [String] = [
-            ResourceType.manga.rawValue,
-            "\(mangaId)\(size.rawValue)"
-        ]
-        return MDPath.buildUrl(for: .image, with: components)
+    public static func deleteManga(mangaId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId])
+    }
+
+    /// Build the URL to follow the specified manga
+    /// - Parameter mangaId: The id of the manga
+    /// - Returns: The MangaDex URL
+    public static func followManga(mangaId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId, "follow"])
+    }
+
+    /// Build the URL to unfollow the specified manga
+    /// - Parameter mangaId: The id of the manga
+    /// - Returns: The MangaDex URL
+    public static func unfollowManga(mangaId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId, "follow"])
+    }
+
+    /// Build the URL to add the specified manga to the logged-in user's custom list
+    /// - Parameter mangaId: The id of the manga
+    /// - Parameter mangaId: The id of the logged-in user's custom list
+    /// - Returns: The MangaDex URL
+    public static func addMangaToCustomList(mangaId: String, listId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId, listId])
+    }
+
+    /// Build the URL to remove the specified manga from the logged-in user's custom list
+    /// - Parameter mangaId: The id of the manga
+    /// - Parameter mangaId: The id of the logged-in user's custom list
+    /// - Returns: The MangaDex URL
+    public static func removeMangaFromCustomList(mangaId: String, listId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId, listId])
+    }
+
+    /// Build the URL to get the specified manga's feed
+    /// - Parameter mangaId: The id of the manga
+    /// - Returns: The MangaDex URL
+    public static func getMangaFeed(mangaId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId, "feed"])
+    }
+
+    /// Build the URL to get a list of chapter ids that are marked as read for the specified manga
+    /// - Parameter mangaId: The id of the manga
+    /// - Returns: The MangaDex URL
+    public static func getMangaReadMarkers(mangaId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId, "read"])
+    }
+
+    /// Build the URL to get all of the logged-in user's reading statuses
+    /// - Returns: The MangaDex URL
+    public static func getReadingStatuses() -> URL {
+        return buildUrl(for: .manga, with: ["status"])
+    }
+
+    /// Build the URL to update the logged-in user's reading status for the specified manga
+    /// - Parameter mangaId: The id of the manga
+    /// - Returns: The MangaDex URL
+    public static func updateMangaReadingStatus(mangaId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId, "status"])
     }
 
 }
