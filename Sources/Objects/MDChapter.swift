@@ -28,7 +28,7 @@ public struct MDChapter: Decodable {
     /// The language in which this chapter was translated
     public let language: Locale
 
-    /// The chapter's hash, used to fetch the pages
+    /// The chapter's hash, used to fetch the pages when using MangaDex@Home
     public let hash: String
 
     /// The list of page file names

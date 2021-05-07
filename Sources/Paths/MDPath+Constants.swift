@@ -42,6 +42,9 @@ extension MDPath {
         /// Endpoint for MD@Home
         case atHome = "at-home"
 
+        /// Endpoint for MD@Home statistics reports
+        case atHomeReport = "report"
+
         /// Endpoint for legacy object mappings
         case legacy = "legacy"
 

@@ -17,6 +17,12 @@ extension MDPath {
         return buildUrl(for: .atHome, with: ["server", chapterId])
     }
 
+    /// Build the URL report fetching an image using the MD@Home netword
+    /// - Returns: The MangaDex URL
+    public static func sendAtHomeReport() -> URL {
+        return buildUrl(for: .atHomeReport)
+    }
+
     /// Build the URL to transform legacy object IDs to v5 object IDs
     /// - Returns: The MangaDex URL
     public static func getLegacyMapping() -> URL {
