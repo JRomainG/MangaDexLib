@@ -46,7 +46,7 @@ public struct MDChapter: Decodable {
 
     /// The date of the last update made to this chapter entry on MangaDex
     ///
-    /// This property will be null if the chapter was never modified after being created
+    /// This property will be `nil` if the chapter was never modified after being created
     public let updatedDate: Date?
 
     /// The date at which this chapter will be or has been published
@@ -56,16 +56,6 @@ public struct MDChapter: Decodable {
 
     /// The version of this type of object in the MangaDex API
     public let version: Int
-
-    /// A method to build the full URLs for a chapter's page images
-    public func getPageUrls(lowRes: Bool = false) -> [URL] {
-        var pageUrls: [URL] = []
-        let pageFiles = lowRes ? self.pagesLowRes : self.pages
-        for page in pageFiles {
-            // TODO
-        }
-        return pageUrls
-    }
 
 }
 

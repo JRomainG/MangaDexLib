@@ -28,7 +28,7 @@ public struct MDAuthor: Decodable {
 
     /// The date of the last update made to this author's information on MangaDex
     ///
-    /// This property will be null if the author was never modified after being created
+    /// This property will be `nil` if the author was never modified after being created
     public let updatedDate: Date?
 
     /// The version of this type of object in the MangaDex API

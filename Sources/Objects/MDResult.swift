@@ -14,10 +14,10 @@ public struct MDResult: Decodable {
     /// The status of the result returned by the MangaDex API
     public let status: MDResultStatus
 
-    /// The data contained in this response
+    /// The data contained in this response, formated in JSON
     ///
     /// This will be `nil` if the status is not `ok`
-    public let data: String?
+    public let jsonData: String?
 
     /// The relationships contained in this response
     ///
@@ -36,7 +36,7 @@ extension MDResult {
     /// Coding keys to map JSON data to our struct
     enum CodingKeys: String, CodingKey {
         case status = "result"
-        case data
+        case jsonData = "data"
         case relationships
         case errors
     }

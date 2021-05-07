@@ -24,7 +24,7 @@ public enum MDApiError: Error {
     /// The requests was started before the `MDRequestHandler` entered
     /// a ready state
     ///
-    /// - Note: Thanks to the task queue, this should never occure
+    /// Thanks to the task queue, this should never occure
     case notReady
 
     /// The user needs to be authenticated to perform this request

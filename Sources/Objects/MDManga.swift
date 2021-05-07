@@ -31,12 +31,12 @@ public struct MDManga: Decodable {
 
     /// A string indicating in which volume the last chapter was published (usually represents an int, e.g. 8)
     ///
-    /// This can be null if the last chapter hasn't been uploaded. Bonus chapters do not count
+    /// This can be `nil` if the last chapter hasn't been uploaded. Bonus chapters do not count
     public let lastVolume: String?
 
     /// A string indicating which chapter marks the end of the manga (usually represents a float, e.g. 142.5)
     ///
-    /// This can be null if the last chapter hasn't been uploaded. Bonus chapters do not count
+    /// This can be `nil` if the last chapter hasn't been uploaded. Bonus chapters do not count
     public let lastChapter: String?
 
     /// The demographic to which this manga is targeted
@@ -59,7 +59,7 @@ public struct MDManga: Decodable {
 
     /// The date of the last update made to this manga entry *on MangaDex*
     ///
-    /// This property will be null if the manga was never updated after being created
+    /// This property will be `nil` if the manga was never updated after being created
     public let updatedDate: Date?
 
     /// Resources linked to this manga (e.g. chapters or authors)

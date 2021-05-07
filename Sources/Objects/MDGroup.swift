@@ -30,7 +30,7 @@ public struct MDGroup: Decodable {
 
     /// The date of the last update made to this group's information on MangaDex
     ///
-    /// This property will be null if the group was never modified after being created
+    /// This property will be `nil` if the group was never modified after being created
     public let updatedDate: Date?
 
     /// The version of this type of object in the MangaDex API
