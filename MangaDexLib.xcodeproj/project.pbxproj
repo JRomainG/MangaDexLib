@@ -240,7 +240,8 @@
 				3322BD54245D99120086FA81 /* MDApi+Auth.swift */,
 				3322BD56245D99130086FA81 /* MDApi+HTML.swift */,
 				3322BD55245D99130086FA81 /* MDApi+JSON.swift */,
-				3322BD50245D99120086FA81 /* MDError.swift */,
+				3322BD4E245D99120086FA81 /* MDConstants.swift */,
+				3322BD50245D99120086FA81 /* MDApiError.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -325,6 +326,7 @@
 		3353B5AF245791C10066B8D5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				339A34572645A70C008535DA /* WebKit.framework */,
 				3353B5B8245795620066B8D5 /* WebKit.framework */,
 			);
 			name = Frameworks;
@@ -418,7 +420,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = JustKodding;
 				TargetAttributes = {
 					3322BDA7245DA4AC0086FA81 = {
@@ -550,8 +552,10 @@
 				335F9CCD245E003E00EE9A52 /* MDApi+HTML.swift in Sources */,
 				334DE62A2644857A006D38E3 /* MDPath+Account.swift in Sources */,
 				335F9CCE245E003E00EE9A52 /* MDApi+JSON.swift in Sources */,
-				335F9CCF245E003E00EE9A52 /* MDError.swift in Sources */,
+				335F9CCF245E003E00EE9A52 /* MDApiError.swift in Sources */,
 				335F9CD0245E003E00EE9A52 /* MDPath.swift in Sources */,
+				339A340E2645606D008535DA /* MDResult.swift in Sources */,
+				339A341A264560C3008535DA /* MDError.swift in Sources */,
 				334DE60926446947006D38E3 /* MDPath+Auth.swift in Sources */,
 				335F9CD1245E003E00EE9A52 /* MDPath+Constants.swift in Sources */,
 				334DE61526446D9B006D38E3 /* MDPath+CustomList.swift in Sources */,
@@ -559,16 +563,16 @@
 				335F9CD6245E003E00EE9A52 /* MDChapter.swift in Sources */,
 				335F9CD7245E003E00EE9A52 /* MDManga.swift in Sources */,
 				334DE62126447B95006D38E3 /* MDPath+Misc.swift in Sources */,
-				335F9CD8245E003E00EE9A52 /* MDAnnouncement.swift in Sources */,
-				335F9CD9245E003E00EE9A52 /* MDComment.swift in Sources */,
+				339A345E2645A8DA008535DA /* MDResponse.swift in Sources */,
 				335F9CDA245E003E00EE9A52 /* MDGroup.swift in Sources */,
-				335F9CDB245E003E00EE9A52 /* MDResource.swift in Sources */,
+				339A33F926455162008535DA /* MDLocalizedString.swift in Sources */,
+				335F9CDB245E003E00EE9A52 /* MDExternalLink.swift in Sources */,
+				339A33FF26455817008535DA /* MDTag.swift in Sources */,
 				334DE5F12644636D006D38E3 /* MDPath+Chapter.swift in Sources */,
+				334DE5E226445A4C006D38E3 /* MDParser.swift in Sources */,
 				334DE603264468DC006D38E3 /* MDPath+Group.swift in Sources */,
 				335F9CDC245E003E00EE9A52 /* MDUser.swift in Sources */,
 				334DE5FD264467B7006D38E3 /* MDPath+Author.swift in Sources */,
-				335F9CDD245E003E00EE9A52 /* MDAuth.swift in Sources */,
-				335F9CDE245E003E00EE9A52 /* MDSearch.swift in Sources */,
 				335F9CDF245E003E00EE9A52 /* MDParser.swift in Sources */,
 				335F9CE0245E003E00EE9A52 /* MDParser+Api.swift in Sources */,
 				335F9CE1245E003E00EE9A52 /* MDParser+Announcement.swift in Sources */,
@@ -578,10 +582,12 @@
 				335F9CE5245E003E00EE9A52 /* MDParser+Login.swift in Sources */,
 				335F9CE6245E003E00EE9A52 /* MDParser+MangaDetails.swift in Sources */,
 				335F9CE7245E003E00EE9A52 /* MDParser+MangaList.swift in Sources */,
+				339A340526455D92008535DA /* MDObject.swift in Sources */,
 				335F9CE8245E003E00EE9A52 /* MDRequestHandler.swift in Sources */,
 				335F9CE9245E003E00EE9A52 /* MDRequestOptions.swift in Sources */,
 				335F9CEA245E003E00EE9A52 /* MDResponse.swift in Sources */,
 				335F9CEB245E003E00EE9A52 /* MDApiResponse.swift in Sources */,
+				339A342C26459865008535DA /* MDAuthor.swift in Sources */,
 				334DE5F726446405006D38E3 /* MDPath+User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,32 +609,34 @@
 				3322BD7D245D99130086FA81 /* MDParser+ChapterList.swift in Sources */,
 				3322BD79245D99130086FA81 /* MDParser+Api.swift in Sources */,
 				3322BD73245D99130086FA81 /* MDPath.swift in Sources */,
-				3322BD69245D99130086FA81 /* MDResource.swift in Sources */,
 				3322BD7B245D99130086FA81 /* MDParser.swift in Sources */,
 				3322BD7A245D99130086FA81 /* MDParser+Login.swift in Sources */,
+				3322BD69245D99130086FA81 /* MDExternalLink.swift in Sources */,
+				339A340D2645606D008535DA /* MDResult.swift in Sources */,
+				339A3419264560C3008535DA /* MDError.swift in Sources */,
 				334DE60826446947006D38E3 /* MDPath+Auth.swift in Sources */,
-				3322BD64245D99130086FA81 /* MDSearch.swift in Sources */,
 				334DE61426446D9B006D38E3 /* MDPath+CustomList.swift in Sources */,
 				3322BD68245D99130086FA81 /* MDUser.swift in Sources */,
 				3322BD65245D99130086FA81 /* MDChapter.swift in Sources */,
 				3322BD75245D99130086FA81 /* MDApi+Auth.swift in Sources */,
 				334DE62026447B95006D38E3 /* MDPath+Misc.swift in Sources */,
 				3322BD67245D99130086FA81 /* MDGroup.swift in Sources */,
-				3322BD6D245D99130086FA81 /* MDResponse.swift in Sources */,
-				3322BD71245D99130086FA81 /* MDError.swift in Sources */,
 				3322BD80245D99130086FA81 /* MDParser+Comments.swift in Sources */,
+				339A345D2645A8DA008535DA /* MDResponse.swift in Sources */,
+				3322BD71245D99130086FA81 /* MDApiError.swift in Sources */,
+				339A33F826455162008535DA /* MDLocalizedString.swift in Sources */,
 				3322BD6C245D99130086FA81 /* MDRequestOptions.swift in Sources */,
+				339A33FE26455817008535DA /* MDTag.swift in Sources */,
 				334DE5F02644636D006D38E3 /* MDPath+Chapter.swift in Sources */,
 				334DE5E126445A4C006D38E3 /* MDParser+Api.swift in Sources */,
 				334DE602264468DC006D38E3 /* MDPath+Group.swift in Sources */,
 				3322BD74245D99130086FA81 /* MDPath+Constants.swift in Sources */,
 				334DE5FC264467B7006D38E3 /* MDPath+Author.swift in Sources */,
 				3322BD76245D99130086FA81 /* MDApi+JSON.swift in Sources */,
-				3322BD66245D99130086FA81 /* MDAuth.swift in Sources */,
+				339A340426455D92008535DA /* MDObject.swift in Sources */,
 				33407B90245DFE3A009B1F16 /* MDPath+Manga.swift in Sources */,
-				3322BD6A245D99130086FA81 /* MDComment.swift in Sources */,
 				3322BD77245D99130086FA81 /* MDApi+HTML.swift in Sources */,
-				3322BD6B245D99130086FA81 /* MDAnnouncement.swift in Sources */,
+				339A342B26459865008535DA /* MDAuthor.swift in Sources */,
 				3322BD63245D99130086FA81 /* MDManga.swift in Sources */,
 				3322BD7E245D99130086FA81 /* MDParser+MangaList.swift in Sources */,
 				334DE5F626446405006D38E3 /* MDPath+User.swift in Sources */,
@@ -676,7 +684,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -705,7 +713,7 @@
 					"@loader_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MARKETING_VERSION = 0.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -741,6 +749,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -766,7 +775,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -805,6 +814,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -824,7 +834,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

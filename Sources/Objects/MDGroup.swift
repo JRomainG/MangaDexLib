@@ -8,36 +8,54 @@
 
 import Foundation
 
-/// Class representing a group returned by MangaDex
-public struct MDGroup {
+/// Structure representing a group returned by MangaDex
+public struct MDGroup: Decodable {
 
     /// The id of the group
-    public var groupId: Int
+    public var groupId: String
 
-    /// The name of the group
-    public var name: String?
+    /// The group's name
+    public let name: String
 
-    /// The URL of this group's cover image
-    public var coverUrl: String?
+    /// The group's leader
+    public let leader: MDUser
 
-    /// A list of links for this group
-    public var links: [String]?
+    /// The list of members of this group
+    ///
+    /// The leader is not included in this list
+    public let members: [MDUser]
 
-    /// The leader of this group
-    public var leader: MDUser?
+    /// The date at which this group was created on MangaDex
+    public let createdDate: Date
 
-    /// The list of members in this group
-    public var members: [MDUser]?
+    /// The date of the last update made to this group's information on MangaDex
+    ///
+    /// This property will be null if the group was never modified after being created
+    public let updatedDate: Date?
 
-    /// A convenience method to create a group with only an id
-    init(groupId: Int) {
-        self.groupId = groupId
+    /// The version of this type of object in the MangaDex API
+    public let version: Int
+
+}
+
+extension MDGroup {
+
+    /// Coding keys to map JSON data to our struct
+    enum CodingKeys: String, CodingKey {
+        case groupId = "id"
+        case name
+        case leader
+        case members
+        case createdDate = "createdAt"
+        case updatedDate = "updatedAt"
+        case version
     }
 
-    /// A convenience method to create a group with a name and id only
-    init(name: String, groupId: Int) {
-        self.name = name
-        self.groupId = groupId
+    /// Custom `init` implementation to handle the fact that structures are encapsulated in an `MDObject`
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: MDObject.CodingKeys.self)
+        self = try container.decode(MDGroup.self, forKey: .attributes)
+        self.groupId = try container.decode(String.self, forKey: .objectId)
     }
 
 }

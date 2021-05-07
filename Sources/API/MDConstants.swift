@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /// Demographic a manga appeals to
 public enum MDDemographic: String, Codable {
     /// The manga is a shounen, usually targeted at boys between 12 and 18
@@ -112,12 +111,12 @@ public enum MDRelationshipType: String, Codable {
 }
 
 /// Tag filtering mode (used to include or exclude tags during search)
-public enum MDTagMode: String, Codable {
-    /// Exclude/Include only all tags are present
-    case all = "AND"
-
-    /// Exclude/Include if any tag is present
+public enum MDTagFilteringMode: String, Codable {
+    /// Exclude/include mangas with any of the given tags
     case any = "OR"
+
+    /// Only exclude/include mangas with all of the given tags
+    case all = "AND"
 }
 
 /// Criteria to use when sorting objects
@@ -136,4 +135,62 @@ public enum MDSortOrder: String, Codable {
 
     /// Sort by descending
     case descending = "desc"
+}
+
+/// Types of external links provided by MangaDex
+public enum MDExternalLinkType: String, Codable {
+    /// Links to anilist.co
+    case aniList = "al"
+
+    /// Links to anime-planet.com
+    case animePlanet = "ap"
+
+    /// Links to kitsu.io
+    case kitsu = "kt"
+
+    /// Links to mangaupdates.com
+    case mangaUpdates = "mu"
+
+    /// Links to myanimelist.net
+    case myAnimeList = "mal"
+
+    /// Links to novelupdates.com
+    case novelUpdates = "nu"
+
+    /// Links to the original work
+    case raw = "raw"
+
+    /// Links to any official translation
+    case officialTranslation
+
+    /// Links to Amazon to purchase the mange
+    case amazon = "amz"
+
+    /// Links to eBookJapan to purchase the manga
+    case eBookJapan = "ebj"
+
+    /// Links to CDJapan to purchase the manga
+    case cdJapan = "cdj"
+
+    /// Links to bookwalker.jp to purchase the manga
+    case bookWalker = "bw"
+}
+
+/// Types of result status the MangaDex API may return
+public enum MDResultStatus: String, Codable {
+    /// The result contains valid data
+    case ok
+
+    /// The result contains at least one error
+    case nok = "ko"
+}
+
+/// Types of objects which exist in the MangaDex API
+public enum MDObjectType: String, Codable {
+    case manga
+    case chapter
+    case author
+    case artist
+    case tag
+    case scanlationGroup = "scanlation_group"
 }

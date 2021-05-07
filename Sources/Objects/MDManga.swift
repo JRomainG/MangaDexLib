@@ -8,154 +8,101 @@
 
 import Foundation
 
-/// Class representing a manga returned by MangaDex
+/// Structure representing a manga returned by MangaDex
 public struct MDManga: Decodable {
 
     /// The id of the manga
-    public var mangaId: Int?
+    public var mangaId: String?
 
     /// The manga's title
-    public var title: String?
+    public let title: [MDLocalizedString]
 
-    /// The author of the manga
-    public var author: String?
-
-    /// The artist working on the manga
-    public var artist: String?
+    /// Alternative titles for this manga (e.g. when a manga is commonly known under multiple names)
+    public let altTitles: [MDLocalizedString]
 
     /// The manga's description
-    public var description: String?
+    public let description: [MDLocalizedString]
 
-    /// The list of chapters for this manga
-    ///
-    /// Not actually stored here in the API, but more convenient for users
-    public var chapters: [MDChapter]?
+    /// A boolean indicating whether the mange is locked (cannot be edited)
+    public let locked: Bool
 
-    /// The link to the manga's cover image
+    /// A boolean indicating whether the mange is locked (cannot be edited)
+    public let originalLanguage: Locale
+
+    /// A string indicating in which volume the last chapter was published (usually represents an int, e.g. 8)
     ///
-    /// - Note: This property exists only so tje JSON parsing doesn't fail,
-    /// it should rather be accessed by calling `getCoverUrl()`
-    private var coverUrl: String?
+    /// This can be null if the last chapter hasn't been uploaded. Bonus chapters do not count
+    public let lastVolume: String?
+
+    /// A string indicating which chapter marks the end of the manga (usually represents a float, e.g. 142.5)
+    ///
+    /// This can be null if the last chapter hasn't been uploaded. Bonus chapters do not count
+    public let lastChapter: String?
+
+    /// The demographic to which this manga is targeted
+    public let demographic: MDDemographic
 
     /// The manga's publication status
-    public var publicationStatus: MDPublicationStatus?
+    public let publicationStatus: MDPublicationStatus
 
-    /// The user-defined reading status for this manga
-    public var readingStatus: MDReadingStatus?
+    /// The year this manga was created
+    public let year: Int?
 
-    /// A string indicating the volume of the user's last read chapter for this manga
-    ///
-    /// Also see `currentChapter`
-    /// - Attention: The user can provide a custom string here, even if it's not an Int
-    /// - Note: This is not always automatically updated by MangaDex
-    public var currentVolume: String?
-
-    /// A string indicating the user's progress in reading this manga
-    ///
-    /// Also see `currentVolume`
-    /// - Attention: The user can provide a custom string here, even if it's not an Int
-    /// - Note: This is not always automatically updated by MangaDex
-    public var currentChapter: String?
+    /// This manga's content rating
+    public let rating: MDContentRating
 
     /// The manga's tags
-    public var tags: [Int]?
+    public let tags: [MDTag]
 
-    /// A string indicating which chapter marks the end of the manga
+    /// The date at which this manga entry was created *on MangaDex*
+    public let createdDate: Date
+
+    /// The date of the last update made to this manga entry *on MangaDex*
     ///
-    /// Equal to "0" if the last chapter hasn't been uploaded. Bonus chapters do not count
-    public var lastChapter: String?
+    /// This property will be null if the manga was never updated after being created
+    public let updatedDate: Date?
 
-    /// The name of the manga's original language
-    public var originalLangName: String?
-
-    /// The short name of the manga's original language
-    ///
-    /// Ex: `jp` for Japanese, `gb` for British English
-    public var originalLangCode: String?
-
-    /// A boolean indicating whether the manga is rated or not
-    ///
-    /// Encoded as an integer by the API
-    public var rated: Int?
+    /// Resources linked to this manga (e.g. chapters or authors)
+    public var relationships: [MDObject]?
 
     /// A set of links to external websites
     ///
-    /// - Note: This property should be accessed by calling `getExternalLinks()`
-    /// so they are parsed to a more usable format
-    private var links: [String: String]?
+    /// This property should be accessed by calling `getExternalLinks` so they are parsed to a more usable format
+    private let links: [MDExternalLink]
 
-    /// This manga's status
-    ///
-    /// Not actually stored here in the API, but more convenient for users
-    public var status: MDStatus?
-
-    /// A convenience method to create a manga with only an id
-    public init(mangaId: Int) {
-        self.mangaId = mangaId
-    }
-
-    /// A convenience method to create a manga with a title and id only
-    public init(title: String, mangaId: Int) {
-        self.title = title
-        self.mangaId = mangaId
-    }
-
-    /// A method to try to build the URL to a manga's cover
-    public func getCoverUrl(size: MDPath.ImageFormat = .fullrez) -> URL? {
-        guard let mangaId = self.mangaId else {
-            return nil
-        }
-        return MDPath.cover(mangaId: mangaId, size: size)
-    }
-
-    /// A method to try to get the manga's original language
-    public func getOriginalLang() -> MDLanguage? {
-        guard let code = originalLangCode else {
-            return nil
-        }
-        return MDLanguageCodes[code]
-    }
-
-    /// The external resources linked by MangaDex for this manga
-    ///
-    /// This usually includes retail websites (link Amazon, or Bookwalker)
-    /// and website with information about the manga (like MangaUpdates)
-    public func getExternalLinks() -> [MDResource]? {
-        guard let links = self.links else {
-            return nil
-        }
-        var resources: [MDResource] = []
-        for (key, resourceId) in links {
-            let resource = MDResource(key: key, resourceId: resourceId)
-            resources.append(resource)
-        }
-        return resources
-    }
+    /// The version of this type of object in the MangaDex API
+    public let version: Int
 
 }
 
 extension MDManga {
 
-    /// Mapping between MangaDex's API JSON keys and the class' variable names
+    /// Coding keys to map JSON data to our struct
     enum CodingKeys: String, CodingKey {
         case mangaId = "id"
         case title
-        case author
-        case artist
+        case altTitles
         case description
-        case chapters
-        case coverUrl = "cover_url"
+        case locked = "isLocked"
+        case originalLanguage
+        case lastVolume
+        case lastChapter
+        case demographic = "publicationDemographic"
         case publicationStatus = "status"
-        case readingStatus
-        case currentVolume
-        case currentChapter
-        case tags = "genres"
-        case lastChapter = "last_chapter"
-        case originalLangName = "lang_name"
-        case originalLangCode = "lang_flag"
-        case rated = "hentai"
+        case year
+        case rating = "contentRating"
+        case tags
+        case createdDate = "createdAt"
+        case updatedDate = "updatedAt"
         case links
-        case status = "manga_status"
+        case version
+    }
+
+    /// Custom `init` implementation to handle the fact that structures are encapsulated in an `MDObject`
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: MDObject.CodingKeys.self)
+        self = try container.decode(MDManga.self, forKey: .attributes)
+        self.mangaId = try container.decode(String.self, forKey: .objectId)
     }
 
 }

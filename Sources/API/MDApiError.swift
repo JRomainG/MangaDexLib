@@ -9,7 +9,7 @@
 import Foundation
 
 /// Custom errors raised by the various components of the API
-public enum MDError: Error {
+public enum MDApiError: Error {
 
     /// The request completed with an unexpected status code
     case wrongStatusCode
@@ -49,15 +49,5 @@ public enum MDError: Error {
 
     /// The performed action failed with an unknown error
     case actionFailed
-
-    /// The parser didn't find the object's ID
-    ///
-    /// - Note: If this is raised, please report an issue
-    case parseIdNotFound
-
-    /// The parser didn't find the element with the object's information
-    ///
-    /// - Note: If this is raised, please report an issue
-    case parseElementNotFound
 
 }
