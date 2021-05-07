@@ -26,6 +26,8 @@
 		3322BD95245D99900086FA81 /* MDLibPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD8C245D99900086FA81 /* MDLibPathTests.swift */; };
 		3322BDB2245DA5210086FA81 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B5B8245795620066B8D5 /* WebKit.framework */; };
 		33407B90245DFE3A009B1F16 /* MDPath+Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B8F245DFE3A009B1F16 /* MDPath+Manga.swift */; };
+		334DE5E126445A4C006D38E3 /* MDParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334DE5E026445A4C006D38E3 /* MDParser.swift */; };
+		334DE5E226445A4C006D38E3 /* MDParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334DE5E026445A4C006D38E3 /* MDParser.swift */; };
 		334DE5F02644636D006D38E3 /* MDPath+Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334DE5EF2644636D006D38E3 /* MDPath+Chapter.swift */; };
 		334DE5F12644636D006D38E3 /* MDPath+Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334DE5EF2644636D006D38E3 /* MDPath+Chapter.swift */; };
 		334DE5F626446405006D38E3 /* MDPath+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334DE5F526446405006D38E3 /* MDPath+User.swift */; };
@@ -107,6 +109,7 @@
 		3322BD8C245D99900086FA81 /* MDLibPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLibPathTests.swift; sourceTree = "<group>"; };
 		3322BDA8245DA4AC0086FA81 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		33407B8F245DFE3A009B1F16 /* MDPath+Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDPath+Manga.swift"; sourceTree = "<group>"; };
+		334DE5E026445A4C006D38E3 /* MDParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDParser.swift; sourceTree = "<group>"; };
 		334DE5EF2644636D006D38E3 /* MDPath+Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDPath+Chapter.swift"; sourceTree = "<group>"; };
 		334DE5F526446405006D38E3 /* MDPath+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDPath+User.swift"; sourceTree = "<group>"; };
 		334DE5FB264467B7006D38E3 /* MDPath+Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDPath+Author.swift"; sourceTree = "<group>"; };
@@ -201,6 +204,7 @@
 			children = (
 				3322BD51245D99120086FA81 /* MDApi.swift */,
 				3322BD4E245D99120086FA81 /* MDConstants.swift */,
+				334DE5E026445A4C006D38E3 /* MDParser.swift */,
 				3322BD50245D99120086FA81 /* MDApiError.swift */,
 			);
 			path = API;
@@ -546,6 +550,7 @@
 				3322BD6C245D99130086FA81 /* MDRequestOptions.swift in Sources */,
 				339A33FE26455817008535DA /* MDTag.swift in Sources */,
 				334DE5F02644636D006D38E3 /* MDPath+Chapter.swift in Sources */,
+				334DE5E126445A4C006D38E3 /* MDParser.swift in Sources */,
 				334DE602264468DC006D38E3 /* MDPath+Group.swift in Sources */,
 				3322BD74245D99130086FA81 /* MDPath+Constants.swift in Sources */,
 				334DE5FC264467B7006D38E3 /* MDPath+Author.swift in Sources */,

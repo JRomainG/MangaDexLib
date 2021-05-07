@@ -14,38 +14,22 @@ public class MDRequestHandler: NSObject {
 
     /// The different types of cookies that can be changed by the API
     public enum CookieType: String {
-        /// The cookie used to store the `MDRatedFilter` value
-        case ratedFilter = "mangadex_h_toggle"
-
         /// The cookie used to store the auth token, if remember was selected
         ///
         /// - Note: The cookie is valid for 1 year
         case authToken = "mangadex_rememberme_token"
 
-        /// The cookie used to store the current session ID
-        case sessionId = "mangadex_session"
+        /// A cookie used by DDoS-Guard
+        case ddosGuard1 = "__ddg1"
 
-        /// The cookie used by DDoS-Guard
-        case ddosGuard = "__ddg1"
+        /// A cookie used by DDoS-Guard
+        case ddosGuard2 = "__ddg2"
 
-        /// The cookie used by CoudFlare
-        case cloudflare = "__cfduid"
-    }
+        /// A cookie used by DDoS-Guard
+        case ddosGuardId = "__ddgid"
 
-    /// The different fields set for `POST` requests to login
-    enum AuthField: String {
-        /// The username field to login
-        case username = "login_username"
-
-        /// The password field to login
-        case password = "login_password"
-
-        /// The code to use for two factor authentication
-        case twoFactor = "two_factor"
-
-        /// The boolean field indicating whether to place an auth token to
-        /// remember the user accross sessions
-        case remember = "remember_me"
+        /// A cookie used by DDoS-Guard
+        case ddosGuardMark = "__ddgmark"
     }
 
     /// An alias for the completion blocks called after requests
@@ -54,8 +38,8 @@ public class MDRequestHandler: NSObject {
     /// and its error (if relevant)
     public typealias RequestCompletion = (HTTPURLResponse?, String?, Error?) -> Void
 
-    /// Domain used by MangaDex to set cookies
-    static let cookieDomain: String = ".mangadex.org"
+    /// Domain used by the MangaDex API to set cookies
+    static let cookieDomain: String = ".api.mangadex.org"
 
     /// Path used by MangaDex to set cookies
     static let cookiePath: String = "/"
@@ -81,7 +65,7 @@ public class MDRequestHandler: NSObject {
     ///
     /// This delay is only added for `POST` methods, so it will be
     /// mostly invisible to the user during normal use
-    public private(set) var ddosGuardDelay: Double = 0.5
+    public private(set) var ddosGuardDelay: Double = 0.1
 
     /// Boolean indicating whether the handler is ready to start performing requests
     ///
@@ -256,7 +240,7 @@ public class MDRequestHandler: NSObject {
             createMultipartBody(from: content, for: request)
         }
 
-        // Make sure we don't trigger the DDoS-Guard
+        // Make sure we don't trigger DDoS-Guard
         handleDdosGuard(for: request) { error in
             guard error == nil else {
                 completion(nil, nil, error)
@@ -287,7 +271,7 @@ public class MDRequestHandler: NSObject {
     private func startTask(for request: NSMutableURLRequest, completion: @escaping RequestCompletion) {
         // Make sure the handler is ready
         guard isReady else {
-            completion(nil, nil, MDError.notReady)
+            completion(nil, nil, MDApiError.notReady)
             return
         }
 
@@ -347,7 +331,7 @@ extension MDRequestHandler {
     /// - Parameter content: The data to encode
     /// - Parameter request: The request to which to add the content
     ///
-    /// - Note: The request is directly modified by adding the body and required headers
+    /// - Note: The request object is directly modified by adding the body and required headers
     private func createUrlEncodedBody(from content: [String: LosslessStringConvertible],
                                       for request: NSMutableURLRequest) {
         var components = URLComponents(string: "")!
@@ -363,12 +347,14 @@ extension MDRequestHandler {
     }
 
     /// Handle requests so they don't go against DDoS-Guard's rules
+    /// - Parameter request: The request for which DDoS-Guard mitigations should be applied
+    /// - Parameter completion: The callback once the request is ready
     ///
-    /// - Precondition: The `.ddosGuard` cookie must have been set during a previous request (either during this
+    /// - Precondition: The `.ddosGuard1` cookie must have been set during a previous request (either during this
     /// session or in the past)
     private func handleDdosGuard(for request: NSMutableURLRequest, completion: @escaping (Error?) -> Void) {
-        guard getCookie(type: .ddosGuard) != nil else {
-            completion(MDError.noDdosGuardCookie)
+        guard getCookie(type: .ddosGuard1) != nil else {
+            completion(MDApiError.noDdosGuardCookie)
             return
         }
 
@@ -379,7 +365,6 @@ extension MDRequestHandler {
         DispatchQueue.main.asyncAfter(deadline: .now() + ddosGuardDelay) {
             completion(nil)
         }
-
     }
 
 }
