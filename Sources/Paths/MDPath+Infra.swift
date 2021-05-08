@@ -1,5 +1,5 @@
 //
-//  MDPath+Misc.swift
+//  MDPath+Infra.swift
 //  MangaDexLib
 //
 //  Created by Jean-Romain on 02/05/2020.
@@ -33,6 +33,12 @@ extension MDPath {
     /// - Returns: The MangaDex URL
     public static func ping() -> URL {
         return buildUrl(for: .ping)
+    }
+
+    /// Build the URL to solve a captcha challenge
+    /// - Returns: The MangaDex URL
+    public static func solveCaptcha() -> URL {
+        return buildUrl(for: .captcha, with: ["solve"])
     }
 
 }

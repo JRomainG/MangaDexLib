@@ -36,7 +36,7 @@ extension MDPath {
         /// Endpoint for account management
         case account = "account"
 
-        /// Endpoint for captchas
+        /// Endpoint for captcha challenges
         case captcha = "captcha"
 
         /// Endpoint for MD@Home

@@ -22,7 +22,7 @@ extension MDPath {
         return buildUrl(for: .auth, with: ["logout"])
     }
 
-    /// Build the URL to check the validity of the current auth token
+    /// Build the URL to check the validity of the current auth token and get its associated roles and permissions
     /// - Returns: The MangaDex URL
     public static func checkToken() -> URL {
         return buildUrl(for: .auth, with: ["check"])

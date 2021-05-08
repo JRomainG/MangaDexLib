@@ -8,46 +8,71 @@
 
 import Foundation
 
-/// Custom errors raised by the various components of the API
-public enum MDApiError: Error {
+/// Errors raised by the MangaDex API
+@objc
+public class MDApiError: NSObject, Error {
 
-    /// The request completed with an unexpected status code
-    case wrongStatusCode
+    /// Types of errors raised by MangaDexLib
+    public enum ErrorType {
 
-    /// No DDoS-Guard cookie was found in the cookie jar
-    ///
-    /// A DDoS-Guard cookie has to be set before doing any `POST`
-    /// request. The cookie is automatically set when performing a
-    /// `GET` request, and is kept in between sessions
-    case noDdosGuardCookie
+        /// The request completed with an unexpected status code
+        case wrongStatusCode
 
-    /// The requests was started before the `MDRequestHandler` entered
-    /// a ready state
-    ///
-    /// Thanks to the task queue, this should never occure
-    case notReady
+        /// No DDoS-Guard cookie was found in the cookie jar
+        ///
+        /// A DDoS-Guard cookie has to be set before doing any `POST`
+        /// request. The cookie is automatically set when performing a
+        /// `GET` request, and is kept in between sessions
+        case noDdosGuardCookie
 
-    /// The user needs to be authenticated to perform this request
-    case loginRequired
+        /// MangaDex decided that the user needs to solve a captcha before accessing the endpoint
+        case captchaRequired
 
-    /// The user is already logged in, they can't attempt to log in again
-    case alreadyLoggedIn
+        /// The requests was started before the `MDRequestHandler` entered
+        /// a ready state
+        ///
+        /// Thanks to the task queue, this should never occure
+        case notReady
 
-    /// The authentication attempt failed with an unknown error
-    case genericAuthFailure
+        /// The user needs to be authenticated to perform this request
+        case loginRequired
 
-    /// The authentication attempt failed because either the username,
-    /// password or two factor code was wrong
-    case wrongAuthInfo
+        /// MangaDexLib failed to parse the response returned by the MangaDex API
+        case decodingError
 
-    /// The authentication attempt failed because a two factor authentication code
-    /// was missing
-    case missingTwoFactor
+        /// MangaDexLib failed to encode the content of the request
+        case encodingError
 
-    /// This method is not implemented
-    case notImplemented
+        /// This method is not implemented
+        case notImplemented
 
-    /// The performed action failed with an unknown error
-    case actionFailed
+        /// The performed action failed with an unknown error
+        case actionFailed
+    }
+
+    /// Errors returned by the MangaDex API
+    let apiErrors: [MDError]
+
+    /// Underlying errors raised by Swift methods
+    let underlyingError: Error?
+
+    /// The raw content returned by the MangaDex API which triggered this error
+    let rawBody: String?
+
+    /// Convenience `init` method
+    /// - Parameter type: The type of error raised
+    /// - Parameter body: The body of the error returned by the MangaDex API
+    /// - Parameter error: The underlying error raised by Swift
+    init(type: ErrorType, body: String? = nil, error: Error? = nil) {
+        self.underlyingError = error
+        self.rawBody = body
+
+        do {
+            let result = try MDParser.parse(json: body ?? "", type: MDResult.self)
+            self.apiErrors = result.errors ?? []
+        } catch {
+            self.apiErrors = []
+        }
+    }
 
 }

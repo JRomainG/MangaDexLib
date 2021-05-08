@@ -12,27 +12,25 @@ import Foundation
 public class MDResponse: NSObject {
 
     /// The URL of the original request
-    public private(set) var url: URL?
+    public private(set) var url: URL
 
-    /// The raw html or json string returned from the website (if any)
-    public private(set) var rawValue: String?
+    /// The json string returned from the website (if any)
+    public private(set) var content: String
 
     /// The error returned from the request (if any)
-    public var error: Error?
+    public var error: MDApiError?
 
     /// The status code of the response
     public var statusCode: Int?
 
     /// Convenience init method
-    init(url: URL? = nil,
-         rawValue: String? = nil,
-         error: Error? = nil,
-         content: String? = nil,
+    init(url: URL,
+         content: String?,
+         error: MDApiError? = nil,
          status: Int? = nil) {
         self.url = url
-        self.rawValue = rawValue
+        self.content = content ?? ""
         self.error = error
-        self.rawValue = content
         self.statusCode = status
     }
 

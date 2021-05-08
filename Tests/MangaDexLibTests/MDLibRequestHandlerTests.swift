@@ -30,12 +30,12 @@ class MDLibRequestHandlerTests: XCTestCase {
         }
     }
 
+    /// Convenience method to perform a GET request
     func get(url: URL,
-             options: MDRequestOptions? = nil,
              requestHandler: MDRequestHandler = MDRequestHandler(),
              completion: MDRequestHandler.RequestCompletion?) {
         let expectation = self.expectation(description: "Load \(url.absoluteString)")
-        requestHandler.get(url: url, options: options) { (response, content, error) in
+        requestHandler.get(url: url) { (response, content, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(content)
             XCTAssertEqual(response?.statusCode, 200)
@@ -43,30 +43,6 @@ class MDLibRequestHandlerTests: XCTestCase {
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
-    }
-
-    /// Reusable function to perform a `POST` request with the given options, and check everything worked
-    func testPostRequest(with encoding: MDRequestOptions.BodyEncoding) {
-        let requestHandler = MDRequestHandler()
-        let body: [String: LosslessStringConvertible] = ["key": "value", "works": 1]
-        let url = URL(string: "https://httpbin.org/post")!
-        let expectation = self.expectation(description: "Load httpbin's POST test page")
-        let options = MDRequestOptions(encoding: encoding, referer: "https://httpbin.org/")
-
-        requestHandler.post(url: url, content: body, options: options) { (http, content, error) in
-            XCTAssertNil(error)
-            XCTAssertNotNil(content)
-            XCTAssertEqual(http?.statusCode, 200)
-
-            let dict = self.parseJson(from: content)
-            let args = dict?["form"] as? [String: String]
-            for (key, value) in body {
-                XCTAssert(args?[key] == "\(value)")
-            }
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 15, handler: nil)
-
     }
 
     func testGetRequest() throws {
@@ -79,18 +55,32 @@ class MDLibRequestHandlerTests: XCTestCase {
         }
     }
 
-    func testMultipartPostRequest() throws {
-        testPostRequest(with: .multipart)
-    }
+    func testPostRequest() {
+        let requestHandler = MDRequestHandler()
+        let body = ["username": "user", "password": "pass"]
+        let url = URL(string: "https://httpbin.org/post")!
+        let expectation = self.expectation(description: "Load httpbin's POST test page")
 
-    func testUrlEncodedPostRequest() throws {
-        testPostRequest(with: .urlencoded)
+        requestHandler.post(url: url, content: body) { (http, content, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(content)
+            XCTAssertEqual(http?.statusCode, 200)
+
+            let dict = self.parseJson(from: content)
+            let args = dict?["json"] as? [String: String]
+            for (key, value) in body {
+                XCTAssert(args?[key] == "\(value)")
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
     }
 
     func testGetSetCookie() throws {
         let requestHandler = MDRequestHandler()
-        let cookieType = MDRequestHandler.CookieType.ratedFilter
-        let cookieValue = String(MDRatedFilter.noR18.rawValue)
+        let cookieType = MDRequestHandler.CookieType.authToken
+        let cookieValue = "myauthtoken"
         requestHandler.setCookie(type: cookieType, value: cookieValue)
 
         let retreivedCookie = requestHandler.getCookie(type: cookieType)
@@ -117,10 +107,6 @@ class MDLibRequestHandlerTests: XCTestCase {
             let cookies = dict?["cookies"] as? [String: String]
             XCTAssert(cookies?.count == 0)
         }
-
-        // Fetch MangaDex's homepage page so the DDoS-Guard cookie is set
-        url = URL(string: MDApi.baseURL)!
-        get(url: url, requestHandler: requestHandler, completion: nil)
     }
 
     func testDefaultUserAgent() throws {
@@ -142,19 +128,6 @@ class MDLibRequestHandlerTests: XCTestCase {
             let dict = self.parseJson(from: content)
             let fetchedUserAgent = dict?["user-agent"] as? String
             XCTAssert(fetchedUserAgent == userAgent)
-        }
-    }
-
-    func testSetReferer() throws {
-        let url = URL(string: "https://httpbin.org/headers")!
-        let referer = "https://httpbin.org/"
-        let options = MDRequestOptions(referer: referer)
-
-        get(url: url, options: options) { (_, content, _) in
-            let dict = self.parseJson(from: content)
-            let fetchedHeaders = dict?["headers"] as? [String: String]
-            let fetchedReferer = fetchedHeaders?["Referer"]
-            XCTAssert(fetchedReferer == referer)
         }
     }
 

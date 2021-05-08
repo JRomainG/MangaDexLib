@@ -14,7 +14,7 @@ public class MDRequestHandler: NSObject {
 
     /// The different types of cookies that can be changed by the API
     public enum CookieType: String {
-        /// The cookie used to store the auth token, if remember was selected
+        /// The cookie used to store the auth token
         ///
         /// - Note: The cookie is valid for 1 year
         case authToken = "mangadex_rememberme_token"
@@ -36,7 +36,7 @@ public class MDRequestHandler: NSObject {
     ///
     /// Parameters are the underlying response, its string content
     /// and its error (if relevant)
-    public typealias RequestCompletion = (HTTPURLResponse?, String?, Error?) -> Void
+    public typealias RequestCompletion = (HTTPURLResponse?, String?, MDApiError?) -> Void
 
     /// Domain used by the MangaDex API to set cookies
     static let cookieDomain: String = ".api.mangadex.org"
@@ -203,41 +203,31 @@ public class MDRequestHandler: NSObject {
 
     /// Perform an async get request
     /// - Parameter url: The URL to fetch
-    /// - Parameter options: The options to use for this request
     /// - Parameter completion: The callback at the end of the request
-    public func get(url: URL, options: MDRequestOptions? = nil, completion: @escaping RequestCompletion) {
+    public func get(url: URL, completion: @escaping RequestCompletion) {
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue(options?.referer, forHTTPHeaderField: "Referer")
-        request.setValue(options?.requestedWith, forHTTPHeaderField: "X-Requested-With")
         perform(request: request, completion: completion)
     }
 
     /// Perform an async post request
     /// - Parameter url: The URL to load
-    /// - Parameter content: The dictionary representation of the request's body
-    /// - Parameter options: The options to use for this request
+    /// - Parameter content: The object to JSON-encode in the request's body
     /// - Parameter completion: The callback at the end of the request
     ///
     /// Because of the way DDoS-Guard works, this request cannot be the first one to ever be done.
     /// It is best to always start with a request to the homepage
     /// - Precondition: The `.ddosGuard` cookie must be set
-    public func post(url: URL,
-                     content: [String: LosslessStringConvertible],
-                     options: MDRequestOptions? = nil,
-                     completion: @escaping RequestCompletion) {
+    public func post<T: Encodable>(url: URL, content: T, completion: @escaping RequestCompletion) {
         // Create the empty request
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = "POST"
 
         // Fill-in its body and headers based on the content and options
-        request.setValue(options?.referer, forHTTPHeaderField: "Referer")
-        request.setValue(options?.requestedWith, forHTTPHeaderField: "X-Requested-With")
-        switch options?.encoding {
-        case .urlencoded:
-            createUrlEncodedBody(from: content, for: request)
-        default:
-            createMultipartBody(from: content, for: request)
+        do {
+            request.httpBody = try JSONEncoder().encode(content)
+        } catch {
+            completion(nil, nil, MDApiError(type: .encodingError, body: nil, error: error))
         }
 
         // Make sure we don't trigger DDoS-Guard
@@ -271,20 +261,26 @@ public class MDRequestHandler: NSObject {
     private func startTask(for request: NSMutableURLRequest, completion: @escaping RequestCompletion) {
         // Make sure the handler is ready
         guard isReady else {
-            completion(nil, nil, MDApiError.notReady)
+            completion(nil, nil, MDApiError(type: .notReady))
             return
         }
 
-        // Make sure the User-Agent is set correctly
+        // Make sure the headers are correct
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue(self.userAgent, forHTTPHeaderField: "User-Agent")
 
         // Cookies are automatically handled by the session, so just create the task
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             var output: String?
+            var apiError: MDApiError?
             if data != nil {
                 output = NSString(data: data!, encoding: String.Encoding.utf8.rawValue) as String?
             }
-            completion(response as? HTTPURLResponse, output, error)
+            if error != nil {
+                apiError = MDApiError(type: .actionFailed, body: output, error: error)
+            }
+            completion(response as? HTTPURLResponse, output, apiError)
         }
         task.resume()
     }
@@ -293,68 +289,15 @@ public class MDRequestHandler: NSObject {
 
 extension MDRequestHandler {
 
-    /// Build a random string of the given length using only numbers
-    /// - Parameter length: The length of the string to return
-    /// - Returns: The random string of numbers
-    private func randomId(length: Int) -> String {
-        let allowed = "0123456789"
-        return String((0..<length).map { _ in allowed.randomElement()! })
-    }
-
-    /// Mimic the behavior if the JavaScript `FormData` object
-    /// - Parameter content: The data to encode
-    /// - Parameter request: The request to which to add the content
-    ///
-    /// - Note: The request is directly modified by adding the body and required headers
-    private func createMultipartBody(from content: [String: LosslessStringConvertible],
-                                     for request: NSMutableURLRequest) {
-        // Don't encode empty data
-        guard content.count > 0 else {
-            return
-        }
-
-        let boundary = "---------------------------\(randomId(length: 30))"
-        var body = ""
-        for (key, value) in content {
-            body += "--\(boundary)\r\n"
-            body += "Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n"
-            body += "\(value)\r\n"
-        }
-        body += "--\(boundary)--\r\n"
-        request.httpBody = body.data(using: .utf8)!
-
-        request.setValue("multipart/form-data;boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.setValue(String(body.count), forHTTPHeaderField: "Content-Length")
-    }
-
-    /// Mimic the behavior if the JavaScript `FormData` object
-    /// - Parameter content: The data to encode
-    /// - Parameter request: The request to which to add the content
-    ///
-    /// - Note: The request object is directly modified by adding the body and required headers
-    private func createUrlEncodedBody(from content: [String: LosslessStringConvertible],
-                                      for request: NSMutableURLRequest) {
-        var components = URLComponents(string: "")!
-        components.queryItems = []
-        for (key, value) in content {
-            components.queryItems?.append(URLQueryItem(name: key, value: "\(value)"))
-        }
-        // We manually have to escape the "+"
-        components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-
-        request.httpBody = components.percentEncodedQuery?.data(using: .utf8)!
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-    }
-
     /// Handle requests so they don't go against DDoS-Guard's rules
     /// - Parameter request: The request for which DDoS-Guard mitigations should be applied
     /// - Parameter completion: The callback once the request is ready
     ///
     /// - Precondition: The `.ddosGuard1` cookie must have been set during a previous request (either during this
     /// session or in the past)
-    private func handleDdosGuard(for request: NSMutableURLRequest, completion: @escaping (Error?) -> Void) {
+    private func handleDdosGuard(for request: NSMutableURLRequest, completion: @escaping (MDApiError?) -> Void) {
         guard getCookie(type: .ddosGuard1) != nil else {
-            completion(MDApiError.noDdosGuardCookie)
+            completion(MDApiError(type: .noDdosGuardCookie))
             return
         }
 

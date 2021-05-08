@@ -24,6 +24,7 @@ public struct MDExternalLink: Decodable {
 
 extension MDExternalLink {
 
+    // swiftlint:disable cyclomatic_complexity
     /// Custom `init` implementation to flatten the JSON and convert it to meaningful parameters
     public init(from decoder: Decoder) throws {
         linkType = MDExternalLinkType(rawValue: decoder.codingPath.first!.stringValue) ?? .raw

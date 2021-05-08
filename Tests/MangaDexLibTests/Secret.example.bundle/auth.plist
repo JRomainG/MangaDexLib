@@ -9,9 +9,7 @@
 		<key>password</key>
 		<string>YourMangadexPassword</string>
 		<key>type</key>
-		<string>regular</string>
-		<key>remember</key>
-		<true/>
+		<string>usernamePassword</string>
 	</dict>
 	<key>Auth2FA</key>
 	<dict>
@@ -23,8 +21,6 @@
 		<string>YourTwoFactorAuthCode</string>
 		<key>type</key>
 		<string>twoFactor</string>
-		<key>remember</key>
-		<true/>
 	</dict>
 	<key>AuthToken</key>
 	<dict>
@@ -32,6 +28,15 @@
 		<string>YourMangadexSecretToken</string>
 		<key>type</key>
 		<string>token</string>
+	</dict>
+	<key>AuthInvalid</key>
+	<dict>
+		<key>username</key>
+		<string>InvalidAccount</string>
+		<key>password</key>
+		<string>WrongPassword</string>
+		<key>type</key>
+		<string>usernamePassword</string>
 	</dict>
 </dict>
 </plist>

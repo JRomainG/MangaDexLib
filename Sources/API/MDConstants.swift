@@ -194,3 +194,82 @@ public enum MDObjectType: String, Codable {
     case tag
     case scanlationGroup = "scanlation_group"
 }
+
+/// Roles returned by the MangaDex API in token information
+///
+/// **TODO**: This list might not be accurate as it is not described in the API documentation
+public enum MDRole: String, Codable {
+    /// The current use is a guest
+    case guest = "ROLE_GUEST"
+
+    /// The current use is anonymous
+    case anonymous = "IS_ANONYMOUS"
+
+    /// The current user is not logged-in to an account
+    case authenticatedAnonymously = "IS_AUTHENTICATED_ANONYMOUSLY"
+}
+
+/// Permissions returned by the MangaDex API in token information
+///
+/// **TODO**: This list might not be accurate as it is not described in the API documentation
+public enum MDPermission: String, Codable {
+    /// The logged-in user is allowed to view mangas
+    case viewManga = "manga.view"
+
+    /// The logged-in user is allowed to view chapters
+    case viewChapter = "chapter.view"
+
+    /// The logged-in user is allowed to view authors
+    case viewAuthor = "author.view"
+
+    /// The logged-in user is allowed to view scanlation groups
+    case viewScanlationGroup = "scanlation_group.view"
+
+    /// The logged-in user is allowed to list mangas
+    case listMangas = "manga.list"
+
+    /// The logged-in user is allowed to list chapters
+    case listChapters = "chapter.list"
+
+    /// The logged-in user is allowed to list authors
+    case listAuthors = "author.list"
+
+    /// The logged-in user is allowed to list scanlation groups
+    case listScanlationGroups = "scanlation_group.list"
+
+    /// The logged-in user is allowed to create mangas
+    case createManga = "manga.create"
+
+    /// The logged-in user is allowed to create chapters
+    case createChapter = "chapter.create"
+
+    /// The logged-in user is allowed to create authors
+    case createAuthor = "author.create"
+
+    /// The logged-in user is allowed to create scanlation groups
+    case createScanlationGroup = "scanlation_group.create"
+
+    /// The logged-in user is allowed to delete mangas
+    case deleteManga = "manga.delete"
+
+    /// The logged-in user is allowed to delete chapters
+    case deleteChapter = "chapter.delete"
+
+    /// The logged-in user is allowed to delete authors
+    case deleteAuthor = "author.delete"
+
+    /// The logged-in user is allowed to delete scanlation groups
+    case deleteScanlationGroup = "scanlation_group.delete"
+
+    /// The logged-in user is allowed to edit mangas
+    case editManga = "manga.edit"
+
+    /// The logged-in user is allowed to edit chapters
+    case editChapter = "chapter.edit"
+
+    /// The logged-in user is allowed to edit authors
+    case editAuthor = "author.edit"
+
+    /// The logged-in user is allowed to edit scanlation groups
+    case editScanlationGroup = "scanlation_group.edit"
+}
