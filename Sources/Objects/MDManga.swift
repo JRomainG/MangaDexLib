@@ -30,13 +30,11 @@ public struct MDManga: Decodable {
     public let originalLanguage: Locale
 
     /// A string indicating in which volume the last chapter was published (usually represents an int, e.g. 8)
-    ///
-    /// This can be `nil` if the last chapter hasn't been uploaded. Bonus chapters do not count
+    /// - Note: This can be `nil` if the last chapter hasn't been uploaded. Bonus chapters do not count
     public let lastVolume: String?
 
     /// A string indicating which chapter marks the end of the manga (usually represents a float, e.g. 142.5)
-    ///
-    /// This can be `nil` if the last chapter hasn't been uploaded. Bonus chapters do not count
+    /// - Note: This can be `nil` if the last chapter hasn't been uploaded. Bonus chapters do not count
     public let lastChapter: String?
 
     /// The demographic to which this manga is targeted
@@ -66,8 +64,6 @@ public struct MDManga: Decodable {
     public var relationships: [MDObject]?
 
     /// A set of links to external websites
-    ///
-    /// This property should be accessed by calling `getExternalLinks` so they are parsed to a more usable format
     private let links: [MDExternalLink]
 
     /// The version of this type of object in the MangaDex API

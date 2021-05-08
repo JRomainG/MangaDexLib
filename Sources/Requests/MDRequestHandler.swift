@@ -15,7 +15,6 @@ public class MDRequestHandler: NSObject {
     /// The different types of cookies that can be changed by the API
     public enum CookieType: String {
         /// The cookie used to store the auth token
-        ///
         /// - Note: The cookie is valid for 1 year
         case authToken = "mangadex_rememberme_token"
 
@@ -34,8 +33,7 @@ public class MDRequestHandler: NSObject {
 
     /// An alias for the completion blocks called after requests
     ///
-    /// Parameters are the underlying response, its string content
-    /// and its error (if relevant)
+    /// Parameters are the underlying response, its string content and its error (if relevant)
     public typealias RequestCompletion = (HTTPURLResponse?, String?, MDApiError?) -> Void
 
     /// Domain used by the MangaDex API to set cookies
@@ -46,12 +44,12 @@ public class MDRequestHandler: NSObject {
 
     /// User-Agent used for calls by this instance
     ///
-    /// During init, WKWebView is used to get the device's real User-Agent.
-    /// The `MDApi.defaultUserAgent` string is then appended to that User-Agent
+    /// During init, WKWebView is used to get the device's real User-Agent. The `MDApi.defaultUserAgent` string is then
+    /// appended to that User-Agent
     public private(set) var userAgent = MDApi.defaultUserAgent
 
-    /// Boolean indicating whether a User-Agent has been set, meaning that
-    /// the call to `buildUserAgent` shouldn't override it
+    /// Boolean indicating whether a User-Agent has been set, meaning that the call to `buildUserAgent` shouldn't
+    /// override it
     private var hasUserAgent = false
 
     /// The current session used for requests
@@ -60,24 +58,21 @@ public class MDRequestHandler: NSObject {
     /// The cookies valid for this session
     public private(set) var cookieJar: HTTPCookieStorage = .shared
 
-    /// The delay (in seconds) added before doing a requests which goes through
-    /// the `handleDdosGuard` method
+    /// The delay (in seconds) added before doing a requests which goes through the `handleDdosGuard` method
     ///
-    /// This delay is only added for `POST` methods, so it will be
-    /// mostly invisible to the user during normal use
+    /// This delay is only added for `POST` methods, so it will be mostly invisible to the user during normal use
     public private(set) var ddosGuardDelay: Double = 0.1
 
     /// Boolean indicating whether the handler is ready to start performing requests
     ///
-    /// The handler is considered `unready` before its User-Agent has been set,
-    /// because some requests (mainly those requiring login) fail if a proper
-    /// User-Agent isn't sent
+    /// The handler is considered `unready` before its User-Agent has been set, because some requests (mainly those
+    /// requiring login) fail if a proper User-Agent isn't sent
     public private(set) var isReady: Bool = false
 
     /// List of requests that haven't been started yet
     ///
-    /// Requests are added to the queue before the handler is ready.
-    /// Once ready, all the requests are automatically started
+    /// Requests are added to the queue before the handler is ready. Once ready, all the requests are automatically
+    /// started
     public private(set) var requestQueue: [(NSMutableURLRequest, RequestCompletion)] = []
 
     override init() {
@@ -122,8 +117,7 @@ public class MDRequestHandler: NSObject {
 
     /// Change the delay added before performing a `POST` request (in seconds)
     /// - Parameter delay: The delay (in seconds) added before each request
-    ///
-    /// The minimum value is capped at 0.05 seconds
+    /// - Note: The minimum value is capped at 0.05 seconds
     public func setDdosGuardDelay(_ delay: Double) {
         ddosGuardDelay = max(delay, 0.05)
     }
@@ -131,16 +125,13 @@ public class MDRequestHandler: NSObject {
     /// Change the maximum number of concurrent connections that will be made
     /// by the handler
     /// - Parameter maxConnections: The maximum number of concurrent connections
-    ///
-    /// The maximum value is capped at 25, and the minimum at 1.
-    /// Default is 5
+    /// - Note: The maximum value is capped at 25, and the minimum at 1. Default is 5
     public func setMaxConcurrentConnections(_ maxConnections: Int) {
         let connections = max(1, min(maxConnections, 25))
         session.configuration.httpMaximumConnectionsPerHost = connections
     }
 
     /// Reset the session (clear cookies, credentials, caches...)
-    ///
     /// - Note: Custom set cookies have to be reset as they will be deleted
     public func resetSession() {
         cookieJar.removeCookies(since: .distantPast)
@@ -215,8 +206,8 @@ public class MDRequestHandler: NSObject {
     /// - Parameter content: The object to JSON-encode in the request's body
     /// - Parameter completion: The callback at the end of the request
     ///
-    /// Because of the way DDoS-Guard works, this request cannot be the first one to ever be done.
-    /// It is best to always start with a request to the homepage
+    /// Because of the way DDoS-Guard works, this request cannot be the first one to ever be done. It is best to always
+    /// start with a `ping` request to make sure the `ddosGuard1` cookie is set.
     /// - Precondition: The `.ddosGuard` cookie must be set
     public func post<T: Encodable>(url: URL, content: T, completion: @escaping RequestCompletion) {
         // Create the empty request

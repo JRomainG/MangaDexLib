@@ -21,16 +21,14 @@ public struct MDGroup: Decodable {
     public let leader: MDUser
 
     /// The list of members of this group
-    ///
-    /// The leader is not included in this list
+    /// - Note: The leader is not included in this list
     public let members: [MDUser]
 
     /// The date at which this group was created on MangaDex
     public let createdDate: Date
 
     /// The date of the last update made to this group's information on MangaDex
-    ///
-    /// This property will be `nil` if the group was never modified after being created
+    /// - Note: This property will be `nil` if the group was never modified after being created
     public let updatedDate: Date?
 
     /// The version of this type of object in the MangaDex API

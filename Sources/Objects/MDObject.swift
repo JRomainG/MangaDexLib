@@ -19,8 +19,7 @@ public struct MDObject: Decodable {
     public let objectType: MDObjectType
 
     /// This object's attributes
-    ///
-    /// This should probably always be `nil`, otherwise the appropriate structure will be returned instead
+    /// - Note: This should probably always be `nil`, otherwise the appropriate structure will be returned instead
     public let attributes: String?
 
 }

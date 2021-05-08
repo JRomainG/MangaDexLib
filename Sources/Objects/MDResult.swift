@@ -15,41 +15,34 @@ public struct MDResult: Decodable {
     public let status: MDResultStatus
 
     /// The data contained in this response, formated in JSON
-    ///
-    /// This will be `nil` if the status is not `ok`
+    /// - Note: This will be `nil` if the status is not `ok`
     let jsonData: String?
 
     /// The relationships contained in this response
-    ///
-    /// This will be `nil` if the status is not `ok`
+    /// - Note: This will be `nil` if the status is not `ok`
     let relationships: [MDObject]?
 
     /// The token information returned during authentication
-    ///
-    /// This will be nil for requests outside of the `auth` endpoint
+    /// - Note: This will be nil for requests outside of the `auth` endpoint
     let token: MDToken?
 
     /// Whether a JWT provides authentication
-    ///
-    /// This is only filled when using the `/auth/check` endpoint
+    /// - Note: This is only filled when using the `/auth/check` endpoint
     public let authenticated: Bool?
 
     /// List of roles associated to a session JWT
-    ///
-    /// This is only filled when using the `/auth/check` endpoint
+    /// - Note: This is only filled when using the `/auth/check` endpoint
     public let roles: [MDRole]?
 
     /// List of permissions associated to a session JWT
-    ///
-    /// This is only filled when using the `/auth/check` endpoint
+    /// - Note: This is only filled when using the `/auth/check` endpoint
     public let permissions: [MDPermission]?
 
     /// The optional message in this result
     public let message: String?
 
     /// The errors contained in this response
-    ///
-    /// This will be `nil` if the status is `ok`
+    /// - Note: This will be `nil` if the status is `ok`
     public let errors: [MDError]?
 
 }

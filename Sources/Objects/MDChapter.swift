@@ -21,8 +21,7 @@ public struct MDChapter: Decodable {
     public let volume: String?
 
     /// The chapter in the printed manga which corresponds to this chapter
-    ///
-    /// This may be an empty string if the uploader did not provide a chapter number (e.g. for oneshots)
+    /// - Note: This may be an empty string if the uploader did not provide a chapter number (e.g. for oneshots)
     public let chapter: String?
 
     /// The language in which this chapter was translated
@@ -45,13 +44,11 @@ public struct MDChapter: Decodable {
     public let createdDate: Date
 
     /// The date of the last update made to this chapter entry on MangaDex
-    ///
-    /// This property will be `nil` if the chapter was never modified after being created
+    /// - Note: This property will be `nil` if the chapter was never modified after being created
     public let updatedDate: Date?
 
     /// The date at which this chapter will be or has been published
-    ///
-    /// This may differ from the `createdDate` property as scanlation groups might impose delays
+    /// - Note: This may differ from the `createdDate` property as scanlation groups might impose delays
     public let publishDate: Date?
 
     /// The version of this type of object in the MangaDex API

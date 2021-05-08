@@ -11,23 +11,21 @@ import Foundation
 /// The main MangaDex API class, which should be used to access the framework's capabilities
 public class MDApi: NSObject {
 
-    /// URL for the MangaDex website
+    /// Base URL for the MangaDex API
     public static let baseURL = "https://api.mangadex.org"
 
-    /// Default value appended after the default User-Agent for all requests made by the lib
+    /// Default value appended after the default User-Agent for all requests made by the MangaDexLib
     public static let defaultUserAgent = "MangaDexLib"
 
     /// Instance of `MDRequestHandler` used to perform all requests
     public let requestHandler = MDRequestHandler()
 
     /// Session token provided by the API after login
-    ///
-    /// This token is valid for 15 minutes and must be refreshed afterwards
+    /// - Note: This token is valid for 15 minutes and must be refreshed afterwards
     public internal(set) var sessionJwt: String?
 
     /// Refresh token provided by the API after login
-    ///
-    /// This token is valid for 4 hours and can be used to obtain a new `sessionJwt`
+    /// - Note: This token is valid for 4 hours and can be used to obtain a new `sessionJwt`
     public internal(set) var refreshJwt: String?
 
     /// TypeAlias for completion blocks

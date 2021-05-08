@@ -56,7 +56,6 @@ extension MDPath {
     /// Build the URL to get the specified user's list of custom lists
     /// - Parameter userId: The id of the user
     /// - Returns: The MangaDex URL
-    ///
     /// - Note: This will only list public custom lists
     public static func getUserCustomLists(userId: String) -> URL {
         return buildUrl(for: .user, with: [Endpoint.customList.rawValue])

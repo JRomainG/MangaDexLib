@@ -76,7 +76,7 @@ extension MDApi {
     /// Refresh the current session token
     /// - Parameter completion: The completion block called once the request is done
     ///
-    /// This should be called every 15 minutes, as this is when the token expires
+    /// This should be called every 15 minutes, as the session JWT will have expired
     public func refreshToken(completion: @escaping (MDApiError?) -> Void) {
         // Ensure we have a refresh token
         guard let refreshToken = self.refreshJwt else {

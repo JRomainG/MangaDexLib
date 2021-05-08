@@ -20,9 +20,8 @@ public class MDApiError: NSObject, Error {
 
         /// No DDoS-Guard cookie was found in the cookie jar
         ///
-        /// A DDoS-Guard cookie has to be set before doing any `POST`
-        /// request. The cookie is automatically set when performing a
-        /// `GET` request, and is kept in between sessions
+        /// A DDoS-Guard cookie has to be set before doing any `POST` request. The cookie is automatically set when
+        /// performing a `GET` request, and is kept in between sessions
         case noDdosGuardCookie
 
         /// MangaDex decided that the user needs to solve a captcha before accessing the endpoint
@@ -31,7 +30,7 @@ public class MDApiError: NSObject, Error {
         /// The requests was started before the `MDRequestHandler` entered
         /// a ready state
         ///
-        /// Thanks to the task queue, this should never occure
+        /// - Note: Thanks to the task queue, this should never occure
         case notReady
 
         /// The user needs to be authenticated to perform this request
