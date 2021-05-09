@@ -1,5 +1,5 @@
 //
-//  MDTokenInfo.swift
+//  MDAuthInfo.swift
 //  MangaDexLib
 //
 //  Created by Jean-Romain on 09/05/2021.

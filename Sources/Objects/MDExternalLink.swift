@@ -14,6 +14,9 @@ public struct MDExternalLink {
     /// The type of link that this is
     public let linkType: MDExternalLinkType
 
+    /// The value saved by MangaDex as the value (not always the full link)
+    internal let rawValue: String
+
     /// The name of this type of external link
     public let name: String?
 
@@ -28,6 +31,7 @@ extension MDExternalLink {
     /// Custom `init` implementation to take a key/value and convert it to a proper struct
     public init(key: String, value: String) {
         linkType = MDExternalLinkType(rawValue: key) ?? .raw
+        rawValue = value
 
         switch linkType {
         case .aniList:

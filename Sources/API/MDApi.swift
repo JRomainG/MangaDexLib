@@ -32,13 +32,13 @@ public class MDApi: NSObject {
     /// - Note: This token is valid for 4 hours and can be used to obtain a new `sessionJwt`
     public internal(set) var refreshJwt: String?
 
-    /// TypeAlias for completion blocks
-    public typealias MDCompletion = (MDResponse) -> Void
-
     /// Setter for the User-Agent to use for requests
     public func setUserAgent(_ userAgent: String) {
         requestHandler.setUserAgent(userAgent)
     }
+
+    /// TypeAlias for requests completion blocks
+    internal typealias MDCompletion = (MDResponse) -> Void
 
 }
 

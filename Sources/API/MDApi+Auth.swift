@@ -13,6 +13,7 @@ extension MDApi {
     /// Login to MangaDex
     /// - Parameter credentials: The user's credentials
     /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must *not* be logged-in
     public func login(credentials: MDAuthCredentials, completion: @escaping (MDApiError?) -> Void) {
         let url = MDPath.login()
         performPost(url: url, body: credentials) { (response) in
@@ -37,6 +38,7 @@ extension MDApi {
 
     /// Logout of MangaDex
     /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must be logged-in
     public func logout(completion: @escaping (MDApiError?) -> Void) {
         let url = MDPath.logout()
         performPost(url: url, body: "") { (response) in
@@ -54,6 +56,7 @@ extension MDApi {
 
     /// Check that the current session token is valid and get its information
     /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must be logged-in
     public func checkToken(completion: @escaping (MDAuthInfo?, MDApiError?) -> Void) {
         let url = MDPath.checkToken()
         performPost(url: url, body: "") { (response) in
@@ -77,6 +80,7 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     ///
     /// This should be called every 15 minutes, as the session JWT will have expired
+    /// - Precondition: The user must be logged-in
     public func refreshToken(completion: @escaping (MDApiError?) -> Void) {
         // Ensure we have a refresh token
         guard let refreshToken = self.refreshJwt else {

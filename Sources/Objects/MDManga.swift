@@ -10,7 +10,7 @@ import Foundation
 
 /// Structure representing a manga returned by MangaDex
 /// This is passed in the `data` property of an `MDObject`
-public struct MDManga: Decodable {
+public struct MDManga {
 
     /// The manga's title
     public let title: MDLocalizedString
@@ -59,14 +59,28 @@ public struct MDManga: Decodable {
     public let updatedDate: Date?
 
     /// A set of links to external websites
-    private let links: [MDExternalLink]
+    public let links: [MDExternalLink]
+
+    /// A note about this manga left for the moderators
+    /// - Important: This is only used when uploading manga, it will never be filled when decoding
+    public let modNotes: String?
+
+    /// A list of authors' uuids
+    /// - Important: This is only used when uploading manga, it will never be filled when decoding.
+    /// Use `MDObject.relationships` instead
+    public let authors: [String]?
+
+    /// A list of arists' uuids
+    /// - Important: This is only used when uploading manga, it will never be filled when decoding.
+    /// Use `MDObject.relationships` instead
+    public let artists: [String]?
 
     /// The version of this type of object in the MangaDex API
     public let version: Int
 
 }
 
-extension MDManga {
+extension MDManga: Decodable {
 
     /// Coding keys to map JSON data to our struct
     enum CodingKeys: String, CodingKey {
@@ -85,6 +99,9 @@ extension MDManga {
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
         case links
+        case modNotes
+        case authors
+        case artists
         case version
     }
 
@@ -120,6 +137,48 @@ extension MDManga {
             tmp.append(MDExternalLink(key: key, value: value))
         }
         links = tmp
+
+        // These properties are only used for encoding
+        authors = nil
+        artists = nil
+        modNotes = nil
+    }
+
+}
+
+extension MDManga: Encodable {
+
+    /// Custom `encode` implementation to handle encoding the `originalLanguage` and `links` attributes
+    ///
+    /// The MangaDex API does not expect the same thing when encoding an `MDManga` as when decoding it, which makes this
+    /// a bit awkward. See https://api.mangadex.org/docs.html#operation/post-manga for more details
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(title, forKey: .title)
+        try container.encode(altTitles, forKey: .altTitles)
+        try container.encode(description, forKey: .description)
+        try container.encode(lastVolume, forKey: .lastVolume)
+        try container.encode(lastChapter, forKey: .lastChapter)
+        try container.encode(demographic, forKey: .demographic)
+        try container.encode(publicationStatus, forKey: .publicationStatus)
+        try container.encode(year, forKey: .year)
+        try container.encode(rating, forKey: .rating)
+        try container.encode(modNotes, forKey: .modNotes)
+        try container.encode(version, forKey: .version)
+
+        // Manually encode the language code
+        try container.encode(originalLanguage?.identifier, forKey: .originalLanguage)
+
+        /// Manually encode the links
+        for link in links {
+            try container.encode(link.rawValue, forKey: CodingKeys.init(stringValue: link.linkType.rawValue)!)
+        }
+
+        // Manually encode the authors and artists, which should be in MDObject.relationships, but have to be stored
+        // here for upload...
+        try container.encode(authors ?? [], forKey: .authors)
+        try container.encode(artists ?? [], forKey: .artists)
     }
 
 }

@@ -9,25 +9,25 @@
 import Foundation
 
 /// Structure representing a string in a given language returned by MangaDex
-public struct MDLocalizedString: Decodable {
+public struct MDLocalizedString {
 
     /// The available translated strings
     public let translations: [Locale: String]
 
 }
 
-extension MDLocalizedString {
+extension MDLocalizedString: Decodable {
 
     /// Dynamic coding keys to flatten the dict returned by the MangaDex API
     private struct CodingKeys: CodingKey {
 
-        // The API returns a string-keyed dictionary
+        // The API returns a string-keyed dictionary, so all keys will be strings
         var stringValue: String
         init?(stringValue: String) {
             self.stringValue = stringValue
         }
 
-        // This shouldn't be an integer-keyed dictionary, so just return nil
+        // Return nil since we know keys are strings
         var intValue: Int?
         init?(intValue: Int) {
             return nil
@@ -49,6 +49,18 @@ extension MDLocalizedString {
         }
 
         translations = strings
+    }
+
+}
+
+extension MDLocalizedString: Encodable {
+
+    /// Custom `encode` implementation to convert our attributes to the ones expected by the MangaDex API
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        for (locale, string) in translations {
+            try container.encode(string, forKey: CodingKeys.init(stringValue: locale.identifier)!)
+        }
     }
 
 }

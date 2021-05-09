@@ -71,7 +71,7 @@ extension MDChapter {
         case version
     }
 
-    /// Custom `init` implementation to handle decoding the `originalLanguage` and `links` attributes
+    /// Custom `init` implementation to handle decoding the `language` attribute
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         title = try container.decode(String.self, forKey: .title)

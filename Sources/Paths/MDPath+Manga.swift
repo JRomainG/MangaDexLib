@@ -71,7 +71,7 @@ extension MDPath {
 
     /// Build the URL to add the specified manga to the logged-in user's custom list
     /// - Parameter mangaId: The id of the manga
-    /// - Parameter mangaId: The id of the logged-in user's custom list
+    /// - Parameter listId: The id of the custom list
     /// - Returns: The MangaDex URL
     public static func addMangaToCustomList(mangaId: String, listId: String) -> URL {
         return buildUrl(for: .manga, with: [mangaId, listId])
@@ -79,7 +79,7 @@ extension MDPath {
 
     /// Build the URL to remove the specified manga from the logged-in user's custom list
     /// - Parameter mangaId: The id of the manga
-    /// - Parameter mangaId: The id of the logged-in user's custom list
+    /// - Parameter listId: The id of the custom list
     /// - Returns: The MangaDex URL
     public static func removeMangaFromCustomList(mangaId: String, listId: String) -> URL {
         return buildUrl(for: .manga, with: [mangaId, listId])
