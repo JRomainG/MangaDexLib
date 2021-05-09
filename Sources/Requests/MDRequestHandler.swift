@@ -58,6 +58,10 @@ public class MDRequestHandler: NSObject {
     /// The cookies valid for this session
     public private(set) var cookieJar: HTTPCookieStorage = .shared
 
+    /// Authentication token provided by the MangaDex API after login
+    /// - Note: This token is synchronised with `MDApi.sessionJwt`
+    internal var authToken: String?
+
     /// The delay (in seconds) added before doing a requests which goes through the `handleDdosGuard` method
     ///
     /// This delay is only added for `POST` methods, so it will be mostly invisible to the user during normal use
@@ -259,7 +263,12 @@ public class MDRequestHandler: NSObject {
         // Make sure the headers are correct
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue(self.userAgent, forHTTPHeaderField: "User-Agent")
+        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+
+        // Authenticate using the saved token if there is one
+        if let jwt = authToken {
+            request.setValue("bearer \(jwt)", forHTTPHeaderField: "Authorization")
+        }
 
         // Cookies are automatically handled by the session, so just create the task
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in

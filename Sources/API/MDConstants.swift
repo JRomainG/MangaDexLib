@@ -183,6 +183,9 @@ public enum MDResultStatus: String, Codable {
 
     /// The result contains at least one error
     case nok = "ko"
+
+    /// Same as `.nok`, seems to be used for HTTP exceptions (e.g. 404)
+    case error = "error"
 }
 
 /// Types of objects which exist in the MangaDex API
@@ -199,14 +202,57 @@ public enum MDObjectType: String, Codable {
 ///
 /// **TODO**: This list might not be accurate as it is not described in the API documentation
 public enum MDRole: String, Codable {
-    /// The current use is a guest
-    case guest = "ROLE_GUEST"
-
-    /// The current use is anonymous
+    /// The user is anonymous
     case anonymous = "IS_ANONYMOUS"
 
-    /// The current user is not logged-in to an account
+    /// The user is authenticated without an account
+    /// - Note: Logged-in users still have this "role" as roles stack
     case authenticatedAnonymously = "IS_AUTHENTICATED_ANONYMOUSLY"
+
+    /// The user is logged-in to a validated account
+    case authenticatedFully = "IS_AUTHENTICATED_FULLY"
+
+    /// The user is logged-in to an account and will be remebered
+    case authenticatedRemembered = "IS_AUTHENTICATED_REMEMBERED"
+
+    /// The user was authenticated using a JSON Web Token
+    case authenticatedJwt = "IS_JWT_AUTHENTICATED"
+
+    /// The user is a guest
+    case guest = "ROLE_GUEST"
+
+    /// The user is banned
+    case banned = "ROLE_BANNED"
+
+    /// The user is a member
+    case member = "ROLE_MEMBER"
+
+    /// The user is a member of at least one group
+    case groupMember = "ROLE_GROUP_MEMBER"
+
+    /// The user is leader of at least one group
+    case groupLeader = "ROLE_GROUP_LEADER"
+
+    /// The user is a power uploader
+    case powerUploader = "ROLE_POWER_UPLOADER"
+
+    /// The user is a VIP member
+    case vip = "ROLE_VIP"
+
+    /// The user is in charge of Public Relations for MangaDex
+    case publicRelations = "ROLE_PUBLIC_RELATIONS"
+
+    /// The user is in charge of moderating the MangaDex forum
+    case forumModerator = "ROLE_FORUM_MODERATOR"
+
+    /// The user is a developer for MangaDex
+    case developer = "ROLE_DEVELOPER"
+
+    /// The user is in charge of moderating the MangaDex website
+    case moderator = "ROLE_MODERATOR"
+
+    /// The user is a MangaDex administrator
+    case administrator = "ROLE_ADMINISTRATOR"
 }
 
 /// Permissions returned by the MangaDex API in token information
@@ -225,6 +271,9 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to view scanlation groups
     case viewScanlationGroup = "scanlation_group.view"
 
+    /// The logged-in user is allowed to view user information
+    case viewUser = "user.view"
+
     /// The logged-in user is allowed to list mangas
     case listMangas = "manga.list"
 
@@ -237,17 +286,29 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to list scanlation groups
     case listScanlationGroups = "scanlation_group.list"
 
+    /// The logged-in user is allowed to list users
+    case listUsers = "user.list"
+
     /// The logged-in user is allowed to create mangas
     case createManga = "manga.create"
 
-    /// The logged-in user is allowed to create chapters
-    case createChapter = "chapter.create"
+    /// The logged-in user is allowed to upload chapters
+    case uploadChapter = "chapter.upload"
+
+    /// The logged-in user is allowed to upload chapters in the name of a group
+    case groupUploadChapter = "group_self.upload"
+
+    /// The logged-in user is allowed to upload chapters
+    case remoteUploadChapter = "chapter.remote_upload"
 
     /// The logged-in user is allowed to create authors
     case createAuthor = "author.create"
 
     /// The logged-in user is allowed to create scanlation groups
     case createScanlationGroup = "scanlation_group.create"
+
+    /// The logged-in user is allowed to create users
+    case createUser = "user.create"
 
     /// The logged-in user is allowed to delete mangas
     case deleteManga = "manga.delete"
@@ -261,6 +322,9 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to delete scanlation groups
     case deleteScanlationGroup = "scanlation_group.delete"
 
+    /// The logged-in user is allowed to delete users
+    case deleteUser = "user.delete"
+
     /// The logged-in user is allowed to edit mangas
     case editManga = "manga.edit"
 
@@ -272,4 +336,7 @@ public enum MDPermission: String, Codable {
 
     /// The logged-in user is allowed to edit scanlation groups
     case editScanlationGroup = "scanlation_group.edit"
+
+    /// The logged-in user is allowed to edit users
+    case editUser = "user.edit"
 }

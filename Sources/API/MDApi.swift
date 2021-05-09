@@ -22,7 +22,11 @@ public class MDApi: NSObject {
 
     /// Session token provided by the API after login
     /// - Note: This token is valid for 15 minutes and must be refreshed afterwards
-    public internal(set) var sessionJwt: String?
+    public internal(set) var sessionJwt: String? {
+        didSet {
+            requestHandler.authToken = sessionJwt
+        }
+    }
 
     /// Refresh token provided by the API after login
     /// - Note: This token is valid for 4 hours and can be used to obtain a new `sessionJwt`

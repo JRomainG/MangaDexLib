@@ -49,28 +49,32 @@ public class MDApiError: NSObject, Error {
         case actionFailed
     }
 
+    /// Type of error represented by this object
+    public let errorType: ErrorType
+
     /// Errors returned by the MangaDex API
-    let apiErrors: [MDError]
+    public let apiErrors: [MDError]
 
     /// Underlying errors raised by Swift methods
-    let underlyingError: Error?
+    public let underlyingError: Error?
 
     /// The raw content returned by the MangaDex API which triggered this error
-    let rawBody: String?
+    public let rawBody: String?
 
     /// Convenience `init` method
     /// - Parameter type: The type of error raised
     /// - Parameter body: The body of the error returned by the MangaDex API
     /// - Parameter error: The underlying error raised by Swift
     init(type: ErrorType, body: String? = nil, error: Error? = nil) {
-        self.underlyingError = error
-        self.rawBody = body
+        errorType = type
+        underlyingError = error
+        rawBody = body
 
         do {
             let result = try MDParser.parse(json: body ?? "", type: MDResult.self)
-            self.apiErrors = result.errors ?? []
+            apiErrors = result.errors ?? []
         } catch {
-            self.apiErrors = []
+            apiErrors = []
         }
     }
 

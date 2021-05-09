@@ -106,6 +106,16 @@ class MDLibApiTests: XCTestCase {
         try login(api: api, credentialsKey: "AuthRegular")
         XCTAssertNotNil(api.sessionJwt)
         XCTAssertNotNil(api.refreshJwt)
+
+        let tokenExpectation = self.expectation(description: "Check that the obtained session token allows auth")
+        api.checkToken { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssertNotNil(result?.roles)
+            XCTAssert(result?.roles?.contains(MDRole.authenticatedJwt) == true)
+            tokenExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testWrongLogin() throws {
