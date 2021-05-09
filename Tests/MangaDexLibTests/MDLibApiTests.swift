@@ -143,4 +143,46 @@ class MDLibApiTests: XCTestCase {
         XCTAssertNil(api.refreshJwt)
     }
 
+    func testGetMangaList() throws {
+        let api = MDApi()
+
+        let mangaExpectation = self.expectation(description: "Get a list of mangas")
+        api.getMangaList { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            XCTAssertNotNil(result!.results.first?.object)
+            XCTAssertNotNil(result!.results.first?.object?.data)
+            mangaExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testGetMangaTagList() throws {
+        let api = MDApi()
+
+        let tagExpectation = self.expectation(description: "Get a list of manga tags")
+        api.getMangaTagList { (results, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(results)
+            XCTAssert(results!.count > 0)
+            XCTAssertNotNil(results?.first?.object)
+            XCTAssertNotNil(results?.first?.object?.data)
+            tagExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testGetRandomManga() throws {
+        let api = MDApi()
+
+        let mangaExpectation = self.expectation(description: "Get a random manga")
+        api.getRandomManga { (manga, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(manga)
+            mangaExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
 }

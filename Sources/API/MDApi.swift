@@ -93,3 +93,31 @@ extension MDApi {
     }
 
 }
+
+// MARK: - MDApi Generic Completion Blocks
+
+extension MDApi {
+
+    /// Simple helper method which performs a get, decodes the result as the given type, and calls the completion block
+    /// - Parameter url: The URL to fetch
+    /// - Parameter completion: The completion block called once the request is done
+    internal func performBasicGetCompletion<T: Decodable>(url: URL, completion: @escaping (T?, MDApiError?) -> Void) {
+        performGet(url: url) { (response) in
+            // Propagate errors
+            guard response.error == nil else {
+                completion(nil, response.error)
+                return
+            }
+
+            // Parse the response to retreive the list of mangas
+            do {
+                let results = try MDParser.parse(json: response.content, type: T.self)
+                completion(results, nil)
+            } catch {
+                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                completion(nil, error)
+            }
+        }
+    }
+
+}
