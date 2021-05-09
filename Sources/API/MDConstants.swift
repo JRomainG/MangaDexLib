@@ -11,7 +11,7 @@ import Foundation
 /// Demographic a manga appeals to
 public enum MDDemographic: String, Codable {
     /// The manga is a shounen, usually targeted at boys between 12 and 18
-    case shounen = "shonen"
+    case shounen = "shounen"
 
     /// The manga is a shoujo, usually targeted at girls between 12 and 18
     case shoujo = "shoujo"
@@ -83,8 +83,8 @@ public enum MDCustomListVisibility: String, Codable {
     case privateList = "private"
 }
 
-/// Type of resource linked by a relationship
-public enum MDRelationshipType: String, Codable {
+/// Type of object which exists in the MangaDex API
+public enum MDObjectType: String, Codable {
     /// The target resource is a manga
     case manga = "manga"
 
@@ -186,16 +186,6 @@ public enum MDResultStatus: String, Codable {
 
     /// Same as `.nok`, seems to be used for HTTP exceptions (e.g. 404)
     case error = "error"
-}
-
-/// Types of objects which exist in the MangaDex API
-public enum MDObjectType: String, Codable {
-    case manga
-    case chapter
-    case author
-    case artist
-    case tag
-    case scanlationGroup = "scanlation_group"
 }
 
 /// Roles returned by the MangaDex API in token information
@@ -325,18 +315,18 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to delete users
     case deleteUser = "user.delete"
 
-    /// The logged-in user is allowed to edit mangas
-    case editManga = "manga.edit"
+    /// The logged-in user is allowed to update mangas
+    case editManga = "manga.update"
 
-    /// The logged-in user is allowed to edit chapters
-    case editChapter = "chapter.edit"
+    /// The logged-in user is allowed to update chapters
+    case editChapter = "chapter.update"
 
-    /// The logged-in user is allowed to edit authors
-    case editAuthor = "author.edit"
+    /// The logged-in user is allowed to update authors
+    case editAuthor = "author.update"
 
-    /// The logged-in user is allowed to edit scanlation groups
-    case editScanlationGroup = "scanlation_group.edit"
+    /// The logged-in user is allowed to update scanlation groups
+    case editScanlationGroup = "scanlation_group.update"
 
-    /// The logged-in user is allowed to edit users
-    case editUser = "user.edit"
+    /// The logged-in user is allowed to update users
+    case editUser = "user.update"
 }

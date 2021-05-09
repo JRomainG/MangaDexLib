@@ -9,7 +9,7 @@
 import Foundation
 
 /// Structure representing external links that MangaDex provides
-public struct MDExternalLink: Decodable {
+public struct MDExternalLink {
 
     /// The type of link that this is
     public let linkType: MDExternalLinkType
@@ -25,10 +25,9 @@ public struct MDExternalLink: Decodable {
 extension MDExternalLink {
 
     // swiftlint:disable cyclomatic_complexity
-    /// Custom `init` implementation to flatten the JSON and convert it to meaningful parameters
-    public init(from decoder: Decoder) throws {
-        linkType = MDExternalLinkType(rawValue: decoder.codingPath.first!.stringValue) ?? .raw
-        let value = try decoder.singleValueContainer().decode(String.self)
+    /// Custom `init` implementation to take a key/value and convert it to a proper struct
+    public init(key: String, value: String) {
+        linkType = MDExternalLinkType(rawValue: key) ?? .raw
 
         switch linkType {
         case .aniList:

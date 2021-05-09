@@ -9,10 +9,8 @@
 import Foundation
 
 /// Structure representing an author returned by MangaDex
+/// This is passed in the `data` property of an `MDObject`
 public struct MDAuthor: Decodable {
-
-    /// The id of the author
-    public var authorId: String
 
     /// The author's name
     public let name: String
@@ -39,20 +37,12 @@ extension MDAuthor {
 
     /// Coding keys to map JSON data to our struct
     enum CodingKeys: String, CodingKey {
-        case authorId = "id"
         case name
         case imageURL
         case biography
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
         case version
-    }
-
-    /// Custom `init` implementation to handle the fact that structures are encapsulated in an `MDObject`
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: MDObject.CodingKeys.self)
-        self = try container.decode(MDAuthor.self, forKey: .attributes)
-        self.authorId = try container.decode(String.self, forKey: .objectId)
     }
 
 }

@@ -9,20 +9,20 @@
 import Foundation
 
 /// Structure representing a list of results returned by the MangaDex API
-struct MDResultList: Decodable {
+public struct MDResultList<T: Decodable>: Decodable {
 
     /// The status of the result returned by the MangaDex API
-    let results: [MDResult]
+    public let results: [MDResult<T>]
 
     /// The maximum number of results returned by the MangaDex API
-    let limit: Int
+    public let limit: Int
 
     /// The offset of the first return result
     ///
     /// This is used for paging when there are too many results to return in one response
-    let offset: Int
+    public let offset: Int
 
     /// The total number of available results
-    let total: Int
+    public let total: Int
 
 }

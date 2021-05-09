@@ -9,8 +9,7 @@
 import Foundation
 
 /// Structure representing an object returned by the MangaDex API
-/// This is used in relationship lists
-public struct MDObject: Decodable {
+public struct MDObject<T: Decodable>: Decodable {
 
     /// This object's ID
     public let objectId: String
@@ -18,9 +17,10 @@ public struct MDObject: Decodable {
     /// The kind of object encoded
     public let objectType: MDObjectType
 
-    /// This object's attributes
-    /// - Note: This should probably always be `nil`, otherwise the appropriate structure will be returned instead
-    public let attributes: String?
+    /// The data returned by the API
+    ///
+    /// This is decoded as one of MangaDexLib's structures for ease of use
+    public let data: T
 
 }
 
@@ -30,7 +30,7 @@ extension MDObject {
     enum CodingKeys: String, CodingKey {
         case objectId = "id"
         case objectType = "type"
-        case attributes
+        case data = "attributes"
     }
 
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Structure representing a token returned by MangaDex
-struct MDToken: Decodable {
+public struct MDToken: Decodable {
 
     /// The session token
     let sessionJwt: String

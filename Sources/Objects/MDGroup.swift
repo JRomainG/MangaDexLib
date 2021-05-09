@@ -9,10 +9,8 @@
 import Foundation
 
 /// Structure representing a group returned by MangaDex
+/// This is passed in the `data` property of an `MDObject`
 public struct MDGroup: Decodable {
-
-    /// The id of the group
-    public var groupId: String
 
     /// The group's name
     public let name: String
@@ -40,20 +38,12 @@ extension MDGroup {
 
     /// Coding keys to map JSON data to our struct
     enum CodingKeys: String, CodingKey {
-        case groupId = "id"
         case name
         case leader
         case members
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
         case version
-    }
-
-    /// Custom `init` implementation to handle the fact that structures are encapsulated in an `MDObject`
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: MDObject.CodingKeys.self)
-        self = try container.decode(MDGroup.self, forKey: .attributes)
-        self.groupId = try container.decode(String.self, forKey: .objectId)
     }
 
 }

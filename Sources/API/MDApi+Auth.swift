@@ -24,7 +24,7 @@ extension MDApi {
 
             // Parse the response and save the JWT as they might be useful for future requests
             do {
-                let result = try MDParser.parse(json: response.content, type: MDResult.self)
+                let result = try MDParser.parse(json: response.content, type: MDResult<String>.self)
                 self.sessionJwt = result.token?.sessionJwt ?? self.sessionJwt
                 self.refreshJwt = result.token?.refreshJwt ?? self.refreshJwt
                 completion(nil)
@@ -54,7 +54,7 @@ extension MDApi {
 
     /// Check that the current session token is valid and get its information
     /// - Parameter completion: The completion block called once the request is done
-    public func checkToken(completion: @escaping (MDResult?, MDApiError?) -> Void) {
+    public func checkToken(completion: @escaping (MDAuthInfo?, MDApiError?) -> Void) {
         let url = MDPath.checkToken()
         performPost(url: url, body: "") { (response) in
             // Propagate errors
@@ -64,7 +64,7 @@ extension MDApi {
             }
 
             do {
-                let result = try MDParser.parse(json: response.content, type: MDResult.self)
+                let result = try MDParser.parse(json: response.content, type: MDAuthInfo.self)
                 completion(result, nil)
             } catch {
                 let error = MDApiError(type: .decodingError, body: response.content, error: error)
@@ -95,7 +95,7 @@ extension MDApi {
 
             // Parse the response and save the JWT as they might be useful for future requests
             do {
-                let result = try MDParser.parse(json: response.content, type: MDResult.self)
+                let result = try MDParser.parse(json: response.content, type: MDResult<String>.self)
                 self.sessionJwt = result.token?.sessionJwt ?? self.sessionJwt
                 self.refreshJwt = result.token?.refreshJwt ?? self.refreshJwt
                 completion(nil)

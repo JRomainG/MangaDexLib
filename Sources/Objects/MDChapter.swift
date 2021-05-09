@@ -9,23 +9,21 @@
 import Foundation
 
 /// Structure representing a manga chapter returned by MangaDex
+/// This is passed in the `data` property of an `MDObject`
 public struct MDChapter: Decodable {
-
-    /// The id of the chapter
-    public var chapterId: String?
 
     /// The chapter's title
     public let title: String
 
     /// The volume this chapter belongs to, if entered by the uploader
-    public let volume: String?
+    public let volume: Int?
 
     /// The chapter in the printed manga which corresponds to this chapter
     /// - Note: This may be an empty string if the uploader did not provide a chapter number (e.g. for oneshots)
     public let chapter: String?
 
     /// The language in which this chapter was translated
-    public let language: Locale
+    public let language: Locale?
 
     /// The chapter's hash, used to fetch the pages when using MangaDex@Home
     public let hash: String
@@ -60,7 +58,6 @@ extension MDChapter {
 
     /// Mapping between MangaDex's API JSON keys and the class' variable names
     enum CodingKeys: String, CodingKey {
-        case chapterId = "id"
         case title
         case volume
         case chapter
@@ -74,11 +71,26 @@ extension MDChapter {
         case version
     }
 
-    /// Custom `init` implementation to handle the fact that structures are encapsulated in an `MDObject`
+    /// Custom `init` implementation to handle decoding the `originalLanguage` and `links` attributes
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: MDObject.CodingKeys.self)
-        self = try container.decode(MDChapter.self, forKey: .attributes)
-        self.chapterId = try container.decode(String.self, forKey: .objectId)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        title = try container.decode(String.self, forKey: .title)
+        volume = try container.decode(Int?.self, forKey: .volume)
+        chapter = try container.decode(String?.self, forKey: .chapter)
+        hash = try container.decode(String.self, forKey: .hash)
+        pages = try container.decode([String].self, forKey: .pages)
+        pagesLowRes = try container.decode([String].self, forKey: .pagesLowRes)
+        createdDate = try container.decode(Date.self, forKey: .createdDate)
+        updatedDate = try container.decode(Date?.self, forKey: .updatedDate)
+        publishDate = try container.decode(Date?.self, forKey: .publishDate)
+        version = try container.decode(Int.self, forKey: .version)
+
+        // Manually decode the language code to convert it from a String to a Locale
+        if let langCode = try container.decode(String?.self, forKey: .language) {
+            language = Locale.init(identifier: langCode)
+        } else {
+            language = nil
+        }
     }
 
 }

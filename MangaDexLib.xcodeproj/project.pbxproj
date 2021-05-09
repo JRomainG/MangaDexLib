@@ -64,12 +64,16 @@
 		337474692646A400002114C9 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 337474682646A400002114C9 /* WebKit.framework */; };
 		337474712646A94A002114C9 /* MDApi+Infra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337474702646A94A002114C9 /* MDApi+Infra.swift */; };
 		337474722646A94A002114C9 /* MDApi+Infra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337474702646A94A002114C9 /* MDApi+Infra.swift */; };
+		338E12A52647DAFE00C89F08 /* MDTokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338E12A42647DAFE00C89F08 /* MDTokenInfo.swift */; };
+		338E12A62647DAFE00C89F08 /* MDTokenInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338E12A42647DAFE00C89F08 /* MDTokenInfo.swift */; };
+		338E12AE2647DCD200C89F08 /* MDObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338E12AD2647DCD200C89F08 /* MDObject.swift */; };
+		338E12AF2647DCD200C89F08 /* MDObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338E12AD2647DCD200C89F08 /* MDObject.swift */; };
 		339A33F826455162008535DA /* MDLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A33F726455162008535DA /* MDLocalizedString.swift */; };
 		339A33F926455162008535DA /* MDLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A33F726455162008535DA /* MDLocalizedString.swift */; };
 		339A33FE26455817008535DA /* MDTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A33FD26455817008535DA /* MDTag.swift */; };
 		339A33FF26455817008535DA /* MDTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A33FD26455817008535DA /* MDTag.swift */; };
-		339A340426455D92008535DA /* MDObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A340326455D92008535DA /* MDObject.swift */; };
-		339A340526455D92008535DA /* MDObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A340326455D92008535DA /* MDObject.swift */; };
+		339A340426455D92008535DA /* MDRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A340326455D92008535DA /* MDRelationship.swift */; };
+		339A340526455D92008535DA /* MDRelationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A340326455D92008535DA /* MDRelationship.swift */; };
 		339A340D2645606D008535DA /* MDResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A340C2645606D008535DA /* MDResult.swift */; };
 		339A340E2645606D008535DA /* MDResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A340C2645606D008535DA /* MDResult.swift */; };
 		339A3419264560C3008535DA /* MDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A3418264560C3008535DA /* MDError.swift */; };
@@ -128,9 +132,11 @@
 		337474562646904B002114C9 /* MDResultList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDResultList.swift; sourceTree = "<group>"; };
 		337474682646A400002114C9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		337474702646A94A002114C9 /* MDApi+Infra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Infra.swift"; sourceTree = "<group>"; };
+		338E12A42647DAFE00C89F08 /* MDTokenInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDTokenInfo.swift; sourceTree = "<group>"; };
+		338E12AD2647DCD200C89F08 /* MDObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDObject.swift; sourceTree = "<group>"; };
 		339A33F726455162008535DA /* MDLocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLocalizedString.swift; sourceTree = "<group>"; };
 		339A33FD26455817008535DA /* MDTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDTag.swift; sourceTree = "<group>"; };
-		339A340326455D92008535DA /* MDObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDObject.swift; sourceTree = "<group>"; };
+		339A340326455D92008535DA /* MDRelationship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDRelationship.swift; sourceTree = "<group>"; };
 		339A340C2645606D008535DA /* MDResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDResult.swift; sourceTree = "<group>"; };
 		339A3418264560C3008535DA /* MDError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDError.swift; sourceTree = "<group>"; };
 		339A342A26459865008535DA /* MDAuthor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDAuthor.swift; sourceTree = "<group>"; };
@@ -182,7 +188,8 @@
 			children = (
 				337474562646904B002114C9 /* MDResultList.swift */,
 				339A340C2645606D008535DA /* MDResult.swift */,
-				339A340326455D92008535DA /* MDObject.swift */,
+				338E12AD2647DCD200C89F08 /* MDObject.swift */,
+				339A340326455D92008535DA /* MDRelationship.swift */,
 				339A3418264560C3008535DA /* MDError.swift */,
 				3322BD3F245D99120086FA81 /* MDManga.swift */,
 				3322BD41245D99120086FA81 /* MDChapter.swift */,
@@ -192,6 +199,7 @@
 				339A33FD26455817008535DA /* MDTag.swift */,
 				3322BD45245D99120086FA81 /* MDExternalLink.swift */,
 				3374745026468DB4002114C9 /* MDToken.swift */,
+				338E12A42647DAFE00C89F08 /* MDTokenInfo.swift */,
 				339A33F726455162008535DA /* MDLocalizedString.swift */,
 				3374744726468395002114C9 /* MDAuthCredentials.swift */,
 			);
@@ -518,18 +526,20 @@
 				335F9CD6245E003E00EE9A52 /* MDChapter.swift in Sources */,
 				335F9CD7245E003E00EE9A52 /* MDManga.swift in Sources */,
 				334DE62126447B95006D38E3 /* MDPath+Infra.swift in Sources */,
+				338E12A62647DAFE00C89F08 /* MDTokenInfo.swift in Sources */,
 				339A345E2645A8DA008535DA /* MDResponse.swift in Sources */,
 				335F9CDA245E003E00EE9A52 /* MDGroup.swift in Sources */,
 				339A33F926455162008535DA /* MDLocalizedString.swift in Sources */,
 				335F9CDB245E003E00EE9A52 /* MDExternalLink.swift in Sources */,
 				339A33FF26455817008535DA /* MDTag.swift in Sources */,
+				338E12AF2647DCD200C89F08 /* MDObject.swift in Sources */,
 				334DE5F12644636D006D38E3 /* MDPath+Chapter.swift in Sources */,
 				334DE5E226445A4C006D38E3 /* MDParser.swift in Sources */,
 				334DE603264468DC006D38E3 /* MDPath+Group.swift in Sources */,
 				335F9CDC245E003E00EE9A52 /* MDUser.swift in Sources */,
 				3374745226468DB4002114C9 /* MDToken.swift in Sources */,
 				334DE5FD264467B7006D38E3 /* MDPath+Author.swift in Sources */,
-				339A340526455D92008535DA /* MDObject.swift in Sources */,
+				339A340526455D92008535DA /* MDRelationship.swift in Sources */,
 				335F9CE8245E003E00EE9A52 /* MDRequestHandler.swift in Sources */,
 				339A342C26459865008535DA /* MDAuthor.swift in Sources */,
 				334DE5F726446405006D38E3 /* MDPath+User.swift in Sources */,
@@ -558,17 +568,19 @@
 				3322BD65245D99130086FA81 /* MDChapter.swift in Sources */,
 				334DE62026447B95006D38E3 /* MDPath+Infra.swift in Sources */,
 				3322BD67245D99130086FA81 /* MDGroup.swift in Sources */,
+				338E12A52647DAFE00C89F08 /* MDTokenInfo.swift in Sources */,
 				339A345D2645A8DA008535DA /* MDResponse.swift in Sources */,
 				3322BD71245D99130086FA81 /* MDApiError.swift in Sources */,
 				339A33F826455162008535DA /* MDLocalizedString.swift in Sources */,
 				339A33FE26455817008535DA /* MDTag.swift in Sources */,
 				334DE5F02644636D006D38E3 /* MDPath+Chapter.swift in Sources */,
+				338E12AE2647DCD200C89F08 /* MDObject.swift in Sources */,
 				334DE5E126445A4C006D38E3 /* MDParser.swift in Sources */,
 				334DE602264468DC006D38E3 /* MDPath+Group.swift in Sources */,
 				3322BD74245D99130086FA81 /* MDPath+Constants.swift in Sources */,
 				334DE5FC264467B7006D38E3 /* MDPath+Author.swift in Sources */,
 				3374745126468DB4002114C9 /* MDToken.swift in Sources */,
-				339A340426455D92008535DA /* MDObject.swift in Sources */,
+				339A340426455D92008535DA /* MDRelationship.swift in Sources */,
 				33407B90245DFE3A009B1F16 /* MDPath+Manga.swift in Sources */,
 				339A342B26459865008535DA /* MDAuthor.swift in Sources */,
 				3322BD63245D99130086FA81 /* MDManga.swift in Sources */,
@@ -614,7 +626,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
@@ -643,7 +655,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustKodding.MangaDexLib;
 				PRODUCT_NAME = "$(PROJECT_NAME)";

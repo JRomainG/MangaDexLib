@@ -71,7 +71,7 @@ public class MDApiError: NSObject, Error {
         rawBody = body
 
         do {
-            let result = try MDParser.parse(json: body ?? "", type: MDResult.self)
+            let result = try MDParser.parse(json: body ?? "", type: MDResult<String>.self)
             apiErrors = result.errors ?? []
         } catch {
             apiErrors = []
