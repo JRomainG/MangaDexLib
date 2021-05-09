@@ -134,10 +134,10 @@ class MDLibApiTests: XCTestCase {
         XCTAssertNotNil(api.refreshJwt)
 
         let logoutExpectation = self.expectation(description: "Logout")
-        api.logout(completion: { (error) in
+        api.logout { (error) in
             XCTAssertNil(error)
             logoutExpectation.fulfill()
-        })
+        }
         waitForExpectations(timeout: 15, handler: nil)
         XCTAssertNil(api.sessionJwt)
         XCTAssertNil(api.refreshJwt)

@@ -57,6 +57,7 @@ class MDLibRequestHandlerTests: XCTestCase {
 
     func testPostRequest() {
         let requestHandler = MDRequestHandler()
+        requestHandler.setCookie(type: .ddosGuard1, value: "not_empty")
         let body = ["username": "user", "password": "pass"]
         let url = URL(string: "https://httpbin.org/post")!
         let expectation = self.expectation(description: "Load httpbin's POST test page")
@@ -71,6 +72,45 @@ class MDLibRequestHandlerTests: XCTestCase {
             for (key, value) in body {
                 XCTAssert(args?[key] == "\(value)")
             }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+    }
+
+    func testPutRequest() {
+        let requestHandler = MDRequestHandler()
+        requestHandler.setCookie(type: .ddosGuard1, value: "not_empty")
+        let body = ["username": "user", "password": "pass"]
+        let url = URL(string: "https://httpbin.org/put")!
+        let expectation = self.expectation(description: "Load httpbin's PUT test page")
+
+        requestHandler.put(url: url, content: body) { (http, content, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(content)
+            XCTAssertEqual(http?.statusCode, 200)
+
+            let dict = self.parseJson(from: content)
+            let args = dict?["json"] as? [String: String]
+            for (key, value) in body {
+                XCTAssert(args?[key] == "\(value)")
+            }
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+    }
+
+    func testDeleteRequest() {
+        let requestHandler = MDRequestHandler()
+        requestHandler.setCookie(type: .ddosGuard1, value: "not_empty")
+        let url = URL(string: "https://httpbin.org/delete")!
+        let expectation = self.expectation(description: "Load httpbin's DELETE test page")
+
+        requestHandler.delete(url: url) { (http, content, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(content)
+            XCTAssertEqual(http?.statusCode, 200)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)

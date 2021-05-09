@@ -64,7 +64,8 @@ public class MDRequestHandler: NSObject {
 
     /// The delay (in seconds) added before doing a requests which goes through the `handleDdosGuard` method
     ///
-    /// This delay is only added for `POST` methods, so it will be mostly invisible to the user during normal use
+    /// This delay is only added for `POST`, `PUT`, or `DELETE` requests, so it will be mostly invisible to the user
+    /// during normal use
     public private(set) var ddosGuardDelay: Double = 0.1
 
     /// Boolean indicating whether the handler is ready to start performing requests
@@ -119,7 +120,7 @@ public class MDRequestHandler: NSObject {
         self.hasUserAgent = true
     }
 
-    /// Change the delay added before performing a `POST` request (in seconds)
+    /// Change the delay added before performing a `POST`, `PUT`, or `DELETE` request (in seconds)
     /// - Parameter delay: The delay (in seconds) added before each request
     /// - Note: The minimum value is capped at 0.05 seconds
     public func setDdosGuardDelay(_ delay: Double) {
@@ -224,6 +225,52 @@ public class MDRequestHandler: NSObject {
         } catch {
             completion(nil, nil, MDApiError(type: .encodingError, body: nil, error: error))
         }
+
+        // Make sure we don't trigger DDoS-Guard
+        handleDdosGuard(for: request) { error in
+            guard error == nil else {
+                completion(nil, nil, error)
+                return
+            }
+            self.perform(request: request, completion: completion)
+        }
+    }
+
+    /// Perform an async put request
+    /// - Parameter url: The URL to load
+    /// - Parameter content: The object to JSON-encode in the request's body
+    /// - Parameter completion: The callback at the end of the request
+    /// - Precondition: The `.ddosGuard` cookie must be set
+    public func put<T: Encodable>(url: URL, content: T, completion: @escaping RequestCompletion) {
+        // Create the empty request
+        let request = NSMutableURLRequest(url: url)
+        request.httpMethod = "PUT"
+
+        // Fill-in its body and headers based on the content and options
+        do {
+            request.httpBody = try JSONEncoder().encode(content)
+        } catch {
+            completion(nil, nil, MDApiError(type: .encodingError, body: nil, error: error))
+        }
+
+        // Make sure we don't trigger DDoS-Guard
+        handleDdosGuard(for: request) { error in
+            guard error == nil else {
+                completion(nil, nil, error)
+                return
+            }
+            self.perform(request: request, completion: completion)
+        }
+    }
+
+    /// Perform an async put request
+    /// - Parameter url: The URL to load
+    /// - Parameter content: The object to JSON-encode in the request's body
+    /// - Parameter completion: The callback at the end of the request
+    /// - Precondition: The `.ddosGuard` cookie must be set
+    public func delete(url: URL, completion: @escaping RequestCompletion) {
+        let request = NSMutableURLRequest(url: url)
+        request.httpMethod = "DELETE"
 
         // Make sure we don't trigger DDoS-Guard
         handleDdosGuard(for: request) { error in
