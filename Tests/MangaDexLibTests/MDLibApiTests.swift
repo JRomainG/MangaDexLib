@@ -9,6 +9,7 @@
 import XCTest
 import MangaDexLib
 
+// swiftlint:disable type_body_length
 class MDLibApiTests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -23,6 +24,7 @@ class MDLibApiTests: XCTestCase {
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
+        api.requestHandler.resetSession()
     }
 
     /// By default, auth information is stored under the `Secret.bundle`, in an `auth.list` file.
@@ -157,6 +159,23 @@ class MDLibApiTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testSearchManga() throws {
+        let api = MDApi()
+        let filter = MDMangaFilter(title: "Solo leveling")
+        filter.createdAtSince = .init(timeIntervalSince1970: 0)
+
+        let chapterExpectation = self.expectation(description: "Get a list of mangas")
+        api.searchMangas(filter: filter) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            XCTAssertNotNil(result?.results.first?.object)
+            XCTAssertNotNil(result?.results.first?.object?.data)
+            chapterExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testGetMangaTagList() throws {
         let api = MDApi()
         let tagExpectation = self.expectation(description: "Get a list of manga tags")
@@ -186,13 +205,13 @@ class MDLibApiTests: XCTestCase {
 
     func testViewManga() throws {
         let api = MDApi()
-        let mangaId = "0001183c-2089-48e9-96b7-d48db5f1a611" // Eight
+        let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
         let mangaExpectation = self.expectation(description: "Get the manga's information")
         api.viewManga(mangaId: mangaId) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.object?.data)
-            XCTAssertEqual(result?.object?.data.title.translations.first?.value, "Eight")
+            XCTAssertEqual(result?.object?.data.title.translations.first?.value, "Solo Leveling")
             mangaExpectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
@@ -200,7 +219,7 @@ class MDLibApiTests: XCTestCase {
 
     func testGetMangaFeed() throws {
         let api = MDApi()
-        let mangaId = "0001183c-2089-48e9-96b7-d48db5f1a611" // Eight
+        let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
         let chapterExpectation = self.expectation(description: "Get the manga's chapters")
         api.getMangaFeed(mangaId: mangaId) { (result, error) in
             XCTAssertNil(error)
@@ -246,6 +265,104 @@ class MDLibApiTests: XCTestCase {
             mangaExpectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testGetChapterList() throws {
+        let api = MDApi()
+        let chapterExpectation = self.expectation(description: "Get a list of chapters")
+        api.getChapterList { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            XCTAssertNotNil(result?.results.first?.object)
+            XCTAssertNotNil(result?.results.first?.object?.data)
+            chapterExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testSearchChapter() throws {
+        let api = MDApi()
+        let filter = MDChapterFilter(title: "Oneshot")
+        filter.createdAtSince = .init(timeIntervalSince1970: 0)
+
+        let chapterExpectation = self.expectation(description: "Get a list of chapters")
+        api.searchChapters(filter: filter) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            XCTAssertNotNil(result?.results.first?.object)
+            XCTAssertNotNil(result?.results.first?.object?.data)
+            chapterExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testViewChapter() throws {
+        let api = MDApi()
+        let chapterId = "946577a4-d469-45ed-8400-62f03ce4942e" // Solo leveling volume 1 chapter 1 (en)
+        let mangaExpectation = self.expectation(description: "Get the chapter's information")
+        api.viewChapter(chapterId: chapterId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssertNotNil(result?.object?.data)
+            XCTAssertEqual(result?.object?.data.volume, "1")
+            XCTAssertEqual(result?.object?.data.chapter, "1")
+            XCTAssertEqual(result?.object?.data.language, Locale.init(identifier: "en"))
+            mangaExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testGetChapterServer() throws {
+        let api = MDApi()
+        let chapterId = "946577a4-d469-45ed-8400-62f03ce4942e" // Solo leveling volume 1 chapter 1 (en)
+        let nodeExpectation = self.expectation(description: "Get the chapter's MD@Home node")
+        api.getChapterServer(chapterId: chapterId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            nodeExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testGetChapterPage() throws {
+        let api = MDApi()
+        let chapterId = "946577a4-d469-45ed-8400-62f03ce4942e" // Solo leveling volume 1 chapter 1 (en)
+
+        // Start by getting information about the chapter
+        var chapter: MDChapter?
+        let mangaExpectation = self.expectation(description: "Get the chapter's information")
+        api.viewChapter(chapterId: chapterId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssertNotNil(result?.object?.data)
+            XCTAssertEqual(result?.object?.data.volume, "1")
+            XCTAssertEqual(result?.object?.data.chapter, "1")
+            XCTAssertEqual(result?.object?.data.language, Locale.init(identifier: "en"))
+            chapter = result?.object?.data
+            mangaExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // Now, find out where the chapter's pages are hosted
+        var node: MDAtHomeNode?
+        let nodeExpectation = self.expectation(description: "Get the chapter's MD@Home node")
+        api.getChapterServer(chapterId: chapterId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            node = result
+            nodeExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // Finally, make sure nothing failed and build the full URLs for this chapter's pages
+        guard chapter != nil, node != nil else {
+            return
+        }
+        let urls = chapter?.getPageUrls(node: node!, lowRes: false)
+        XCTAssertNotNil(urls)
+        XCTAssert(urls!.count > 0)
     }
 
 }

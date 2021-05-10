@@ -17,7 +17,7 @@ public struct MDResultList<T: Decodable>: Decodable {
     /// The maximum number of results returned by the MangaDex API
     public let limit: Int
 
-    /// The offset of the first return result
+    /// The offset of the first returned result
     ///
     /// This is used for paging when there are too many results to return in one response
     public let offset: Int

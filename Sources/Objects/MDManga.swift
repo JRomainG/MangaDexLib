@@ -62,16 +62,16 @@ public struct MDManga {
     public let links: [MDExternalLink]
 
     /// A note about this manga left for the moderators
-    /// - Important: This is only used when uploading manga, it will never be filled when decoding
+    /// - Important: This is only used when uploading or updating a manga, it will never be filled when decoding
     public let modNotes: String?
 
     /// A list of authors' uuids
-    /// - Important: This is only used when uploading manga, it will never be filled when decoding.
+    /// - Important: This is only used when uploading or updating a manga, it will never be filled when decoding.
     /// Use `MDObject.relationships` instead
     public let authors: [String]?
 
     /// A list of arists' uuids
-    /// - Important: This is only used when uploading manga, it will never be filled when decoding.
+    /// - Important: This is only used when uploading or updating a manga, it will never be filled when decoding.
     /// Use `MDObject.relationships` instead
     public let artists: [String]?
 
@@ -154,7 +154,6 @@ extension MDManga: Encodable {
     /// a bit awkward. See https://api.mangadex.org/docs.html#operation/post-manga for more details
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-
         try container.encode(title, forKey: .title)
         try container.encode(altTitles, forKey: .altTitles)
         try container.encode(description, forKey: .description)

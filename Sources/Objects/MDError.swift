@@ -21,7 +21,7 @@ public struct MDError: Decodable {
     public let title: String
 
     /// The error's user-friendly detailed description
-    public let description: String
+    public let detail: String?
 
     /// The error's context
     public let context: String?
@@ -35,7 +35,7 @@ extension MDError {
         case errorId = "id"
         case status
         case title
-        case description = "detail"
+        case detail
         case context
     }
 

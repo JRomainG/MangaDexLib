@@ -109,7 +109,7 @@ extension MDApi {
                 return
             }
 
-            // Parse the response to retreive the list of mangas
+            // Parse the response to retreive the list of objects
             do {
                 let results = try MDParser.parse(json: response.content, type: T.self)
                 completion(results, nil)

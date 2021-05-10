@@ -17,6 +17,15 @@ extension MDApi {
         performBasicGetCompletion(url: url, completion: completion)
     }
 
+    /// Search the list of chapters using the specified filter
+    /// - Parameter filter: The filter to use
+    /// - Parameter completion: The completion block called once the request is done
+    public func searchMangas(filter: MDMangaFilter,
+                             completion: @escaping (MDResultList<MDManga>?, MDApiError?) -> Void) {
+        let url = MDPath.searchMangas(filter: filter)
+        performBasicGetCompletion(url: url, completion: completion)
+    }
+
     /// Get the list of existing tags for mangas
     /// - Parameter completion: The completion block called once the request is done
     public func getMangaTagList(completion: @escaping ([MDResult<MDTag>]?, MDApiError?) -> Void) {
@@ -31,7 +40,7 @@ extension MDApi {
         performBasicGetCompletion(url: url, completion: completion)
     }
 
-    /// Get a random manga
+    /// Create a new manga with the specified information
     /// - Parameter info: The `MDManga` to create
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in

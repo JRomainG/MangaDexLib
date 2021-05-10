@@ -21,4 +21,19 @@ class MDParser {
         return try decoder.decode(T.self, from: jsonData)
     }
 
+    /// Encode an object to a dictionary
+    /// - Parameter object: The type of object to return
+    /// - Returns: The instanciated object
+    static func encode<T: Encodable>(object: T) throws -> [String: Any]? {
+        // Make sure dates are formatted in the way the MangaDex API expects them to be
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .formatted(formatter)
+        let data = try encoder.encode(object)
+        return try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]
+    }
+
 }

@@ -330,3 +330,17 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to update users
     case editUser = "user.update"
 }
+
+/// Known "official" MangaDex image servers
+///
+/// These can be useful if you do not want to use a MD@Home node
+public enum MDImageServer: String, Codable {
+
+    /// Image server s2
+    case s2 = "https://s2.mangadex.org"
+
+    /// Image server s5
+    /// - Important: The certificate of this server is currently expired so it cannot be used
+    case s5 = "https://s5.mangadex.org"
+
+}

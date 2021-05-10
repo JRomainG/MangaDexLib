@@ -10,13 +10,13 @@ import Foundation
 
 /// Structure representing a manga chapter returned by MangaDex
 /// This is passed in the `data` property of an `MDObject`
-public struct MDChapter: Decodable {
+public struct MDChapter {
 
     /// The chapter's title
     public let title: String
 
     /// The volume this chapter belongs to, if entered by the uploader
-    public let volume: Int?
+    public let volume: String?
 
     /// The chapter in the printed manga which corresponds to this chapter
     /// - Note: This may be an empty string if the uploader did not provide a chapter number (e.g. for oneshots)
@@ -49,12 +49,42 @@ public struct MDChapter: Decodable {
     /// - Note: This may differ from the `createdDate` property as scanlation groups might impose delays
     public let publishDate: Date?
 
+    /// The checksums of the uploaded pages
+    /// - Important: This is only used when uploading a chapter, it will never be filled when decoding
+    public let checksums: [MDChecksum]?
+
     /// The version of this type of object in the MangaDex API
     public let version: Int
 
+    /// The list of page URLs for this chapter using the specified node URL
+    /// - Parameter node: The URL of the server to use to fetch these images
+    /// - Parameter lowRes: Whether to get the low resolution version of the image or not
+    internal func getPageUrls(node: URL, lowRes: Bool = false) -> [URL] {
+        var out: [URL] = []
+        let pageIds = lowRes ? pagesLowRes : pages
+        for pageId in pageIds {
+            out.append(MDPath.getChapterPage(baseURL: node, chapterHash: hash, pageId: pageId, lowRes: lowRes))
+        }
+        return out
+    }
+
+    /// The list of page URLs for this chapter using the specified node
+    /// - Parameter node: The MD@Home node serving the images
+    /// - Parameter lowRes: Whether to get the low resolution version of the image or not
+    public func getPageUrls(node: MDAtHomeNode, lowRes: Bool = false) -> [URL] {
+        return getPageUrls(node: node.baseUrl, lowRes: lowRes)
+    }
+
+    /// The list of page URLs for this chapter using the specified "official" image server
+    /// - Parameter node: The image server serving the images
+    /// - Parameter lowRes: Whether to get the low resolution version of the image or not
+    public func getPageUrls(node: MDImageServer, lowRes: Bool = false) -> [URL] {
+        return getPageUrls(node: URL(string: node.rawValue)!, lowRes: lowRes)
+    }
+
 }
 
-extension MDChapter {
+extension MDChapter: Decodable {
 
     /// Mapping between MangaDex's API JSON keys and the class' variable names
     enum CodingKeys: String, CodingKey {
@@ -68,6 +98,7 @@ extension MDChapter {
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
         case publishDate = "publishAt"
+        case checksums
         case version
     }
 
@@ -75,7 +106,7 @@ extension MDChapter {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         title = try container.decode(String.self, forKey: .title)
-        volume = try container.decode(Int?.self, forKey: .volume)
+        volume = try container.decode(String?.self, forKey: .volume)
         chapter = try container.decode(String?.self, forKey: .chapter)
         hash = try container.decode(String.self, forKey: .hash)
         pages = try container.decode([String].self, forKey: .pages)
@@ -91,6 +122,30 @@ extension MDChapter {
         } else {
             language = nil
         }
+
+        // This property is only used for encoding
+        checksums = nil
+    }
+
+}
+
+extension MDChapter: Encodable {
+
+    /// Custom `encode` implementation to handle encoding the `language` attribute
+    ///
+    /// The MangaDex API does not expect the same thing when encoding an `MDChapter` as when decoding it, which makes
+    /// this a bit awkward. See https://api.mangadex.org/docs.html#operation/put-chapter for more details
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(title, forKey: .title)
+        try container.encode(volume, forKey: .volume)
+        try container.encode(chapter, forKey: .chapter)
+        try container.encode(pages, forKey: .pages)
+        try container.encode(version, forKey: .version)
+
+        // Manually encode the language code
+        // The language cannot be nil when uploading a chapter
+        try container.encode(language!.identifier, forKey: .language)
     }
 
 }

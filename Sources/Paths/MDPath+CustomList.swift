@@ -12,41 +12,41 @@ extension MDPath {
 
     /// Build the URL to get all of the logged-in user's custom lists
     /// - Returns: The MangaDex URL
-    public static func getCustomLists() -> URL {
+    static func getCustomLists() -> URL {
         return buildUrl(for: .customList)
     }
 
     /// Build the URL to create a new custom lists
     /// - Returns: The MangaDex URL
-    public static func createCustomList() -> URL {
+    static func createCustomList() -> URL {
         return buildUrl(for: .customList)
     }
 
     /// Build the URL to view the specified custom list's information
     /// - Parameter listId: The id of the custom list
     /// - Returns: The MangaDex URL
-    public static func viewCustomList(listId: String) -> URL {
+    static func viewCustomList(listId: String) -> URL {
         return buildUrl(for: .customList, with: [listId])
     }
 
     /// Build the URL to update the specified custom list's information
     /// - Parameter listId: The id of the custom list
     /// - Returns: The MangaDex URL
-    public static func updateCustomList(listId: String) -> URL {
+    static func updateCustomList(listId: String) -> URL {
         return buildUrl(for: .customList, with: [listId])
     }
 
     /// Build the URL to delete the specified custom list
     /// - Parameter listId: The id of the custom list
     /// - Returns: The MangaDex URL
-    public static func deleteCustomList(listId: String) -> URL {
+    static func deleteCustomList(listId: String) -> URL {
         return buildUrl(for: .customList, with: [listId])
     }
 
     /// Build the URL to get the specified custom list's feed
     /// - Parameter listId: The id of the custom list
     /// - Returns: The MangaDex URL
-    public static func getCustomListFeed(listId: String) -> URL {
+    static func getCustomListFeed(listId: String) -> URL {
         return buildUrl(for: .customList, with: [listId, "feed"])
     }
 
