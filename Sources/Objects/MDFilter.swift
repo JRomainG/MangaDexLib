@@ -238,7 +238,6 @@ public class MDChapterFilter: MDFilter {
         try container.encode(volume, forKey: .volume)
         try container.encode(chapter, forKey: .chapter)
         try container.encode(createdAtSince, forKey: .createdAtSince)
-        try container.encode(createdAtSince, forKey: .createdAtSince)
         try container.encode(updatedAtSince, forKey: .updatedAtSince)
         try container.encode(publishedAtSince, forKey: .publishedAtSince)
        try super.encode(to: encoder)

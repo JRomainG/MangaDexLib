@@ -29,7 +29,7 @@ public struct MDManga {
 
     /// The volume in which the last chapter was published
     /// - Note: This can be `nil` if the last chapter hasn't been uploaded. Bonus chapters do not count
-    public let lastVolume: Int?
+    public let lastVolume: String?
 
     /// A string indicating which chapter marks the end of the manga (usually represents a float, e.g. 142.5)
     /// - Note: This can be `nil` if the last chapter hasn't been uploaded. Bonus chapters do not count
@@ -112,7 +112,7 @@ extension MDManga: Decodable {
         altTitles = try container.decode([MDLocalizedString].self, forKey: .altTitles)
         description = try container.decode(MDLocalizedString?.self, forKey: .description)
         locked = try container.decode(Bool.self, forKey: .locked)
-        lastVolume = try container.decode(Int?.self, forKey: .lastVolume)
+        lastVolume = try container.decode(String?.self, forKey: .lastVolume)
         lastChapter = try container.decode(String?.self, forKey: .lastChapter)
         demographic = try container.decode(MDDemographic?.self, forKey: .demographic)
         publicationStatus = try container.decode(MDPublicationStatus?.self, forKey: .publicationStatus)

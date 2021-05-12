@@ -35,7 +35,7 @@ extension MDApi {
     }
 
     /// Update the specified chapter's information
-    /// - Parameter chapterId: The id of the chapter
+    /// - Parameter info: The id of the chapter
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func updateChapter(info: MDChapter, completion: @escaping (MDApiError?) -> Void) {

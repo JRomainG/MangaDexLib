@@ -10,6 +10,7 @@ import XCTest
 import MangaDexLib
 
 // swiftlint:disable type_body_length
+// swiftlint:disable file_length
 class MDLibApiTests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -159,7 +160,7 @@ class MDLibApiTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
-    func testSearchManga() throws {
+    func testSearchMangas() throws {
         let api = MDApi()
         let filter = MDMangaFilter(title: "Solo leveling")
         filter.createdAtSince = .init(timeIntervalSince1970: 0)
@@ -281,7 +282,7 @@ class MDLibApiTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
-    func testSearchChapter() throws {
+    func testSearchChapters() throws {
         let api = MDApi()
         let filter = MDChapterFilter(title: "Oneshot")
         filter.createdAtSince = .init(timeIntervalSince1970: 0)
@@ -326,7 +327,7 @@ class MDLibApiTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
-    func testGetChapterPage() throws {
+    func testGetChapterPages() throws {
         let api = MDApi()
         let chapterId = "946577a4-d469-45ed-8400-62f03ce4942e" // Solo leveling volume 1 chapter 1 (en)
 
@@ -363,6 +364,52 @@ class MDLibApiTests: XCTestCase {
         let urls = chapter?.getPageUrls(node: node!, lowRes: false)
         XCTAssertNotNil(urls)
         XCTAssert(urls!.count > 0)
+    }
+
+    func testGetScanlationGroupList() throws {
+        let api = MDApi()
+        let groupExpectation = self.expectation(description: "Get a list of scanlation groups")
+        api.getGroupList { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            XCTAssertNotNil(result?.results.first?.object)
+            XCTAssertNotNil(result?.results.first?.object?.data)
+            groupExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testSearchScanlationGroups() throws {
+        let api = MDApi()
+        let filter = MDGroupFilter(name: "mangadex")
+
+        let groupExpectation = self.expectation(description: "Get a list of scanlation groups")
+        api.searchGroups(filter: filter) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            XCTAssertNotNil(result?.results.first?.object)
+            XCTAssertNotNil(result?.results.first?.object?.data)
+            groupExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testViewScanlationGroup() throws {
+        let api = MDApi()
+        let groupId = "b8a6d1fc-1634-47a8-98cf-2ea3f5fef8b3" // MangaDex Scans
+        let groupExpectation = self.expectation(description: "Get the scanlation group's information")
+        api.viewGroup(groupId: groupId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssertNotNil(result?.object?.data)
+            XCTAssertEqual(result?.object?.data.name, "MangaDex Scans")
+            XCTAssertEqual(result?.object?.data.leader.objectId, "17179fd6-77fb-484a-a543-aaea12511c07")
+            XCTAssert(result!.object!.data.members.count > 0)
+            groupExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
     }
 
 }
