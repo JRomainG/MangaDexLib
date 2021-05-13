@@ -28,66 +28,66 @@ extension MDLibApiTests {
         let filter = MDMangaFilter(title: "Solo leveling")
         filter.createdAtSince = .init(timeIntervalSince1970: 0)
 
-        let chapterExpectation = self.expectation(description: "Get a list of mangas")
+        let expectation = self.expectation(description: "Get a list of mangas")
         api.searchMangas(filter: filter) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssert(result!.results.count > 0)
             XCTAssertNotNil(result?.results.first?.object)
             XCTAssertNotNil(result?.results.first?.object?.data)
-            chapterExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testGetMangaTagList() throws {
-        let tagExpectation = self.expectation(description: "Get a list of manga tags")
+        let expectation = self.expectation(description: "Get a list of manga tags")
         api.getMangaTagList { (results, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(results)
             XCTAssert(results!.count > 0)
             XCTAssertNotNil(results?.first?.object)
             XCTAssertNotNil(results?.first?.object?.data)
-            tagExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testGetRandomManga() throws {
-        let mangaExpectation = self.expectation(description: "Get a random manga")
+        let expectation = self.expectation(description: "Get a random manga")
         api.getRandomManga { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.object)
             XCTAssertNotNil(result?.object?.data)
-            mangaExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testViewManga() throws {
         let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
-        let mangaExpectation = self.expectation(description: "Get the manga's information")
+        let expectation = self.expectation(description: "Get the manga's information")
         api.viewManga(mangaId: mangaId) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.object?.data)
             XCTAssertEqual(result?.object?.data.title.translations.first?.value, "Solo Leveling")
-            mangaExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testGetMangaFeed() throws {
         let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
-        let chapterExpectation = self.expectation(description: "Get the manga's chapters")
+        let expectation = self.expectation(description: "Get the manga's chapters")
         api.getMangaFeed(mangaId: mangaId) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssert(result!.results.count > 0)
             XCTAssertNotNil(result?.results.first?.object)
             XCTAssertNotNil(result?.results.first?.object?.data)
-            chapterExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
@@ -96,13 +96,13 @@ extension MDLibApiTests {
         try login(api: api, credentialsKey: "AuthRegular")
 
         let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
-        let mangaExpectation = self.expectation(description: "Get the manga's list of read chapters")
+        let expectation = self.expectation(description: "Get the manga's list of read chapters")
         api.getMangaReadMarkers(mangaId: mangaId) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.chapters)
             XCTAssert(result!.chapters!.count > 0)
-            mangaExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
@@ -112,13 +112,13 @@ extension MDLibApiTests {
 
         try login(api: api, credentialsKey: "AuthRegular")
 
-        let mangaExpectation = self.expectation(description: "Get the list of manga statuses")
+        let expectation = self.expectation(description: "Get the list of manga statuses")
         api.getReadingStatuses { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.statuses)
             XCTAssert(result!.statuses!.count > 0)
-            mangaExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }

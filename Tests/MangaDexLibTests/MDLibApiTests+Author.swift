@@ -12,41 +12,41 @@ import MangaDexLib
 extension MDLibApiTests {
 
     func testGetAuthorList() throws {
-        let authorExpectation = self.expectation(description: "Get a list of authors")
+        let expectation = self.expectation(description: "Get a list of authors")
         api.getAuthorList { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssert(result!.results.count > 0)
             XCTAssertNotNil(result?.results.first?.object)
             XCTAssertNotNil(result?.results.first?.object?.data)
-            authorExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testSearchAuthors() throws {
         let filter = MDAuthorFilter(name: "ONE")
-        let authorExpectation = self.expectation(description: "Get a list of authors")
+        let expectation = self.expectation(description: "Get a list of authors")
         api.searchAuthors(filter: filter) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssert(result!.results.count > 0)
             XCTAssertNotNil(result?.results.first?.object)
             XCTAssertNotNil(result?.results.first?.object?.data)
-            authorExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testViewAuthor() throws {
         let authorId = "16b98239-6452-4859-b6df-fdb1c7f12b52" // ONE
-        let authorExpectation = self.expectation(description: "Get the author's information")
+        let expectation = self.expectation(description: "Get the author's information")
         api.viewAuthor(authorId: authorId) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.object?.data)
             XCTAssertEqual(result?.object?.data.name, "ONE")
-            authorExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }

@@ -12,14 +12,14 @@ import MangaDexLib
 extension MDLibApiTests {
 
     func testGetChapterList() throws {
-        let chapterExpectation = self.expectation(description: "Get a list of chapters")
+        let expectation = self.expectation(description: "Get a list of chapters")
         api.getChapterList { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssert(result!.results.count > 0)
             XCTAssertNotNil(result?.results.first?.object)
             XCTAssertNotNil(result?.results.first?.object?.data)
-            chapterExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
@@ -28,21 +28,21 @@ extension MDLibApiTests {
         let filter = MDChapterFilter(title: "Oneshot")
         filter.createdAtSince = .init(timeIntervalSince1970: 0)
 
-        let chapterExpectation = self.expectation(description: "Get a list of chapters")
+        let expectation = self.expectation(description: "Get a list of chapters")
         api.searchChapters(filter: filter) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssert(result!.results.count > 0)
             XCTAssertNotNil(result?.results.first?.object)
             XCTAssertNotNil(result?.results.first?.object?.data)
-            chapterExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testViewChapter() throws {
         let chapterId = "946577a4-d469-45ed-8400-62f03ce4942e" // Solo leveling volume 1 chapter 1 (en)
-        let mangaExpectation = self.expectation(description: "Get the chapter's information")
+        let expectation = self.expectation(description: "Get the chapter's information")
         api.viewChapter(chapterId: chapterId) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
@@ -50,18 +50,7 @@ extension MDLibApiTests {
             XCTAssertEqual(result?.object?.data.volume, "1")
             XCTAssertEqual(result?.object?.data.chapter, "1")
             XCTAssertEqual(result?.object?.data.language, Locale.init(identifier: "en"))
-            mangaExpectation.fulfill()
-        }
-        waitForExpectations(timeout: 15, handler: nil)
-    }
-
-    func testGetChapterServer() throws {
-        let chapterId = "946577a4-d469-45ed-8400-62f03ce4942e" // Solo leveling volume 1 chapter 1 (en)
-        let nodeExpectation = self.expectation(description: "Get the chapter's MD@Home node")
-        api.getChapterServer(chapterId: chapterId) { (result, error) in
-            XCTAssertNil(error)
-            XCTAssertNotNil(result)
-            nodeExpectation.fulfill()
+            expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }

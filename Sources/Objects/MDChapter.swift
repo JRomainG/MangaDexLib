@@ -38,9 +38,6 @@ public struct MDChapter {
     /// Use `getPageUrls` and set the `lowRes` parameter to `true` to get the list of URLs for these files
     public let pagesLowRes: [String]
 
-    /// The UUID of the user who uploaded this chapter
-    public let uploader: String?
-
     /// The date at which this chapter entry was created on MangaDex
     public let createdDate: Date
 
@@ -98,7 +95,6 @@ extension MDChapter: Decodable {
         case hash
         case pages = "data"
         case pagesLowRes = "dataSaver"
-        case uploader
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
         case publishDate = "publishAt"
@@ -115,7 +111,6 @@ extension MDChapter: Decodable {
         hash = try container.decode(String.self, forKey: .hash)
         pages = try container.decode([String].self, forKey: .pages)
         pagesLowRes = try container.decode([String].self, forKey: .pagesLowRes)
-        uploader = try container.decode(String?.self, forKey: .uploader)
         createdDate = try container.decode(Date.self, forKey: .createdDate)
         updatedDate = try container.decode(Date?.self, forKey: .updatedDate)
         publishDate = try container.decode(Date?.self, forKey: .publishDate)

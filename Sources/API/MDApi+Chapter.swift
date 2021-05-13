@@ -66,16 +66,4 @@ extension MDApi {
         // TODO: API is currently readonly
     }
 
-    /// Get the MD@Home node URL hosting the specified chapter's page images
-    /// - Parameter chapterId: The id of the chapter
-    /// - Parameter completion: The completion block called once the request is done
-    ///
-    /// If you do not want to use a MD@Home node, you can use one of the values of the `MDImageServer` enum
-    /// Also see `MDChapter.getPageUrls`
-    /// - Precondition: The user must be logged-in
-    public func getChapterServer(chapterId: String, completion: @escaping (MDAtHomeNode?, MDApiError?) -> Void) {
-        let url = MDPath.getAtHomeNodeURL(chapterId: chapterId)
-        performBasicGetCompletion(url: url, completion: completion)
-    }
-
 }

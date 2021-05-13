@@ -10,16 +10,16 @@ import Foundation
 
 extension MDPath {
 
-    /// Build the URL to get the specified user's information
+    /// Build the URL to view the specified user's information
     /// - Parameter userId: The id of the user
     /// - Returns: The MangaDex URL
-    static func getUser(userId: String) -> URL {
+    static func viewUser(userId: String) -> URL {
         return buildUrl(for: .user, with: [userId])
     }
 
-    /// Build the URL to get the logged-in user's information
+    /// Build the URL to view the logged-in user's information
     /// - Returns: The MangaDex URL
-    static func getLoggedUser() -> URL {
+    static func viewLoggedUser() -> URL {
         return buildUrl(for: .user, with: ["me"])
     }
 
@@ -37,13 +37,13 @@ extension MDPath {
 
     /// Build the URL to get the logged-in user's list of followed scanlation groups
     /// - Returns: The MangaDex URL
-    static func geLoggedtUserFollowedGroupList() -> URL {
+    static func getLoggedUserFollowedGroupList() -> URL {
         return buildUrl(for: .user, with: ["follows", Endpoint.group.rawValue])
     }
 
     /// Build the URL to get the logged-in user's list of followed users
     /// - Returns: The MangaDex URL
-    static func geLoggedtUserFollowedUserList() -> URL {
+    static func getLoggedUserFollowedUserList() -> URL {
         return buildUrl(for: .user, with: ["follows", Endpoint.user.rawValue])
     }
 

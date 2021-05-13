@@ -12,6 +12,9 @@
 		3317F998264D5796005E7380 /* MDCustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F997264D5796005E7380 /* MDCustomList.swift */; };
 		3317F999264D5796005E7380 /* MDCustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F997264D5796005E7380 /* MDCustomList.swift */; };
 		3317F9A9264D5B7D005E7380 /* MDLibApiTests+CustomList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F99D264D5B45005E7380 /* MDLibApiTests+CustomList.swift */; };
+		3317F9AE264D5E89005E7380 /* MDApi+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F9AD264D5E89005E7380 /* MDApi+User.swift */; };
+		3317F9AF264D5E89005E7380 /* MDApi+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F9AD264D5E89005E7380 /* MDApi+User.swift */; };
+		3317F9B9264D612D005E7380 /* MDLibApiTests+User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F9B3264D60D8005E7380 /* MDLibApiTests+User.swift */; };
 		3322BD63245D99130086FA81 /* MDManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD3F245D99120086FA81 /* MDManga.swift */; };
 		3322BD65245D99130086FA81 /* MDChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD41245D99120086FA81 /* MDChapter.swift */; };
 		3322BD67245D99130086FA81 /* MDGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD43245D99120086FA81 /* MDGroup.swift */; };
@@ -128,6 +131,8 @@
 		3317F991264D5736005E7380 /* MDApi+CustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+CustomList.swift"; sourceTree = "<group>"; };
 		3317F997264D5796005E7380 /* MDCustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDCustomList.swift; sourceTree = "<group>"; };
 		3317F99D264D5B45005E7380 /* MDLibApiTests+CustomList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDLibApiTests+CustomList.swift"; sourceTree = "<group>"; };
+		3317F9AD264D5E89005E7380 /* MDApi+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+User.swift"; sourceTree = "<group>"; };
+		3317F9B3264D60D8005E7380 /* MDLibApiTests+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDLibApiTests+User.swift"; sourceTree = "<group>"; };
 		3322BD3F245D99120086FA81 /* MDManga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDManga.swift; sourceTree = "<group>"; };
 		3322BD41245D99120086FA81 /* MDChapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDChapter.swift; sourceTree = "<group>"; };
 		3322BD43245D99120086FA81 /* MDGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDGroup.swift; sourceTree = "<group>"; };
@@ -277,6 +282,7 @@
 				335B922C264C2BD000AA5CF6 /* MDApi+Group.swift */,
 				33901B3B264D344D00A12755 /* MDApi+Author.swift */,
 				3317F991264D5736005E7380 /* MDApi+CustomList.swift */,
+				3317F9AD264D5E89005E7380 /* MDApi+User.swift */,
 				3374744126468328002114C9 /* MDApi+Auth.swift */,
 				337474702646A94A002114C9 /* MDApi+Infra.swift */,
 				3322BD4E245D99120086FA81 /* MDConstants.swift */,
@@ -304,6 +310,7 @@
 				33901B20264D330300A12755 /* MDLibApiTests+Group.swift */,
 				33901B4B264D35AC00A12755 /* MDLibApiTests+Author.swift */,
 				3317F99D264D5B45005E7380 /* MDLibApiTests+CustomList.swift */,
+				3317F9B3264D60D8005E7380 /* MDLibApiTests+User.swift */,
 				33901B25264D333800A12755 /* MDLibApiTests+Auth.swift */,
 				33901B36264D338600A12755 /* MDLibApiTests+Infra.swift */,
 				3322BD87245D99900086FA81 /* MDLibRequestHandlerTests.swift */,
@@ -617,6 +624,7 @@
 				334DE5FD264467B7006D38E3 /* MDPath+Author.swift in Sources */,
 				339A340526455D92008535DA /* MDRelationship.swift in Sources */,
 				335F9CE8245E003E00EE9A52 /* MDRequestHandler.swift in Sources */,
+				3317F9AF264D5E89005E7380 /* MDApi+User.swift in Sources */,
 				339A342C26459865008535DA /* MDAuthor.swift in Sources */,
 				334DE5F726446405006D38E3 /* MDPath+User.swift in Sources */,
 			);
@@ -670,6 +678,7 @@
 				339A340426455D92008535DA /* MDRelationship.swift in Sources */,
 				33407B90245DFE3A009B1F16 /* MDPath+Manga.swift in Sources */,
 				339A342B26459865008535DA /* MDAuthor.swift in Sources */,
+				3317F9AE264D5E89005E7380 /* MDApi+User.swift in Sources */,
 				3322BD63245D99130086FA81 /* MDManga.swift in Sources */,
 				334DE5F626446405006D38E3 /* MDPath+User.swift in Sources */,
 			);
@@ -679,6 +688,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3317F9B9264D612D005E7380 /* MDLibApiTests+User.swift in Sources */,
 				3317F9A9264D5B7D005E7380 /* MDLibApiTests+CustomList.swift in Sources */,
 				33901B37264D338600A12755 /* MDLibApiTests+Infra.swift in Sources */,
 				33901B1C264D32D000A12755 /* MDLibApiTests+Chapter.swift in Sources */,
