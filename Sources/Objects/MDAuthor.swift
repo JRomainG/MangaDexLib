@@ -10,7 +10,7 @@ import Foundation
 
 /// Structure representing an author returned by MangaDex
 /// This is passed in the `data` property of an `MDObject`
-public struct MDAuthor: Decodable {
+public struct MDAuthor {
 
     /// The author's name
     public let name: String
@@ -33,7 +33,7 @@ public struct MDAuthor: Decodable {
 
 }
 
-extension MDAuthor {
+extension MDAuthor: Decodable {
 
     /// Coding keys to map JSON data to our struct
     enum CodingKeys: String, CodingKey {
@@ -43,6 +43,17 @@ extension MDAuthor {
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
         case version
+    }
+
+}
+
+extension MDAuthor: Encodable {
+
+    /// Custom `encode` implementation to convert this structure to a JSON object
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(version, forKey: .version)
     }
 
 }
