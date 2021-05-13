@@ -30,7 +30,7 @@ extension MDApi {
     /// - Parameter info: The scanlation group information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func createGroup(info: MDGroup, completion: @escaping (MDApiError?) -> Void) {
+    public func createGroup(info: MDGroup, completion: @escaping (MDGroup?, MDApiError?) -> Void) {
         // TODO: API is currently readonly
     }
 
@@ -46,13 +46,14 @@ extension MDApi {
     /// - Parameter info: The scanlation group information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func updateGroup(info: MDGroup, completion: @escaping (MDApiError?) -> Void) {
+    public func updateGroup(info: MDGroup, completion: @escaping (MDGroup?, MDApiError?) -> Void) {
         // TODO: API is currently readonly
     }
 
     /// Delete the specified scanlation group
     /// - Parameter groupId: The id of the scanlation group
     /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must be logged-in
     public func deleteGroup(groupId: String, completion: @escaping (MDApiError?) -> Void) {
         // TODO: API is currently readonly
     }
@@ -60,6 +61,7 @@ extension MDApi {
     /// Follow the specified scanlation group
     /// - Parameter groupId: The id of the scanlation group
     /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must be logged-in
     public func followGroup(groupId: String, completion: @escaping (MDApiError?) -> Void) {
         // TODO: API is currently readonly
     }
@@ -67,6 +69,7 @@ extension MDApi {
     /// Unfollow the specified scanlation group
     /// - Parameter groupId: The id of the scanlation group
     /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must be logged-in
     public func unfollowGroup(groupId: String, completion: @escaping (MDApiError?) -> Void) {
         // TODO: API is currently readonly
     }

@@ -30,12 +30,12 @@ extension MDApi {
     /// - Parameter info: The author information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func createAuthor(info: MDAuthor, completion: @escaping (MDApiError?) -> Void) {
+    public func createAuthor(info: MDAuthor, completion: @escaping (MDAuthor?, MDApiError?) -> Void) {
         // TODO: API is currently readonly
     }
 
     /// View the specified author's information
-    /// - Parameter authorId: The id of the scanlation group
+    /// - Parameter authorId: The id of the author
     /// - Parameter completion: The completion block called once the request is done
     public func viewAuthor(authorId: String, completion: @escaping (MDResult<MDAuthor>?, MDApiError?) -> Void) {
         let url = MDPath.viewAuthor(authorId: authorId)
@@ -46,13 +46,14 @@ extension MDApi {
     /// - Parameter info: The author information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func updateAuthor(info: MDAuthor, completion: @escaping (MDApiError?) -> Void) {
+    public func updateAuthor(info: MDAuthor, completion: @escaping (MDAuthor?, MDApiError?) -> Void) {
         // TODO: API is currently readonly
     }
 
     /// Delete the specified author
     /// - Parameter authorId: The id of the author
     /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must be logged-in
     public func deleteAuthor(authorId: String, completion: @escaping (MDApiError?) -> Void) {
         // TODO: API is currently readonly
     }

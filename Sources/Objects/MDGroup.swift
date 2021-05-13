@@ -30,12 +30,12 @@ public struct MDGroup {
     public let updatedDate: Date?
 
     /// The group leader's UUID
-    /// - Important: This is only used when uploading a chapter, it will never be filled when decoding
+    /// - Important: This is only used when creating a scanlation group, it will never be filled when decoding
     public let leaderId: String?
 
     /// The list of members of this group
     /// - Note: The leader should not be included in this list
-    /// - Important: This is only used when uploading a chapter, it will never be filled when decoding
+    /// - Important: This is only used when creating a scanlation group, it will never be filled when decoding
     public let memberIds: [String]?
 
     /// The version of this type of object in the MangaDex API

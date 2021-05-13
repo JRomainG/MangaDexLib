@@ -44,7 +44,7 @@ extension MDApi {
     /// - Parameter info: The `MDManga` to create
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func createManga(info: MDManga, completion: @escaping (MDApiError?) -> Void) {
+    public func createManga(info: MDManga, completion: @escaping (MDManga?, MDApiError?) -> Void) {
         // TODO: API is currently readonly
     }
 
@@ -60,7 +60,7 @@ extension MDApi {
     /// - Parameter mangaId: The id of the manga
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func updateManga(info: MDManga, completion: @escaping (MDApiError?) -> Void) {
+    public func updateManga(info: MDManga, completion: @escaping (MDManga?, MDApiError?) -> Void) {
         // TODO: API is currently readonly
     }
 

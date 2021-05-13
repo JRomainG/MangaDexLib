@@ -108,6 +108,9 @@ public enum MDObjectType: String, Codable {
 
     /// The target resource is a user's custom list
     case customList = "custom_list"
+
+    /// The target resource is a string
+    case string = "string"
 }
 
 /// Tag filtering mode (used to include or exclude tags during search)

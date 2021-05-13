@@ -10,12 +10,6 @@ import Foundation
 
 extension MDPath {
 
-    /// Build the URL to get all of the logged-in user's custom lists
-    /// - Returns: The MangaDex URL
-    static func getCustomLists() -> URL {
-        return buildUrl(for: .customList)
-    }
-
     /// Build the URL to create a new custom lists
     /// - Returns: The MangaDex URL
     static func createCustomList() -> URL {
