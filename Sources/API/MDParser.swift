@@ -17,7 +17,16 @@ class MDParser {
     static func parse<T: Decodable>(json: String, type: T.Type) throws -> T {
         let jsonData = json.data(using: .utf8)!
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+
+        if #available(macOS 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *) {
+            decoder.dateDecodingStrategy = .iso8601
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+            formatter.timeZone = TimeZone(secondsFromGMT: 0)
+            decoder.dateDecodingStrategy = .formatted(formatter)
+        }
+
         return try decoder.decode(T.self, from: jsonData)
     }
 
