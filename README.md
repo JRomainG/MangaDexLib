@@ -1,6 +1,6 @@
 # MangaDexLib
 
-`MangaDexLib` is a cross-platform Swift framework to interact with the MangaDex website. Its goal is to offer a robust abstract interface to access the website's core features.
+`MangaDexLib` is a cross-platform Swift framework to interact with the [MangaDex](https://mangadex.org) website. Its goal is to offer a robust abstract interface to access the API's core features.
 
 ## Installing
 
@@ -43,7 +43,7 @@ If you do not wish to use a package manager, you can also simply copy the `Sourc
 
 ## Example usage
 
-Here are a few example of how to use the API:
+Here are a few examples of how to use the API:
 
 To get the website's featured manga list:
 
@@ -83,7 +83,7 @@ api.login(with: auth) { (response) in
 }
 ```
 
-You should also check out [this project](https://github.com/JRomainG/Kitsune-macOS) built using MangaDexLib!
+You should also check out [Kitsune](https://github.com/JRomainG/Kitsune-macOS), an open-source reader for macOS built using MangaDexLib!
 
 ## Documentation
 

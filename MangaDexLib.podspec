@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = "MangaDexLib"
-  spec.version      = "0.4"
+  spec.version      = "0.5"
   spec.summary      = "Cross-platform Swift framework to interact with the MangaDex website."
   spec.description  = <<-DESC
 				   MangaDexLib is a cross-platform Swift framework to interact with the MangaDex website. Its goal is to offer a robust abstract interface to access the website's core features.
@@ -19,11 +19,10 @@ Pod::Spec.new do |spec|
   spec.author       = "Jean-Romain Garnier"
   spec.source       = { :git => "https://github.com/JRomainG/MangaDexLib.git", :tag => "v" + spec.version.to_s }
 
-  spec.ios.deployment_target = "10.0"
-  spec.osx.deployment_target = "10.10"
+  spec.ios.deployment_target = "12.0"
+  spec.osx.deployment_target = "10.12"
   spec.source_files   = "Sources/**/*.swift"
   spec.swift_versions = ["5.0", "5.1", "5.2"]
 
   spec.framework    = "WebKit"
-  spec.dependency "SwiftSoup"
 end

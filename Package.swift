@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -8,11 +8,8 @@ let package = Package(
     products: [
         .library(name: "MangaDexLib", targets: ["MangaDexLib"])
     ],
-    dependencies: [
-        .package(url: "https://github.com/scinfu/SwiftSoup.git", .branch("master"))
-    ],
     targets: [
-        .target(name: "MangaDexLib", dependencies: ["SwiftSoup"], path: "Sources"),
+        .target(name: "MangaDexLib", path: "Sources"),
         .testTarget(name: "MangaDexLibTests", dependencies: ["MangaDexLib"])
     ]
 )
