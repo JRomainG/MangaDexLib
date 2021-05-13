@@ -77,15 +77,17 @@ extension MDApi {
                                       error: error,
                                       status: httpResponse?.statusCode)
 
-            // If there is an error with status code 403, it may be because of a captcha
-            if let statusCode = httpResponse?.statusCode, statusCode == 403,
-               let body = content, body.contains("captcha_required_exception") {
-                response.error = MDApiError(type: .captchaRequired, body: content, error: error?.underlyingError)
-            }
-
-            // If not, we still want to make sure the status code is correct
-            if let statusCode = httpResponse?.statusCode, !(200..<400).contains(statusCode) {
-                response.error = MDApiError(type: .wrongStatusCode, body: content, error: error?.underlyingError)
+            if let statusCode = httpResponse?.statusCode {
+                if statusCode == 403, let body = content, body.contains("captcha_required_exception") {
+                    // If there is an error with status code 403, it may be because of a captcha
+                    response.error = MDApiError(type: .captchaRequired, body: content, error: error?.underlyingError)
+                } else if statusCode == 429, let body = content, body.contains("Rate Limited") {
+                    // If there is an error with status code 429, it may be because of rate limiting
+                    response.error = MDApiError(type: .rateLimited, body: content, error: error?.underlyingError)
+                } else if !(200..<400).contains(statusCode) {
+                    // If not, we still want to make sure the status code is correct
+                    response.error = MDApiError(type: .wrongStatusCode, body: content, error: error?.underlyingError)
+                }
             }
 
             completion(response)

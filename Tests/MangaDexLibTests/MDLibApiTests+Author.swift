@@ -12,7 +12,6 @@ import MangaDexLib
 extension MDLibApiTests {
 
     func testGetAuthorList() throws {
-        let api = MDApi()
         let authorExpectation = self.expectation(description: "Get a list of authors")
         api.getAuthorList { (result, error) in
             XCTAssertNil(error)
@@ -26,9 +25,7 @@ extension MDLibApiTests {
     }
 
     func testSearchAuthors() throws {
-        let api = MDApi()
         let filter = MDAuthorFilter(name: "ONE")
-
         let authorExpectation = self.expectation(description: "Get a list of authors")
         api.searchAuthors(filter: filter) { (result, error) in
             XCTAssertNil(error)
@@ -42,7 +39,6 @@ extension MDLibApiTests {
     }
 
     func testViewAuthor() throws {
-        let api = MDApi()
         let authorId = "16b98239-6452-4859-b6df-fdb1c7f12b52" // ONE
         let authorExpectation = self.expectation(description: "Get the author's information")
         api.viewAuthor(authorId: authorId) { (result, error) in

@@ -12,8 +12,6 @@ import MangaDexLib
 extension MDLibApiTests {
 
     func testLoginUsernamePassword() throws {
-        let api = MDApi()
-        try ping(api: api)
         try login(api: api, credentialsKey: "AuthRegular")
         XCTAssertNotNil(api.sessionJwt)
         XCTAssertNotNil(api.refreshJwt)
@@ -30,16 +28,12 @@ extension MDLibApiTests {
     }
 
     func testWrongLogin() throws {
-        let api = MDApi()
-        try ping(api: api)
         XCTAssertThrowsError(try login(api: api, credentialsKey: "AuthInvalid"))
         XCTAssertNil(api.sessionJwt)
         XCTAssertNil(api.refreshJwt)
     }
 
     func testLogout() throws {
-        let api = MDApi()
-        try ping(api: api)
         try login(api: api, credentialsKey: "AuthRegular")
         XCTAssertNotNil(api.sessionJwt)
         XCTAssertNotNil(api.refreshJwt)

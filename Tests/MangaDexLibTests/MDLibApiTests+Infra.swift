@@ -12,7 +12,6 @@ import MangaDexLib
 extension MDLibApiTests {
 
     func testPing() throws {
-        let api = MDApi()
         XCTAssertNoThrow(try ping(api: api))
     }
 

@@ -11,12 +11,33 @@ import MangaDexLib
 
 class MDLibApiTests: XCTestCase {
 
+    let api = MDApi()
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        if api.requestHandler.getCookie(type: .ddosGuard1) == nil {
+            // Make sure DDoS-Guard places a cookie before we start our tests
+            let pingExpectation = self.expectation(description: "Ping the MangaDex servers")
+            api.ping { (_) in
+                pingExpectation.fulfill()
+            }
+        }
+        // Limit the number of concurrent connections and wait a bit to avoid hitting the rate limit
+        api.requestHandler.setMaxConcurrentConnections(1)
+        usleep(500000)
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        if api.sessionJwt != nil {
+            // Make sure the user doesn't stay logged-in after a test
+            let logoutExpectation = self.expectation(description: "Logout")
+            api.logout { (_) in
+                logoutExpectation.fulfill()
+            }
+            waitForExpectations(timeout: 15, handler: nil)
+
+        }
     }
 
     /// By default, auth information is stored under the `Secret.bundle`, in an `auth.list` file.

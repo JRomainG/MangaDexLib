@@ -27,6 +27,9 @@ public class MDApiError: NSObject, Error {
         /// MangaDex decided that the user needs to solve a captcha before accessing the endpoint
         case captchaRequired
 
+        /// MangaDex noticed too many requests in a short time period and returned an error
+        case rateLimited
+
         /// The requests was started before the `MDRequestHandler` entered
         /// a ready state
         ///

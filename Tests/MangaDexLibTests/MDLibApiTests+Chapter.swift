@@ -12,7 +12,6 @@ import MangaDexLib
 extension MDLibApiTests {
 
     func testGetChapterList() throws {
-        let api = MDApi()
         let chapterExpectation = self.expectation(description: "Get a list of chapters")
         api.getChapterList { (result, error) in
             XCTAssertNil(error)
@@ -26,7 +25,6 @@ extension MDLibApiTests {
     }
 
     func testSearchChapters() throws {
-        let api = MDApi()
         let filter = MDChapterFilter(title: "Oneshot")
         filter.createdAtSince = .init(timeIntervalSince1970: 0)
 
@@ -43,7 +41,6 @@ extension MDLibApiTests {
     }
 
     func testViewChapter() throws {
-        let api = MDApi()
         let chapterId = "946577a4-d469-45ed-8400-62f03ce4942e" // Solo leveling volume 1 chapter 1 (en)
         let mangaExpectation = self.expectation(description: "Get the chapter's information")
         api.viewChapter(chapterId: chapterId) { (result, error) in
@@ -59,7 +56,6 @@ extension MDLibApiTests {
     }
 
     func testGetChapterServer() throws {
-        let api = MDApi()
         let chapterId = "946577a4-d469-45ed-8400-62f03ce4942e" // Solo leveling volume 1 chapter 1 (en)
         let nodeExpectation = self.expectation(description: "Get the chapter's MD@Home node")
         api.getChapterServer(chapterId: chapterId) { (result, error) in
@@ -71,7 +67,6 @@ extension MDLibApiTests {
     }
 
     func testGetChapterPages() throws {
-        let api = MDApi()
         let chapterId = "946577a4-d469-45ed-8400-62f03ce4942e" // Solo leveling volume 1 chapter 1 (en)
 
         // Start by getting information about the chapter

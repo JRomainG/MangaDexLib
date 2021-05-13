@@ -12,7 +12,6 @@ import MangaDexLib
 extension MDLibApiTests {
 
     func testGetScanlationGroupList() throws {
-        let api = MDApi()
         let groupExpectation = self.expectation(description: "Get a list of scanlation groups")
         api.getGroupList { (result, error) in
             XCTAssertNil(error)
@@ -26,9 +25,7 @@ extension MDLibApiTests {
     }
 
     func testSearchScanlationGroups() throws {
-        let api = MDApi()
         let filter = MDGroupFilter(name: "mangadex")
-
         let groupExpectation = self.expectation(description: "Get a list of scanlation groups")
         api.searchGroups(filter: filter) { (result, error) in
             XCTAssertNil(error)
@@ -42,7 +39,6 @@ extension MDLibApiTests {
     }
 
     func testViewScanlationGroup() throws {
-        let api = MDApi()
         let groupId = "b8a6d1fc-1634-47a8-98cf-2ea3f5fef8b3" // MangaDex Scans
         let groupExpectation = self.expectation(description: "Get the scanlation group's information")
         api.viewGroup(groupId: groupId) { (result, error) in
