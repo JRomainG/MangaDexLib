@@ -71,6 +71,25 @@ extension MDApi {
         requestHandler.post(url: url, content: body, completion: completion)
     }
 
+    /// Wrapper around MDRequestHandler's put method
+    /// - Parameter url: The URL to load
+    /// - Parameter body: The content of the request
+    /// - Parameter completion: The completion block called once the request is done
+    ///
+    /// If `success` is called, then `response.error` is nil and `response.rawValue` is not nil
+    func performPut<T: Encodable>(url: URL, body: T, completion: @escaping MDCompletion) {
+        let completion = requestCompletionBlock(url: url, completion: completion)
+        requestHandler.put(url: url, content: body, completion: completion)
+    }
+
+    /// Wrapper around MDRequestHandler's delete method
+    /// - Parameter url: The URL to fetch
+    /// - Parameter completion: The completion block called once the request is done
+    func performDelete(url: URL, completion: @escaping MDCompletion) {
+        let completion = requestCompletionBlock(url: url, completion: completion)
+        requestHandler.delete(url: url, completion: completion)
+    }
+
     /// Constructor for a generic completion block
     /// - Parameter url: The URL to load
     /// - Parameter completion: The completion block called once the request is done
@@ -130,12 +149,39 @@ extension MDApi {
 
     /// Simple helper method which performs a post, decodes the result as the given type, and calls the completion block
     /// - Parameter url: The URL to fetch
+    /// - Parameter data: The content of the request
     /// - Parameter completion: The completion block called once the request is done
     internal func performBasicPostCompletion<T: Encodable,
                                              L: Decodable>(url: URL,
                                                            data: T,
                                                            completion: @escaping (L?, MDApiError?) -> Void) {
         performPost(url: url, body: data) { (response) in
+            // Propagate errors
+            guard response.error == nil else {
+                completion(nil, response.error)
+                return
+            }
+
+            // Parse the response to retreive the list of objects
+            do {
+                let results = try MDParser.parse(json: response.content, type: L.self)
+                completion(results, nil)
+            } catch {
+                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                completion(nil, error)
+            }
+        }
+    }
+
+    /// Simple helper method which performs a put, decodes the result as the given type, and calls the completion block
+    /// - Parameter url: The URL to fetch
+    /// - Parameter data: The content of the request
+    /// - Parameter completion: The completion block called once the request is done
+    internal func performBasicPutCompletion<T: Encodable,
+                                            L: Decodable>(url: URL,
+                                                          data: T,
+                                                          completion: @escaping (L?, MDApiError?) -> Void) {
+        performPut(url: url, body: data) { (response) in
             // Propagate errors
             guard response.error == nil else {
                 completion(nil, response.error)

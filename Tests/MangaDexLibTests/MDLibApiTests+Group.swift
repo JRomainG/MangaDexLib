@@ -53,4 +53,55 @@ extension MDLibApiTests {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testFollowUnfollowGroup() throws {
+        throw XCTSkip("The API is currently in readonly mode")
+
+        try login(api: api, credentialsKey: "AuthRegular")
+        let groupId = "b8a6d1fc-1634-47a8-98cf-2ea3f5fef8b3" // MangaDex Scans
+
+        // Assume the user doesn't follow this group yet and start following it
+        let followExpectation = self.expectation(description: "Follow the scanlation group")
+        api.followGroup(groupId: groupId) { (error) in
+            XCTAssertNil(error)
+            followExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // List the user's followed groups and check it was added
+        let listFollowExpectation1 = self.expectation(description: "List the user's followed scanlation group")
+        api.getLoggedUserFollowedGroupList { (result, error) in
+            XCTAssertNil(error)
+
+            var followedGroupIds: [String] = []
+            for group in result?.results ?? [] {
+                followedGroupIds.append(group.object?.objectId ?? "")
+            }
+            XCTAssertTrue(followedGroupIds.contains(groupId))
+            listFollowExpectation1.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // Unfollow the manga to cleanup
+        let unfollowExpectation = self.expectation(description: "Unfollow the scanlation group")
+        api.unfollowGroup(groupId: groupId) { (error) in
+            XCTAssertNil(error)
+            unfollowExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // List the user's follow mangas and check it was removed
+        let listFollowExpectation2 = self.expectation(description: "List the user's followed scanlation group")
+        api.getLoggedUserFollowedGroupList { (result, error) in
+            XCTAssertNil(error)
+
+            var followedGroupIds: [String] = []
+            for group in result?.results ?? [] {
+                followedGroupIds.append(group.object?.objectId ?? "")
+            }
+            XCTAssertTrue(followedGroupIds.contains(groupId))
+            listFollowExpectation2.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
 }

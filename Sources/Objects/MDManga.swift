@@ -45,7 +45,7 @@ public struct MDManga {
     public let year: Int?
 
     /// This manga's content rating
-    public let rating: MDContentRating?
+    public let contentRating: MDContentRating?
 
     /// The manga's tags
     public let tags: [MDObject<MDTag>]
@@ -63,17 +63,17 @@ public struct MDManga {
 
     /// A note about this manga left for the moderators
     /// - Important: This is only used when uploading or updating a manga, it will never be filled when decoding
-    public let modNotes: String?
+    internal let modNotes: String?
 
     /// A list of authors' uuids
     /// - Important: This is only used when uploading or updating a manga, it will never be filled when decoding.
     /// Use `MDObject.relationships` instead
-    public let authors: [String]?
+    internal let authors: [String]?
 
     /// A list of arists' uuids
     /// - Important: This is only used when uploading or updating a manga, it will never be filled when decoding.
     /// Use `MDObject.relationships` instead
-    public let artists: [String]?
+    internal let artists: [String]?
 
     /// The version of this type of object in the MangaDex API
     public let version: Int
@@ -94,7 +94,7 @@ extension MDManga: Decodable {
         case demographic = "publicationDemographic"
         case publicationStatus = "status"
         case year
-        case rating = "contentRating"
+        case contentRating
         case tags
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
@@ -117,7 +117,7 @@ extension MDManga: Decodable {
         demographic = try container.decode(MDDemographic?.self, forKey: .demographic)
         publicationStatus = try container.decode(MDPublicationStatus?.self, forKey: .publicationStatus)
         year = try container.decode(Int?.self, forKey: .year)
-        rating = try container.decode(MDContentRating?.self, forKey: .rating)
+        contentRating = try container.decode(MDContentRating?.self, forKey: .contentRating)
         tags = try container.decode([MDObject<MDTag>].self, forKey: .tags)
         createdDate = try container.decode(Date.self, forKey: .createdDate)
         updatedDate = try container.decode(Date?.self, forKey: .updatedDate)
@@ -148,6 +148,46 @@ extension MDManga: Decodable {
 
 extension MDManga: Encodable {
 
+    /// Convenience `init` used for create/update endpoints
+    public init(title: MDLocalizedString,
+                altTitles: [MDLocalizedString],
+                description: MDLocalizedString,
+                authors: [String],
+                artists: [String],
+                links: [MDExternalLink],
+                originalLanguage: Locale,
+                year: Int,
+                lastVolume: String? = nil,
+                lastChapter: String? = nil,
+                demographic: MDDemographic? = nil,
+                publicationStatus: MDPublicationStatus? = nil,
+                contentRating: MDContentRating? = nil,
+                modNotes: String? = nil) {
+        self.title = title
+        self.altTitles = altTitles
+        self.description = description
+        self.authors = authors
+        self.artists = artists
+        self.links = links
+        self.originalLanguage = originalLanguage
+        self.year = year
+        self.lastVolume = lastVolume
+        self.lastChapter = lastChapter
+        self.demographic = demographic
+        self.publicationStatus = publicationStatus
+        self.contentRating = contentRating
+        self.modNotes = modNotes
+
+        // Unused during upload
+        tags = []
+        locked = false
+        createdDate = .init()
+        updatedDate = nil
+
+        // Hardcoded based on the API version we support
+        version = 1
+    }
+
     /// Custom `encode` implementation to handle encoding the `originalLanguage` and `links` attributes
     ///
     /// The MangaDex API does not expect the same thing when encoding an `MDManga` as when decoding it, which makes this
@@ -162,7 +202,7 @@ extension MDManga: Encodable {
         try container.encode(demographic, forKey: .demographic)
         try container.encode(publicationStatus, forKey: .publicationStatus)
         try container.encode(year, forKey: .year)
-        try container.encode(rating, forKey: .rating)
+        try container.encode(contentRating, forKey: .contentRating)
         try container.encode(modNotes, forKey: .modNotes)
         try container.encode(version, forKey: .version)
 

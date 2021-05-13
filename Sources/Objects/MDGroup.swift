@@ -30,13 +30,12 @@ public struct MDGroup {
     public let updatedDate: Date?
 
     /// The group leader's UUID
-    /// - Important: This is only used when creating a scanlation group, it will never be filled when decoding
-    public let leaderId: String?
+    /// - Important: This is only used when uploading or updating a manga, it will never be filled when decoding
+    internal let leaderId: String?
 
     /// The list of members of this group
     /// - Note: The leader should not be included in this list
-    /// - Important: This is only used when creating a scanlation group, it will never be filled when decoding
-    public let memberIds: [String]?
+    internal let memberIds: [String]?
 
     /// The version of this type of object in the MangaDex API
     public let version: Int
@@ -60,6 +59,22 @@ extension MDGroup: Decodable {
 }
 
 extension MDGroup: Encodable {
+
+    /// Convenience `init` used for create/update endpoints
+    public init(name: String, leaderId: String, memberIds: [String]) {
+        self.name = name
+        self.leaderId = leaderId
+        self.memberIds = memberIds
+
+        // Unused during upload
+        leader = MDObject(objectId: "", objectType: .user, data: MDUser(username: nil, version: 1))
+        members = []
+        createdDate = .init()
+        updatedDate = nil
+
+        // Hardcoded based on the API version we support
+        version = 1
+    }
 
     /// Custom `encode` implementation to convert this structure to a JSON object
     public func encode(to encoder: Encoder) throws {

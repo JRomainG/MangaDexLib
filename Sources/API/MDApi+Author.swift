@@ -30,8 +30,9 @@ extension MDApi {
     /// - Parameter info: The author information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func createAuthor(info: MDAuthor, completion: @escaping (MDAuthor?, MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+    public func createAuthor(info: MDAuthor, completion: @escaping (MDResult<MDAuthor>?, MDApiError?) -> Void) {
+        let url = MDPath.createAuthor()
+        performBasicPostCompletion(url: url, data: info, completion: completion)
     }
 
     /// View the specified author's information
@@ -43,11 +44,14 @@ extension MDApi {
     }
 
     /// Update the specified author's information
+    /// - Parameter authorId: The id of the author
     /// - Parameter info: The author information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func updateAuthor(info: MDAuthor, completion: @escaping (MDAuthor?, MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+    public func updateAuthor(authorId: String, info: MDAuthor,
+                             completion: @escaping (MDResult<MDAuthor>?, MDApiError?) -> Void) {
+        let url = MDPath.updateAuthor(authorId: authorId)
+        performBasicPutCompletion(url: url, data: info, completion: completion)
     }
 
     /// Delete the specified author
@@ -55,7 +59,10 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func deleteAuthor(authorId: String, completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.deleteAuthor(authorId: authorId)
+        performDelete(url: url) { (response) in
+            completion(response.error)
+        }
     }
 
 }

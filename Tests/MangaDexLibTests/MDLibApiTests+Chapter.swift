@@ -93,4 +93,48 @@ extension MDLibApiTests {
         XCTAssert(urls!.count > 0)
     }
 
+    func testMakeUnmarkChapter() throws {
+        throw XCTSkip("The API is currently in readonly mode")
+
+        try login(api: api, credentialsKey: "AuthRegular")
+        let mangaId = "0001183c-2089-48e9-96b7-d48db5f1a611" // Boku No Hero Academia
+        let chapterId = "cb46d8e3-629b-461e-97e3-594f3ac9c982" // Volume 23 chapter 224 (de)
+
+        // Assume the chapter wasn't read by the test user
+        let readExpectation = self.expectation(description: "Mark the chapter as read")
+        api.markChapterRead(chapterId: chapterId) { (error) in
+            XCTAssertNil(error)
+            readExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // List the manga's read markers and check it's included
+        let listReadExpectation1 = self.expectation(description: "List the manga's read chapters")
+        api.getMangaReadMarkers(mangaId: mangaId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result?.chapters)
+            XCTAssertTrue(result!.chapters!.contains(chapterId))
+            listReadExpectation1.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // Unfollow the manga to cleanup
+        let unreadExpectation = self.expectation(description: "Mark the chapter as unread")
+        api.markChapterUnread(chapterId: chapterId) { (error) in
+            XCTAssertNil(error)
+            unreadExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // List the manga's read markers and check it was removed
+        let listReadExpectation2 = self.expectation(description: "List the manga's read chapters")
+        api.getMangaReadMarkers(mangaId: mangaId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result?.chapters)
+            XCTAssertFalse(result!.chapters!.contains(chapterId))
+            listReadExpectation2.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
 }

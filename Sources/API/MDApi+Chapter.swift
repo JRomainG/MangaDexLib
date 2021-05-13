@@ -35,11 +35,15 @@ extension MDApi {
     }
 
     /// Update the specified chapter's information
+    /// - Parameter chapterId: The id of the chapter
     /// - Parameter info: The chapter information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func updateChapter(info: MDChapter, completion: @escaping (MDChapter?, MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+    public func updateChapter(chapterId: String,
+                              info: MDChapter,
+                              completion: @escaping (MDResult<MDChapter>?, MDApiError?) -> Void) {
+        let url = MDPath.updateChapter(chapterId: chapterId)
+        performBasicPutCompletion(url: url, data: info, completion: completion)
     }
 
     /// Delete the specified chapter
@@ -47,7 +51,10 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func deleteChapter(chapterId: String, completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.deleteChapter(chapterId: chapterId)
+        performDelete(url: url) { (response) in
+            completion(response.error)
+        }
     }
 
     /// Mark the specified chapter as read
@@ -55,7 +62,10 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func markChapterRead(chapterId: String, completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.markChapterRead(chapterId: chapterId)
+        performPost(url: url, body: "") { (response) in
+            completion(response.error)
+        }
     }
 
     /// Mark the specified chapter as unread
@@ -63,7 +73,10 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func markChapterUnread(chapterId: String, completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.markChapterUnread(chapterId: chapterId)
+        performDelete(url: url) { (response) in
+            completion(response.error)
+        }
     }
 
 }

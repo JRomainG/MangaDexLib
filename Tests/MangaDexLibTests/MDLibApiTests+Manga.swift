@@ -78,6 +78,56 @@ extension MDLibApiTests {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testFollowUnfollowManga() throws {
+        throw XCTSkip("The API is currently in readonly mode")
+
+        try login(api: api, credentialsKey: "AuthRegular")
+        let mangaId = "0001183c-2089-48e9-96b7-d48db5f1a611" // Eight
+
+        // Assume the manga isn't part of the follow list and start following it
+        let followExpectation = self.expectation(description: "Follow the manga")
+        api.followManga(mangaId: mangaId) { (error) in
+            XCTAssertNil(error)
+            followExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // List the user's followed mangas and check it was added
+        let listFollowExpectation1 = self.expectation(description: "List the user's followed mangas")
+        api.getLoggedUserFollowedMangaList { (result, error) in
+            XCTAssertNil(error)
+
+            var followedMangaIds: [String] = []
+            for manga in result?.results ?? [] {
+                followedMangaIds.append(manga.object?.objectId ?? "")
+            }
+            XCTAssertTrue(followedMangaIds.contains(mangaId))
+            listFollowExpectation1.fulfill()
+        }
+
+        // Unfollow the manga to cleanup
+        let unfollowExpectation = self.expectation(description: "Unfollow the manga")
+        api.unfollowManga(mangaId: mangaId) { (error) in
+            XCTAssertNil(error)
+            unfollowExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // List the user's follow mangas and check it was removed
+        let listFollowExpectation2 = self.expectation(description: "List the user's followed mangas")
+        api.getLoggedUserFollowedMangaList { (result, error) in
+            XCTAssertNil(error)
+
+            var followedMangaIds: [String] = []
+            for manga in result?.results ?? [] {
+                followedMangaIds.append(manga.object?.objectId ?? "")
+            }
+            XCTAssertFalse(followedMangaIds.contains(mangaId))
+            listFollowExpectation2.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testGetMangaFeed() throws {
         let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
         let expectation = self.expectation(description: "Get the manga's chapters")

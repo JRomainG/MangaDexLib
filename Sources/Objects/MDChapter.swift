@@ -124,6 +124,30 @@ extension MDChapter: Decodable {
 
 extension MDChapter: Encodable {
 
+    /// Convenience `init` used for update endpoints
+    public init(title: String,
+                volume: String? = nil,
+                chapter: String? = nil,
+                language: Locale,
+                pages: [String],
+                pagesLowRes: [String]) {
+        self.title = title
+        self.volume = volume
+        self.chapter = chapter
+        self.language = language
+        self.pages = pages
+        self.pagesLowRes = pagesLowRes
+
+        // Unused during upload
+        hash = ""
+        createdDate = .init()
+        updatedDate = nil
+        publishDate = nil
+
+        // Hardcoded based on the API version we support
+        version = 1
+    }
+
     /// Custom `encode` implementation to handle encoding the `language` attribute
     ///
     /// The MangaDex API does not expect the same thing when encoding an `MDChapter` as when decoding it, which makes

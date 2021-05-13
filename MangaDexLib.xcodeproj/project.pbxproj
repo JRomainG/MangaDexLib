@@ -84,8 +84,6 @@
 		337474722646A94A002114C9 /* MDApi+Infra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337474702646A94A002114C9 /* MDApi+Infra.swift */; };
 		3388B2BE264992CD00ED77B5 /* MDApi+Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3388B2BD264992CD00ED77B5 /* MDApi+Chapter.swift */; };
 		3388B2BF264992CD00ED77B5 /* MDApi+Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3388B2BD264992CD00ED77B5 /* MDApi+Chapter.swift */; };
-		3388B2C4264997D100ED77B5 /* MDChecksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3388B2C3264997D100ED77B5 /* MDChecksum.swift */; };
-		3388B2C5264997D100ED77B5 /* MDChecksum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3388B2C3264997D100ED77B5 /* MDChecksum.swift */; };
 		3388B2CA2649A18D00ED77B5 /* MDAtHomeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3388B2C92649A18D00ED77B5 /* MDAtHomeNode.swift */; };
 		3388B2CB2649A18D00ED77B5 /* MDAtHomeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3388B2C92649A18D00ED77B5 /* MDAtHomeNode.swift */; };
 		3388B2DF2649A91D00ED77B5 /* MDFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3388B2DE2649A91D00ED77B5 /* MDFilter.swift */; };
@@ -183,7 +181,6 @@
 		337474682646A400002114C9 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		337474702646A94A002114C9 /* MDApi+Infra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Infra.swift"; sourceTree = "<group>"; };
 		3388B2BD264992CD00ED77B5 /* MDApi+Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Chapter.swift"; sourceTree = "<group>"; };
-		3388B2C3264997D100ED77B5 /* MDChecksum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDChecksum.swift; sourceTree = "<group>"; };
 		3388B2C92649A18D00ED77B5 /* MDAtHomeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDAtHomeNode.swift; sourceTree = "<group>"; };
 		3388B2DE2649A91D00ED77B5 /* MDFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDFilter.swift; sourceTree = "<group>"; };
 		338E129B2647D48200C89F08 /* MDApi+Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Manga.swift"; sourceTree = "<group>"; };
@@ -269,7 +266,6 @@
 				33A6D59D26485868007AB5B4 /* MDReadMarkers.swift */,
 				33A6D5A326485A68007AB5B4 /* MDReadingStatuses.swift */,
 				339A33F726455162008535DA /* MDLocalizedString.swift */,
-				3388B2C3264997D100ED77B5 /* MDChecksum.swift */,
 				3388B2C92649A18D00ED77B5 /* MDAtHomeNode.swift */,
 				3317F9C3264D66CB005E7380 /* MDAtHomeReport.swift */,
 				3388B2DE2649A91D00ED77B5 /* MDFilter.swift */,
@@ -616,7 +612,6 @@
 				33A6D5A526485A68007AB5B4 /* MDReadingStatuses.swift in Sources */,
 				337474582646904B002114C9 /* MDResultList.swift in Sources */,
 				334DE61526446D9B006D38E3 /* MDPath+CustomList.swift in Sources */,
-				3388B2C5264997D100ED77B5 /* MDChecksum.swift in Sources */,
 				337474722646A94A002114C9 /* MDApi+Infra.swift in Sources */,
 				335F9CD4245E003E00EE9A52 /* MDPath+Manga.swift in Sources */,
 				335F9CD6245E003E00EE9A52 /* MDChapter.swift in Sources */,
@@ -674,7 +669,6 @@
 				33A6D5A426485A68007AB5B4 /* MDReadingStatuses.swift in Sources */,
 				337474572646904B002114C9 /* MDResultList.swift in Sources */,
 				334DE61426446D9B006D38E3 /* MDPath+CustomList.swift in Sources */,
-				3388B2C4264997D100ED77B5 /* MDChecksum.swift in Sources */,
 				337474712646A94A002114C9 /* MDApi+Infra.swift in Sources */,
 				3322BD68245D99130086FA81 /* MDUser.swift in Sources */,
 				3322BD65245D99130086FA81 /* MDChapter.swift in Sources */,

@@ -49,6 +49,20 @@ extension MDAuthor: Decodable {
 
 extension MDAuthor: Encodable {
 
+    /// Convenience `init` used for create/update endpoints
+    public init(name: String) {
+        self.name = name
+
+        // Unused during upload
+        imageURL = nil
+        biography = []
+        createdDate = .init()
+        updatedDate = nil
+
+        // Hardcoded based on the API version we support
+        version = 1
+    }
+
     /// Custom `encode` implementation to convert this structure to a JSON object
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)

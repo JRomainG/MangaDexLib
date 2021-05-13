@@ -14,8 +14,10 @@ extension MDApi {
     /// - Parameter info: The list information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func createCustomList(info: MDCustomList, completion: @escaping (MDCustomList?, MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+    public func createCustomList(info: MDCustomList,
+                                 completion: @escaping (MDResult<MDCustomList>?, MDApiError?) -> Void) {
+        let url = MDPath.createCustomList()
+        performBasicPostCompletion(url: url, data: info, completion: completion)
     }
 
     /// View the specified custom list's information
@@ -28,11 +30,15 @@ extension MDApi {
     }
 
     /// Update the specified custom list's information
+    /// - Parameter listId: The id of the custom list
     /// - Parameter info: The custom list information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func updateCustomList(info: MDCustomList, completion: @escaping (MDCustomList?, MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+    public func updateCustomList(listId: String,
+                                 info: MDCustomList,
+                                 completion: @escaping (MDResult<MDCustomList>?, MDApiError?) -> Void) {
+        let url = MDPath.updateCustomList(listId: listId)
+        performBasicPutCompletion(url: url, data: info, completion: completion)
     }
 
     /// Delete the specified custom list
@@ -40,7 +46,10 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func deleteCustomList(listId: String, completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.deleteCustomList(listId: listId)
+        performDelete(url: url) { (response) in
+            completion(response.error)
+        }
     }
 
     /// Get the specified custom list's feed (aka its list of chapters)

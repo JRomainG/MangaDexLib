@@ -16,7 +16,6 @@ public struct MDReadingStatuses: Decodable {
 
     /// A dictionary mapping manga UUIDs to their reading status
     /// - Note: This will be `nil` if the status is not `ok`
-    /// TODO: The API documentation does not seem to match the implementation, so a list is returned here instead
     public let statuses: [String: MDReadingStatus?]?
 
     /// The errors contained in this response

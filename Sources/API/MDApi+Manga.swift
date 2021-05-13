@@ -41,11 +41,12 @@ extension MDApi {
     }
 
     /// Create a new manga with the specified information
-    /// - Parameter info: The `MDManga` to create
+    /// - Parameter info: The manga information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func createManga(info: MDManga, completion: @escaping (MDManga?, MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+    public func createManga(info: MDManga, completion: @escaping (MDResult<MDManga>?, MDApiError?) -> Void) {
+        let url = MDPath.createManga()
+        performBasicPostCompletion(url: url, data: info, completion: completion)
     }
 
     /// View the specified manga's information
@@ -58,10 +59,14 @@ extension MDApi {
 
     /// Update the specified manga's information
     /// - Parameter mangaId: The id of the manga
+    /// - Parameter info: The manga information
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func updateManga(info: MDManga, completion: @escaping (MDManga?, MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+    public func updateManga(mangaId: String,
+                            info: MDManga,
+                            completion: @escaping (MDResult<MDManga>?, MDApiError?) -> Void) {
+        let url = MDPath.updateManga(mangaId: mangaId)
+        performBasicPutCompletion(url: url, data: info, completion: completion)
     }
 
     /// Delete the specified manga
@@ -69,7 +74,10 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func deleteManga(mangaId: String, completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.deleteManga(mangaId: mangaId)
+        performDelete(url: url) { (response) in
+            completion(response.error)
+        }
     }
 
     /// Follow the specified manga
@@ -77,7 +85,10 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func followManga(mangaId: String, completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.followManga(mangaId: mangaId)
+        performPost(url: url, body: "") { (response) in
+            completion(response.error)
+        }
     }
 
     /// Unfollow the specified manga
@@ -85,7 +96,10 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func unfollowManga(mangaId: String, completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.unfollowManga(mangaId: mangaId)
+        performPost(url: url, body: "") { (response) in
+            completion(response.error)
+        }
     }
 
     /// Add the specified manga to the logged-in user's custom list
@@ -94,7 +108,10 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func addMangaToCustomList(mangaId: String, listId: String, completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.addMangaToCustomList(mangaId: mangaId, listId: listId)
+        performPost(url: url, body: "") { (response) in
+            completion(response.error)
+        }
     }
 
     /// Remove the specified manga from the logged-in user's custom list
@@ -105,7 +122,10 @@ extension MDApi {
     public func removeMangaFromCustomList(mangaId: String,
                                           listId: String,
                                           completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.removeMangaFromCustomList(mangaId: mangaId, listId: listId)
+        performPost(url: url, body: "") { (response) in
+            completion(response.error)
+        }
     }
 
     /// Get the specified manga's feed (aka its list of chapters)
@@ -139,10 +159,17 @@ extension MDApi {
     /// - Parameter status: The new reading status
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
+    /// - Note: Setting the reading status to `nil` will remove it
     public func updateMangaReadingStatus(mangaId: String,
-                                         status: MDReadingStatus,
+                                         status: MDReadingStatus?,
                                          completion: @escaping (MDApiError?) -> Void) {
-        // TODO: API is currently readonly
+        let url = MDPath.updateMangaReadingStatus(mangaId: mangaId)
+        let data: [String: String?] = [
+            "status": status?.rawValue
+        ]
+        performPost(url: url, body: data) { (response) in
+            completion(response.error)
+        }
     }
 
 }

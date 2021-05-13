@@ -11,6 +11,63 @@ import MangaDexLib
 
 extension MDLibApiTests {
 
+    func testCreateDeleteCustomList() throws {
+        throw XCTSkip("The API is currently in readonly mode")
+
+        try login(api: api, credentialsKey: "AuthRegular")
+
+        let info = MDCustomList(name: "Test list", visibility: .privateList, mangas: [])
+        var createdListId: String?
+
+        // Create a new list
+        let createExpectation = self.expectation(description: "Create a new custom list")
+        api.createCustomList(info: info) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result?.object)
+            createdListId = result?.object?.objectId
+            createExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        XCTAssertNotNil(createdListId)
+
+        // Make sure it now appears in the user's custom lists
+        let listExpectation1 = self.expectation(description: "List the user's custom list")
+        api.getLoggedUserCustomLists { (result, error) in
+            XCTAssertNil(error)
+
+            var customListIds: [String] = []
+            for list in result?.results ?? [] {
+                customListIds.append(list.object?.objectId ?? "")
+            }
+            XCTAssertTrue(customListIds.contains(createdListId!))
+            listExpectation1.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // Delete the newly created list
+        let deleteExpectation = self.expectation(description: "Delete a custom list")
+        api.deleteCustomList(listId: createdListId!) { (error) in
+            XCTAssertNil(error)
+            deleteExpectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+
+        // Make sure it was removed from the user's custom lists
+        let listExpectation2 = self.expectation(description: "List the user's custom list")
+        api.getLoggedUserCustomLists { (result, error) in
+            XCTAssertNil(error)
+
+            var customListIds: [String] = []
+            for list in result?.results ?? [] {
+                customListIds.append(list.object?.objectId ?? "")
+            }
+            XCTAssertFalse(customListIds.contains(createdListId!))
+            listExpectation2.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testViewCustomList() throws {
         throw XCTSkip("There are no custom lists for the test users")
 

@@ -19,6 +19,7 @@ public struct MDCustomList {
     public var visibility: MDCustomListVisibility
 
     /// The custom list's visibility
+    /// - Note: Some custom lists have no owner, in which case this will be `nil`
     public var owner: MDObject<MDUser>?
 
     /// The list of manga UUIDs
@@ -44,6 +45,19 @@ extension MDCustomList: Decodable {
 }
 
 extension MDCustomList: Encodable {
+
+    /// Convenience `init` used for create/update endpoints
+    public init(name: String, visibility: MDCustomListVisibility, mangas: [String]) {
+        self.name = name
+        self.visibility = visibility
+        self.mangas = mangas
+
+        // Unused during upload
+        owner = nil
+
+        // Hardcoded based on the API version we support
+        version = 1
+    }
 
     /// Custom `encode` implementation to convert this structure to a JSON object
     public func encode(to encoder: Encoder) throws {
