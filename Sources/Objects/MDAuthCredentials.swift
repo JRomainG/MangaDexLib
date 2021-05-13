@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Class used to store credentials when attempting to login
+/// Structure to store credentials when attempting to login
 public struct MDAuthCredentials: Encodable {
 
     /// Authentication modes provided by MangaDex

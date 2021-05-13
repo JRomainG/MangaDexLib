@@ -19,6 +19,10 @@
 		3317F9C5264D66CB005E7380 /* MDAtHomeReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F9C3264D66CB005E7380 /* MDAtHomeReport.swift */; };
 		3317F9CA264D6A0C005E7380 /* MDMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F9C9264D6A0C005E7380 /* MDMapping.swift */; };
 		3317F9CB264D6A0C005E7380 /* MDMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F9C9264D6A0C005E7380 /* MDMapping.swift */; };
+		3317F9D3264D77A5005E7380 /* MDApi+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F9D2264D77A5005E7380 /* MDApi+Account.swift */; };
+		3317F9D4264D77A5005E7380 /* MDApi+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F9D2264D77A5005E7380 /* MDApi+Account.swift */; };
+		3317F9D9264D785D005E7380 /* MDAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F9D8264D785D005E7380 /* MDAccountInfo.swift */; };
+		3317F9DA264D785D005E7380 /* MDAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3317F9D8264D785D005E7380 /* MDAccountInfo.swift */; };
 		3322BD63245D99130086FA81 /* MDManga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD3F245D99120086FA81 /* MDManga.swift */; };
 		3322BD65245D99130086FA81 /* MDChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD41245D99120086FA81 /* MDChapter.swift */; };
 		3322BD67245D99130086FA81 /* MDGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD43245D99120086FA81 /* MDGroup.swift */; };
@@ -139,6 +143,8 @@
 		3317F9B3264D60D8005E7380 /* MDLibApiTests+User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDLibApiTests+User.swift"; sourceTree = "<group>"; };
 		3317F9C3264D66CB005E7380 /* MDAtHomeReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDAtHomeReport.swift; sourceTree = "<group>"; };
 		3317F9C9264D6A0C005E7380 /* MDMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDMapping.swift; sourceTree = "<group>"; };
+		3317F9D2264D77A5005E7380 /* MDApi+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Account.swift"; sourceTree = "<group>"; };
+		3317F9D8264D785D005E7380 /* MDAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDAccountInfo.swift; sourceTree = "<group>"; };
 		3322BD3F245D99120086FA81 /* MDManga.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDManga.swift; sourceTree = "<group>"; };
 		3322BD41245D99120086FA81 /* MDChapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDChapter.swift; sourceTree = "<group>"; };
 		3322BD43245D99120086FA81 /* MDGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDGroup.swift; sourceTree = "<group>"; };
@@ -268,6 +274,7 @@
 				3317F9C3264D66CB005E7380 /* MDAtHomeReport.swift */,
 				3388B2DE2649A91D00ED77B5 /* MDFilter.swift */,
 				3374744726468395002114C9 /* MDAuthCredentials.swift */,
+				3317F9D8264D785D005E7380 /* MDAccountInfo.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -292,6 +299,7 @@
 				3317F991264D5736005E7380 /* MDApi+CustomList.swift */,
 				3317F9AD264D5E89005E7380 /* MDApi+User.swift */,
 				3374744126468328002114C9 /* MDApi+Auth.swift */,
+				3317F9D2264D77A5005E7380 /* MDApi+Account.swift */,
 				337474702646A94A002114C9 /* MDApi+Infra.swift */,
 				3322BD4E245D99120086FA81 /* MDConstants.swift */,
 				334DE5E026445A4C006D38E3 /* MDParser.swift */,
@@ -599,6 +607,7 @@
 				339A340E2645606D008535DA /* MDResult.swift in Sources */,
 				339A341A264560C3008535DA /* MDError.swift in Sources */,
 				3317F9C5264D66CB005E7380 /* MDAtHomeReport.swift in Sources */,
+				3317F9D4264D77A5005E7380 /* MDApi+Account.swift in Sources */,
 				334DE60926446947006D38E3 /* MDPath+Auth.swift in Sources */,
 				33A6D59F26485868007AB5B4 /* MDReadMarkers.swift in Sources */,
 				3388B2E02649A91D00ED77B5 /* MDFilter.swift in Sources */,
@@ -619,6 +628,7 @@
 				338E129D2647D48200C89F08 /* MDApi+Manga.swift in Sources */,
 				339A33F926455162008535DA /* MDLocalizedString.swift in Sources */,
 				3317F999264D5796005E7380 /* MDCustomList.swift in Sources */,
+				3317F9DA264D785D005E7380 /* MDAccountInfo.swift in Sources */,
 				3388B2CB2649A18D00ED77B5 /* MDAtHomeNode.swift in Sources */,
 				335F9CDB245E003E00EE9A52 /* MDExternalLink.swift in Sources */,
 				339A33FF26455817008535DA /* MDTag.swift in Sources */,
@@ -655,6 +665,7 @@
 				3322BD69245D99130086FA81 /* MDExternalLink.swift in Sources */,
 				339A340D2645606D008535DA /* MDResult.swift in Sources */,
 				3317F9C4264D66CB005E7380 /* MDAtHomeReport.swift in Sources */,
+				3317F9D3264D77A5005E7380 /* MDApi+Account.swift in Sources */,
 				339A3419264560C3008535DA /* MDError.swift in Sources */,
 				33A6D59E26485868007AB5B4 /* MDReadMarkers.swift in Sources */,
 				3388B2DF2649A91D00ED77B5 /* MDFilter.swift in Sources */,
@@ -675,6 +686,7 @@
 				338E129C2647D48200C89F08 /* MDApi+Manga.swift in Sources */,
 				339A33F826455162008535DA /* MDLocalizedString.swift in Sources */,
 				3317F998264D5796005E7380 /* MDCustomList.swift in Sources */,
+				3317F9D9264D785D005E7380 /* MDAccountInfo.swift in Sources */,
 				3388B2CA2649A18D00ED77B5 /* MDAtHomeNode.swift in Sources */,
 				339A33FE26455817008535DA /* MDTag.swift in Sources */,
 				334DE5F02644636D006D38E3 /* MDPath+Chapter.swift in Sources */,
