@@ -35,7 +35,7 @@ public class MDApi: NSObject {
     }
 
     /// Refresh token provided by the API after login
-    /// - Note: This token is valid for 4 hours and can be used to obtain a new `sessionJwt`
+    /// - Note: This token is valid for 1 month and can be used to obtain a new `sessionJwt`
     public internal(set) var refreshJwt: String?
 
     /// Setter for the User-Agent to use for requests

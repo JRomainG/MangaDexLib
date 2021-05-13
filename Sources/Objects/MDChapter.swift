@@ -19,7 +19,7 @@ public struct MDChapter {
     public let volume: String?
 
     /// The chapter in the printed manga which corresponds to this chapter
-    /// - Note: This may be an empty string if the uploader did not provide a chapter number (e.g. for oneshots)
+    /// - Note: This may be `nil` string if the uploader did not provide a chapter number (e.g. for oneshots)
     public let chapter: String?
 
     /// The language in which this chapter was translated

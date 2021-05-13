@@ -35,7 +35,7 @@ public enum MDPublicationStatus: String, Codable {
     case hiatus = "hiatus"
 
     /// The manga has been canceled
-    case abandoned = "abandoned"
+    case cancelled = "cancelled"
 }
 
 /// User-defined status of a manga
@@ -188,9 +188,6 @@ public enum MDResultStatus: String, Codable {
     case ok
 
     /// The result contains at least one error
-    case nok = "ko"
-
-    /// Same as `.nok`, seems to be used for HTTP exceptions (e.g. 404)
     case error = "error"
 }
 
