@@ -80,6 +80,11 @@
 		338E12A62647DAFE00C89F08 /* MDAuthInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338E12A42647DAFE00C89F08 /* MDAuthInfo.swift */; };
 		338E12AE2647DCD200C89F08 /* MDObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338E12AD2647DCD200C89F08 /* MDObject.swift */; };
 		338E12AF2647DCD200C89F08 /* MDObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 338E12AD2647DCD200C89F08 /* MDObject.swift */; };
+		33901B17264D327A00A12755 /* MDLibApiTests+Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33901B16264D327A00A12755 /* MDLibApiTests+Manga.swift */; };
+		33901B1C264D32D000A12755 /* MDLibApiTests+Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33901B1B264D32D000A12755 /* MDLibApiTests+Chapter.swift */; };
+		33901B21264D330300A12755 /* MDLibApiTests+Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33901B20264D330300A12755 /* MDLibApiTests+Group.swift */; };
+		33901B26264D333800A12755 /* MDLibApiTests+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33901B25264D333800A12755 /* MDLibApiTests+Auth.swift */; };
+		33901B37264D338600A12755 /* MDLibApiTests+Infra.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33901B36264D338600A12755 /* MDLibApiTests+Infra.swift */; };
 		339A33F826455162008535DA /* MDLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A33F726455162008535DA /* MDLocalizedString.swift */; };
 		339A33F926455162008535DA /* MDLocalizedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A33F726455162008535DA /* MDLocalizedString.swift */; };
 		339A33FE26455817008535DA /* MDTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 339A33FD26455817008535DA /* MDTag.swift */; };
@@ -156,6 +161,11 @@
 		338E129B2647D48200C89F08 /* MDApi+Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Manga.swift"; sourceTree = "<group>"; };
 		338E12A42647DAFE00C89F08 /* MDAuthInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDAuthInfo.swift; sourceTree = "<group>"; };
 		338E12AD2647DCD200C89F08 /* MDObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDObject.swift; sourceTree = "<group>"; };
+		33901B16264D327A00A12755 /* MDLibApiTests+Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDLibApiTests+Manga.swift"; sourceTree = "<group>"; };
+		33901B1B264D32D000A12755 /* MDLibApiTests+Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDLibApiTests+Chapter.swift"; sourceTree = "<group>"; };
+		33901B20264D330300A12755 /* MDLibApiTests+Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDLibApiTests+Group.swift"; sourceTree = "<group>"; };
+		33901B25264D333800A12755 /* MDLibApiTests+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDLibApiTests+Auth.swift"; sourceTree = "<group>"; };
+		33901B36264D338600A12755 /* MDLibApiTests+Infra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDLibApiTests+Infra.swift"; sourceTree = "<group>"; };
 		339A33F726455162008535DA /* MDLocalizedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLocalizedString.swift; sourceTree = "<group>"; };
 		339A33FD26455817008535DA /* MDTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDTag.swift; sourceTree = "<group>"; };
 		339A340326455D92008535DA /* MDRelationship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDRelationship.swift; sourceTree = "<group>"; };
@@ -273,6 +283,11 @@
 			isa = PBXGroup;
 			children = (
 				3322BD8B245D99900086FA81 /* MDLibApiTests.swift */,
+				33901B16264D327A00A12755 /* MDLibApiTests+Manga.swift */,
+				33901B1B264D32D000A12755 /* MDLibApiTests+Chapter.swift */,
+				33901B20264D330300A12755 /* MDLibApiTests+Group.swift */,
+				33901B25264D333800A12755 /* MDLibApiTests+Auth.swift */,
+				33901B36264D338600A12755 /* MDLibApiTests+Infra.swift */,
 				3322BD87245D99900086FA81 /* MDLibRequestHandlerTests.swift */,
 				3322BD88245D99900086FA81 /* XCTestManifests.swift */,
 				3322BD8A245D99900086FA81 /* Secret.bundle */,
@@ -640,8 +655,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33901B37264D338600A12755 /* MDLibApiTests+Infra.swift in Sources */,
+				33901B1C264D32D000A12755 /* MDLibApiTests+Chapter.swift in Sources */,
 				3322BD90245D99900086FA81 /* MDLibRequestHandlerTests.swift in Sources */,
+				33901B17264D327A00A12755 /* MDLibApiTests+Manga.swift in Sources */,
 				3322BD94245D99900086FA81 /* MDLibApiTests.swift in Sources */,
+				33901B26264D333800A12755 /* MDLibApiTests+Auth.swift in Sources */,
+				33901B21264D330300A12755 /* MDLibApiTests+Group.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
