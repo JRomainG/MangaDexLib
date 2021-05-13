@@ -349,7 +349,7 @@ extension MDRequestHandler {
         }
 
         // Set the origin for the request, just in case
-        request.setValue(MDApi.baseURL, forHTTPHeaderField: "Origin")
+        request.setValue(MDApi.websiteBaseURL, forHTTPHeaderField: "Origin")
 
         // Wait for a bit to prevent the user from performing requests too quickly
         DispatchQueue.main.asyncAfter(deadline: .now() + ddosGuardDelay) {

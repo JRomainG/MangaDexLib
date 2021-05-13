@@ -11,8 +11,14 @@ import Foundation
 /// The main MangaDex API class, which should be used to access the framework's capabilities
 public class MDApi: NSObject {
 
+    /// Base URL for the MangaDex website
+    public static let websiteBaseURL = "https://mangadex.org"
+
     /// Base URL for the MangaDex API
-    public static let baseURL = "https://api.mangadex.org"
+    public static let apiBaseURL = "https://api.mangadex.org"
+
+    /// Base URL for the MangaDex network API
+    public static let networkBaseURL = "https://api.mangadex.network"
 
     /// Default value appended after the default User-Agent for all requests made by the MangaDexLib
     public static let defaultUserAgent = "MangaDexLib"
@@ -114,6 +120,31 @@ extension MDApi {
             // Parse the response to retreive the list of objects
             do {
                 let results = try MDParser.parse(json: response.content, type: T.self)
+                completion(results, nil)
+            } catch {
+                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                completion(nil, error)
+            }
+        }
+    }
+
+    /// Simple helper method which performs a post, decodes the result as the given type, and calls the completion block
+    /// - Parameter url: The URL to fetch
+    /// - Parameter completion: The completion block called once the request is done
+    internal func performBasicPostCompletion<T: Encodable,
+                                             L: Decodable>(url: URL,
+                                                           data: T,
+                                                           completion: @escaping (L?, MDApiError?) -> Void) {
+        performPost(url: url, body: data) { (response) in
+            // Propagate errors
+            guard response.error == nil else {
+                completion(nil, response.error)
+                return
+            }
+
+            // Parse the response to retreive the list of objects
+            do {
+                let results = try MDParser.parse(json: response.content, type: L.self)
                 completion(results, nil)
             } catch {
                 let error = MDApiError(type: .decodingError, body: response.content, error: error)

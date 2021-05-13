@@ -49,10 +49,6 @@ public struct MDChapter {
     /// - Note: This may differ from the `createdDate` property as scanlation groups might impose delays
     public let publishDate: Date?
 
-    /// The checksums of the uploaded pages
-    /// - Important: This is only used when uploading a chapter, it will never be filled when decoding
-    public let checksums: [MDChecksum]?
-
     /// The version of this type of object in the MangaDex API
     public let version: Int
 
@@ -122,9 +118,6 @@ extension MDChapter: Decodable {
         } else {
             language = nil
         }
-
-        // This property is only used for encoding
-        checksums = nil
     }
 
 }

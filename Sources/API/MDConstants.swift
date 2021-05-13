@@ -85,31 +85,34 @@ public enum MDCustomListVisibility: String, Codable {
 
 /// Type of object which exists in the MangaDex API
 public enum MDObjectType: String, Codable {
-    /// The target resource is a manga
+    /// The resource is a manga
     case manga = "manga"
 
-    /// The target resource is a chapter
+    /// The resource is a chapter
     case chapter = "chapter"
 
-    /// The target resource is an author
+    /// The resource is an author
     case author = "author"
 
-    /// The target resource is an artist (drawers only)
+    /// The resource is an artist (drawers only)
     case artist = "artist"
 
-    /// The target resource is a scanlation group
+    /// The resource is a scanlation group
     case scanlationGroup = "scanlation_group"
 
-    /// The target resource is a tag
+    /// The resource is a tag
     case tag = "tag"
 
-    /// The target resource is a user
+    /// The resource is a user
     case user = "user"
 
-    /// The target resource is a user's custom list
+    /// The resource is a user's custom list
     case customList = "custom_list"
 
-    /// The target resource is a string
+    /// The resource is a mapping between a legacy ID and a new ID
+    case legacyMapping = "mapping_id"
+
+    /// The resource is a string
     case string = "string"
 }
 

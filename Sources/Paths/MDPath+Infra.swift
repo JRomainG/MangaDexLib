@@ -22,7 +22,8 @@ extension MDPath {
     /// Build the URL report fetching an image using the MD@Home netword
     /// - Returns: The MangaDex URL
     static func sendAtHomeReport() -> URL {
-        return buildUrl(for: .atHomeReport)
+        let url = URL(string: MDApi.networkBaseURL)
+        return url!.appendingPathComponent(Endpoint.atHomeReport.rawValue)
     }
 
     /// Build the URL to transform legacy object IDs to v5 object IDs

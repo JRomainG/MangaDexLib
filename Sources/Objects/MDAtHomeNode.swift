@@ -12,6 +12,6 @@ import Foundation
 public struct MDAtHomeNode: Decodable {
 
     /// The base URL of this MD@Home node
-    let baseUrl: URL
+    public let baseUrl: URL
 
 }

@@ -30,7 +30,7 @@ class MDPath {
         let stringComponents = components.map { (component) -> String in
             return String(component.description)
         }
-        return buildUrl(for: URL(string: MDApi.baseURL)!, with: [endpoint.rawValue] + stringComponents)
+        return buildUrl(for: URL(string: MDApi.apiBaseURL)!, with: [endpoint.rawValue] + stringComponents)
     }
 
     /// Build an absolute URL with the known base and the given parameters

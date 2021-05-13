@@ -22,6 +22,25 @@ extension MDApi {
         performBasicGetCompletion(url: url, completion: completion)
     }
 
+    /// Send a report after fetching an image from a MD@Home node
+    /// - Parameter info: The report information
+    /// - Parameter completion: The completion block called once the request is done
+    public func sendAtHomeReport(info: MDAtHomeReport, completion: @escaping (MDApiError?) -> Void) {
+        let url = MDPath.sendAtHomeReport()
+        performPost(url: url, body: info) { (response) in
+            completion(response.error)
+        }
+    }
+
+    /// Get the mapping between legacy object IDs and new object IDs
+    /// - Parameter query: The mappings to ask for
+    /// - Parameter completion: The completion block called once the request is done
+    public func getLegacyMapping(query: MDMappingQuery,
+                                 completion: @escaping ([MDResult<MDMapping>]?, MDApiError?) -> Void) {
+        let url = MDPath.getLegacyMapping()
+        performBasicPostCompletion(url: url, data: query, completion: completion)
+    }
+
     /// Ping the MangaDex website to ensure it is up
     /// - Parameter completion: The completion block called once the request is done
     public func ping(completion: @escaping (MDApiError?) -> Void) {
@@ -33,6 +52,19 @@ extension MDApi {
                 return
             }
             completion(nil)
+        }
+    }
+
+    /// Solve a captcha challenge sent by MangaDex
+    /// - Parameter challenge: The solution to the challenge
+    /// - Parameter completion: The completion block called once the request is done
+    public func solveCaptcha(challenge: String, completion: @escaping (MDApiError?) -> Void) {
+        let url = MDPath.solveCaptcha()
+        let data: [String: String] = [
+            "captchaChallenge": challenge
+        ]
+        performPost(url: url, body: data) { (response) in
+            completion(response.error)
         }
     }
 
