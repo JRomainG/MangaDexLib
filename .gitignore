@@ -100,4 +100,8 @@ iOSInjectionProject/
 
 # End of https://www.gitignore.io/api/xcode,swift
 
+# Jazzy doc
+docs/
+
+# Test credentials
 Secret.bundle
