@@ -16,7 +16,7 @@ public struct MDReadingStatuses: Decodable {
 
     /// A dictionary mapping manga UUIDs to their reading status
     /// - Note: This will be `nil` if the status is not `ok`
-    public let statuses: [String: MDReadingStatus?]?
+    public let statuses: [String: MDReadingStatus]?
 
     /// The errors contained in this response
     /// - Note: This will be `nil` if the status is `ok`

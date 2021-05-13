@@ -156,11 +156,11 @@ extension MDManga: Encodable {
                 artists: [String],
                 links: [MDExternalLink],
                 originalLanguage: Locale,
-                year: Int,
                 lastVolume: String? = nil,
                 lastChapter: String? = nil,
                 demographic: MDDemographic? = nil,
                 publicationStatus: MDPublicationStatus? = nil,
+                year: Int? = nil,
                 contentRating: MDContentRating? = nil,
                 modNotes: String? = nil) {
         self.title = title

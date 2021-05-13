@@ -166,8 +166,8 @@ public enum MDExternalLinkType: String, Codable {
     /// Links to the original work
     case raw = "raw"
 
-    /// Links to any official translation
-    case officialTranslation
+    /// Links to the official english translation
+    case officialTranslation = "engtl"
 
     /// Links to Amazon to purchase the mange
     case amazon = "amz"
