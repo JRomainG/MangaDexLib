@@ -2,6 +2,8 @@
 
 `MangaDexLib` is a cross-platform Swift framework to interact with the [MangaDex](https://mangadex.org) website. Its goal is to offer a robust abstract interface to access the API's core features.
 
+**Note:** The official MangaDex API is currently in a [read-only state](https://twitter.com/MangaDexRE/status/1391016884514996225) and some features might not be available yet.
+
 ## Installing
 
 MangaDexLib requires Swift 5 or newer.
@@ -45,41 +47,43 @@ If you do not wish to use a package manager, you can also simply copy the `Sourc
 
 Here are a few examples of how to use the API:
 
-To get the website's featured manga list:
+To get a list of mangas:
 
 ```swift
 import MangaDexLib
 let api = MDApi()
-api.getFeaturedMangas { (response) in
-    print(response.mangas)
+api.getMangaList { (res, error) in
+    print(res?.results)
 }
 ```
 
-To get the list of a manga's chapters:
+To get a manga's chapters:
 
 ```swift
-let mangaId = 7139
-let mangaTitle = "One Punch Man"
-api.getMangaChapters(mangaId: mangaId, title: mangaTitle, page: 1) { (response) in
-    print(response.chapters)
+let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
+api.getMangaFeed(mangaId: mangaId) { (res, error) in
+    print(res?.results)
 }
 ```
 
-To get the links to a chapter's page images:
+To get a chapter's pages:
 
 ```swift
-let chapterId = 867036
-api.getChapterInfo(chapterId: chapterId) { (response) in
-    print(response.chapter?.getPageUrls())
+let chapterId = "eaaac5cc-07aa-412b-be50-9f342ceedffb" // Eight volume 4 chapter 37.6 (en)
+api.viewChapter(chapterId: chapterId) { (res, error) in
+    let chapter = res?.object?.data
+    api.getChapterServer(chapterId: chapterId) { (node, error) in
+        print(chapter?.getPageUrls(node: node!, lowRes: false))
+    }
 }
 ```
 
 To login to a user's account:
 
 ```swift
-let authInfo = MDAuth(username: "username", password: "password", type: .regular, remember: true)
-api.login(with: auth) { (response) in
-    print(api.isLoggedIn())
+let credentials = MDAuthCredentials(username: "username", password: "password")
+api.login(credentials: credentials) { (error) in
+    print(api.sessionJwt)
 }
 ```
 
