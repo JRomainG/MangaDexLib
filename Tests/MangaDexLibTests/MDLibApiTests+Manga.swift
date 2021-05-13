@@ -169,4 +169,16 @@ extension MDLibApiTests {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testGetMangaReadingStatus() throws {
+        try login(api: api, credentialsKey: "AuthRegular")
+        let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
+        let expectation = self.expectation(description: "Get the manga's reading status")
+        api.getMangaReadingStatus(mangaId: mangaId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
 }

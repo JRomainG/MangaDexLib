@@ -112,6 +112,13 @@ extension MDPath {
         return buildUrl(for: .manga, with: ["status"])
     }
 
+    /// Build the URL to get the specified manga's feed
+    /// - Parameter mangaId: The id of the manga
+    /// - Returns: The MangaDex URL
+    static func getMangaReadingStatus(mangaId: String) -> URL {
+        return buildUrl(for: .manga, with: [mangaId, "status"])
+    }
+
     /// Build the URL to update the logged-in user's reading status for the specified manga
     /// - Parameter mangaId: The id of the manga
     /// - Returns: The MangaDex URL

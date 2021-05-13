@@ -154,6 +154,32 @@ extension MDApi {
         performBasicGetCompletion(url: url, completion: completion)
     }
 
+    /// Get all of the logged-in user's reading statuses
+    /// - Parameter mangaId: The id of the manga
+    /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must be logged-in
+    public func getMangaReadingStatus(mangaId: String,
+                                      completion: @escaping (MDReadingStatus?, MDApiError?) -> Void) {
+        let url = MDPath.getMangaReadingStatus(mangaId: mangaId)
+        performGet(url: url) { (response) in
+            // Propagate errors
+            guard response.error == nil else {
+                completion(nil, response.error)
+                return
+            }
+
+            // Parse the response to retreive the list of objects
+            do {
+                let data = try MDParser.parse(json: response.content, type: [String: String].self)
+                let status = MDReadingStatus(rawValue: data["status"] ?? "")
+                completion(status, nil)
+            } catch {
+                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                completion(nil, error)
+            }
+        }
+    }
+
     /// Update the logged-in user's reading status for the specified manga
     /// - Parameter mangaId: The id of the manga
     /// - Parameter status: The new reading status
