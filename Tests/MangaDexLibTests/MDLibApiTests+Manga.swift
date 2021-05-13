@@ -94,7 +94,6 @@ extension MDLibApiTests {
 
     func testGetMangaReadMarkers() throws {
         try login(api: api, credentialsKey: "AuthRegular")
-
         let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
         let expectation = self.expectation(description: "Get the manga's list of read chapters")
         api.getMangaReadMarkers(mangaId: mangaId) { (result, error) in
@@ -108,10 +107,7 @@ extension MDLibApiTests {
     }
 
     func testGetReadingStatuses() throws {
-        throw XCTSkip("The API documentation for the /manga/status endpoint does not seem to match the implementation")
-
         try login(api: api, credentialsKey: "AuthRegular")
-
         let expectation = self.expectation(description: "Get the list of manga statuses")
         api.getReadingStatuses { (result, error) in
             XCTAssertNil(error)
