@@ -10,7 +10,7 @@ MangaDexLib requires Swift 5 or newer.
 
 ### CocoaPods
 
-SwiftSoup is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
+MangaDexLib is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'MangaDexLib'
@@ -26,7 +26,7 @@ github "JRomainG/MangaDexLib"
 
 ### Swift Package Manager
 
-SwiftSoup is available through [Swift Package Manager](https://github.com/apple/swift-package-manager). To install it, simply add the dependency to your Package.Swift file:
+MangaDexLib is available through [Swift Package Manager](https://github.com/apple/swift-package-manager). To install it, simply add the dependency to your Package.Swift file:
 
 ```swift
 ...
