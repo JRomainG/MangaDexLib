@@ -27,6 +27,8 @@ extension MDLibApiTests {
     func testSearchMangas() throws {
         let filter = MDMangaFilter(title: "Solo leveling")
         filter.createdAtSince = .init(timeIntervalSince1970: 0)
+        filter.limit = 8
+        filter.offset = 22
 
         let expectation = self.expectation(description: "Get a list of mangas")
         api.searchMangas(filter: filter) { (result, error) in
@@ -35,6 +37,8 @@ extension MDLibApiTests {
             XCTAssert(result!.results.count > 0)
             XCTAssertNotNil(result?.results.first?.object)
             XCTAssertNotNil(result?.results.first?.object?.data)
+            XCTAssertEqual(result?.limit, filter.limit)
+            XCTAssertEqual(result?.offset, filter.offset)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)

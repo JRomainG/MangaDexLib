@@ -27,6 +27,8 @@ extension MDLibApiTests {
     func testSearchChapters() throws {
         let filter = MDChapterFilter(title: "Oneshot")
         filter.createdAtSince = .init(timeIntervalSince1970: 0)
+        filter.limit = 3
+        filter.offset = 7
 
         let expectation = self.expectation(description: "Get a list of chapters")
         api.searchChapters(filter: filter) { (result, error) in
@@ -35,6 +37,8 @@ extension MDLibApiTests {
             XCTAssert(result!.results.count > 0)
             XCTAssertNotNil(result?.results.first?.object)
             XCTAssertNotNil(result?.results.first?.object?.data)
+            XCTAssertEqual(result?.limit, filter.limit)
+            XCTAssertEqual(result?.offset, filter.offset)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)

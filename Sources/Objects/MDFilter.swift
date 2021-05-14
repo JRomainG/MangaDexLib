@@ -21,7 +21,7 @@ public class MDPaginationFilter: Encodable {
     public var offset: Int?
 
     /// Get the query parameters for this filter to encode them in a URL
-    public func getParameters() -> [URLQueryItem] {
+    internal func getParameters() -> [URLQueryItem] {
         // Convert the filter to a dictionary which is easy to encode in the URL
         let data: [String: Any]
         do {
@@ -45,8 +45,14 @@ public class MDPaginationFilter: Encodable {
     /// Custom `encode` implementation
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(limit, forKey: .limit)
-        try container.encode(offset, forKey: .offset)
+
+        // Convert the integers to strings to make our lives easier in `getParameters`
+        if limit != nil {
+            try container.encode(String(limit!), forKey: .limit)
+        }
+        if offset != nil {
+            try container.encode(String(offset!), forKey: .offset)
+        }
     }
 
     /// Coding keys to map our struct to JSON data
@@ -366,7 +372,6 @@ public class MDFeedFilter: MDPaginationFilter {
     /// Custom `encode` implementation
     override public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(locales, forKey: .locales)
         try container.encode(createdAtSince, forKey: .createdAtSince)
         try container.encode(updatedAtSince, forKey: .updatedAtSince)
         try container.encode(publishedAtSince, forKey: .publishedAtSince)

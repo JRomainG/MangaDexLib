@@ -26,6 +26,9 @@ extension MDLibApiTests {
 
     func testSearchScanlationGroups() throws {
         let filter = MDGroupFilter(name: "mangadex")
+        filter.limit = 2
+        filter.offset = 1
+
         let expectation = self.expectation(description: "Get a list of scanlation groups")
         api.searchGroups(filter: filter) { (result, error) in
             XCTAssertNil(error)
@@ -33,6 +36,8 @@ extension MDLibApiTests {
             XCTAssert(result!.results.count > 0)
             XCTAssertNotNil(result?.results.first?.object)
             XCTAssertNotNil(result?.results.first?.object?.data)
+            XCTAssertEqual(result?.limit, filter.limit)
+            XCTAssertEqual(result?.offset, filter.offset)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
