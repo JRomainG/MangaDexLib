@@ -11,16 +11,11 @@ import Foundation
 extension MDPath {
 
     /// Build the URL to get a list of chapter
+    /// - Parameter filter: The filter to apply
     /// - Returns: The MangaDex URL
-    static func getChapterList() -> URL {
-        return buildUrl(for: .chapter)
-    }
-
-    /// Build the URL to search through the list of chapters using the specified filter
-    /// - Parameter filter: The filter to use during search
-    /// - Returns: The MangaDex URL
-    static func searchChapters(filter: MDChapterFilter) -> URL {
-        return buildUrl(for: .chapter, with: filter.getParameters())
+    static func getChapterList(filter: MDChapterFilter? = nil) -> URL {
+        let params = filter?.getParameters() ?? []
+        return buildUrl(for: .chapter, params: params)
     }
 
     /// Build the URL to view the specified chapter's information

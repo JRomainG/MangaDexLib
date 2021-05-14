@@ -22,35 +22,32 @@ class MDPath {
         return url
     }
 
-    /// Build an absolute URL with the known base and the given parameters
+    /// Build an absolute URL with the known base, the given parameters, and additionaly query items
     /// - Parameter endpoint: The relative path of the resource
     /// - Parameter components: The list of integer components to add, seperated by `/`
+    /// - Parameter params: The list of query parameters to add to the URL
     /// - Returns: The MangaDex URL
-    static func buildUrl(for endpoint: Endpoint, with components: [LosslessStringConvertible] = []) -> URL {
+    static func buildUrl(for endpoint: Endpoint,
+                         with components: [LosslessStringConvertible] = [],
+                         params: [URLQueryItem] = []) -> URL {
+        // Build the base URL from the endpoint and components
         let stringComponents = components.map { (component) -> String in
             return String(component.description)
         }
-        return buildUrl(for: URL(string: MDApi.apiBaseURL)!, with: [endpoint.rawValue] + stringComponents)
-    }
+        let baseUrl = buildUrl(for: URL(string: MDApi.apiBaseURL)!, with: [endpoint.rawValue] + stringComponents)
 
-    /// Build an absolute URL with the known base and the given parameters
-    /// - Parameter endpoint: The relative path of the resource
-    /// - Parameter params: The list of parameters to add to the URL
-    /// - Returns: The MangaDex URL
-    static func buildUrl(for endpoint: Endpoint, with params: [URLQueryItem]) -> URL {
-        // Use URLComponents to build the string and escape the passed values
-        let baseUrl = buildUrl(for: endpoint)
-        var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
+        // Use URLComponents to safely handle the params
+        var urlComp = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
 
         // Remove keys with empty values
-        components.queryItems = []
+        urlComp.queryItems = []
         for param in params where (param.value != nil && !param.value!.isEmpty) {
-            components.queryItems?.append(param)
+            urlComp.queryItems?.append(param)
         }
 
         // We manually have to escape the "+" for some reason...
-        components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
-        return components.url!
+        urlComp.percentEncodedQuery = urlComp.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+        return urlComp.url!
     }
 
 }

@@ -20,11 +20,13 @@ extension MDApi {
 
     /// View the specified user's custom lists
     /// - Parameter userId: The id of the user
+    /// - Parameter pagination: The pagination filter to apply
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func getUserCustomLists(userId: String,
+                                   pagination: MDPaginationFilter? = nil,
                                    completion: @escaping (MDResultList<MDCustomList>?, MDApiError?) -> Void) {
-        let url = MDPath.getUserCustomLists(userId: userId)
+        let url = MDPath.getUserCustomLists(userId: userId, pagination: pagination)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
@@ -37,42 +39,52 @@ extension MDApi {
     }
 
     /// Get the list of mangas followed by the logged-in user
+    /// - Parameter pagination: The pagination filter to apply
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func getLoggedUserFollowedMangaList(completion: @escaping (MDResultList<MDManga>?, MDApiError?) -> Void) {
-        let url = MDPath.getLoggedUserFollowedMangaList()
+    public func getLoggedUserFollowedMangaList(pagination: MDPaginationFilter? = nil,
+                                               completion: @escaping (MDResultList<MDManga>?, MDApiError?) -> Void) {
+        let url = MDPath.getLoggedUserFollowedMangaList(pagination: pagination)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
     /// Get the logged-in user's followed manga feed (aka their list of recent chapters)
+    /// - Parameter filter: The filter to apply
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func getLoggedUserFollowedMangaFeed(completion: @escaping (MDResultList<MDChapter>?, MDApiError?) -> Void) {
-        let url = MDPath.getLoggedUserFollowedMangaFeed()
+    public func getLoggedUserFollowedMangaFeed(filter: MDFeedFilter? = nil,
+                                               completion: @escaping (MDResultList<MDChapter>?, MDApiError?) -> Void) {
+        let url = MDPath.getLoggedUserFollowedMangaFeed(filter: filter)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
     /// Get the list of scanlation groups followed by the logged-in user
+    /// - Parameter pagination: The pagination filter to apply
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func getLoggedUserFollowedGroupList(completion: @escaping (MDResultList<MDGroup>?, MDApiError?) -> Void) {
-        let url = MDPath.getLoggedUserFollowedGroupList()
+    public func getLoggedUserFollowedGroupList(pagination: MDPaginationFilter? = nil,
+                                               completion: @escaping (MDResultList<MDGroup>?, MDApiError?) -> Void) {
+        let url = MDPath.getLoggedUserFollowedGroupList(pagination: pagination)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
     /// Get the list of users followed by the logged-in user
+    /// - Parameter pagination: The pagination filter to apply
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func getLoggedUserFollowedUserList(completion: @escaping (MDResultList<MDUser>?, MDApiError?) -> Void) {
-        let url = MDPath.getLoggedUserFollowedUserList()
+    public func getLoggedUserFollowedUserList(pagination: MDPaginationFilter? = nil,
+                                              completion: @escaping (MDResultList<MDUser>?, MDApiError?) -> Void) {
+        let url = MDPath.getLoggedUserFollowedUserList(pagination: pagination)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
     /// Get the logged-in user's custom lists
+    /// - Parameter pagination: The pagination filter to apply
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func getLoggedUserCustomLists(completion: @escaping (MDResultList<MDCustomList>?, MDApiError?) -> Void) {
-        let url = MDPath.getLoggedUserCustomLists()
+    public func getLoggedUserCustomLists(pagination: MDPaginationFilter? = nil,
+                                         completion: @escaping (MDResultList<MDCustomList>?, MDApiError?) -> Void) {
+        let url = MDPath.getLoggedUserCustomLists(pagination: pagination)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

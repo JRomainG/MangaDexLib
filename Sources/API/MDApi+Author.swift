@@ -22,7 +22,7 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     public func searchAuthors(filter: MDAuthorFilter,
                               completion: @escaping (MDResultList<MDAuthor>?, MDApiError?) -> Void) {
-        let url = MDPath.searchAuthors(filter: filter)
+        let url = MDPath.getAuthorList(filter: filter)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

@@ -54,11 +54,13 @@ extension MDApi {
 
     /// Get the specified custom list's feed (aka its list of chapters)
     /// - Parameter listId: The id of the custom list
+    /// - Parameter filter: The filter to apply
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func getCustomListFeed(listId: String,
+                                  filter: MDFeedFilter? = nil,
                                   completion: @escaping (MDResultList<MDChapter>?, MDApiError?) -> Void) {
-        let url = MDPath.getCustomListFeed(listId: listId)
+        let url = MDPath.getCustomListFeed(listId: listId, filter: filter)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

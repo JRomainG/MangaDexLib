@@ -11,16 +11,11 @@ import Foundation
 extension MDPath {
 
     /// Build the URL to get a list of manga
+    /// - Parameter filter: The filter to apply
     /// - Returns: The MangaDex URL
-    static func getMangaList() -> URL {
-        return buildUrl(for: .manga)
-    }
-
-    /// Build the URL to search through the list of mangas using the specified filter
-    /// - Parameter filter: The filter to use during search
-    /// - Returns: The MangaDex URL
-    static func searchMangas(filter: MDMangaFilter) -> URL {
-        return buildUrl(for: .manga, with: filter.getParameters())
+    static func getMangaList(filter: MDMangaFilter? = nil) -> URL {
+        let params = filter?.getParameters() ?? []
+        return buildUrl(for: .manga, params: params)
     }
 
     /// Build the URL to get the list of existing tags for manga
@@ -94,9 +89,11 @@ extension MDPath {
 
     /// Build the URL to get the specified manga's feed
     /// - Parameter mangaId: The id of the manga
+    /// - Parameter filter: The filter to apply
     /// - Returns: The MangaDex URL
-    static func getMangaFeed(mangaId: String) -> URL {
-        return buildUrl(for: .manga, with: [mangaId, "feed"])
+    static func getMangaFeed(mangaId: String, filter: MDFeedFilter? = nil) -> URL {
+        let params = filter?.getParameters() ?? []
+        return buildUrl(for: .manga, with: [mangaId, "feed"], params: params)
     }
 
     /// Build the URL to get a list of chapter ids that are marked as read for the specified manga
@@ -107,9 +104,11 @@ extension MDPath {
     }
 
     /// Build the URL to get all of the logged-in user's reading statuses
+    /// - Parameter filter: An optional filter to only return mangas with the specified status
     /// - Returns: The MangaDex URL
-    static func getReadingStatuses() -> URL {
-        return buildUrl(for: .manga, with: ["status"])
+    static func getReadingStatuses(filter: MDReadingStatus? = nil) -> URL {
+        let params = [URLQueryItem(name: "status", value: filter?.rawValue)]
+        return buildUrl(for: .manga, with: ["status"], params: params)
     }
 
     /// Build the URL to get the specified manga's feed

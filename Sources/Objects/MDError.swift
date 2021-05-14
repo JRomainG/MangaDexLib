@@ -24,7 +24,12 @@ public struct MDError: Decodable {
     public let detail: String?
 
     /// The error's context
-    public let context: String?
+    ///
+    /// According to the official documentation:
+    /// > Once an endpoint decides that a captcha needs to be solved, a 403 Forbidden response will be returned [...]
+    /// > The sitekey needed for recaptcha to function is provided [...] in the error context, specified as `siteKey`
+    /// > parameter.
+    public let context: [String: String]?
 
 }
 

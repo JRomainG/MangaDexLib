@@ -9,7 +9,7 @@
 import Foundation
 
 /// A superclass for filters used during search
-public class MDFilter: Encodable {
+public class MDPaginationFilter: Encodable {
 
     /// The maximum number of results to be returned by the MangaDex API
     /// - Note: This cannot be greater than 100. If `nil`, the API defaults to 10 results
@@ -19,10 +19,6 @@ public class MDFilter: Encodable {
     ///
     /// This is used for paging when there are too many results to return in one response
     public var offset: Int?
-
-    /// A list of object ids to which to limit the results
-    /// - Note: Limited to 100 per request
-    public var ids: [String]?
 
     /// Get the query parameters for this filter to encode them in a URL
     public func getParameters() -> [URLQueryItem] {
@@ -51,20 +47,18 @@ public class MDFilter: Encodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(limit, forKey: .limit)
         try container.encode(offset, forKey: .offset)
-        try container.encode(ids, forKey: .ids)
     }
 
     /// Coding keys to map our struct to JSON data
     enum CodingKeys: String, CodingKey {
         case limit
         case offset
-        case ids
     }
 
 }
 
 /// A class used to filter manga results during search
-public class MDMangaFilter: MDFilter {
+public class MDMangaFilter: MDPaginationFilter {
 
     /// Title search string
     public var title: String?
@@ -114,6 +108,10 @@ public class MDMangaFilter: MDFilter {
     /// TODO: The API isn't very clear on how to set this
     // public var order: MDSortOrder?
 
+    /// A list of object ids to which to limit the results
+    /// - Note: Limited to 100 per request
+    public var ids: [String]?
+
     /// Convenience function to create an empty filter
     override public init() {
         super.init()
@@ -141,6 +139,7 @@ public class MDMangaFilter: MDFilter {
         case contentRating
         case createdAtSince
         case updatedAtSince
+        case ids
     }
 
     /// Custom `encode` implementation
@@ -160,13 +159,14 @@ public class MDMangaFilter: MDFilter {
         try container.encode(contentRating, forKey: .contentRating)
         try container.encode(createdAtSince, forKey: .createdAtSince)
         try container.encode(updatedAtSince, forKey: .updatedAtSince)
+        try container.encode(ids, forKey: .ids)
         try super.encode(to: encoder)
     }
 
 }
 
 /// A class used to filter chapter results during search
-public class MDChapterFilter: MDFilter {
+public class MDChapterFilter: MDPaginationFilter {
 
     /// Title search string
     public var title: String?
@@ -195,12 +195,16 @@ public class MDChapterFilter: MDFilter {
     /// Only list results updated after this date
     public var updatedAtSince: Date?
 
-    /// Only list results updated after this date
+    /// Only list results published after this date
     public var publishedAtSince: Date?
 
     /// Sort order for the results
     /// TODO: The API isn't very clear on how to set this
     // public var order: MDSortOrder?
+
+    /// A list of object ids to which to limit the results
+    /// - Note: Limited to 100 per request
+    public var ids: [String]?
 
     /// Convenience function to create an empty filter
     override public init() {
@@ -225,6 +229,7 @@ public class MDChapterFilter: MDFilter {
         case createdAtSince
         case updatedAtSince
         case publishedAtSince
+        case ids
     }
 
     /// Custom `encode` implementation
@@ -240,16 +245,21 @@ public class MDChapterFilter: MDFilter {
         try container.encode(createdAtSince, forKey: .createdAtSince)
         try container.encode(updatedAtSince, forKey: .updatedAtSince)
         try container.encode(publishedAtSince, forKey: .publishedAtSince)
-       try super.encode(to: encoder)
+        try container.encode(ids, forKey: .ids)
+        try super.encode(to: encoder)
     }
 
 }
 
 /// A class used to filter scanlation group results during search
-public class MDGroupFilter: MDFilter {
+public class MDGroupFilter: MDPaginationFilter {
 
     /// Name of the scanlation group to search for
     public var name: String?
+
+    /// A list of object ids to which to limit the results
+    /// - Note: Limited to 100 per request
+    public var ids: [String]?
 
     /// Convenience function to create an empty filter
     override public init() {
@@ -265,22 +275,28 @@ public class MDGroupFilter: MDFilter {
     /// Coding keys to map our struct to JSON data
     enum CodingKeys: String, CodingKey {
         case name
+        case ids
     }
 
     /// Custom `encode` implementation
     override public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
+        try container.encode(ids, forKey: .ids)
         try super.encode(to: encoder)
     }
 
 }
 
 /// A class used to filter scanlation group results during search
-public class MDAuthorFilter: MDFilter {
+public class MDAuthorFilter: MDPaginationFilter {
 
     /// Name of the author to search for
     public var name: String?
+
+    /// A list of object ids to which to limit the results
+    /// - Note: Limited to 100 per request
+    public var ids: [String]?
 
     /// Convenience function to create an empty filter
     override public init() {
@@ -296,12 +312,72 @@ public class MDAuthorFilter: MDFilter {
     /// Coding keys to map our struct to JSON data
     enum CodingKeys: String, CodingKey {
         case name
+        case ids
     }
 
     /// Custom `encode` implementation
     override public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
+        try container.encode(ids, forKey: .ids)
+        try super.encode(to: encoder)
+    }
+
+}
+
+/// A class used to filter feeds
+public class MDFeedFilter: MDPaginationFilter {
+
+    /// Locale for the chapters to be displayed
+    public var locales: [Locale]?
+
+    /// Only list results created after this date
+    public var createdAtSince: Date?
+
+    /// Only list results updated after this date
+    public var updatedAtSince: Date?
+
+    /// Only list results published after this date
+    public var publishedAtSince: Date?
+
+    /// Sort order for the results
+    /// TODO: The API isn't very clear on how to set this
+    // public var order: MDSortOrder?
+
+    /// Convenience function to create an empty filter
+    override public init() {
+        super.init()
+    }
+
+    /// Convenience init to filter feeds by language
+    /// - Parameter locales: the locales to allow
+    public init(locales: [Locale]) {
+        self.locales = locales
+    }
+
+    /// Coding keys to map our struct to JSON data
+    enum CodingKeys: String, CodingKey {
+        case locales
+        case createdAtSince
+        case updatedAtSince
+        case publishedAtSince
+    }
+
+    /// Custom `encode` implementation
+    override public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(locales, forKey: .locales)
+        try container.encode(createdAtSince, forKey: .createdAtSince)
+        try container.encode(updatedAtSince, forKey: .updatedAtSince)
+        try container.encode(publishedAtSince, forKey: .publishedAtSince)
+
+        // Manually encode the language codes
+        var langCodes: [String]  = []
+        for locale in locales ?? [] {
+            langCodes.append(locale.identifier)
+        }
+        try container.encode(langCodes, forKey: .locales)
+
         try super.encode(to: encoder)
     }
 

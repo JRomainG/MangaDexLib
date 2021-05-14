@@ -22,7 +22,7 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     public func searchMangas(filter: MDMangaFilter,
                              completion: @escaping (MDResultList<MDManga>?, MDApiError?) -> Void) {
-        let url = MDPath.searchMangas(filter: filter)
+        let url = MDPath.getMangaList(filter: filter)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
@@ -130,9 +130,12 @@ extension MDApi {
 
     /// Get the specified manga's feed (aka its list of chapters)
     /// - Parameter mangaId: The id of the manga
+    /// - Parameter filter: The filter to apply
     /// - Parameter completion: The completion block called once the request is done
-    public func getMangaFeed(mangaId: String, completion: @escaping (MDResultList<MDChapter>?, MDApiError?) -> Void) {
-        let url = MDPath.getMangaFeed(mangaId: mangaId)
+    public func getMangaFeed(mangaId: String,
+                             filter: MDFeedFilter? = nil,
+                             completion: @escaping (MDResultList<MDChapter>?, MDApiError?) -> Void) {
+        let url = MDPath.getMangaFeed(mangaId: mangaId, filter: filter)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
@@ -147,10 +150,12 @@ extension MDApi {
     }
 
     /// Get all of the logged-in user's reading statuses
+    /// - Parameter filter: The filter to apply
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func getReadingStatuses(completion: @escaping (MDReadingStatuses?, MDApiError?) -> Void) {
-        let url = MDPath.getReadingStatuses()
+    public func getReadingStatuses(filter: MDReadingStatus? = nil,
+                                   completion: @escaping (MDReadingStatuses?, MDApiError?) -> Void) {
+        let url = MDPath.getReadingStatuses(filter: filter)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

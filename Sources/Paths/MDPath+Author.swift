@@ -11,16 +11,11 @@ import Foundation
 extension MDPath {
 
     /// Build the URL to get a list of authors
+    /// - Parameter filter: The filter to apply
     /// - Returns: The MangaDex URL
-    static func getAuthorList() -> URL {
-        return buildUrl(for: .author)
-    }
-
-    /// Build the URL to search through the list of authors using the specified filter
-    /// - Parameter filter: The filter to use during search
-    /// - Returns: The MangaDex URL
-    static func searchAuthors(filter: MDAuthorFilter) -> URL {
-        return buildUrl(for: .author, with: filter.getParameters())
+    static func getAuthorList(filter: MDAuthorFilter? = nil) -> URL {
+        let params = filter?.getParameters() ?? []
+        return buildUrl(for: .author, params: params)
     }
 
     /// Build the URL to create a new author

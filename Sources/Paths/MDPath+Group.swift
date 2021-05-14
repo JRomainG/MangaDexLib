@@ -11,16 +11,11 @@ import Foundation
 extension MDPath {
 
     /// Build the URL to get a list of scanlation groups
+    /// - Parameter filter: The filter to apply
     /// - Returns: The MangaDex URL
-    static func getGroupList() -> URL {
-        return buildUrl(for: .group)
-    }
-
-    /// Build the URL to search through the list of scanlation groups using the specified filter
-    /// - Parameter filter: The filter to use during search
-    /// - Returns: The MangaDex URL
-    static func searchGroups(filter: MDGroupFilter) -> URL {
-        return buildUrl(for: .group, with: filter.getParameters())
+    static func getGroupList(filter: MDGroupFilter? = nil) -> URL {
+        let params = filter?.getParameters() ?? []
+        return buildUrl(for: .group, params: params)
     }
 
     /// Build the URL to create a new scanlation group

@@ -22,9 +22,10 @@ class MDLibApiTests: XCTestCase {
                 pingExpectation.fulfill()
             }
         }
-        // Limit the number of concurrent connections and wait a bit to avoid hitting the rate limit
+        // Limit the number of concurrent connections and add a delay to avoid hitting the rate limit
         api.requestHandler.setMaxConcurrentConnections(1)
-        usleep(500000)
+        api.requestHandler.setDdosGuardDelay(0.05)
+        usleep(250000)
     }
 
     override func tearDownWithError() throws {

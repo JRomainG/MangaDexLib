@@ -39,9 +39,11 @@ extension MDPath {
 
     /// Build the URL to get the specified custom list's feed
     /// - Parameter listId: The id of the custom list
+    /// - Parameter filter: The filter to apply
     /// - Returns: The MangaDex URL
-    static func getCustomListFeed(listId: String) -> URL {
-        return buildUrl(for: .customList, with: [listId, "feed"])
+    static func getCustomListFeed(listId: String, filter: MDFeedFilter? = nil) -> URL {
+        let params = filter?.getParameters() ?? []
+        return buildUrl(for: .customList, with: [listId, "feed"], params: params)
     }
 
 }

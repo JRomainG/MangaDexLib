@@ -24,41 +24,53 @@ extension MDPath {
     }
 
     /// Build the URL to get the logged-in user's list of followed manga
+    /// - Parameter pagination: The pagination filter to apply
     /// - Returns: The MangaDex URL
-    static func getLoggedUserFollowedMangaList() -> URL {
-        return buildUrl(for: .user, with: ["follows", Endpoint.manga.rawValue])
+    static func getLoggedUserFollowedMangaList(pagination: MDPaginationFilter? = nil) -> URL {
+        let params = pagination?.getParameters() ?? []
+        return buildUrl(for: .user, with: ["follows", Endpoint.manga.rawValue], params: params)
     }
 
     /// Build the URL to get the logged-in user's feed of followed manga
+    /// - Parameter filter: The filter to apply
     /// - Returns: The MangaDex URL
-    static func getLoggedUserFollowedMangaFeed() -> URL {
-        return buildUrl(for: .user, with: ["follows", Endpoint.manga.rawValue, "feed"])
+    static func getLoggedUserFollowedMangaFeed(filter: MDFeedFilter? = nil) -> URL {
+        let params = filter?.getParameters() ?? []
+        return buildUrl(for: .user, with: ["follows", Endpoint.manga.rawValue, "feed"], params: params)
     }
 
     /// Build the URL to get the logged-in user's list of followed scanlation groups
+    /// - Parameter pagination: The pagination filter to apply
     /// - Returns: The MangaDex URL
-    static func getLoggedUserFollowedGroupList() -> URL {
-        return buildUrl(for: .user, with: ["follows", Endpoint.group.rawValue])
+    static func getLoggedUserFollowedGroupList(pagination: MDPaginationFilter? = nil) -> URL {
+        let params = pagination?.getParameters() ?? []
+        return buildUrl(for: .user, with: ["follows", Endpoint.group.rawValue], params: params)
     }
 
     /// Build the URL to get the logged-in user's list of followed users
+    /// - Parameter pagination: The pagination filter to apply
     /// - Returns: The MangaDex URL
-    static func getLoggedUserFollowedUserList() -> URL {
-        return buildUrl(for: .user, with: ["follows", Endpoint.user.rawValue])
+    static func getLoggedUserFollowedUserList(pagination: MDPaginationFilter? = nil) -> URL {
+        let params = pagination?.getParameters() ?? []
+        return buildUrl(for: .user, with: ["follows", Endpoint.user.rawValue], params: params)
     }
 
     /// Build the URL to get the logged-in user's list of custom lists
+    /// - Parameter pagination: The pagination filter to apply
     /// - Returns: The MangaDex URL
-    static func getLoggedUserCustomLists() -> URL {
-        return buildUrl(for: .user, with: [Endpoint.customList.rawValue])
+    static func getLoggedUserCustomLists(pagination: MDPaginationFilter? = nil) -> URL {
+        let params = pagination?.getParameters() ?? []
+        return buildUrl(for: .user, with: [Endpoint.customList.rawValue], params: params)
     }
 
     /// Build the URL to get the specified user's list of custom lists
     /// - Parameter userId: The id of the user
+    /// - Parameter pagination: The pagination filter to apply
     /// - Returns: The MangaDex URL
     /// - Note: This will only list public custom lists
-    static func getUserCustomLists(userId: String) -> URL {
-        return buildUrl(for: .user, with: [Endpoint.customList.rawValue])
+    static func getUserCustomLists(userId: String, pagination: MDPaginationFilter? = nil) -> URL {
+        let params = pagination?.getParameters() ?? []
+        return buildUrl(for: .user, with: [Endpoint.customList.rawValue], params: params)
     }
 
 }

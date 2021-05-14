@@ -12,13 +12,17 @@ extension MDApi {
 
     /// Get the MD@Home node URL hosting the specified chapter's page images
     /// - Parameter chapterId: The id of the chapter
+    /// - Parameter forcePort443: Force selecting from MangaDex@Home servers that use the standard HTTPS port 443.
+    ///   This might be useful for networks with aggressive firewalls (e.g. school/office networks)
     /// - Parameter completion: The completion block called once the request is done
     ///
     /// If you do not want to use a MD@Home node, you can use one of the values of the `MDImageServer` enum
     /// Also see `MDChapter.getPageUrls`
     /// - Precondition: The user must be logged-in
-    public func getChapterServer(chapterId: String, completion: @escaping (MDAtHomeNode?, MDApiError?) -> Void) {
-        let url = MDPath.getAtHomeNodeURL(chapterId: chapterId)
+    public func getChapterServer(chapterId: String,
+                                 forcePort443: Bool = false,
+                                 completion: @escaping (MDAtHomeNode?, MDApiError?) -> Void) {
+        let url = MDPath.getAtHomeNodeURL(chapterId: chapterId, forcePort443: forcePort443)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

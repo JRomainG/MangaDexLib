@@ -122,7 +122,7 @@ public class MDRequestHandler: NSObject {
 
     /// Change the delay added before performing a `POST`, `PUT`, or `DELETE` request (in seconds)
     /// - Parameter delay: The delay (in seconds) added before each request
-    /// - Note: The minimum value is capped at 0.05 seconds
+    /// - Note: The minimum value is capped at 0.05 seconds. Default is 0.1
     public func setDdosGuardDelay(_ delay: Double) {
         ddosGuardDelay = max(delay, 0.05)
     }

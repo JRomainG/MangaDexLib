@@ -22,7 +22,7 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     public func searchGroups(filter: MDGroupFilter,
                              completion: @escaping (MDResultList<MDGroup>?, MDApiError?) -> Void) {
-        let url = MDPath.searchGroups(filter: filter)
+        let url = MDPath.getGroupList(filter: filter)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
