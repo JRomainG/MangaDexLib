@@ -40,35 +40,38 @@ extension MDExternalLink {
         case .animePlanet:
             name = "Anime-Planet"
             linkURL = URL(string: "https://www.anime-planet.com/manga/\(value)")
-        case .kitsu:
-            name = "Kitsu"
-            linkURL = URL(string: "https://kitsu.io/manga/\(value)")
+        case .bookWalker:
+            name = "BookWalker"
+            linkURL = URL(string: "https://bookwalker.jp/\(value)")
         case .mangaUpdates:
             name = "MangaUpdates"
             linkURL = URL(string: "https://www.mangaupdates.com/series.html?id=\(value)")
-        case .myAnimeList:
-            name = "MyAnimeList"
-            linkURL = URL(string: "https://myanimelist.net/manga/\(value)")
         case .novelUpdates:
             name = "NovelUpdates"
             linkURL = URL(string: "https://www.novelupdates.com/series/\(value)")
-        case .bookWalker:
-            name = "CDJapan"
-            linkURL = URL(string: "https://bookwalker.jp/\(value)")
+        case .kitsu:
+            // The MangaDex documentation states:
+            // If integer, use id version of the URL, otherwise use slug one
+            name = "Kitsu"
+            if let mangaId = Int(value) {
+                linkURL = URL(string: "https://kitsu.io/manga/\(mangaId)")
+            } else {
+                linkURL = URL(string: "https://kitsu.io/api/edge/manga?filter[slug]=\(value)")
+            }
         case .amazon:
             name = "Amazon"
             linkURL = URL(string: value)
         case .eBookJapan:
             name = "eBookJapan"
             linkURL = URL(string: value)
-        case .cdJapan:
-            name = "CDJapan"
-            linkURL = URL(string: value)
-        case .officialTranslation:
-            name = "Official translation"
-            linkURL = URL(string: value)
+        case .myAnimeList:
+            name = "MyAnimeList"
+            linkURL = URL(string: "https://myanimelist.net/manga/\(value)")
         case .raw:
             name = nil
+            linkURL = URL(string: value)
+        case .officialTranslation:
+            name = "Official english translation"
             linkURL = URL(string: value)
         }
     }

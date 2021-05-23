@@ -91,6 +91,9 @@ public enum MDObjectType: String, Codable {
     /// The resource is a chapter
     case chapter = "chapter"
 
+    /// A cover art for a manga
+    case cover_art = "cover_art"
+
     /// The resource is an author
     case author = "author"
 
@@ -151,23 +154,17 @@ public enum MDExternalLinkType: String, Codable {
     /// Links to anime-planet.com
     case animePlanet = "ap"
 
-    /// Links to kitsu.io
-    case kitsu = "kt"
+    /// Links to bookwalker.jp to purchase the manga
+    case bookWalker = "bw"
 
     /// Links to mangaupdates.com
     case mangaUpdates = "mu"
 
-    /// Links to myanimelist.net
-    case myAnimeList = "mal"
-
     /// Links to novelupdates.com
     case novelUpdates = "nu"
 
-    /// Links to the original work
-    case raw = "raw"
-
-    /// Links to the official english translation
-    case officialTranslation = "engtl"
+    /// Links to kitsu.io
+    case kitsu = "kt"
 
     /// Links to Amazon to purchase the mange
     case amazon = "amz"
@@ -175,11 +172,14 @@ public enum MDExternalLinkType: String, Codable {
     /// Links to eBookJapan to purchase the manga
     case eBookJapan = "ebj"
 
-    /// Links to CDJapan to purchase the manga
-    case cdJapan = "cdj"
+    /// Links to myanimelist.net
+    case myAnimeList = "mal"
 
-    /// Links to bookwalker.jp to purchase the manga
-    case bookWalker = "bw"
+    /// Links to the original work
+    case raw = "raw"
+
+    /// Links to the official english translation
+    case officialTranslation = "engtl"
 }
 
 /// Types of result status the MangaDex API may return

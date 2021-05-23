@@ -211,7 +211,8 @@ extension MDManga: Encodable {
 
         /// Manually encode the links
         for link in links {
-            try container.encode(link.rawValue, forKey: CodingKeys.init(stringValue: link.linkType.rawValue)!)
+            let key = CodingKeys.init(stringValue: "links[\(link.linkType.rawValue)]")!
+            try container.encode(link.rawValue, forKey: key)
         }
 
         // Manually encode the authors and artists, which should be in MDObject.relationships, but have to be stored
