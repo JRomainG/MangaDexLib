@@ -36,6 +36,15 @@ extension MDPath {
         return buildUrl(for: .manga)
     }
 
+    /// Build the URL to get the specified manga's volumes and chapters
+    /// - Parameter mangaId: The id of the manga
+    /// - Parameter languages: The list of translated languages to filter on
+    /// - Returns: The MangaDex URL
+    static func getMangaVolumesAndChapters(mangaId: String, languages: [String]) -> URL {
+        let params = MDPath.formatQueryItem(name: "translatedLanguage", array: languages)
+        return buildUrl(for: .manga, with: [mangaId, "aggregate"], params: params)
+    }
+
     /// Build the URL to view the specified manga's information
     /// - Parameter mangaId: The id of the manga
     /// - Returns: The MangaDex URL
@@ -101,6 +110,14 @@ extension MDPath {
     /// - Returns: The MangaDex URL
     static func getMangaReadMarkers(mangaId: String) -> URL {
         return buildUrl(for: .manga, with: [mangaId, "read"])
+    }
+
+    /// Build the URL to get a list of chapter ids that are marked as read for the specified mangas
+    /// - Parameter mangaIds: The list of manga ids
+    /// - Returns: The MangaDex URL
+    static func getMangasReadMarkers(mangaIds: [String]) -> URL {
+        let params = MDPath.formatQueryItem(name: "ids", array: mangaIds)
+        return buildUrl(for: .manga, with: ["read"], params: params)
     }
 
     /// Build the URL to get all of the logged-in user's reading statuses

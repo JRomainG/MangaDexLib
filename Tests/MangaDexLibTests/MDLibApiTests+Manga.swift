@@ -146,11 +146,37 @@ extension MDLibApiTests {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testGetMangaVolumesAndChapters() throws {
+        let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
+        let expectation = self.expectation(description: "Get the manga's aggregated data")
+        api.getMangaVolumesAndChapters(mangaId: mangaId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.volumes.count > 0)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testGetMangaReadMarkers() throws {
         try login(api: api, credentialsKey: "AuthRegular")
         let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
         let expectation = self.expectation(description: "Get the manga's list of read chapters")
         api.getMangaReadMarkers(mangaId: mangaId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssertNotNil(result?.chapters)
+            XCTAssert(result!.chapters!.count > 0)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testGetMangasReadMarkers() throws {
+        try login(api: api, credentialsKey: "AuthRegular")
+        let mangaIds = ["32d76d19-8a05-4db0-9fc2-e0b0648fe9d0"] // Solo leveling
+        let expectation = self.expectation(description: "Get the mangas' list of read chapters")
+        api.getMangasReadMarkers(mangaIds: mangaIds) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.chapters)

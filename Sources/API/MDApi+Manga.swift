@@ -139,6 +139,21 @@ extension MDApi {
         performBasicGetCompletion(url: url, completion: completion)
     }
 
+    /// Get the specified manga's aggregation of volumes and chapters
+    /// - Parameter mangaId: The id of the manga
+    /// - Parameter languages: The list of translated languages to filter on
+    /// - Returns: The MangaDex URL
+    public func getMangaVolumesAndChapters(mangaId: String,
+                                           languages: [Locale]? = nil,
+                                           completion: @escaping (MDAggregate?, MDApiError?) -> Void) {
+        var langCodes: [String] = []
+        for locale in languages ?? [] {
+            langCodes.append(locale.languageCode!)
+        }
+        let url = MDPath.getMangaVolumesAndChapters(mangaId: mangaId, languages: langCodes)
+        performBasicGetCompletion(url: url, completion: completion)
+    }
+
     /// Get a list of chapter ids that are marked as read for the specified manga and the logged-in user
     /// - Parameter mangaId: The id of the manga
     /// - Parameter completion: The completion block called once the request is done
@@ -146,6 +161,16 @@ extension MDApi {
     public func getMangaReadMarkers(mangaId: String,
                                     completion: @escaping (MDReadMarkers?, MDApiError?) -> Void) {
         let url = MDPath.getMangaReadMarkers(mangaId: mangaId)
+        performBasicGetCompletion(url: url, completion: completion)
+    }
+
+    /// Get a list of chapter ids that are marked as read for the specified mangas and the logged-in user
+    /// - Parameter mangaIds: The list of manga ids
+    /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must be logged-in
+    public func getMangasReadMarkers(mangaIds: [String],
+                                     completion: @escaping (MDReadMarkers?, MDApiError?) -> Void) {
+        let url = MDPath.getMangasReadMarkers(mangaIds: mangaIds)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

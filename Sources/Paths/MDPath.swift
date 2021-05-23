@@ -11,6 +11,18 @@ import Foundation
 /// The class responsible for generating URLs for calls to the website and API
 class MDPath {
 
+    /// Build a list of URLQueryItems representing an array of strings
+    /// - Parameter name: The name of the query item
+    /// - Parameter array: The values to encode
+    /// - Returns: The list of `URLQueryItem`s representing the array
+    static func formatQueryItem(name: String, array: [String]) -> [URLQueryItem] {
+        var out: [URLQueryItem] = []
+        for i in 0..<array.count {
+            out.append(URLQueryItem(name: "\(name)[\(i)]", value: array[i]))
+        }
+        return out
+    }
+
     /// Build an absolute URL with the given base URL and paths
     /// - Parameter endpoint: The relative path of the resource
     /// - Returns: The MangaDex URL
