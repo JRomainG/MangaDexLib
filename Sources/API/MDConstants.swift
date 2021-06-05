@@ -61,6 +61,9 @@ public enum MDReadingStatus: String, Codable {
 
 /// Rating of a manga's content
 public enum MDContentRating: String, Codable {
+    /// Used only for filtering by content rating
+    case none = "none"
+
     /// The manga only has safe content
     case safe = "safe"
 
