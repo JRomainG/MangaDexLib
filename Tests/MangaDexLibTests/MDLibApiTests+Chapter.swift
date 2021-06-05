@@ -25,6 +25,8 @@ extension MDLibApiTests {
     }
 
     func testSearchChapters() throws {
+        throw XCTSkip("Chapter search is currently broken in the official API")
+
         let filter = MDChapterFilter(title: "Oneshot")
         filter.createdAtSince = .init(timeIntervalSince1970: 0)
         filter.limit = 3

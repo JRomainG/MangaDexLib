@@ -92,8 +92,6 @@ extension MDLibApiTests {
     }
 
     func testGetLoggedUserFollowedUserList() throws {
-        throw XCTSkip("This endpoint seems to be broken in the API")
-
         try login(api: api, credentialsKey: "AuthRegular")
         let expectation = self.expectation(description: "Get the user's list of followed users")
         api.getLoggedUserFollowedUserList { (result, error) in

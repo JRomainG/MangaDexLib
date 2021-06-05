@@ -25,7 +25,7 @@ extension MDLibApiTests {
     }
 
     func testSearchMangas() throws {
-        let filter = MDMangaFilter(title: "Solo leveling")
+        let filter = MDMangaFilter(title: "Solo")
         filter.createdAtSince = .init(timeIntervalSince1970: 0)
         filter.limit = 8
         filter.offset = 22

@@ -77,8 +77,8 @@ public class MDPaginationFilter: Encodable {
 
     /// Helper function to encode a list of enums
     internal func encode<K: CodingKey, T: Codable>(key: K,
-                                       values: [T],
-                                       to container: inout KeyedEncodingContainer<K>) throws {
+                                                   values: [T],
+                                                   to container: inout KeyedEncodingContainer<K>) throws {
         let encoder = JSONEncoder()
         for i in 0..<values.count {
             let valKey = K(stringValue: "\(key.stringValue)[\(i)]")
