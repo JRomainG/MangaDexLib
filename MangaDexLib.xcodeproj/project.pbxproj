@@ -37,6 +37,13 @@
 		3322BD90245D99900086FA81 /* MDLibRequestHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD87245D99900086FA81 /* MDLibRequestHandlerTests.swift */; };
 		3322BD93245D99900086FA81 /* Secret.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3322BD8A245D99900086FA81 /* Secret.bundle */; };
 		3322BD94245D99900086FA81 /* MDLibApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD8B245D99900086FA81 /* MDLibApiTests.swift */; };
+		33248542266B710600561361 /* MDPath+Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33248541266B710600561361 /* MDPath+Cover.swift */; };
+		33248543266B710600561361 /* MDPath+Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33248541266B710600561361 /* MDPath+Cover.swift */; };
+		3324854B266B725F00561361 /* MDCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324854A266B725F00561361 /* MDCover.swift */; };
+		3324854C266B725F00561361 /* MDCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3324854A266B725F00561361 /* MDCover.swift */; };
+		33248551266B76C100561361 /* MDApi+Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33248550266B76C100561361 /* MDApi+Cover.swift */; };
+		33248552266B76C100561361 /* MDApi+Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33248550266B76C100561361 /* MDApi+Cover.swift */; };
+		33248562266B793800561361 /* MDLibApiTests+Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33248556266B78ED00561361 /* MDLibApiTests+Cover.swift */; };
 		33407B90245DFE3A009B1F16 /* MDPath+Manga.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33407B8F245DFE3A009B1F16 /* MDPath+Manga.swift */; };
 		334DE5E126445A4C006D38E3 /* MDParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334DE5E026445A4C006D38E3 /* MDParser.swift */; };
 		334DE5E226445A4C006D38E3 /* MDParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334DE5E026445A4C006D38E3 /* MDParser.swift */; };
@@ -174,6 +181,10 @@
 		3322BD8A245D99900086FA81 /* Secret.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Secret.bundle; sourceTree = "<group>"; };
 		3322BD8B245D99900086FA81 /* MDLibApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLibApiTests.swift; sourceTree = "<group>"; };
 		3322BDA8245DA4AC0086FA81 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		33248541266B710600561361 /* MDPath+Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDPath+Cover.swift"; sourceTree = "<group>"; };
+		3324854A266B725F00561361 /* MDCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDCover.swift; sourceTree = "<group>"; };
+		33248550266B76C100561361 /* MDApi+Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Cover.swift"; sourceTree = "<group>"; };
+		33248556266B78ED00561361 /* MDLibApiTests+Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDLibApiTests+Cover.swift"; sourceTree = "<group>"; };
 		33407B8F245DFE3A009B1F16 /* MDPath+Manga.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDPath+Manga.swift"; sourceTree = "<group>"; };
 		334DE5E026445A4C006D38E3 /* MDParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDParser.swift; sourceTree = "<group>"; };
 		334DE5EF2644636D006D38E3 /* MDPath+Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDPath+Chapter.swift"; sourceTree = "<group>"; };
@@ -275,6 +286,7 @@
 				339A3418264560C3008535DA /* MDError.swift */,
 				3322BD3F245D99120086FA81 /* MDManga.swift */,
 				3322BD41245D99120086FA81 /* MDChapter.swift */,
+				3324854A266B725F00561361 /* MDCover.swift */,
 				33827127265A67E800AB587B /* MDAggregate.swift */,
 				3322BD43245D99120086FA81 /* MDGroup.swift */,
 				339A342A26459865008535DA /* MDAuthor.swift */,
@@ -312,6 +324,7 @@
 				3322BD51245D99120086FA81 /* MDApi.swift */,
 				338E129B2647D48200C89F08 /* MDApi+Manga.swift */,
 				3388B2BD264992CD00ED77B5 /* MDApi+Chapter.swift */,
+				33248550266B76C100561361 /* MDApi+Cover.swift */,
 				335B922C264C2BD000AA5CF6 /* MDApi+Group.swift */,
 				33901B3B264D344D00A12755 /* MDApi+Author.swift */,
 				3317F991264D5736005E7380 /* MDApi+CustomList.swift */,
@@ -341,6 +354,7 @@
 				3322BD8B245D99900086FA81 /* MDLibApiTests.swift */,
 				33901B16264D327A00A12755 /* MDLibApiTests+Manga.swift */,
 				33901B1B264D32D000A12755 /* MDLibApiTests+Chapter.swift */,
+				33248556266B78ED00561361 /* MDLibApiTests+Cover.swift */,
 				33901B20264D330300A12755 /* MDLibApiTests+Group.swift */,
 				33901B4B264D35AC00A12755 /* MDLibApiTests+Author.swift */,
 				3317F99D264D5B45005E7380 /* MDLibApiTests+CustomList.swift */,
@@ -361,6 +375,7 @@
 				3322BD53245D99120086FA81 /* MDPath+Constants.swift */,
 				33407B8F245DFE3A009B1F16 /* MDPath+Manga.swift */,
 				334DE5EF2644636D006D38E3 /* MDPath+Chapter.swift */,
+				33248541266B710600561361 /* MDPath+Cover.swift */,
 				334DE601264468DC006D38E3 /* MDPath+Group.swift */,
 				334DE5FB264467B7006D38E3 /* MDPath+Author.swift */,
 				334DE61326446D9B006D38E3 /* MDPath+CustomList.swift */,
@@ -408,10 +423,10 @@
 				3388B2DE2649A91D00ED77B5 /* MDPaginationFilter.swift */,
 				33827103265A5BAE00AB587B /* MDMangaFilter.swift */,
 				33827109265A5BC900AB587B /* MDChapterFilter.swift */,
+				33827121265A616100AB587B /* MDCoverFilter.swift */,
 				3382710F265A5BE900AB587B /* MDGroupFilter.swift */,
 				33827115265A5BF900AB587B /* MDAuthorFilter.swift */,
 				3382711B265A5C0A00AB587B /* MDFeedFilter.swift */,
-				33827121265A616100AB587B /* MDCoverFilter.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -629,6 +644,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33901B47264D351100A12755 /* MDApi+Author.swift in Sources */,
+				33248552266B76C100561361 /* MDApi+Cover.swift in Sources */,
 				335F9CC9245E003E00EE9A52 /* MDConstants.swift in Sources */,
 				335F9CCA245E003E00EE9A52 /* MDApi.swift in Sources */,
 				3374744926468395002114C9 /* MDAuthCredentials.swift in Sources */,
@@ -659,6 +675,7 @@
 				338E12A62647DAFE00C89F08 /* MDAuthInfo.swift in Sources */,
 				339A345E2645A8DA008535DA /* MDResponse.swift in Sources */,
 				33827111265A5BE900AB587B /* MDGroupFilter.swift in Sources */,
+				3324854C266B725F00561361 /* MDCover.swift in Sources */,
 				335F9CDA245E003E00EE9A52 /* MDGroup.swift in Sources */,
 				338E129D2647D48200C89F08 /* MDApi+Manga.swift in Sources */,
 				339A33F926455162008535DA /* MDLocalizedString.swift in Sources */,
@@ -683,6 +700,7 @@
 				3317F9AF264D5E89005E7380 /* MDApi+User.swift in Sources */,
 				339A342C26459865008535DA /* MDAuthor.swift in Sources */,
 				334DE5F726446405006D38E3 /* MDPath+User.swift in Sources */,
+				33248543266B710600561361 /* MDPath+Cover.swift in Sources */,
 				3382710B265A5BC900AB587B /* MDChapterFilter.swift in Sources */,
 				3317F9CB264D6A0C005E7380 /* MDMapping.swift in Sources */,
 			);
@@ -693,6 +711,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				33901B43264D350900A12755 /* MDApi+Author.swift in Sources */,
+				33248551266B76C100561361 /* MDApi+Cover.swift in Sources */,
 				3322BD6F245D99130086FA81 /* MDRequestHandler.swift in Sources */,
 				3322BD72245D99130086FA81 /* MDApi.swift in Sources */,
 				3374744826468395002114C9 /* MDAuthCredentials.swift in Sources */,
@@ -723,6 +742,7 @@
 				338E12A52647DAFE00C89F08 /* MDAuthInfo.swift in Sources */,
 				339A345D2645A8DA008535DA /* MDResponse.swift in Sources */,
 				33827110265A5BE900AB587B /* MDGroupFilter.swift in Sources */,
+				3324854B266B725F00561361 /* MDCover.swift in Sources */,
 				3322BD71245D99130086FA81 /* MDApiError.swift in Sources */,
 				338E129C2647D48200C89F08 /* MDApi+Manga.swift in Sources */,
 				339A33F826455162008535DA /* MDLocalizedString.swift in Sources */,
@@ -747,6 +767,7 @@
 				3317F9AE264D5E89005E7380 /* MDApi+User.swift in Sources */,
 				3322BD63245D99130086FA81 /* MDManga.swift in Sources */,
 				334DE5F626446405006D38E3 /* MDPath+User.swift in Sources */,
+				33248542266B710600561361 /* MDPath+Cover.swift in Sources */,
 				3382710A265A5BC900AB587B /* MDChapterFilter.swift in Sources */,
 				3317F9CA264D6A0C005E7380 /* MDMapping.swift in Sources */,
 			);
@@ -756,6 +777,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33248562266B793800561361 /* MDLibApiTests+Cover.swift in Sources */,
 				3317F9B9264D612D005E7380 /* MDLibApiTests+User.swift in Sources */,
 				3317F9A9264D5B7D005E7380 /* MDLibApiTests+CustomList.swift in Sources */,
 				33901B37264D338600A12755 /* MDLibApiTests+Infra.swift in Sources */,

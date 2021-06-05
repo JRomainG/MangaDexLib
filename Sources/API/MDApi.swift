@@ -20,6 +20,9 @@ public class MDApi: NSObject {
     /// Base URL for the MangaDex network API
     public static let networkBaseURL = "https://api.mangadex.network"
 
+    /// Base URL for MangaDex uploaded resources
+    public static let uploadsBaseURL = "https://uploads.mangadex.org"
+
     /// Default value appended after the default User-Agent for all requests made by the MangaDexLib
     public static let defaultUserAgent = "MangaDexLib"
 

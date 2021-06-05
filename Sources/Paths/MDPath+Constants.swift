@@ -18,6 +18,9 @@ extension MDPath {
         /// Endpoint for chapter objects
         case chapter = "chapter"
 
+        /// Endpoint for cover objects
+        case cover = "cover"
+
         /// Endpoint for author objects
         case author = "author"
 

@@ -267,6 +267,9 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to view user information
     case viewUser = "user.view"
 
+    /// The logged-in user is allowed to view covers
+    case viewCover = "cover.view"
+
     /// The logged-in user is allowed to list mangas
     case listMangas = "manga.list"
 
@@ -282,6 +285,9 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to list users
     case listUsers = "user.list"
 
+    /// The logged-in user is allowed to list covers
+    case listCovers = "cover.list"
+
     /// The logged-in user is allowed to create mangas
     case createManga = "manga.create"
 
@@ -293,6 +299,9 @@ public enum MDPermission: String, Codable {
 
     /// The logged-in user is allowed to upload chapters
     case remoteUploadChapter = "chapter.remote_upload"
+
+    /// The logged-in user is allowed to upload covers
+    case uploadCover = "cover.upload"
 
     /// The logged-in user is allowed to create authors
     case createAuthor = "author.create"
@@ -318,6 +327,9 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to delete users
     case deleteUser = "user.delete"
 
+    /// The logged-in user is allowed to delete covers
+    case deleteCover = "cover.delete"
+
     /// The logged-in user is allowed to update mangas
     case editManga = "manga.update"
 
@@ -332,6 +344,9 @@ public enum MDPermission: String, Codable {
 
     /// The logged-in user is allowed to update users
     case editUser = "user.update"
+
+    /// The logged-in user is allowed to update covers
+    case coverUser = "cover.update"
 }
 
 /// Known "official" MangaDex image servers
@@ -345,5 +360,19 @@ public enum MDImageServer: String, Codable {
     /// Image server s5
     /// - Important: The certificate of this server is currently expired so it cannot be used
     case s5 = "https://s5.mangadex.org"
+
+}
+
+/// Sizes/Resolutions available for covers
+public enum MDCoverSize: String, Codable {
+
+    /// The original/best quality cover size
+    case original = "original"
+
+    /// A 512px wide thumbnail
+    case medium = "512px"
+
+    /// A 256px wide thumbnail
+    case small = "256px"
 
 }
