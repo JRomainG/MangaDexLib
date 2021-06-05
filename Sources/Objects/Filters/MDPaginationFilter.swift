@@ -48,60 +48,79 @@ public class MDPaginationFilter: Encodable {
 
         // Convert the integers to strings to make our lives easier in `getParameters`
         if limit != nil {
-            try container.encode(String(limit!), forKey: .limit)
+            try container.encode(String(limit!), forKey: CodingKeys(stringValue: "limit")!)
         }
         if offset != nil {
-            try container.encode(String(offset!), forKey: .offset)
+            try container.encode(String(offset!), forKey: CodingKeys(stringValue: "offset")!)
         }
+    }
+
+    /// Helper function to encode an arbitrary value
+    internal func encode<T: Encodable, K: CodingKey>(key: K,
+                                                     value: T,
+                                                     to container: inout KeyedEncodingContainer<CodingKeys>) throws {
+        let valKey = CodingKeys(stringValue: key.stringValue)!
+        try container.encode(value, forKey: valKey)
     }
 
     /// Helper function to encode a list of locales
     internal func encode<K: CodingKey>(key: K,
                                        locales: [Locale],
-                                       to container: inout KeyedEncodingContainer<K>) throws {
+                                       to container: inout KeyedEncodingContainer<CodingKeys>) throws {
         for i in 0..<locales.count {
-            let valKey = K(stringValue: "\(key.stringValue)[\(i)]")
-            try container.encode(locales[i].languageCode, forKey: valKey!)
+            let valKey = CodingKeys(stringValue: "\(key.stringValue)[\(i)]")!
+            try container.encode(locales[i].languageCode, forKey: valKey)
         }
     }
 
     /// Helper function to encode a list of strings
     internal func encode<K: CodingKey>(key: K,
                                        values: [LosslessStringConvertible],
-                                       to container: inout KeyedEncodingContainer<K>) throws {
+                                       to container: inout KeyedEncodingContainer<CodingKeys>) throws {
         for i in 0..<values.count {
-            let valKey = K(stringValue: "\(key.stringValue)[\(i)]")
-            try container.encode(values[i].description, forKey: valKey!)
+            let valKey = CodingKeys(stringValue: "\(key.stringValue)[\(i)]")!
+            try container.encode(values[i].description, forKey: valKey)
         }
     }
 
     /// Helper function to encode a list of enums
     internal func encode<K: CodingKey, T: Codable>(key: K,
                                                    values: [T],
-                                                   to container: inout KeyedEncodingContainer<K>) throws {
+                                                   to container: inout KeyedEncodingContainer<CodingKeys>) throws {
         let encoder = JSONEncoder()
         for i in 0..<values.count {
-            let valKey = K(stringValue: "\(key.stringValue)[\(i)]")
+            let valKey = CodingKeys(stringValue: "\(key.stringValue)[\(i)]")!
             let encoded = try encoder.encode(values[i])
             let val = try JSONSerialization.jsonObject(with: encoded, options: .allowFragments) as? String
-            try container.encode(val, forKey: valKey!)
+            try container.encode(val, forKey: valKey)
         }
     }
 
     /// Helper function to encode a sort order
     internal func encode<K: CodingKey>(key: K,
                                        order: [MDSortCriteria: MDSortOrder],
-                                       to container: inout KeyedEncodingContainer<K>) throws {
+                                       to container: inout KeyedEncodingContainer<CodingKeys>) throws {
         for (sortCriteria, sortOrder) in order {
-            let valKey = K(stringValue: "\(key.stringValue)[\(sortCriteria.rawValue)]")
-            try container.encode(sortOrder.rawValue, forKey: valKey!)
+            let valKey = CodingKeys(stringValue: "\(key.stringValue)[\(sortCriteria.rawValue)]")!
+            try container.encode(sortOrder.rawValue, forKey: valKey)
         }
     }
 
-    /// Coding keys to map our struct to JSON data
-    enum CodingKeys: String, CodingKey {
-        case limit
-        case offset
+    /// Dynamic coding keys to encode lists and structures
+    internal struct CodingKeys: CodingKey {
+
+        // All keys will be strings
+        var stringValue: String
+        init?(stringValue: String) {
+            self.stringValue = stringValue
+        }
+
+        // Return nil since we know keys are strings
+        var intValue: Int?
+        init?(intValue: Int) {
+            return nil
+        }
+
     }
 
 }

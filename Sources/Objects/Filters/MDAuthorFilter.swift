@@ -41,10 +41,10 @@ public class MDAuthorFilter: MDPaginationFilter {
 
     /// Custom `encode` implementation
     override public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(name, forKey: .name)
-        try encode(key: .order, order: order ?? [:], to: &container)
-        try encode(key: .ids, values: ids ?? [], to: &container)
+        var container = encoder.container(keyedBy: MDPaginationFilter.CodingKeys.self)
+        try encode(key: CodingKeys.name, value: name, to: &container)
+        try encode(key: CodingKeys.order, order: order ?? [:], to: &container)
+        try encode(key: CodingKeys.ids, values: ids ?? [], to: &container)
         try super.encode(to: encoder)
     }
 

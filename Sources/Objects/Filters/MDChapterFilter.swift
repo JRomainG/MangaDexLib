@@ -77,19 +77,19 @@ public class MDChapterFilter: MDPaginationFilter {
 
     /// Custom `encode` implementation
     override public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(title, forKey: .title)
-        try encode(key: .groups, values: groups ?? [], to: &container)
-        try container.encode(uploader, forKey: .uploader)
-        try container.encode(manga, forKey: .manga)
-        try encode(key: .translatedLanguage, locales: translatedLanguage ?? [], to: &container)
-        try container.encode(volume, forKey: .volume)
-        try container.encode(chapter, forKey: .chapter)
-        try container.encode(createdAtSince, forKey: .createdAtSince)
-        try container.encode(updatedAtSince, forKey: .updatedAtSince)
-        try container.encode(publishedAtSince, forKey: .publishedAtSince)
-        try encode(key: .order, order: order ?? [:], to: &container)
-        try encode(key: .ids, values: ids ?? [], to: &container)
+        var container = encoder.container(keyedBy: MDPaginationFilter.CodingKeys.self)
+        try encode(key: CodingKeys.title, value: title, to: &container)
+        try encode(key: CodingKeys.groups, values: groups ?? [], to: &container)
+        try encode(key: CodingKeys.uploader, value: uploader, to: &container)
+        try encode(key: CodingKeys.manga, value: manga, to: &container)
+        try encode(key: CodingKeys.translatedLanguage, locales: translatedLanguage ?? [], to: &container)
+        try encode(key: CodingKeys.volume, value: volume, to: &container)
+        try encode(key: CodingKeys.chapter, value: chapter, to: &container)
+        try encode(key: CodingKeys.createdAtSince, value: createdAtSince, to: &container)
+        try encode(key: CodingKeys.updatedAtSince, value: updatedAtSince, to: &container)
+        try encode(key: CodingKeys.publishedAtSince, value: publishedAtSince, to: &container)
+        try encode(key: CodingKeys.order, order: order ?? [:], to: &container)
+        try encode(key: CodingKeys.ids, values: ids ?? [], to: &container)
         try super.encode(to: encoder)
     }
 

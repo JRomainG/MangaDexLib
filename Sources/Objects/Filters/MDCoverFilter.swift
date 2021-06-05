@@ -30,8 +30,8 @@ public class MDCoverFilter: MDPaginationFilter {
         super.init()
     }
 
-    /// Convenience init to filter feeds by language
-    /// - Parameter locales: the locales to allow
+    /// Convenience init to filter covers by manga
+    /// - Parameter mangas: the list of mangaIds for which covers should be listed
     public init(mangas: [String]) {
         self.mangas = mangas
     }
@@ -46,11 +46,11 @@ public class MDCoverFilter: MDPaginationFilter {
 
     /// Custom `encode` implementation
     override public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try encode(key: .mangas, values: mangas ?? [], to: &container)
-        try encode(key: .uploaders, values: uploaders ?? [], to: &container)
-        try encode(key: .order, order: order ?? [:], to: &container)
-        try encode(key: .ids, values: ids ?? [], to: &container)
+        var container = encoder.container(keyedBy: MDPaginationFilter.CodingKeys.self)
+        try encode(key: CodingKeys.mangas, values: mangas ?? [], to: &container)
+        try encode(key: CodingKeys.uploaders, values: uploaders ?? [], to: &container)
+        try encode(key: CodingKeys.order, order: order ?? [:], to: &container)
+        try encode(key: CodingKeys.ids, values: ids ?? [], to: &container)
         try super.encode(to: encoder)
     }
 

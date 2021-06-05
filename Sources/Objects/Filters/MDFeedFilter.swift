@@ -48,12 +48,12 @@ public class MDFeedFilter: MDPaginationFilter {
 
     /// Custom `encode` implementation
     override public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try encode(key: .translatedLanguage, locales: translatedLanguage ?? [], to: &container)
-        try container.encode(createdAtSince, forKey: .createdAtSince)
-        try container.encode(updatedAtSince, forKey: .updatedAtSince)
-        try container.encode(publishedAtSince, forKey: .publishedAtSince)
-        try encode(key: .order, order: order ?? [:], to: &container)
+        var container = encoder.container(keyedBy: MDPaginationFilter.CodingKeys.self)
+        try encode(key: CodingKeys.translatedLanguage, locales: translatedLanguage ?? [], to: &container)
+        try encode(key: CodingKeys.createdAtSince, value: createdAtSince, to: &container)
+        try encode(key: CodingKeys.updatedAtSince, value: updatedAtSince, to: &container)
+        try encode(key: CodingKeys.publishedAtSince, value: publishedAtSince, to: &container)
+        try encode(key: CodingKeys.order, order: order ?? [:], to: &container)
         try super.encode(to: encoder)
     }
 
