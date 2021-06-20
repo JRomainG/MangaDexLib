@@ -1,0 +1,19 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/runner/work/MangaDexLib/MangaDexLib/Sources/Objects/MDAccountInfo.swift",
+      "line": 26,
+      "symbol": "MDAccountInfo.init(username:password:email:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/MangaDexLib/MangaDexLib/Sources/Objects/MDAuthCredentials.swift",
+      "line": 36,
+      "symbol": "MDAuthCredentials.init(username:password:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/runner/work/MangaDexLib/MangaDexLib"
+}
