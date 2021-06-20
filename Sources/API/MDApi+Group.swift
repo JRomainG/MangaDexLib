@@ -11,18 +11,13 @@ import Foundation
 extension MDApi {
 
     /// Get the list of scanlation groups
-    /// - Parameter completion: The completion block called once the request is done
-    public func getGroupList(completion: @escaping (MDResultList<MDGroup>?, MDApiError?) -> Void) {
-        let url = MDPath.getGroupList()
-        performBasicGetCompletion(url: url, completion: completion)
-    }
-
-    /// Search the list of scanlation groups using the specified filter
     /// - Parameter filter: The filter to use
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func searchGroups(filter: MDGroupFilter,
+    public func getGroupList(filter: MDGroupFilter? = nil,
+                             includes: [MDObjectType]? = nil,
                              completion: @escaping (MDResultList<MDGroup>?, MDApiError?) -> Void) {
-        let url = MDPath.getGroupList(filter: filter)
+        let url = MDPath.getGroupList(filter: filter, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
@@ -37,9 +32,12 @@ extension MDApi {
 
     /// View the specified scanlation group's information
     /// - Parameter groupId: The id of the scanlation group
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func viewGroup(groupId: String, completion: @escaping (MDResult<MDGroup>?, MDApiError?) -> Void) {
-        let url = MDPath.viewGroup(groupId: groupId)
+    public func viewGroup(groupId: String,
+                          includes: [MDObjectType]? = nil,
+                          completion: @escaping (MDResult<MDGroup>?, MDApiError?) -> Void) {
+        let url = MDPath.viewGroup(groupId: groupId, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

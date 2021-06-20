@@ -12,9 +12,11 @@ extension MDPath {
 
     /// Build the URL to get a list of manga
     /// - Parameter filter: The filter to apply
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func getMangaList(filter: MDMangaFilter? = nil) -> URL {
-        let params = filter?.getParameters() ?? []
+    static func getMangaList(filter: MDMangaFilter? = nil, includes: [MDObjectType]? = nil) -> URL {
+        var params = filter?.getParameters() ?? []
+        params += MDPath.formatQueryItem(name: "includes", array: includes)
         return buildUrl(for: .manga, params: params)
     }
 
@@ -25,9 +27,11 @@ extension MDPath {
     }
 
     /// Build the URL to get a random manga
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func getRandomManga() -> URL {
-        return buildUrl(for: .manga, with: ["random"])
+    static func getRandomManga(includes: [MDObjectType]? = nil) -> URL {
+        let params = MDPath.formatQueryItem(name: "includes", array: includes)
+        return buildUrl(for: .manga, with: ["random"], params: params)
     }
 
     /// Build the URL to create a new manga
@@ -47,9 +51,11 @@ extension MDPath {
 
     /// Build the URL to view the specified manga's information
     /// - Parameter mangaId: The id of the manga
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func viewManga(mangaId: String) -> URL {
-        return buildUrl(for: .manga, with: [mangaId])
+    static func viewManga(mangaId: String, includes: [MDObjectType]? = nil) -> URL {
+        let params = MDPath.formatQueryItem(name: "includes", array: includes)
+        return buildUrl(for: .manga, with: [mangaId], params: params)
     }
 
     /// Build the URL to update the specified manga's information
@@ -99,9 +105,11 @@ extension MDPath {
     /// Build the URL to get the specified manga's feed
     /// - Parameter mangaId: The id of the manga
     /// - Parameter filter: The filter to apply
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func getMangaFeed(mangaId: String, filter: MDFeedFilter? = nil) -> URL {
-        let params = filter?.getParameters() ?? []
+    static func getMangaFeed(mangaId: String, filter: MDFeedFilter? = nil, includes: [MDObjectType]? = nil) -> URL {
+        var params = filter?.getParameters() ?? []
+        params += MDPath.formatQueryItem(name: "includes", array: includes)
         return buildUrl(for: .manga, with: [mangaId, "feed"], params: params)
     }
 

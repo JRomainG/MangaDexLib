@@ -12,9 +12,11 @@ extension MDPath {
 
     /// Build the URL to get a list of scanlation groups
     /// - Parameter filter: The filter to apply
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func getGroupList(filter: MDGroupFilter? = nil) -> URL {
-        let params = filter?.getParameters() ?? []
+    static func getGroupList(filter: MDGroupFilter? = nil, includes: [MDObjectType]? = nil) -> URL {
+        var params = filter?.getParameters() ?? []
+        params += MDPath.formatQueryItem(name: "includes", array: includes)
         return buildUrl(for: .group, params: params)
     }
 
@@ -26,9 +28,11 @@ extension MDPath {
 
     /// Build the URL to view the specified scanlation group's information
     /// - Parameter groupId: The id of the scanlation group
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func viewGroup(groupId: String) -> URL {
-        return buildUrl(for: .group, with: [groupId])
+    static func viewGroup(groupId: String, includes: [MDObjectType]? = nil) -> URL {
+        let params = MDPath.formatQueryItem(name: "includes", array: includes)
+        return buildUrl(for: .group, with: [groupId], params: params)
     }
 
     /// Build the URL to update the specified scanlation group's information

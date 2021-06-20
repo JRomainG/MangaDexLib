@@ -32,7 +32,7 @@ extension MDLibApiTests {
 
         try login(api: api, credentialsKey: "AuthRegular")
         let expectation = self.expectation(description: "Get a list of users")
-        api.searchUsers(filter: filter) { (result, error) in
+        api.getUserList(filter: filter) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssert(result!.results.count > 0)

@@ -12,9 +12,11 @@ extension MDPath {
 
     /// Build the URL to get a list of authors
     /// - Parameter filter: The filter to apply
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func getAuthorList(filter: MDAuthorFilter? = nil) -> URL {
-        let params = filter?.getParameters() ?? []
+    static func getAuthorList(filter: MDAuthorFilter? = nil, includes: [MDObjectType]? = nil) -> URL {
+        var params = filter?.getParameters() ?? []
+        params += MDPath.formatQueryItem(name: "includes", array: includes)
         return buildUrl(for: .author, params: params)
     }
 
@@ -26,9 +28,11 @@ extension MDPath {
 
     /// Build the URL to view the specified author's information
     /// - Parameter authorId: The id of the author
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func viewAuthor(authorId: String) -> URL {
-        return buildUrl(for: .author, with: [authorId])
+    static func viewAuthor(authorId: String, includes: [MDObjectType]? = nil) -> URL {
+        let params = MDPath.formatQueryItem(name: "includes", array: includes)
+        return buildUrl(for: .author, with: [authorId], params: params)
     }
 
     /// Build the URL to update the specified author's information

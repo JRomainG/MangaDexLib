@@ -12,17 +12,21 @@ extension MDPath {
 
     /// Build the URL to get a list of covers
     /// - Parameter filter: The filter to apply
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func getCoverList(filter: MDCoverFilter? = nil) -> URL {
-        let params = filter?.getParameters() ?? []
+    static func getCoverList(filter: MDCoverFilter? = nil, includes: [MDObjectType]? = nil) -> URL {
+        var params = filter?.getParameters() ?? []
+        params += MDPath.formatQueryItem(name: "includes", array: includes)
         return buildUrl(for: .cover, params: params)
     }
 
     /// Build the URL to view the specified cover's information
     /// - Parameter coverId: The id of the cover
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func viewCover(coverId: String) -> URL {
-        return buildUrl(for: .cover, with: [coverId])
+    static func viewCover(coverId: String, includes: [MDObjectType]? = nil) -> URL {
+        let params = MDPath.formatQueryItem(name: "includes", array: includes)
+        return buildUrl(for: .cover, with: [coverId], params: params)
     }
 
     /// Build the URL to upload a new cover for the specified manga

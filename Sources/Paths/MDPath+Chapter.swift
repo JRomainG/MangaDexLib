@@ -12,17 +12,21 @@ extension MDPath {
 
     /// Build the URL to get a list of chapter
     /// - Parameter filter: The filter to apply
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func getChapterList(filter: MDChapterFilter? = nil) -> URL {
-        let params = filter?.getParameters() ?? []
+    static func getChapterList(filter: MDChapterFilter? = nil, includes: [MDObjectType]? = nil) -> URL {
+        var params = filter?.getParameters() ?? []
+        params += MDPath.formatQueryItem(name: "includes", array: includes)
         return buildUrl(for: .chapter, params: params)
     }
 
     /// Build the URL to view the specified chapter's information
     /// - Parameter chapterId: The id of the chapter
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func viewChapter(chapterId: String) -> URL {
-        return buildUrl(for: .chapter, with: [chapterId])
+    static func viewChapter(chapterId: String, includes: [MDObjectType]? = nil) -> URL {
+        let params = MDPath.formatQueryItem(name: "includes", array: includes)
+        return buildUrl(for: .chapter, with: [chapterId], params: params)
     }
 
     /// Build the URL to update the specified chapter's information

@@ -11,18 +11,13 @@ import Foundation
 extension MDApi {
 
     /// Get the list of latest updated mangas
-    /// - Parameter completion: The completion block called once the request is done
-    public func getMangaList(completion: @escaping (MDResultList<MDManga>?, MDApiError?) -> Void) {
-        let url = MDPath.getMangaList()
-        performBasicGetCompletion(url: url, completion: completion)
-    }
-
-    /// Search the list of chapters using the specified filter
     /// - Parameter filter: The filter to use
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func searchMangas(filter: MDMangaFilter,
+    public func getMangaList(filter: MDMangaFilter? = nil,
+                             includes: [MDObjectType]? = nil,
                              completion: @escaping (MDResultList<MDManga>?, MDApiError?) -> Void) {
-        let url = MDPath.getMangaList(filter: filter)
+        let url = MDPath.getMangaList(filter: filter, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
@@ -34,9 +29,11 @@ extension MDApi {
     }
 
     /// Get a random manga
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func getRandomManga(completion: @escaping (MDResult<MDManga>?, MDApiError?) -> Void) {
-        let url = MDPath.getRandomManga()
+    public func getRandomManga(includes: [MDObjectType]? = nil,
+                               completion: @escaping (MDResult<MDManga>?, MDApiError?) -> Void) {
+        let url = MDPath.getRandomManga(includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
@@ -51,9 +48,12 @@ extension MDApi {
 
     /// View the specified manga's information
     /// - Parameter mangaId: The id of the manga
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func viewManga(mangaId: String, completion: @escaping (MDResult<MDManga>?, MDApiError?) -> Void) {
-        let url = MDPath.viewManga(mangaId: mangaId)
+    public func viewManga(mangaId: String,
+                          includes: [MDObjectType]? = nil,
+                          completion: @escaping (MDResult<MDManga>?, MDApiError?) -> Void) {
+        let url = MDPath.viewManga(mangaId: mangaId, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
@@ -131,11 +131,13 @@ extension MDApi {
     /// Get the specified manga's feed (aka its list of chapters)
     /// - Parameter mangaId: The id of the manga
     /// - Parameter filter: The filter to apply
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
     public func getMangaFeed(mangaId: String,
                              filter: MDFeedFilter? = nil,
+                             includes: [MDObjectType]? = nil,
                              completion: @escaping (MDResultList<MDChapter>?, MDApiError?) -> Void) {
-        let url = MDPath.getMangaFeed(mangaId: mangaId, filter: filter)
+        let url = MDPath.getMangaFeed(mangaId: mangaId, filter: filter, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

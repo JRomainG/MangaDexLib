@@ -11,18 +11,10 @@ import Foundation
 extension MDApi {
 
     /// Get the list of users
-    /// - Parameter completion: The completion block called once the request is done
-    /// - Precondition: The user must be logged-in
-    public func getUserList(completion: @escaping (MDResultList<MDUser>?, MDApiError?) -> Void) {
-        let url = MDPath.getUserList()
-        performBasicGetCompletion(url: url, completion: completion)
-    }
-
-    /// Search the list of users using the specified filter
     /// - Parameter filter: The filter to use
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func searchUsers(filter: MDUserFilter,
+    public func getUserList(filter: MDUserFilter? = nil,
                             completion: @escaping (MDResultList<MDUser>?, MDApiError?) -> Void) {
         let url = MDPath.getUserList(filter: filter)
         performBasicGetCompletion(url: url, completion: completion)

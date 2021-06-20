@@ -31,7 +31,7 @@ extension MDLibApiTests {
         filter.offset = 1
 
         let expectation = self.expectation(description: "Get a list of covers")
-        api.searchCovers(filter: filter) { (result, error) in
+        api.getCoverList(filter: filter) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssert(result!.results.count > 0)

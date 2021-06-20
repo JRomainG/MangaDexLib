@@ -11,18 +11,13 @@ import Foundation
 extension MDApi {
 
     /// Get the list of authors
-    /// - Parameter completion: The completion block called once the request is done
-    public func getAuthorList(completion: @escaping (MDResultList<MDAuthor>?, MDApiError?) -> Void) {
-        let url = MDPath.getAuthorList()
-        performBasicGetCompletion(url: url, completion: completion)
-    }
-
-    /// Search the list of authors using the specified filter
     /// - Parameter filter: The filter to use
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func searchAuthors(filter: MDAuthorFilter,
+    public func getAuthorList(filter: MDAuthorFilter? = nil,
+                              includes: [MDObjectType]? = nil,
                               completion: @escaping (MDResultList<MDAuthor>?, MDApiError?) -> Void) {
-        let url = MDPath.getAuthorList(filter: filter)
+        let url = MDPath.getAuthorList(filter: filter, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
@@ -37,9 +32,12 @@ extension MDApi {
 
     /// View the specified author's information
     /// - Parameter authorId: The id of the author
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func viewAuthor(authorId: String, completion: @escaping (MDResult<MDAuthor>?, MDApiError?) -> Void) {
-        let url = MDPath.viewAuthor(authorId: authorId)
+    public func viewAuthor(authorId: String,
+                           includes: [MDObjectType]? = nil,
+                           completion: @escaping (MDResult<MDAuthor>?, MDApiError?) -> Void) {
+        let url = MDPath.viewAuthor(authorId: authorId, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

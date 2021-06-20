@@ -11,26 +11,24 @@ import Foundation
 extension MDApi {
 
     /// Get the list of latest published chapters
-    /// - Parameter completion: The completion block called once the request is done
-    public func getChapterList(completion: @escaping (MDResultList<MDChapter>?, MDApiError?) -> Void) {
-        let url = MDPath.getChapterList()
-        performBasicGetCompletion(url: url, completion: completion)
-    }
-
-    /// Search the list of chapters using the specified filter
     /// - Parameter filter: The filter to use
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func searchChapters(filter: MDChapterFilter,
+    public func getChapterList(filter: MDChapterFilter? = nil,
+                               includes: [MDObjectType]? = nil,
                                completion: @escaping (MDResultList<MDChapter>?, MDApiError?) -> Void) {
-        let url = MDPath.getChapterList(filter: filter)
+        let url = MDPath.getChapterList(filter: filter, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
     /// View the specified chapter's information
     /// - Parameter chapterId: The id of the chapter
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func viewChapter(chapterId: String, completion: @escaping (MDResult<MDChapter>?, MDApiError?) -> Void) {
-        let url = MDPath.viewChapter(chapterId: chapterId)
+    public func viewChapter(chapterId: String,
+                            includes: [MDObjectType]? = nil,
+                            completion: @escaping (MDResult<MDChapter>?, MDApiError?) -> Void) {
+        let url = MDPath.viewChapter(chapterId: chapterId, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

@@ -31,7 +31,7 @@ extension MDLibApiTests {
         filter.offset = 22
 
         let expectation = self.expectation(description: "Get a list of mangas")
-        api.searchMangas(filter: filter) { (result, error) in
+        api.getMangaList(filter: filter) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssert(result!.results.count > 0)
@@ -40,6 +40,29 @@ extension MDLibApiTests {
             XCTAssertEqual(result?.limit, filter.limit)
             XCTAssertEqual(result?.offset, filter.offset)
             expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testMangaListReferenceExpansion() throws {
+        let includes: [MDObjectType] = [
+            .author, .artist, .cover_art
+        ]
+        let mangaExpectation = self.expectation(description: "Get a list of mangas")
+        api.getMangaList(includes: includes) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            for manga in result!.results {
+                XCTAssertNotNil(manga.relationships)
+                XCTAssertNotNil(manga.object)
+                XCTAssertNotNil(manga.object?.data)
+                let relationshipTypes = manga.relationships!.map { $0.objectType }
+                for objType in includes {
+                    XCTAssert(relationshipTypes.contains(objType))
+                }
+            }
+            mangaExpectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }

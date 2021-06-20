@@ -11,6 +11,18 @@ import Foundation
 /// The class responsible for generating URLs for calls to the website and API
 class MDPath {
 
+    /// Build a list of URLQueryItems representing an array of string enums
+    /// - Parameter name: The name of the query item
+    /// - Parameter array: The values to encode
+    /// - Returns: The list of `URLQueryItem`s representing the array
+    static func formatQueryItem<T: RawRepresentable>(name: String,
+                                                     array: [T]?) -> [URLQueryItem] where T.RawValue == String {
+        guard let values = array else {
+            return []
+        }
+        return formatQueryItem(name: name, array: values.map { $0.rawValue })
+    }
+
     /// Build a list of URLQueryItems representing an array of strings
     /// - Parameter name: The name of the query item
     /// - Parameter array: The values to encode

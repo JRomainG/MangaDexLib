@@ -11,26 +11,24 @@ import Foundation
 extension MDApi {
 
     /// Get the list of latest published covers
-    /// - Parameter completion: The completion block called once the request is done
-    public func getCoverList(completion: @escaping (MDResultList<MDCover>?, MDApiError?) -> Void) {
-        let url = MDPath.getCoverList()
-        performBasicGetCompletion(url: url, completion: completion)
-    }
-
-    /// Search the list of covers using the specified filter
     /// - Parameter filter: The filter to use
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func searchCovers(filter: MDCoverFilter,
+    public func getCoverList(filter: MDCoverFilter? = nil,
+                             includes: [MDObjectType]? = nil,
                              completion: @escaping (MDResultList<MDCover>?, MDApiError?) -> Void) {
-        let url = MDPath.getCoverList(filter: filter)
+        let url = MDPath.getCoverList(filter: filter, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 
     /// View the specified cover's information
     /// - Parameter coverId: The id of the cover
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
-    public func viewCover(coverId: String, completion: @escaping (MDResult<MDCover>?, MDApiError?) -> Void) {
-        let url = MDPath.viewCover(coverId: coverId)
+    public func viewCover(coverId: String,
+                          includes: [MDObjectType]? = nil,
+                          completion: @escaping (MDResult<MDCover>?, MDApiError?) -> Void) {
+        let url = MDPath.viewCover(coverId: coverId, includes: includes)
         performBasicGetCompletion(url: url, completion: completion)
     }
 

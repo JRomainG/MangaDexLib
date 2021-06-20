@@ -30,7 +30,7 @@ extension MDLibApiTests {
         filter.offset = 0
 
         let expectation = self.expectation(description: "Get a list of authors")
-        api.searchAuthors(filter: filter) { (result, error) in
+        api.getAuthorList(filter: filter) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssert(result!.results.count > 0)
