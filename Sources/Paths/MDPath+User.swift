@@ -31,6 +31,18 @@ extension MDPath {
         return buildUrl(for: .user, with: ["me"])
     }
 
+    /// Build the URL to update the logged-in user's password
+    /// - Returns: The MangaDex URL
+    static func updateLoggedUserPassword() -> URL {
+        return buildUrl(for: .user, with: ["password"])
+    }
+
+    /// Build the URL to update the logged-in user's email address
+    /// - Returns: The MangaDex URL
+    static func updateLoggedUserEmail() -> URL {
+        return buildUrl(for: .user, with: ["email"])
+    }
+
     /// Build the URL to get the logged-in user's list of followed manga
     /// - Parameter pagination: The pagination filter to apply
     /// - Returns: The MangaDex URL

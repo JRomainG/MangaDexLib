@@ -33,7 +33,7 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     public func resendActivationCode(email: String, completion: @escaping (MDApiError?) -> Void) {
         let url = MDPath.resendActivationCode()
-        let data: [String: String] = [
+        let data = [
             "email": email
         ]
         performPost(url: url, body: data) { (response) in
@@ -46,7 +46,7 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     public func requestAccountRecovery(email: String, completion: @escaping (MDApiError?) -> Void) {
         let url = MDPath.requestAccountRecovery()
-        let data: [String: String] = [
+        let data = [
             "email": email
         ]
         performPost(url: url, body: data) { (response) in
@@ -63,7 +63,7 @@ extension MDApi {
                                         newPassword: String,
                                         completion: @escaping (MDApiError?) -> Void) {
         let url = MDPath.completeAccountRecovery(recoveryCode: recoveryCode)
-        let data: [String: String] = [
+        let data = [
             "newPassword": newPassword
         ]
         performPost(url: url, body: data) { (response) in

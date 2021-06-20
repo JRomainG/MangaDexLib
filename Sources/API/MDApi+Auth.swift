@@ -89,8 +89,10 @@ extension MDApi {
         }
 
         let url = MDPath.refreshToken()
-        let body = ["token": refreshToken]
-        performPost(url: url, body: body) { (response) in
+        let data = [
+            "token": refreshToken
+        ]
+        performPost(url: url, body: data) { (response) in
             // Propagate errors
             guard response.error == nil else {
                 completion(response.error)

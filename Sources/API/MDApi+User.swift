@@ -56,6 +56,36 @@ extension MDApi {
         performBasicGetCompletion(url: url, completion: completion)
     }
 
+    /// Update the logged-in user's password
+    /// - Parameter old: The user's old password
+    /// - Parameter new: The user's new password
+    /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must be logged-in
+    public func updateLoggedUserPassword(old: String, new: String, completion: @escaping (MDApiError?) -> Void) {
+        let url = MDPath.updateLoggedUserPassword()
+        let data = [
+            "oldPassword": old,
+            "newPassword": new
+        ]
+        performPost(url: url, body: data) { (response) in
+            completion(response.error)
+        }
+    }
+
+    /// Update the logged-in user's email address
+    /// - Parameter new: The user's new email address
+    /// - Parameter completion: The completion block called once the request is done
+    /// - Precondition: The user must be logged-in
+    public func updateLoggedUserEmail(email: String, completion: @escaping (MDApiError?) -> Void) {
+        let url = MDPath.updateLoggedUserEmail()
+        let data = [
+            "email": email
+        ]
+        performPost(url: url, body: data) { (response) in
+            completion(response.error)
+        }
+    }
+
     /// Get the list of mangas followed by the logged-in user
     /// - Parameter pagination: The pagination filter to apply
     /// - Parameter completion: The completion block called once the request is done
