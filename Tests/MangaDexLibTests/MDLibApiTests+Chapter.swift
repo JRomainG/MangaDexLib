@@ -99,7 +99,7 @@ extension MDLibApiTests {
         XCTAssert(urls!.count > 0)
     }
 
-    func testMakeUnmarkChapter() throws {
+    func testMarkUnmarkChapter() throws {
         throw XCTSkip("The API is currently in readonly mode")
 
         try login(api: api, credentialsKey: "AuthRegular")

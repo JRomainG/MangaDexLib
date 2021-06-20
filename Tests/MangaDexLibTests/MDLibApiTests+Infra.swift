@@ -62,6 +62,10 @@ extension MDLibApiTests {
         }
         waitForExpectations(timeout: 15, handler: nil)
 
+        if node?.baseUrl.absoluteString == MDImageServer.uploads.rawValue {
+            throw XCTSkip("The API returned a node which is not part of the MD@Home network")
+        }
+
         // Now get the URLs for the pages
         XCTAssertNotNil(chapter)
         XCTAssertNotNil(node)

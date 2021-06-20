@@ -70,13 +70,14 @@ extension MDLibApiTests {
     }
 
     func testViewManga() throws {
-        let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
+        let mangaId = "f9c33607-9180-4ba6-b85c-e4b5faee7192" // Official "Test" Manga
         let expectation = self.expectation(description: "Get the manga's information")
         api.viewManga(mangaId: mangaId) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.object?.data)
-            XCTAssertEqual(result?.object?.data.title.translations.first?.value, "Solo Leveling")
+            XCTAssertEqual(result?.object?.data.title.translations.first?.value, "Official \"Test\" Manga")
+            XCTAssertEqual(result?.object?.data.altTitles.first?.translations.first?.value, "TEST")
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
@@ -86,7 +87,7 @@ extension MDLibApiTests {
         throw XCTSkip("The API is currently in readonly mode")
 
         try login(api: api, credentialsKey: "AuthRegular")
-        let mangaId = "0001183c-2089-48e9-96b7-d48db5f1a611" // Eight
+        let mangaId = "f9c33607-9180-4ba6-b85c-e4b5faee7192" // Official "Test" Manga
 
         // Assume the manga isn't part of the follow list and start following it
         let followExpectation = self.expectation(description: "Follow the manga")
@@ -133,7 +134,7 @@ extension MDLibApiTests {
     }
 
     func testGetMangaFeed() throws {
-        let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
+        let mangaId = "f9c33607-9180-4ba6-b85c-e4b5faee7192" // Official "Test" Manga
         let expectation = self.expectation(description: "Get the manga's chapters")
         api.getMangaFeed(mangaId: mangaId) { (result, error) in
             XCTAssertNil(error)
@@ -147,7 +148,7 @@ extension MDLibApiTests {
     }
 
     func testGetMangaVolumesAndChapters() throws {
-        let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
+        let mangaId = "f9c33607-9180-4ba6-b85c-e4b5faee7192" // Official "Test" Manga
         let expectation = self.expectation(description: "Get the manga's aggregated data")
         api.getMangaVolumesAndChapters(mangaId: mangaId) { (result, error) in
             XCTAssertNil(error)
@@ -173,8 +174,12 @@ extension MDLibApiTests {
     }
 
     func testGetMangasReadMarkers() throws {
+        // Assume the test account has marked some chapters from one of these mangas as read
         try login(api: api, credentialsKey: "AuthRegular")
-        let mangaIds = ["32d76d19-8a05-4db0-9fc2-e0b0648fe9d0"] // Solo leveling
+        let mangaIds = [
+            "f9c33607-9180-4ba6-b85c-e4b5faee7192", // Official "Test" Manga
+            "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
+        ]
         let expectation = self.expectation(description: "Get the mangas' list of read chapters")
         api.getMangasReadMarkers(mangaIds: mangaIds) { (result, error) in
             XCTAssertNil(error)
@@ -200,12 +205,26 @@ extension MDLibApiTests {
     }
 
     func testGetMangaReadingStatus() throws {
+        // Assume the test account has set a reading status for this manga
         try login(api: api, credentialsKey: "AuthRegular")
         let mangaId = "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0" // Solo leveling
         let expectation = self.expectation(description: "Get the manga's reading status")
         api.getMangaReadingStatus(mangaId: mangaId) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testGetMangaNoReadingStatus() throws {
+        // Assume the test account has NOT set a reading status for this manga
+        try login(api: api, credentialsKey: "AuthRegular")
+        let mangaId = "f9c33607-9180-4ba6-b85c-e4b5faee7192" // Official "Test" Manga
+        let expectation = self.expectation(description: "Get the manga's reading status")
+        api.getMangaReadingStatus(mangaId: mangaId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNil(result)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
