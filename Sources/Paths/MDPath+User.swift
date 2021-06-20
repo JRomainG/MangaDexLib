@@ -10,6 +10,14 @@ import Foundation
 
 extension MDPath {
 
+    /// Build the URL to get a list of users
+    /// - Parameter filter: The filter to apply
+    /// - Returns: The MangaDex URL
+    static func getUserList(filter: MDUserFilter? = nil) -> URL {
+        let params = filter?.getParameters() ?? []
+        return buildUrl(for: .user, params: params)
+    }
+
     /// Build the URL to view the specified user's information
     /// - Parameter userId: The id of the user
     /// - Returns: The MangaDex URL

@@ -132,12 +132,28 @@ public enum MDTagFilteringMode: String, Codable {
 }
 
 /// Criteria to use when sorting objects
+/// - Note: Not all sort criterias may be available for all kinds of objects
 public enum MDSortCriteria: String, Codable {
     /// Sort depending on creation date
     case creationDate = "createdAt"
 
     /// Sort depending on the date of the last released update
     case lastUpdate = "updatedAt"
+
+    /// Sort depending on the date of publication
+    case publicationDate = "publishAt"
+
+    /// Sort depending on the volume number
+    case volume = "volume"
+
+    /// Sort depending on the chapter number
+    case chapter = "chapter"
+
+    /// Sort depending on the name
+    case name = "name"
+
+    /// Sort depending on the username
+    case username = "username"
 }
 
 /// Sort order for lists of objects

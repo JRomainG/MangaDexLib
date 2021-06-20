@@ -11,6 +11,40 @@ import MangaDexLib
 
 extension MDLibApiTests {
 
+    func testGetUserList() throws {
+        try login(api: api, credentialsKey: "AuthRegular")
+        let expectation = self.expectation(description: "Get a list of users")
+        api.getUserList { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            XCTAssertNotNil(result?.results.first?.object)
+            XCTAssertNotNil(result?.results.first?.object?.data)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testSearchUsers() throws {
+        let filter = MDUserFilter(username: "MangaDex")
+        filter.limit = 3
+        filter.offset = 2
+
+        try login(api: api, credentialsKey: "AuthRegular")
+        let expectation = self.expectation(description: "Get a list of users")
+        api.searchUsers(filter: filter) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            XCTAssertNotNil(result?.results.first?.object)
+            XCTAssertNotNil(result?.results.first?.object?.data)
+            XCTAssertEqual(result?.limit, filter.limit)
+            XCTAssertEqual(result?.offset, filter.offset)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testViewUser() throws {
         let userId = "3413e092-d036-45e3-ae1a-0d0c6275a292" // MangaDexLib
         let expectation = self.expectation(description: "Get the user's information")

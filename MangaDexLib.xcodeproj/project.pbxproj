@@ -142,6 +142,8 @@
 		33A6D59F26485868007AB5B4 /* MDReadMarkers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A6D59D26485868007AB5B4 /* MDReadMarkers.swift */; };
 		33A6D5A426485A68007AB5B4 /* MDReadingStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A6D5A326485A68007AB5B4 /* MDReadingStatuses.swift */; };
 		33A6D5A526485A68007AB5B4 /* MDReadingStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A6D5A326485A68007AB5B4 /* MDReadingStatuses.swift */; };
+		33FB8F9526726F7500D48312 /* MDUserFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FB8F9426726F7500D48312 /* MDUserFilter.swift */; };
+		33FB8F9626726F7500D48312 /* MDUserFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FB8F9426726F7500D48312 /* MDUserFilter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -235,6 +237,7 @@
 		339A345C2645A8DA008535DA /* MDResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDResponse.swift; sourceTree = "<group>"; };
 		33A6D59D26485868007AB5B4 /* MDReadMarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDReadMarkers.swift; sourceTree = "<group>"; };
 		33A6D5A326485A68007AB5B4 /* MDReadingStatuses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDReadingStatuses.swift; sourceTree = "<group>"; };
+		33FB8F9426726F7500D48312 /* MDUserFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDUserFilter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,6 +429,7 @@
 				33827121265A616100AB587B /* MDCoverFilter.swift */,
 				3382710F265A5BE900AB587B /* MDGroupFilter.swift */,
 				33827115265A5BF900AB587B /* MDAuthorFilter.swift */,
+				33FB8F9426726F7500D48312 /* MDUserFilter.swift */,
 				3382711B265A5C0A00AB587B /* MDFeedFilter.swift */,
 			);
 			path = Filters;
@@ -674,6 +678,7 @@
 				334DE62126447B95006D38E3 /* MDPath+Infra.swift in Sources */,
 				338E12A62647DAFE00C89F08 /* MDAuthInfo.swift in Sources */,
 				339A345E2645A8DA008535DA /* MDResponse.swift in Sources */,
+				33FB8F9626726F7500D48312 /* MDUserFilter.swift in Sources */,
 				33827111265A5BE900AB587B /* MDGroupFilter.swift in Sources */,
 				3324854C266B725F00561361 /* MDCover.swift in Sources */,
 				335F9CDA245E003E00EE9A52 /* MDGroup.swift in Sources */,
@@ -741,6 +746,7 @@
 				3322BD67245D99130086FA81 /* MDGroup.swift in Sources */,
 				338E12A52647DAFE00C89F08 /* MDAuthInfo.swift in Sources */,
 				339A345D2645A8DA008535DA /* MDResponse.swift in Sources */,
+				33FB8F9526726F7500D48312 /* MDUserFilter.swift in Sources */,
 				33827110265A5BE900AB587B /* MDGroupFilter.swift in Sources */,
 				3324854B266B725F00561361 /* MDCover.swift in Sources */,
 				3322BD71245D99130086FA81 /* MDApiError.swift in Sources */,
