@@ -30,7 +30,7 @@ extension MDApi {
                 self.refreshJwt = result.token?.refreshJwt ?? self.refreshJwt
                 completion(nil)
             } catch {
-                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                let error = MDApiError(type: .decodingError, url: url, body: response.content, error: error)
                 completion(error)
             }
         }
@@ -69,7 +69,7 @@ extension MDApi {
                 let result = try MDParser.parse(json: response.content, type: MDAuthInfo.self)
                 completion(result, nil)
             } catch {
-                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                let error = MDApiError(type: .decodingError, url: url, body: response.content, error: error)
                 completion(nil, error)
             }
         }
@@ -105,7 +105,7 @@ extension MDApi {
                 self.refreshJwt = result.token?.refreshJwt ?? self.refreshJwt
                 completion(nil)
             } catch {
-                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                let error = MDApiError(type: .decodingError, url: url, body: response.content, error: error)
                 completion(error)
             }
         }

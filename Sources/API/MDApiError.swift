@@ -64,14 +64,19 @@ public class MDApiError: NSObject, Error {
     /// The raw content returned by the MangaDex API which triggered this error
     public let rawBody: String?
 
+    /// The URL which lead to this error
+    public let requestUrl: URL?
+
     /// Convenience `init` method
     /// - Parameter type: The type of error raised
+    /// - Parameter url: The url which lead to the error
     /// - Parameter body: The body of the error returned by the MangaDex API
     /// - Parameter error: The underlying error raised by Swift
-    init(type: ErrorType, body: String? = nil, error: Error? = nil) {
+    init(type: ErrorType, url: URL? = nil, body: String? = nil, error: Error? = nil) {
         errorType = type
         underlyingError = error
         rawBody = body
+        requestUrl = url
 
         do {
             let result = try MDParser.parse(json: body ?? "", type: MDResult<String>.self)

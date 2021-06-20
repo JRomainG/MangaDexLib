@@ -211,7 +211,7 @@ extension MDApi {
                 let status = MDReadingStatus(rawValue: rawStatus)
                 completion(status, nil)
             } catch {
-                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                let error = MDApiError(type: .decodingError, url: url, body: response.content, error: error)
                 completion(nil, error)
             }
         }

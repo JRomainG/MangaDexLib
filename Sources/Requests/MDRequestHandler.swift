@@ -223,7 +223,7 @@ public class MDRequestHandler: NSObject {
         do {
             request.httpBody = try JSONEncoder().encode(content)
         } catch {
-            completion(nil, nil, MDApiError(type: .encodingError, body: nil, error: error))
+            completion(nil, nil, MDApiError(type: .encodingError, url: url, body: nil, error: error))
         }
 
         // Make sure we don't trigger DDoS-Guard
@@ -250,7 +250,7 @@ public class MDRequestHandler: NSObject {
         do {
             request.httpBody = try JSONEncoder().encode(content)
         } catch {
-            completion(nil, nil, MDApiError(type: .encodingError, body: nil, error: error))
+            completion(nil, nil, MDApiError(type: .encodingError, url: url, body: nil, error: error))
         }
 
         // Make sure we don't trigger DDoS-Guard
@@ -325,7 +325,7 @@ public class MDRequestHandler: NSObject {
                 output = NSString(data: data!, encoding: String.Encoding.utf8.rawValue) as String?
             }
             if error != nil {
-                apiError = MDApiError(type: .actionFailed, body: output, error: error)
+                apiError = MDApiError(type: .actionFailed, url: request.url, body: output, error: error)
             }
             completion(response as? HTTPURLResponse, output, apiError)
         }

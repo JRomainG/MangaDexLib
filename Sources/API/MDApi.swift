@@ -108,13 +108,28 @@ extension MDApi {
             if let statusCode = httpResponse?.statusCode {
                 if statusCode == 403, let body = content, body.contains("captcha_required_exception") {
                     // If there is an error with status code 403, it may be because of a captcha
-                    response.error = MDApiError(type: .captchaRequired, body: content, error: error?.underlyingError)
+                    response.error = MDApiError(
+                        type: .captchaRequired,
+                        url: url,
+                        body: content,
+                        error: error?.underlyingError
+                    )
                 } else if statusCode == 429, let body = content, body.contains("Rate Limited") {
                     // If there is an error with status code 429, it may be because of rate limiting
-                    response.error = MDApiError(type: .rateLimited, body: content, error: error?.underlyingError)
+                    response.error = MDApiError(
+                        type: .rateLimited,
+                        url: url,
+                        body: content,
+                        error: error?.underlyingError
+                    )
                 } else if !(200..<400).contains(statusCode) {
                     // If not, we still want to make sure the status code is correct
-                    response.error = MDApiError(type: .wrongStatusCode, body: content, error: error?.underlyingError)
+                    response.error = MDApiError(
+                        type: .wrongStatusCode,
+                        url: url,
+                        body: content,
+                        error: error?.underlyingError
+                    )
                 }
             }
 
@@ -144,7 +159,7 @@ extension MDApi {
                 let results = try MDParser.parse(json: response.content, type: T.self)
                 completion(results, nil)
             } catch {
-                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                let error = MDApiError(type: .decodingError, url: url, body: response.content, error: error)
                 completion(nil, error)
             }
         }
@@ -170,7 +185,7 @@ extension MDApi {
                 let results = try MDParser.parse(json: response.content, type: L.self)
                 completion(results, nil)
             } catch {
-                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                let error = MDApiError(type: .decodingError, url: url, body: response.content, error: error)
                 completion(nil, error)
             }
         }
@@ -196,7 +211,7 @@ extension MDApi {
                 let results = try MDParser.parse(json: response.content, type: L.self)
                 completion(results, nil)
             } catch {
-                let error = MDApiError(type: .decodingError, body: response.content, error: error)
+                let error = MDApiError(type: .decodingError, url: url, body: response.content, error: error)
                 completion(nil, error)
             }
         }
