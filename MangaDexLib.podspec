@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |spec|
   spec.name         = "MangaDexLib"
-  spec.version      = "0.5-beta"
+  spec.version      = "0.5-beta-2"
   spec.summary      = "Cross-platform Swift framework to interact with the MangaDex website."
   spec.description  = <<-DESC
 				   MangaDexLib is a cross-platform Swift framework to interact with the MangaDex website. Its goal is to offer a robust abstract interface to access the website's core features.
