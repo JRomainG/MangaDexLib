@@ -21,9 +21,6 @@ public struct MDManga {
     /// The manga's description
     public let description: MDLocalizedString?
 
-    /// A boolean indicating whether the mange is locked (cannot be edited)
-    public let locked: Bool
-
     /// The original language in which this manga was published
     public let originalLanguage: Locale?
 
@@ -87,7 +84,6 @@ extension MDManga: Decodable {
         case title
         case altTitles
         case description
-        case locked = "isLocked"
         case originalLanguage
         case lastVolume
         case lastChapter
@@ -111,7 +107,6 @@ extension MDManga: Decodable {
         title = try container.decode(MDLocalizedString.self, forKey: .title)
         altTitles = try container.decode([MDLocalizedString].self, forKey: .altTitles)
         description = try container.decode(MDLocalizedString?.self, forKey: .description)
-        locked = try container.decode(Bool.self, forKey: .locked)
         lastVolume = try container.decode(String?.self, forKey: .lastVolume)
         lastChapter = try container.decode(String?.self, forKey: .lastChapter)
         demographic = try container.decode(MDDemographic?.self, forKey: .demographic)
@@ -180,7 +175,6 @@ extension MDManga: Encodable {
 
         // Unused during upload
         tags = []
-        locked = false
         createdDate = .init()
         updatedDate = nil
 

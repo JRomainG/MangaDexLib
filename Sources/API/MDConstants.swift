@@ -373,6 +373,9 @@ public enum MDPermission: String, Codable {
 /// These can be useful if you do not want to use a MD@Home node
 public enum MDImageServer: String, Codable {
 
+    /// Default official image server
+    case uploads = "https://uploads.mangadex.org"
+
     /// Image server s2
     case s2 = "https://s2.mangadex.org"
 

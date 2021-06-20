@@ -56,10 +56,9 @@ extension MDApi {
 
     /// Check that the current session token is valid and get its information
     /// - Parameter completion: The completion block called once the request is done
-    /// - Precondition: The user must be logged-in
     public func checkToken(completion: @escaping (MDAuthInfo?, MDApiError?) -> Void) {
         let url = MDPath.checkToken()
-        performPost(url: url, body: "") { (response) in
+        performGet(url: url) { (response) in
             // Propagate errors
             guard response.error == nil else {
                 completion(nil, response.error)

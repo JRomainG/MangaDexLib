@@ -200,8 +200,13 @@ extension MDApi {
 
             // Parse the response to retreive the list of objects
             do {
-                let data = try MDParser.parse(json: response.content, type: [String: String].self)
-                let status = MDReadingStatus(rawValue: data["status"] ?? "")
+                let data = try MDParser.parse(json: response.content, type: [String: String?].self)
+                guard let rawStatus = data["status"] as? String else {
+                    // Status may be nil if the user hasn't set anything for this manga
+                    completion(nil, nil)
+                    return
+                }
+                let status = MDReadingStatus(rawValue: rawStatus)
                 completion(status, nil)
             } catch {
                 let error = MDApiError(type: .decodingError, body: response.content, error: error)
