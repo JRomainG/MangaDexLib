@@ -97,7 +97,7 @@ public enum MDObjectType: String, Codable {
     case chapter = "chapter"
 
     /// A cover art for a manga
-    case cover_art = "cover_art"
+    case coverArt = "cover_art"
 
     /// The resource is an author
     case author = "author"

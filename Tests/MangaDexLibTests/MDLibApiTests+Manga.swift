@@ -46,7 +46,7 @@ extension MDLibApiTests {
 
     func testMangaListReferenceExpansion() throws {
         let includes: [MDObjectType] = [
-            .author, .artist, .cover_art
+            .author, .artist, .coverArt
         ]
         let mangaExpectation = self.expectation(description: "Get a list of mangas")
         api.getMangaList(includes: includes) { (result, error) in
@@ -57,10 +57,19 @@ extension MDLibApiTests {
                 XCTAssertNotNil(manga.relationships)
                 XCTAssertNotNil(manga.object)
                 XCTAssertNotNil(manga.object?.data)
+
+                // Make sure all requested object types were included
                 let relationshipTypes = manga.relationships!.map { $0.objectType }
                 for objType in includes {
                     XCTAssert(relationshipTypes.contains(objType))
                 }
+
+                // Make sure only requested object types were included and data was correctly decoded
+                for relationship in manga.relationships ?? [] {
+                    XCTAssert(includes.contains(relationship.objectType))
+                    XCTAssertNotNil(relationship.data)
+                }
+
             }
             mangaExpectation.fulfill()
         }
