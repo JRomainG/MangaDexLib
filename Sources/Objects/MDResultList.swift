@@ -8,10 +8,10 @@
 
 import Foundation
 
-/// Structure representing a list of results returned by the MangaDex API
+/// Structure representing a list of `MDResult` objects returned by the MangaDex API
 public struct MDResultList<T: Decodable>: Decodable {
 
-    /// The status of the result returned by the MangaDex API
+    /// The list of results returned by the MangaDex API
     public let results: [MDResult<T>]
 
     /// The maximum number of results returned by the MangaDex API

@@ -33,6 +33,7 @@ public struct MDAuthCredentials: Encodable {
 
     // public let twoFactorCode: String?
 
+    /// Helper method to login using a username and password
     public init(username: String, password: String) {
         self.username = username
         self.password = password
@@ -40,7 +41,8 @@ public struct MDAuthCredentials: Encodable {
     }
 
     /*
-    init(username: String, password: String, twoFactorCode: String) {
+    /// Helper method to login using two factor authentication
+    public init(username: String, password: String, twoFactorCode: String) {
         self.username = username
         self.password = password
         self.twoFactorCode = twoFactorCode

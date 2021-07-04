@@ -33,7 +33,7 @@ public struct MDMappingQuery: Encodable {
     public let ids: [Int]
 
     /// Convenience init to ask for a mapping
-    public init (objectType: MDObjectType, legacyIds: [Int]) {
+    public init(objectType: MDObjectType, legacyIds: [Int]) {
         type = objectType
         ids = legacyIds
     }

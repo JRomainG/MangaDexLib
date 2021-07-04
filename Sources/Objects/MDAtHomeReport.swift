@@ -27,7 +27,7 @@ public struct MDAtHomeReport: Encodable {
     public let duration: Int
 
     /// Convenience init to send a report
-    public init (url: URL, success: Bool, cached: Bool, bytes: Int, duration: Int) {
+    public init(url: URL, success: Bool, cached: Bool, bytes: Int, duration: Int) {
         self.url = url
         self.success = success
         self.cached = cached
