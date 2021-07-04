@@ -23,11 +23,24 @@ extension MDPath {
         return buildUrl(for: .atHome, with: ["server", chapterId], params: params)
     }
 
-    /// Build the URL report fetching an image using the MD@Home netword
+    /// Build the URL to report fetching an image using the MD@Home netword
     /// - Returns: The MangaDex URL
     static func sendAtHomeReport() -> URL {
         let url = URL(string: MDApi.networkBaseURL)
-        return url!.appendingPathComponent(Endpoint.atHomeReport.rawValue)
+        return url!.appendingPathComponent(Endpoint.report.rawValue)
+    }
+
+    /// Build the URL to get a list of reasons for which the given type of object can be reported
+    /// - Parameter objectType: The type of object for which to return existing report reasons
+    /// - Returns: The MangaDex URL
+    static func getReportReasons(objectType: MDObjectType) -> URL {
+        return buildUrl(for: .report, with: ["reasons", objectType.rawValue])
+    }
+
+    /// Build the URL to report an entry hosted on the MangaDex website
+    /// - Returns: The MangaDex URL
+    static func createReport() -> URL {
+        return buildUrl(for: .report)
     }
 
     /// Build the URL to transform legacy object IDs to v5 object IDs

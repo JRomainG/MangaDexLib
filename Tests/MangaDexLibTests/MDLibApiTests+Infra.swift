@@ -22,23 +22,6 @@ extension MDLibApiTests {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
-    func testGetLegacyMapping() throws {
-        let query = MDMappingQuery(objectType: .manga, legacyIds: [1]) // Tower of God
-        let expectation = self.expectation(description: "Get the mapping")
-        api.getLegacyMapping(query: query) { (result, error) in
-            XCTAssertNil(error)
-            XCTAssertNotNil(result)
-            XCTAssertEqual(result?.count, 1)
-            XCTAssert(result?.first?.object?.data.newId == "c0ee660b-f9f2-45c3-8068-5123ff53f84a")
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 15, handler: nil)
-    }
-
-    func testPing() throws {
-        XCTAssertNoThrow(try ping(api: api))
-    }
-
     // swiftlint:disable:next function_body_length
     func testSendAtHomeReport() throws {
         // To send a report, we need to first get a chapter's pages, then download an image, and finally file the report
@@ -115,6 +98,37 @@ extension MDLibApiTests {
             reportExpectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testGetReportReasons() throws {
+        let objectType = MDObjectType.manga
+        let expectation = self.expectation(description: "Get the list of report reasons")
+        api.getReportReasons(objectType: objectType) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            XCTAssertNotNil(result?.results.first)
+            XCTAssertNotNil(result?.results.first?.data)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testGetLegacyMapping() throws {
+        let query = MDMappingQuery(objectType: .manga, legacyIds: [1]) // Tower of God
+        let expectation = self.expectation(description: "Get the mapping")
+        api.getLegacyMapping(query: query) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssertEqual(result?.count, 1)
+            XCTAssert(result?.first?.object?.data.newId == "c0ee660b-f9f2-45c3-8068-5123ff53f84a")
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
+    func testPing() throws {
+        XCTAssertNoThrow(try ping(api: api))
     }
 
 }

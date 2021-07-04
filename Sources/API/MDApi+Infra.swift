@@ -36,6 +36,24 @@ extension MDApi {
         }
     }
 
+    /// Get a list of reasons for which the given type of object can be reported
+    /// - Parameter objectType: The type of object for which to return existing report reasons
+    /// - Parameter completion: The completion block called once the request is done
+    public func getReportReasons(objectType: MDObjectType,
+                                 completion: @escaping (MDObjectList<MDReportReason>?, MDApiError?) -> Void) {
+        let url = MDPath.getReportReasons(objectType: objectType)
+        performBasicGetCompletion(url: url, completion: completion)
+    }
+
+    /// Build the URL to report an entry hosted on the MangaDex website
+    /// - Returns: The MangaDex URL
+    public func createReport(info: MDReport, completion: @escaping (MDApiError?) -> Void) {
+        let url = MDPath.createReport()
+        performPost(url: url, body: info) { (response) in
+            completion(response.error)
+        }
+    }
+
     /// Get the mapping between legacy object IDs and new object IDs
     /// - Parameter query: The mappings to ask for
     /// - Parameter completion: The completion block called once the request is done

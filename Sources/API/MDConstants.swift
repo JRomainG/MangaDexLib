@@ -8,6 +8,8 @@
 
 import Foundation
 
+// swiftlint:disable file_length
+
 /// Demographic a manga appeals to
 public enum MDDemographic: String, Codable {
     /// The manga is a shounen, usually targeted at boys between 12 and 18
@@ -120,6 +122,9 @@ public enum MDObjectType: String, Codable {
 
     /// The resource is a string
     case string = "string"
+
+    /// The resource is a type of report (e.g. "Duplicate entry")
+    case reportReason = "report_reason"
 }
 
 /// Tag filtering mode (used to include or exclude tags during search)

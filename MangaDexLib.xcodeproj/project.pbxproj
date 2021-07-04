@@ -64,6 +64,12 @@
 		334DE6292644857A006D38E3 /* MDPath+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334DE6282644857A006D38E3 /* MDPath+Account.swift */; };
 		334DE62A2644857A006D38E3 /* MDPath+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334DE6282644857A006D38E3 /* MDPath+Account.swift */; };
 		3353B5A024578A350066B8D5 /* MangaDexLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B579245789BE0066B8D5 /* MangaDexLib.framework */; };
+		335984FD2691B75700005A0F /* MDReportReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335984FC2691B75700005A0F /* MDReportReason.swift */; };
+		335984FE2691B75700005A0F /* MDReportReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335984FC2691B75700005A0F /* MDReportReason.swift */; };
+		335985032691B81B00005A0F /* MDReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335985022691B81B00005A0F /* MDReport.swift */; };
+		335985042691B81B00005A0F /* MDReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335985022691B81B00005A0F /* MDReport.swift */; };
+		335985092691BB8900005A0F /* MDObjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335985082691BB8900005A0F /* MDObjectList.swift */; };
+		3359850A2691BB8900005A0F /* MDObjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335985082691BB8900005A0F /* MDObjectList.swift */; };
 		335B922D264C2BD000AA5CF6 /* MDApi+Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335B922C264C2BD000AA5CF6 /* MDApi+Group.swift */; };
 		335B922E264C2BD000AA5CF6 /* MDApi+Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 335B922C264C2BD000AA5CF6 /* MDApi+Group.swift */; };
 		335F9CC9245E003E00EE9A52 /* MDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD4E245D99120086FA81 /* MDConstants.swift */; };
@@ -200,6 +206,9 @@
 		3353B579245789BE0066B8D5 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B59B24578A350066B8D5 /* MangaDexLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MangaDexLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3353B5B8245795620066B8D5 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		335984FC2691B75700005A0F /* MDReportReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDReportReason.swift; sourceTree = "<group>"; };
+		335985022691B81B00005A0F /* MDReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDReport.swift; sourceTree = "<group>"; };
+		335985082691BB8900005A0F /* MDObjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDObjectList.swift; sourceTree = "<group>"; };
 		335B922C264C2BD000AA5CF6 /* MDApi+Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Group.swift"; sourceTree = "<group>"; };
 		3374744126468328002114C9 /* MDApi+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDApi+Auth.swift"; sourceTree = "<group>"; };
 		3374744726468395002114C9 /* MDAuthCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDAuthCredentials.swift; sourceTree = "<group>"; };
@@ -282,6 +291,7 @@
 		3322BD3E245D99120086FA81 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				335985082691BB8900005A0F /* MDObjectList.swift */,
 				337474562646904B002114C9 /* MDResultList.swift */,
 				339A340C2645606D008535DA /* MDResult.swift */,
 				338E12AD2647DCD200C89F08 /* MDObject.swift */,
@@ -305,6 +315,8 @@
 				339A33F726455162008535DA /* MDLocalizedString.swift */,
 				3388B2C92649A18D00ED77B5 /* MDAtHomeNode.swift */,
 				3317F9C3264D66CB005E7380 /* MDAtHomeReport.swift */,
+				335984FC2691B75700005A0F /* MDReportReason.swift */,
+				335985022691B81B00005A0F /* MDReport.swift */,
 				338270FF265A5B8E00AB587B /* Filters */,
 				3374744726468395002114C9 /* MDAuthCredentials.swift */,
 				3317F9D8264D785D005E7380 /* MDAccountInfo.swift */,
@@ -650,6 +662,7 @@
 				33901B47264D351100A12755 /* MDApi+Author.swift in Sources */,
 				33248552266B76C100561361 /* MDApi+Cover.swift in Sources */,
 				335F9CC9245E003E00EE9A52 /* MDConstants.swift in Sources */,
+				335985042691B81B00005A0F /* MDReport.swift in Sources */,
 				335F9CCA245E003E00EE9A52 /* MDApi.swift in Sources */,
 				3374744926468395002114C9 /* MDAuthCredentials.swift in Sources */,
 				334DE62A2644857A006D38E3 /* MDPath+Account.swift in Sources */,
@@ -693,7 +706,9 @@
 				334DE5F12644636D006D38E3 /* MDPath+Chapter.swift in Sources */,
 				33827105265A5BAE00AB587B /* MDMangaFilter.swift in Sources */,
 				334DE5E226445A4C006D38E3 /* MDParser.swift in Sources */,
+				335984FE2691B75700005A0F /* MDReportReason.swift in Sources */,
 				3388B2BF264992CD00ED77B5 /* MDApi+Chapter.swift in Sources */,
+				3359850A2691BB8900005A0F /* MDObjectList.swift in Sources */,
 				334DE603264468DC006D38E3 /* MDPath+Group.swift in Sources */,
 				335F9CDC245E003E00EE9A52 /* MDUser.swift in Sources */,
 				3317F993264D5736005E7380 /* MDApi+CustomList.swift in Sources */,
@@ -718,6 +733,7 @@
 				33901B43264D350900A12755 /* MDApi+Author.swift in Sources */,
 				33248551266B76C100561361 /* MDApi+Cover.swift in Sources */,
 				3322BD6F245D99130086FA81 /* MDRequestHandler.swift in Sources */,
+				335985032691B81B00005A0F /* MDReport.swift in Sources */,
 				3322BD72245D99130086FA81 /* MDApi.swift in Sources */,
 				3374744826468395002114C9 /* MDAuthCredentials.swift in Sources */,
 				334DE6292644857A006D38E3 /* MDPath+Account.swift in Sources */,
@@ -761,7 +777,9 @@
 				334DE5E126445A4C006D38E3 /* MDParser.swift in Sources */,
 				33827104265A5BAE00AB587B /* MDMangaFilter.swift in Sources */,
 				334DE602264468DC006D38E3 /* MDPath+Group.swift in Sources */,
+				335984FD2691B75700005A0F /* MDReportReason.swift in Sources */,
 				3388B2BE264992CD00ED77B5 /* MDApi+Chapter.swift in Sources */,
+				335985092691BB8900005A0F /* MDObjectList.swift in Sources */,
 				3322BD74245D99130086FA81 /* MDPath+Constants.swift in Sources */,
 				334DE5FC264467B7006D38E3 /* MDPath+Author.swift in Sources */,
 				3317F992264D5736005E7380 /* MDApi+CustomList.swift in Sources */,
