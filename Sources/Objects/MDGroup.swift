@@ -22,6 +22,9 @@ public struct MDGroup {
     /// - Note: The leader is not included in this list
     public let members: [MDObject<MDUser>]
 
+    /// Whether this scanlation group is locked or not
+    public let locked: Bool?
+
     /// The date at which this group was created on MangaDex
     public let createdDate: Date
 
@@ -49,6 +52,7 @@ extension MDGroup: Decodable {
         case name
         case leader
         case members
+        case locked
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
         case leaderId
@@ -61,10 +65,11 @@ extension MDGroup: Decodable {
 extension MDGroup: Encodable {
 
     /// Convenience `init` used for create/update endpoints
-    public init(name: String, leaderId: String, memberIds: [String]) {
+    public init(name: String, leaderId: String, memberIds: [String], locked: Bool) {
         self.name = name
         self.leaderId = leaderId
         self.memberIds = memberIds
+        self.locked = locked
 
         // Unused during upload
         leader = MDObject(objectId: "", objectType: .user, data: MDUser(username: nil, version: 1))
@@ -82,6 +87,7 @@ extension MDGroup: Encodable {
         try container.encode(name, forKey: .name)
         try container.encode(leaderId, forKey: .leader)
         try container.encode(memberIds, forKey: .members)
+        try container.encode(locked, forKey: .locked)
         try container.encode(version, forKey: .version)
     }
 
