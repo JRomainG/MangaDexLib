@@ -13,7 +13,7 @@ import Foundation
 public struct MDChapter {
 
     /// The chapter's title
-    public let title: String
+    public let title: String?
 
     /// The volume this chapter belongs to, if entered by the uploader
     public let volume: String?
@@ -101,7 +101,7 @@ extension MDChapter: Decodable {
     /// Custom `init` implementation to handle decoding the `language` attribute
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        title = try container.decode(String.self, forKey: .title)
+        title = try container.decode(String?.self, forKey: .title)
         volume = try container.decode(String?.self, forKey: .volume)
         chapter = try container.decode(String?.self, forKey: .chapter)
         hash = try container.decode(String.self, forKey: .hash)
