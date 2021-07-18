@@ -2,8 +2,6 @@
 
 `MangaDexLib` is a cross-platform Swift framework to interact with the [MangaDex](https://mangadex.org) website. Its goal is to offer a robust abstract interface to access the API's core features.
 
-**Note:** The official MangaDex API is currently in a [read-only state](https://twitter.com/MangaDexRE/status/1391016884514996225) and some features might not be available yet.
-
 ## Installing
 
 MangaDexLib requires Swift 5 or newer.
@@ -93,7 +91,7 @@ You should also check out [Kitsune](https://github.com/JRomainG/Kitsune-macOS), 
 
 The project is extensively documented through comments, and [Jazzy](https://github.com/realm/jazzy) is used to generate documentation. It is available from [this url](https://jean-romain.com/MangaDexLib), and updated each time a new version is released.
 
-You can also access the official documentation for the MangaDex API [here](https://api.mangadex.org/docs.html).
+You can also access the official documentation for the MangaDex API [here](https://api.mangadex.org/docs.html). A (partial) history of the official API's documentation is available in the [doc folder](doc).
 
 ## Development
 
