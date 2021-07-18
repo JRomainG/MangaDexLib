@@ -23,7 +23,7 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     public func activateAccount(activationCode: String, completion: @escaping (MDApiError?) -> Void) {
         let url = MDPath.activateAccount(activationCode: activationCode)
-        performGet(url: url) { (response) in
+        performPost(url: url, body: "") { (response) in
             completion(response.error)
         }
     }
