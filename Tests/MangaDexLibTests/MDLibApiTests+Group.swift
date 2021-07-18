@@ -51,7 +51,7 @@ extension MDLibApiTests {
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.object?.data)
             XCTAssertEqual(result?.object?.data.name, "MangaDex Scans")
-            XCTAssertEqual(result?.object?.data.leader.objectId, "17179fd6-77fb-484a-a543-aaea12511c07")
+            XCTAssertEqual(result?.object?.data.leader?.objectId, "17179fd6-77fb-484a-a543-aaea12511c07")
             XCTAssert(result!.object!.data.members.count > 0)
             expectation.fulfill()
         }
