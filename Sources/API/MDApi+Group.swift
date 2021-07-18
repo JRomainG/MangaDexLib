@@ -81,7 +81,7 @@ extension MDApi {
     /// - Precondition: The user must be logged-in
     public func unfollowGroup(groupId: String, completion: @escaping (MDApiError?) -> Void) {
         let url = MDPath.unfollowGroup(groupId: groupId)
-        performPost(url: url, body: "") { (response) in
+        performDelete(url: url) { (response) in
             completion(response.error)
         }
     }

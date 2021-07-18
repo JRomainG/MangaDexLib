@@ -97,7 +97,7 @@ extension MDApi {
     /// - Precondition: The user must be logged-in
     public func unfollowManga(mangaId: String, completion: @escaping (MDApiError?) -> Void) {
         let url = MDPath.unfollowManga(mangaId: mangaId)
-        performPost(url: url, body: "") { (response) in
+        performDelete(url: url) { (response) in
             completion(response.error)
         }
     }
