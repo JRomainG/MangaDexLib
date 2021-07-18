@@ -294,6 +294,9 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to view covers
     case viewCover = "cover.view"
 
+    /// The logged-in user is allowed to view reports
+    case viewReport = "report.view"
+
     /// The logged-in user is allowed to list mangas
     case listMangas = "manga.list"
 
@@ -311,6 +314,9 @@ public enum MDPermission: String, Codable {
 
     /// The logged-in user is allowed to list covers
     case listCovers = "cover.list"
+
+    /// The logged-in user is allowed to list reports
+    case listReports = "report.list"
 
     /// The logged-in user is allowed to create mangas
     case createManga = "manga.create"
@@ -336,6 +342,9 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to create users
     case createUser = "user.create"
 
+    /// The logged-in user is allowed to create reports
+    case createReport = "report.create"
+
     /// The logged-in user is allowed to delete mangas
     case deleteManga = "manga.delete"
 
@@ -354,6 +363,9 @@ public enum MDPermission: String, Codable {
     /// The logged-in user is allowed to delete covers
     case deleteCover = "cover.delete"
 
+    /// The logged-in user is allowed to delete reports
+    case deleteReport = "report.delete"
+
     /// The logged-in user is allowed to update mangas
     case editManga = "manga.update"
 
@@ -370,7 +382,10 @@ public enum MDPermission: String, Codable {
     case editUser = "user.update"
 
     /// The logged-in user is allowed to update covers
-    case coverUser = "cover.update"
+    case editCover = "cover.update"
+
+    /// The logged-in user is allowed to update reports
+    case editReport = "report.update"
 }
 
 /// Known "official" MangaDex image servers
