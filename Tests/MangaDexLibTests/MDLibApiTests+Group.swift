@@ -59,8 +59,6 @@ extension MDLibApiTests {
     }
 
     func testFollowUnfollowGroup() throws {
-        throw XCTSkip("The API is currently in readonly mode")
-
         try login(api: api, credentialsKey: "AuthRegular")
         let groupId = "b8a6d1fc-1634-47a8-98cf-2ea3f5fef8b3" // MangaDex Scans
 
@@ -86,7 +84,10 @@ extension MDLibApiTests {
         }
         waitForExpectations(timeout: 15, handler: nil)
 
-        // Unfollow the manga to cleanup
+        // Wait for a bit, otherwise unfollowing will fail
+        usleep(1000000)
+
+        // Unfollow the group to cleanup
         let unfollowExpectation = self.expectation(description: "Unfollow the scanlation group")
         api.unfollowGroup(groupId: groupId) { (error) in
             XCTAssertNil(error)
@@ -94,7 +95,7 @@ extension MDLibApiTests {
         }
         waitForExpectations(timeout: 15, handler: nil)
 
-        // List the user's follow mangas and check it was removed
+        // List the user's follow groups and check it was removed
         let listFollowExpectation2 = self.expectation(description: "List the user's followed scanlation group")
         api.getLoggedUserFollowedGroupList { (result, error) in
             XCTAssertNil(error)
@@ -103,7 +104,7 @@ extension MDLibApiTests {
             for group in result?.results ?? [] {
                 followedGroupIds.append(group.object?.objectId ?? "")
             }
-            XCTAssertTrue(followedGroupIds.contains(groupId))
+            XCTAssertFalse(followedGroupIds.contains(groupId))
             listFollowExpectation2.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)

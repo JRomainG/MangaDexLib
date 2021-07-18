@@ -116,8 +116,6 @@ extension MDLibApiTests {
     }
 
     func testFollowUnfollowManga() throws {
-        throw XCTSkip("The API is currently in readonly mode")
-
         try login(api: api, credentialsKey: "AuthRegular")
         let mangaId = "f9c33607-9180-4ba6-b85c-e4b5faee7192" // Official "Test" Manga
 
@@ -142,6 +140,9 @@ extension MDLibApiTests {
             listFollowExpectation1.fulfill()
         }
 
+        // Wait for a bit, otherwise unfollowing will fail
+        usleep(1000000)
+
         // Unfollow the manga to cleanup
         let unfollowExpectation = self.expectation(description: "Unfollow the manga")
         api.unfollowManga(mangaId: mangaId) { (error) in
@@ -150,7 +151,7 @@ extension MDLibApiTests {
         }
         waitForExpectations(timeout: 15, handler: nil)
 
-        // List the user's follow mangas and check it was removed
+        // List the user's followed mangas and check it was removed
         let listFollowExpectation2 = self.expectation(description: "List the user's followed mangas")
         api.getLoggedUserFollowedMangaList { (result, error) in
             XCTAssertNil(error)
