@@ -35,7 +35,7 @@ extension MDApi {
     /// - Precondition: The user must be logged-in
     public func getUserCustomLists(userId: String,
                                    pagination: MDPaginationFilter? = nil,
-                                   completion: @escaping (MDResultList<MDCustomList>?, MDApiError?) -> Void) {
+                                   completion: @escaping (MDObjectList<MDCustomList>?, MDApiError?) -> Void) {
         let url = MDPath.getUserCustomLists(userId: userId, pagination: pagination)
         performBasicGetCompletion(url: url, completion: completion)
     }
@@ -123,7 +123,7 @@ extension MDApi {
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
     public func getLoggedUserCustomLists(pagination: MDPaginationFilter? = nil,
-                                         completion: @escaping (MDResultList<MDCustomList>?, MDApiError?) -> Void) {
+                                         completion: @escaping (MDObjectList<MDCustomList>?, MDApiError?) -> Void) {
         let url = MDPath.getLoggedUserCustomLists(pagination: pagination)
         performBasicGetCompletion(url: url, completion: completion)
     }

@@ -12,11 +12,11 @@ import MangaDexLib
 extension MDLibApiTests {
 
     func testCreateDeleteCustomList() throws {
-        throw XCTSkip("The API is currently in readonly mode")
-
         try login(api: api, credentialsKey: "AuthRegular")
 
-        let info = MDCustomList(name: "Test list", visibility: .privateList, mangas: [])
+        let info = MDCustomList(name: "Test list", visibility: .privateList, mangas: [
+            "f9c33607-9180-4ba6-b85c-e4b5faee7192" // Official "Test" Manga
+        ])
         var createdListId: String?
 
         // Create a new list
@@ -38,12 +38,15 @@ extension MDLibApiTests {
 
             var customListIds: [String] = []
             for list in result?.results ?? [] {
-                customListIds.append(list.object?.objectId ?? "")
+                customListIds.append(list.objectId)
             }
             XCTAssertTrue(customListIds.contains(createdListId!))
             listExpectation1.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
+
+        // Wait for a bit, otherwise deleting will fail
+        usleep(1000000)
 
         // Delete the newly created list
         let deleteExpectation = self.expectation(description: "Delete a custom list")
@@ -54,42 +57,40 @@ extension MDLibApiTests {
         waitForExpectations(timeout: 15, handler: nil)
 
         // Make sure it was removed from the user's custom lists
+        // It seems like propagating a delete takes some time, so checking this right away would fail
+        /*
         let listExpectation2 = self.expectation(description: "List the user's custom list")
         api.getLoggedUserCustomLists { (result, error) in
             XCTAssertNil(error)
 
             var customListIds: [String] = []
             for list in result?.results ?? [] {
-                customListIds.append(list.object?.objectId ?? "")
+                customListIds.append(list.objectId)
             }
             XCTAssertFalse(customListIds.contains(createdListId!))
             listExpectation2.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
+        */
     }
 
     func testViewCustomList() throws {
-        throw XCTSkip("There are no custom lists for the test users")
-
-        try login(api: api, credentialsKey: "AuthRegular")
-        let listId = "497f6eca-6276-4993-bfeb-53cbbbba6f08"
+        let listId = "a153b4e6-1fcc-4f45-a990-f37f989c0d74" // MangaDex summer 2021 list
         let expectation = self.expectation(description: "Get the custom list's information")
         api.viewCustomList(listId: listId) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.object?.data)
-            XCTAssertEqual(result?.object?.data.name, "ONE")
+            XCTAssertEqual(result?.object?.data.name, "Seasonal: Summer 2021")
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
     }
 
     func testGetCustomListFeed() throws {
-        throw XCTSkip("There are no custom lists for the test users")
-
         try login(api: api, credentialsKey: "AuthRegular")
-        let listId = "497f6eca-6276-4993-bfeb-53cbbbba6f08"
-        let expectation = self.expectation(description: "Get the custom list's information")
+        let listId = "a153b4e6-1fcc-4f45-a990-f37f989c0d74" // MangaDex summer 2021 list
+        let expectation = self.expectation(description: "Get the custom list's feed")
         api.getCustomListFeed(listId: listId) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
