@@ -49,7 +49,7 @@ extension MDRelationship: Decodable {
             return try container.decode(MDGroup?.self, forKey: .data)
         case .tag:
             return try container.decode(MDTag?.self, forKey: .data)
-        case .user:
+        case .user, .member, .leader:
             return try container.decode(MDUser?.self, forKey: .data)
         case .customList:
             return try container.decode(MDCustomList?.self, forKey: .data)

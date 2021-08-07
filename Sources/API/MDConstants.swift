@@ -114,6 +114,12 @@ public enum MDObjectType: String, Codable {
     /// The resource is a user
     case user = "user"
 
+    /// The resource is a scanlation group leader
+    case leader = "leader"
+
+    /// The resource is a scanlation group member
+    case member = "member"
+
     /// The resource is a user's custom list
     case customList = "custom_list"
 

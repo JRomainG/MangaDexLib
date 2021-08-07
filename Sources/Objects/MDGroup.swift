@@ -18,13 +18,6 @@ public struct MDGroup {
     /// The group's description
     public let description: String?
 
-    /// The group's leader
-    public let leader: MDObject<MDUser>?
-
-    /// The list of members of this group
-    /// - Note: The leader is not included in this list
-    public let members: [MDObject<MDUser>]
-
     /// Whether this scanlation group is locked or not
     public let locked: Bool?
 
@@ -70,8 +63,6 @@ extension MDGroup: Decodable {
     enum CodingKeys: String, CodingKey {
         case name
         case description
-        case leader
-        case members
         case locked
         case website
         case ircServer
@@ -80,11 +71,10 @@ extension MDGroup: Decodable {
         case contactEmail
         case createdDate = "createdAt"
         case updatedDate = "updatedAt"
-        case leaderId
-        case memberIds
+        case leaderId = "leader"
+        case memberIds = "members"
         case version
     }
-
 }
 
 extension MDGroup: Encodable {
@@ -112,8 +102,6 @@ extension MDGroup: Encodable {
         self.description = description
 
         // Unused during upload
-        leader = MDObject(objectId: "", objectType: .user, data: MDUser(username: nil, version: 1))
-        members = []
         createdDate = .init()
         updatedDate = nil
 
@@ -125,8 +113,8 @@ extension MDGroup: Encodable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
-        try container.encode(leaderId, forKey: .leader)
-        try container.encode(memberIds, forKey: .members)
+        try container.encode(leaderId, forKey: .leaderId)
+        try container.encode(memberIds, forKey: .memberIds)
         try container.encode(locked, forKey: .locked)
         try container.encode(website, forKey: .website)
         try container.encode(ircServer, forKey: .ircServer)

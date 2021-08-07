@@ -46,13 +46,20 @@ extension MDLibApiTests {
     func testViewScanlationGroup() throws {
         let groupId = "b8a6d1fc-1634-47a8-98cf-2ea3f5fef8b3" // MangaDex Scans
         let expectation = self.expectation(description: "Get the scanlation group's information")
-        api.viewGroup(groupId: groupId) { (result, error) in
+        api.viewGroup(groupId: groupId, includes: [.member, .leader]) { (result, error) in
             XCTAssertNil(error)
             XCTAssertNotNil(result)
             XCTAssertNotNil(result?.object?.data)
             XCTAssertEqual(result?.object?.data.name, "MangaDex Scans")
-            XCTAssertEqual(result?.object?.data.leader?.objectId, "17179fd6-77fb-484a-a543-aaea12511c07")
-            XCTAssert(result!.object!.data.members.count > 0)
+            guard let leader = result!.relationships?.first(where: { $0.objectType == .leader }) else {
+                return XCTFail("leader not found")
+            }
+            XCTAssertEqual(leader.objectId, "17179fd6-77fb-484a-a543-aaea12511c07")
+
+            guard let members = result!.relationships?.filter({ $0.objectType == .member }) else {
+                return XCTFail("members not found")
+            }
+            XCTAssert(members.count > 0)
             expectation.fulfill()
         }
         waitForExpectations(timeout: 15, handler: nil)
