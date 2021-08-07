@@ -35,7 +35,6 @@
 		3322BD73245D99130086FA81 /* MDPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD52245D99120086FA81 /* MDPath.swift */; };
 		3322BD74245D99130086FA81 /* MDPath+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD53245D99120086FA81 /* MDPath+Constants.swift */; };
 		3322BD90245D99900086FA81 /* MDLibRequestHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD87245D99900086FA81 /* MDLibRequestHandlerTests.swift */; };
-		3322BD93245D99900086FA81 /* Secret.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3322BD8A245D99900086FA81 /* Secret.bundle */; };
 		3322BD94245D99900086FA81 /* MDLibApiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3322BD8B245D99900086FA81 /* MDLibApiTests.swift */; };
 		33248542266B710600561361 /* MDPath+Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33248541266B710600561361 /* MDPath+Cover.swift */; };
 		33248543266B710600561361 /* MDPath+Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33248541266B710600561361 /* MDPath+Cover.swift */; };
@@ -150,6 +149,7 @@
 		33A6D5A526485A68007AB5B4 /* MDReadingStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A6D5A326485A68007AB5B4 /* MDReadingStatuses.swift */; };
 		33FB8F9526726F7500D48312 /* MDUserFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FB8F9426726F7500D48312 /* MDUserFilter.swift */; };
 		33FB8F9626726F7500D48312 /* MDUserFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FB8F9426726F7500D48312 /* MDUserFilter.swift */; };
+		FEE09C0A26BEE8E4005EF15D /* Secret.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FEE09C0926BEE8E4005EF15D /* Secret.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,7 +186,6 @@
 		3322BD84245D99900086FA81 /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
 		3322BD87245D99900086FA81 /* MDLibRequestHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLibRequestHandlerTests.swift; sourceTree = "<group>"; };
 		3322BD88245D99900086FA81 /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
-		3322BD8A245D99900086FA81 /* Secret.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Secret.bundle; sourceTree = "<group>"; };
 		3322BD8B245D99900086FA81 /* MDLibApiTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLibApiTests.swift; sourceTree = "<group>"; };
 		3322BDA8245DA4AC0086FA81 /* MangaDexLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MangaDexLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		33248541266B710600561361 /* MDPath+Cover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MDPath+Cover.swift"; sourceTree = "<group>"; };
@@ -247,6 +246,7 @@
 		33A6D59D26485868007AB5B4 /* MDReadMarkers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDReadMarkers.swift; sourceTree = "<group>"; };
 		33A6D5A326485A68007AB5B4 /* MDReadingStatuses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDReadingStatuses.swift; sourceTree = "<group>"; };
 		33FB8F9426726F7500D48312 /* MDUserFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDUserFilter.swift; sourceTree = "<group>"; };
+		FEE09C0926BEE8E4005EF15D /* Secret.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Secret.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,7 +378,7 @@
 				33901B36264D338600A12755 /* MDLibApiTests+Infra.swift */,
 				3322BD87245D99900086FA81 /* MDLibRequestHandlerTests.swift */,
 				3322BD88245D99900086FA81 /* XCTestManifests.swift */,
-				3322BD8A245D99900086FA81 /* Secret.bundle */,
+				FEE09C0926BEE8E4005EF15D /* Secret.bundle */,
 			);
 			path = MangaDexLibTests;
 			sourceTree = "<group>";
@@ -591,7 +591,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3322BD93245D99900086FA81 /* Secret.bundle in Resources */,
+				FEE09C0A26BEE8E4005EF15D /* Secret.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

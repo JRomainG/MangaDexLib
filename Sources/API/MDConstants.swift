@@ -113,6 +113,8 @@ public enum MDObjectType: String, Codable {
 
     /// The resource is a user
     case user = "user"
+	case leader = "leader"
+	case member = "member"
 
     /// The resource is a user's custom list
     case customList = "custom_list"

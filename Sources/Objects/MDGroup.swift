@@ -85,6 +85,24 @@ extension MDGroup: Decodable {
         case version
     }
 
+	public init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		name = try container.decode(String.self, forKey: .name)
+		description = try container.decodeIfPresent(String.self, forKey: .description)
+		leader = try? container.decodeIfPresent(MDObject<MDUser>.self, forKey: .leader)
+		members = try container.decodeIfPresent([MDObject<MDUser>].self, forKey: .members) ?? []
+		locked = try container.decodeIfPresent(Bool.self, forKey: .locked)
+		website = try container.decodeIfPresent(URL.self, forKey: .website)
+		ircServer = try container.decodeIfPresent(String.self, forKey: .ircServer)
+		ircChannel = try container.decodeIfPresent(String.self, forKey: .ircChannel)
+		discord = try container.decodeIfPresent(String.self, forKey: .discord)
+		contactEmail = try container.decodeIfPresent(String.self, forKey: .contactEmail)
+		createdDate = try container.decode(Date.self, forKey: .createdDate)
+		updatedDate = try container.decodeIfPresent(Date.self, forKey: .updatedDate)
+		leaderId = try container.decodeIfPresent(String.self, forKey: .leaderId)
+		memberIds = try container.decodeIfPresent([String].self, forKey: .memberIds)
+		version = try container.decode(Int.self, forKey: .version)
+	}
 }
 
 extension MDGroup: Encodable {

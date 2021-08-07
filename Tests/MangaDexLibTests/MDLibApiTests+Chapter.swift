@@ -24,27 +24,51 @@ extension MDLibApiTests {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
-    func testSearchChapters() throws {
-        throw XCTSkip("Chapter search is currently broken in the official API")
+	func testSearchChapters() throws {
+		throw XCTSkip("Chapter search is currently broken in the official API")
 
-        let filter = MDChapterFilter(title: "Oneshot")
-        filter.createdAtSince = .init(timeIntervalSince1970: 0)
-        filter.limit = 3
-        filter.offset = 7
+		let filter = MDChapterFilter(title: "Oneshot")
+		filter.createdAtSince = .init(timeIntervalSince1970: 0)
+		filter.limit = 3
+		filter.offset = 7
 
-        let expectation = self.expectation(description: "Get a list of chapters")
-        api.getChapterList(filter: filter) { (result, error) in
-            XCTAssertNil(error)
-            XCTAssertNotNil(result)
-            XCTAssert(result!.results.count > 0)
-            XCTAssertNotNil(result?.results.first?.object)
-            XCTAssertNotNil(result?.results.first?.object?.data)
-            XCTAssertEqual(result?.limit, filter.limit)
-            XCTAssertEqual(result?.offset, filter.offset)
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 15, handler: nil)
-    }
+		let expectation = self.expectation(description: "Get a list of chapters")
+		api.getChapterList(filter: filter) { (result, error) in
+			XCTAssertNil(error)
+			XCTAssertNotNil(result)
+			XCTAssert(result!.results.count > 0)
+			XCTAssertNotNil(result?.results.first?.object)
+			XCTAssertNotNil(result?.results.first?.object?.data)
+			XCTAssertEqual(result?.limit, filter.limit)
+			XCTAssertEqual(result?.offset, filter.offset)
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: 15, handler: nil)
+	}
+	
+	func testGetChapterForManga() throws {
+		let mangaId = "0cf91ce5-5033-4fce-8687-b14c6a4d10b6" //Hone Dragon no Mana Musume
+		let filter = MDChapterFilter()
+		filter.limit = 1
+		filter.manga = mangaId
+
+		let expectation = self.expectation(description: "Get a list of chapters for a specific manga with populated scanlationGroup")
+		
+		api.getChapterList(filter: filter, includes: [.scanlationGroup]) { (result, error) in
+			XCTAssertNil(error)
+			XCTAssert(result!.results.count > 0)
+			XCTAssert(result!.results.count > 0)
+			XCTAssertNotNil(result!.results.first?.object)
+			let scanlationGroup = result!.results.first?
+				.relationships?
+				.first(where: { $0.objectType == .scanlationGroup })?
+				.data as? MDGroup
+			
+			XCTAssertNotNil(scanlationGroup)
+			expectation.fulfill()
+		}
+		waitForExpectations(timeout: 15, handler: nil)
+	}
 
     func testViewChapter() throws {
         let chapterId = "946577a4-d469-45ed-8400-62f03ce4942e" // Solo leveling volume 1 chapter 1 (en)
