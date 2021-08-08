@@ -22,9 +22,12 @@ extension MDApi {
 
     /// View the specified custom list's information
     /// - Parameter listId: The id of the custom list
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Parameter completion: The completion block called once the request is done
     /// - Precondition: The user must be logged-in
-    public func viewCustomList(listId: String, completion: @escaping (MDResult<MDCustomList>?, MDApiError?) -> Void) {
+    public func viewCustomList(listId: String,
+                               includes: [MDObjectType]? = nil,
+                               completion: @escaping (MDResult<MDCustomList>?, MDApiError?) -> Void) {
         let url = MDPath.viewCustomList(listId: listId)
         performBasicGetCompletion(url: url, completion: completion)
     }

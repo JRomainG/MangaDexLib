@@ -87,6 +87,23 @@ extension MDLibApiTests {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testCustomListReferenceExpansion() throws {
+        let listId = "a153b4e6-1fcc-4f45-a990-f37f989c0d74" // MangaDex summer 2021 list
+        let expectation = self.expectation(description: "Get the custom list's information")
+        api.viewCustomList(listId: listId, includes: [.user]) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssertNotNil(result?.object?.data)
+            XCTAssertEqual(result?.object?.data.name, "Seasonal: Summer 2021")
+            let owner = result?.relationships?.first(where: { (relationship) -> Bool in
+                return relationship.objectType == .user
+            })
+            XCTAssertEqual(owner?.objectId, "d2ae45e0-b5e2-4e7f-a688-17925c2d7d6b") // MangaDex
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testGetCustomListFeed() throws {
         try login(api: api, credentialsKey: "AuthRegular")
         let listId = "a153b4e6-1fcc-4f45-a990-f37f989c0d74" // MangaDex summer 2021 list
