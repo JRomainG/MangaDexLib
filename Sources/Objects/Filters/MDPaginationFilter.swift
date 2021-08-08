@@ -33,7 +33,16 @@ public class MDPaginationFilter: Encodable {
         // Create a URLQueryItem for each dictionary entry
         var params: [URLQueryItem] = []
         for (key, value) in data {
-            params.append(URLQueryItem(name: key, value: value as? String))
+            // Special case for arrays to handle the specific key format
+            // By construction, only arrays of strings should be passed here (see the various `encode` methods)
+            if let stringArray = value as? [String] {
+                for i in 0..<stringArray.count {
+                    let itemKey = "\(key)[\(i)]"
+                    params.append(URLQueryItem(name: itemKey, value: stringArray[i]))
+                }
+            } else {
+                params.append(URLQueryItem(name: key, value: value as? String))
+            }
         }
         return params
     }
@@ -67,33 +76,22 @@ public class MDPaginationFilter: Encodable {
     internal func encode<K: CodingKey>(key: K,
                                        locales: [Locale],
                                        to container: inout KeyedEncodingContainer<CodingKeys>) throws {
-        for i in 0..<locales.count {
-            let valKey = CodingKeys(stringValue: "\(key.stringValue)[\(i)]")!
-            try container.encode(locales[i].languageCode, forKey: valKey)
-        }
+        let codingKey = CodingKeys(stringValue: key.stringValue)!
+        try container.encode(locales.map({ (locale) -> String? in
+            return locale.languageCode
+        }), forKey: codingKey)
     }
 
-    /// Helper function to encode a list of strings
-    internal func encode<K: CodingKey>(key: K,
-                                       values: [LosslessStringConvertible],
-                                       to container: inout KeyedEncodingContainer<CodingKeys>) throws {
-        for i in 0..<values.count {
-            let valKey = CodingKeys(stringValue: "\(key.stringValue)[\(i)]")!
-            try container.encode(values[i].description, forKey: valKey)
-        }
-    }
-
-    /// Helper function to encode a list of enums
+    /// Helper function to encode a list of codable objects
     internal func encode<K: CodingKey, T: Codable>(key: K,
                                                    values: [T],
                                                    to container: inout KeyedEncodingContainer<CodingKeys>) throws {
         let encoder = JSONEncoder()
-        for i in 0..<values.count {
-            let valKey = CodingKeys(stringValue: "\(key.stringValue)[\(i)]")!
-            let encoded = try encoder.encode(values[i])
-            let val = try JSONSerialization.jsonObject(with: encoded, options: .allowFragments) as? String
-            try container.encode(val, forKey: valKey)
-        }
+        let codingKey = CodingKeys(stringValue: key.stringValue)!
+        try container.encode(values.map({ (value) -> String? in
+            let encoded = try encoder.encode(value)
+            return try JSONSerialization.jsonObject(with: encoded, options: .allowFragments) as? String
+        }), forKey: codingKey)
     }
 
     /// Helper function to encode a sort order

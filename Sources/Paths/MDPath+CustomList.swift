@@ -18,9 +18,11 @@ extension MDPath {
 
     /// Build the URL to view the specified custom list's information
     /// - Parameter listId: The id of the custom list
+    /// - Parameter includes: The additional relationships to load (see Reference Expansion)
     /// - Returns: The MangaDex URL
-    static func viewCustomList(listId: String) -> URL {
-        return buildUrl(for: .customList, with: [listId])
+    static func viewCustomList(listId: String, includes: [MDObjectType]? = nil) -> URL {
+        let params = MDPath.formatQueryItem(name: "includes", array: includes)
+        return buildUrl(for: .customList, with: [listId], params: params)
     }
 
     /// Build the URL to update the specified custom list's information

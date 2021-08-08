@@ -76,6 +76,32 @@ extension MDLibApiTests {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testSearchMangasWithReferenceExpansion() throws {
+        let filter = MDMangaFilter()
+        filter.limit = 4
+        filter.offset = 1
+        filter.ids = [
+            "f9c33607-9180-4ba6-b85c-e4b5faee7192", // Official "Test" Manga
+            "32d76d19-8a05-4db0-9fc2-e0b0648fe9d0", // Solo leveling
+            "0001183c-2089-48e9-96b7-d48db5f1a611" // Boku No Hero Academia
+        ]
+        let includes: [MDObjectType] = [
+            .author, .artist, .coverArt
+        ]
+        let expectation = self.expectation(description: "Get a list of mangas")
+        api.getMangaList(filter: filter, includes: includes) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssert(result!.results.count > 0)
+            XCTAssertNotNil(result?.results.first?.object)
+            XCTAssertNotNil(result?.results.first?.object?.data)
+            XCTAssertEqual(result?.limit, filter.limit)
+            XCTAssertEqual(result?.offset, filter.offset)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testGetMangaTagList() throws {
         let expectation = self.expectation(description: "Get a list of manga tags")
         api.getMangaTagList { (results, error) in

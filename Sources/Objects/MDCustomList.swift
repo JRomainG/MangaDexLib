@@ -18,10 +18,6 @@ public struct MDCustomList {
     /// The custom list's visibility
     public var visibility: MDCustomListVisibility
 
-    /// The custom list's visibility
-    /// - Note: Some custom lists have no owner, in which case this will be `nil`
-    public var owner: MDObject<MDUser>?
-
     /// The list of manga UUIDs
     /// - Important: This is only used when creating a new list, it will never be filled when decoding
     public let mangas: [String]?
@@ -37,7 +33,6 @@ extension MDCustomList: Decodable {
     enum CodingKeys: String, CodingKey {
         case name
         case visibility
-        case owner
         case mangas = "manga"
         case version
     }
@@ -51,9 +46,6 @@ extension MDCustomList: Encodable {
         self.name = name
         self.visibility = visibility
         self.mangas = mangas
-
-        // Unused during upload
-        owner = nil
 
         // Hardcoded based on the API version we support
         version = 1
