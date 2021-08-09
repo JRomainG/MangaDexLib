@@ -106,7 +106,6 @@ extension MDManga: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         title = try container.decode(MDLocalizedString.self, forKey: .title)
         altTitles = try container.decode([MDLocalizedString].self, forKey: .altTitles)
-        description = try container.decode(MDLocalizedString?.self, forKey: .description)
         lastVolume = try container.decode(String?.self, forKey: .lastVolume)
         lastChapter = try container.decode(String?.self, forKey: .lastChapter)
         demographic = try container.decode(MDDemographic?.self, forKey: .demographic)
@@ -125,13 +124,28 @@ extension MDManga: Decodable {
             originalLanguage = nil
         }
 
-        /// Manually decode the links as we want to flatten the dictionary
-        let rawLinks = try container.decode([String: String]?.self, forKey: .links) ?? [:]
+        // Manually decode the links as we want to flatten the dictionary
+        var rawLinks: [String: String]
+        do {
+            rawLinks = try container.decode([String: String]?.self, forKey: .links) ?? [:]
+        } catch is DecodingError {
+            // If there are no links, the API returns an empty array instead of an empty dict, which raises a
+            // `DecodingError` (thanks PHP...)
+            // See https://github.com/JRomainG/MangaDexLib/issues/3
+            rawLinks = [:]
+        }
         var tmp: [MDExternalLink] = []
         for (key, value) in rawLinks {
             tmp.append(MDExternalLink(key: key, value: value))
         }
         links = tmp
+
+        // Manually decode the description to mitigate the same bug as above
+        do {
+            description = try container.decode(MDLocalizedString?.self, forKey: .description)
+        } catch is DecodingError {
+            description = nil
+        }
 
         // These properties are only used for encoding
         authors = nil

@@ -141,6 +141,18 @@ extension MDLibApiTests {
         waitForExpectations(timeout: 15, handler: nil)
     }
 
+    func testViewMangaEmptyLinks() throws {
+        let mangaId = "3c483931-7bd2-4fce-8e82-95c6b79ee1f0" // Any manga with no links to external websites
+        let expectation = self.expectation(description: "Get the manga's information")
+        api.viewManga(mangaId: mangaId) { (result, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(result)
+            XCTAssertNotNil(result?.object?.data)
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 15, handler: nil)
+    }
+
     func testFollowUnfollowManga() throws {
         try login(api: api, credentialsKey: "AuthRegular")
         let mangaId = "f9c33607-9180-4ba6-b85c-e4b5faee7192" // Official "Test" Manga
